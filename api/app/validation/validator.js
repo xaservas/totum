@@ -1,4 +1,4 @@
-const UserInputError = require("../errors/userInputError");
+const UserInputError = require('../errors/userInputError');
 /**
  * Middleware factory for Joi validation
  * @param {string} sourceData - possible values [query | body | params]

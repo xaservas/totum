@@ -1,0 +1,2 @@
+sqitch init nom-du-projet --engine pg --top-dir migrations
+sqitch add <nom-de-la-migration> -n 'description'

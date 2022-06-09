@@ -15,7 +15,7 @@ app.set('views', './app/views');
 const options = {
     info: {
         version: '1.0.0',
-        title: 'exemple',
+        title: 'Totum',
     },
     baseDir: __dirname,
     // Glob pattern to find your jsdoc files (multiple patterns can be added in an array)

@@ -25,7 +25,7 @@ streams.push({
 });
 
 const log = bunyan.createLogger({
-    name: 'cadex',
+    name: 'Totum',
     streams,
 });
 
