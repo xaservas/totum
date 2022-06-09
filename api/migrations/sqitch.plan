@@ -1,0 +1,4 @@
+%syntax-version=1.0.0
+%project=totum
+
+create_database 2022-06-09T12:22:10Z kenny caldieraro <caldieraro16@gmail.com> # create tables
