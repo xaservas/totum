@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import data from '../../data/activities'
 import './profile.scss';
 import ListActivities from '../ListActivities/ListActivities';
 
@@ -26,12 +27,9 @@ function Profile({...rest}){
             </div>   
        </div>
         
-
         <div className='profile-activities'>
-            <ListActivities/>
-          
-            <ListActivities/>
-            
+            <ListActivities activities={data}/>
+           
         </div>
 
          
