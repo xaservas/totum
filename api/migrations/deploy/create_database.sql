@@ -4,34 +4,33 @@ BEGIN;
 
 -- create personnal domain
 CREATE DOMAIN zip_code AS TEXT CHECK (VALUE ~ '^[0-9]{5}$');
-CREATE DOMAIN email AS TEXT CHECK (VALUE ~ '^[a-zA-ZÀ-ÿ0-9-_.]{0,}@[a-zA-ZÀ-ÿ0-9_.]{0,}.[a-zA-ZÀ-ÿ]$');
-CREATE DOMAIN text_plus AS TEXT CHECK (VALUE ~ '^[a-zA-ZÀ-ÿ]$');
+-- CREATE DOMAIN email AS TEXT CHECK (VALUE ~ '^[a-zA-ZÀ-ÿ0-9_.-]{0,}@[a-zA-ZÀ-ÿ0-9_.-]{0,}.[a-zA-ZÀ-ÿ]$');
+-- CREATE DOMAIN text_plus AS TEXT CHECK (VALUE ~ '^[a-zA-ZÀ-ÿ]{0,}$');
 
 CREATE TABLE users (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    email email NOT NULL UNIQUE,
+    email TEXT NOT NULL UNIQUE,
     password TEXT NOT NULL,
-    firstname text_plus NOT NULL,
-    lastname text_plus NOT NULL,
+    firstname TEXT NOT NULL,
+    lastname TEXT NOT NULL,
     picture TEXT,
-    about text_plus,
-    address text_plus,
+    about TEXT,
+    address TEXT,
     zip_code zip_code NOT NULL,
-    city text_plus NOT NULL,
-    country text_plus NOT NULL,
-    meta_id INT NOT NULL,
+    city TEXT NOT NULL,
+    country TEXT NOT NULL,
     created_at TIMESTAMP NOT NULL DEFAULT NOW(),
     updated_at TIMESTAMP
 );
 
 CREATE TABLE activity (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    name text_plus NOT NULL,
-    level text_plus NOT NULL,
-    address text_plus NOT NULL,
+    name TEXT NOT NULL,
+    level TEXT NOT NULL,
+    address TEXT NOT NULL,
     zip_code zip_code NOT NULL,
-    city text_plus NOT NULL,
-    country text_plus NOT NULL,
+    city TEXT NOT NULL,
+    country TEXT NOT NULL,
     landmark TEXT NOT NULL,
     id_user INT NOT NULL REFERENCES users(id),
     id_category INT NOT NULL,
@@ -41,7 +40,7 @@ CREATE TABLE activity (
 
 CREATE TABLE comment (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    content text_plus NOT NULL,
+    content TEXT NOT NULL,
     picture TEXT,
     id_user INT NOT NULL REFERENCES users(id),
     id_activity INT NOT NULL REFERENCES activity(id),
@@ -53,14 +52,14 @@ CREATE TABLE meta (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     cookie BOOLEAN NOT NULL DEFAULT FALSE,
     landmark BOOLEAN NOT NULL DEFAULT FALSE,
-    id_user INT NOT NULL REFERENCES users(id),
+    id_user INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
     created_at TIMESTAMP NOT NULL DEFAULT NOW(),
     updated_at TIMESTAMP
 );
 
 CREATE TABLE category (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    name text_plus NOT NULL,
+    name TEXT NOT NULL,
     picto TEXT,
     id_user INT NOT NULL REFERENCES users(id),
     created_at TIMESTAMP NOT NULL DEFAULT NOW(),
@@ -75,10 +74,7 @@ CREATE TABLE user_activity (
     updated_at TIMESTAMP
 );
 
-ALTER TABLE activity
-ADD CONSTRAINT id_category FOREIGN KEY (id_category) REFERENCES category(id);
-
-
-
+ALTER TABLE users
+ADD COLUMN meta_id INT REFERENCES meta(id);
 
 COMMIT;

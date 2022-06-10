@@ -1,6 +1,6 @@
 const express = require('express');
 
-const routerApi = require('./api');
+const routerUser = require('./user');
 
 const router = express.Router();
 
@@ -8,6 +8,6 @@ const router = express.Router();
 // spécifique.
 // Car chaque routeur a sa propre route de gestion de 404, donc il aura forcément une impasse à la
 // fin de chaque router
-router.use('/api', routerApi);
+router.use('/api/user', routerUser);
 
 module.exports = router;
