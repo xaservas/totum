@@ -91,20 +91,28 @@ const user = {
     async updateUser(id, data) {
         const query = {
             text: `
-                    UPDATE users
-                    SET email = $1, password = $2, firstname = $3, lastname = $4, picture = $5, about = $6, address = $7, city = $8, country = $9, zip_code = $10
-                    WHERE id = $11
+                    UPDATE users SET
+                    password = $1,
+                    firstname = $2,
+                    lastname = $3,
+                    picture = $4,
+                    about = $5,
+                    address = $6,
+                    city = $7,
+                    country = $8,
+                    zip_code = $9
+                    WHERE id = $10
                     RETURNING *
                 `,
             // eslint-disable-next-line max-len
-            values: [data.email, data.password, data.firstname, data.lastname, data.picture, data.about, data.address, data.city, data.country, data.zip_code, id],
+            values: [data.password, data.firstname, data.lastname, data.picture, data.about, data.address, data.city, data.country, data.zip_code, id],
         };
         const response = await client.query(query);
         const queryMeta = {
             text: `
                     UPDATE meta
                     SET cookie = $1, landmark = $2
-                    WHERE user_id = $3
+                    WHERE id_user = $3
                 `,
             values: [data.cookie, data.landmark, id],
         };
@@ -118,14 +126,29 @@ const user = {
     async removeUser(id) {
         const query = {
             text: `
-                    DELETE
-                    FROM users AS t1 INNER JOIN meta AS t2
-                    ON t1.id = t2.user_id
-                    WHERE t1.id = $1
+                    DELETE FROM users
+                    WHERE id = $1
+                    RETURNING *
                 `,
             values: [id],
         };
-        await client.query(query);
+        const response = await client.query(query);
+        const queryMeta = {
+            text: `
+                    DELETE FROM meta
+                    WHERE id_user = $1
+                    RETURNING *
+                `,
+            values: [id],
+        };
+        const meta = await client.query(queryMeta);
+        if (!response.rows[0]) {
+            throw new Error('User not found');
+        }
+        return {
+            response: response.rows[0],
+            meta: meta.rows[0],
+        };
     },
 
 };

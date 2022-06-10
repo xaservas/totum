@@ -16,6 +16,10 @@ const userController = {
         }
     },
 
+    logout(req, res) {
+        res.json({ message: 'Logout successful' });
+    },
+
     async createUser(req, res) {
         const data = req.body;
         const user = await userDatamapper.createUser(data);
