@@ -5,6 +5,8 @@ const numberRule = Joi.number().min(0);
 
 module.exports = Joi.object({
     name: textRule,
+    description: textRule,
+    date: textRule,
     level: textRule,
     address: textRule,
     zip_code: textRule,
