@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import data from '../../data/activities'
 import './profile.scss';
+import ListActivities from '../ListActivities/ListActivities';
 
 function Profile({...rest}){
    return (
@@ -25,43 +27,9 @@ function Profile({...rest}){
             </div>   
        </div>
         
-
         <div className='profile-activities'>
-            <div className='activities-current panel'>
-                <p className='activities-title panel-heading'>Activités prévues</p>
-                <ul className='activities'>
-                    <li className='activity panel-block'>
-                        <div className='column activity-name'>Escalade</div>
-                        <div className='column activity-date'>le 11/06/2022</div>    
-                        <div className='column activity-status'>Accepted</div>
-                    </li> 
-                    <li className='activity panel-block'>
-                        <div className='column activity-name'>Foot</div>
-                        <div className='column activity-date'>le 12/06/2022</div>    
-                        <div className='column activity-status'>En attente</div>
-                    </li> 
-                </ul>
-            </div>
-            <div className='activities-current panel'>
-                <p className='activities-title panel-heading'>Activités passées</p>
-                <ul className='activities'>
-                    <li className='activity panel-block'>
-                        <div className='column activity-name'>Jokari</div>
-                        <div className='column activity-date'>le 11/06/2021</div>    
-                        <div className='column activity-status'>Accepted</div>
-                    </li> 
-                    <li className='activity panel-block'>
-                        <div className='column activity-name'>Bridge</div>
-                        <div className='column activity-date'>le 12/11/2021</div>    
-                        <div className='column activity-status'>En attente</div>
-                    </li> 
-                    <li className='activity panel-block'>
-                        <div className='column activity-name'>Macramé</div>
-                        <div className='column activity-date'>le 12/11/2021</div>    
-                        <div className='column activity-status'>En attente</div>
-                    </li> 
-                </ul>
-            </div>
+            <ListActivities activities={data}/>
+           
         </div>
 
          
