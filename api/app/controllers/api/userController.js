@@ -1,12 +1,45 @@
 const userDatamapper = require('../../models/userDatamapper');
 
 const userController = {
-    getAll: () => userDatamapper.getAll(),
-    login: (email, password) => userDatamapper.login(email, password),
-    createUser: (data) => userDatamapper.createUser(data),
-    getOneUser: (id) => userDatamapper.getOneUser(id),
-    updateUser: (id, data) => userDatamapper.updateUser(id, data),
-    removeUser: (id) => userDatamapper.removeUser(id),
+    async getAll(_, res) {
+        const users = await userDatamapper.getAll();
+        res.json(users);
+    },
+
+    async login(req, res) {
+        const { email, password } = req.body;
+        const user = await userDatamapper.login(email, password);
+        if (user) {
+            res.json(user);
+        } else {
+            res.status(401).json({ message: 'Invalid credentials' });
+        }
+    },
+
+    async createUser(req, res) {
+        const data = req.body;
+        const user = await userDatamapper.createUser(data);
+        res.json(user);
+    },
+
+    async getOneUser(req, res) {
+        const { id } = req.params;
+        const user = await userDatamapper.getOneUser(id);
+        res.json(user);
+    },
+
+    async updateUser(req, res) {
+        const { id } = req.params;
+        const data = req.body;
+        const user = await userDatamapper.updateUser(id, data);
+        res.json(user);
+    },
+
+    async removeUser(req, res) {
+        const { id } = req.params;
+        const user = await userDatamapper.removeUser(id);
+        res.json(user);
+    },
 };
 
 module.exports = userController;

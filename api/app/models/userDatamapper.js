@@ -1,12 +1,13 @@
 const client = require('./client');
 
 const user = {
-    getAll: () => client.query(`
-            SELECT *
-            FROM users
-        `),
+    async getAll() {
+        const query = 'SELECT * FROM users';
+        const result = await client.query(query);
+        return result.rows;
+    },
 
-    login: (email, password) => {
+    async login(email, password) {
         const query = {
             text: `
                     SELECT *
@@ -16,33 +17,62 @@ const user = {
                 `,
             values: [email, password],
         };
-        return client.query(query);
+        const result = await client.query(query);
+        return result.rows[0];
     },
 
-    createUser: (data) => {
+    async createUser(data) {
         const query = {
             text: `
-                    INSERT INTO users (email, password, firstname, lastname, picture, about, address, city, country, zip_code, meta_id) RETURNING *
+                    INSERT INTO users (email, password, firstname, lastname, picture, about, address, city, country, zip_code)
+                    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+                    RETURNING *
                     `,
             // eslint-disable-next-line max-len
-            values: [data.email, data.password, data.firstname, data.lastname, data.picture, data.about, data.address, data.city, data.country, data.zip_code, data.meta_id],
+            values: [
+                data.email,
+                data.password,
+                data.firstname,
+                data.lastname,
+                data.picture,
+                data.about,
+                data.address,
+                data.city,
+                data.country,
+                data.zip_code,
+            ],
         };
-        const response = client.query(query);
-        const queryMeta = {
+        const response = await client.query(query);
+
+        const query2 = {
             text: `
-                    INSERT INTO meta (cookie, landmark, user_id)
+                    INSERT INTO meta (cookie, landmark, id_user)
                     VALUES ($1, $2, $3)
+                    RETURNING *
                     `,
             values: [data.cookie, data.landmark, response.rows[0].id],
         };
-        const meta = client.query(queryMeta);
-        return {
-            response,
-            meta,
+        const response2 = await client.query(query2);
+
+        const query3 = {
+            text: `
+            UPDATE users
+            SET meta_id = $1
+            WHERE id = $2
+            RETURNING *
+            `,
+            // eslint-disable-next-line max-len
+            values: [
+                response2.rows[0].id,
+                response.rows[0].id,
+            ],
         };
+        const response3 = await client.query(query3);
+
+        return response3.rows[0];
     },
 
-    getOneUser: (id) => {
+    async getOneUser(id) {
         const query = {
             text: `
                     SELECT *
@@ -51,10 +81,14 @@ const user = {
                 `,
             values: [id],
         };
-        return client.query(query);
+        const result = await client.query(query);
+        if (!result.rows[0]) {
+            throw new Error('User not found');
+        }
+        return result.rows[0];
     },
 
-    updateUser: (id, data) => {
+    async updateUser(id, data) {
         const query = {
             text: `
                     UPDATE users
@@ -65,7 +99,7 @@ const user = {
             // eslint-disable-next-line max-len
             values: [data.email, data.password, data.firstname, data.lastname, data.picture, data.about, data.address, data.city, data.country, data.zip_code, id],
         };
-        const response = client.query(query);
+        const response = await client.query(query);
         const queryMeta = {
             text: `
                     UPDATE meta
@@ -74,14 +108,14 @@ const user = {
                 `,
             values: [data.cookie, data.landmark, id],
         };
-        const meta = client.query(queryMeta);
+        const meta = await client.query(queryMeta);
         return {
             response,
             meta,
         };
     },
 
-    removeUser: (id) => {
+    async removeUser(id) {
         const query = {
             text: `
                     DELETE
@@ -91,7 +125,7 @@ const user = {
                 `,
             values: [id],
         };
-        return client.query(query);
+        await client.query(query);
     },
 
 };
