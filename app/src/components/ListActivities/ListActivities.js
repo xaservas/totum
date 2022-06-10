@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import './listActivities.scss';
 
 function ListActivities({
+    list_type,
     activities, 
     ...rest}){
    return (
@@ -10,14 +11,15 @@ function ListActivities({
            className={'listActivities panel'}
            {...rest}
        >
-            <p className='activities-title panel-heading'>Activités prévues</p>
+            <p className='activities-title panel-heading'>{list_type}</p>
             <ul className='activities'>
 
                     {activities.map(activity => (
-                    <li className='activity panel-block'>
-                        <div className='column activity-name'>{activity.name}</div>
-                        <div className='column activity-date'>{activity.date}</div>    
-                        <div className='column activity-status'>{activity.tag}</div>
+                    <li key='activity.id' 
+                        className='activity panel-block'>
+                            <div className='column activity-name'>{activity.name}</div>
+                            <div className='column activity-date'>{activity.date}</div>    
+                            <div className='column activity-status'>{activity.tag}</div>
                     </li>
                     ))}
                     
@@ -40,7 +42,9 @@ function ListActivities({
 
 ListActivities.propTypes = {
     className: PropTypes.string,
+    list_type: PropTypes.string,
     activities: PropTypes.arrayOf(PropTypes.shape({
+        id:PropTypes.number.isRequired,
         name: PropTypes.string.isRequired,
         level: PropTypes.string.isRequired,
         tag: PropTypes.string.isRequired,
@@ -49,5 +53,6 @@ ListActivities.propTypes = {
         
 ListActivities.defaultProps = {
     className: '',
+    list_type: 'Toutes les activités'
 };
 export default ListActivities;
