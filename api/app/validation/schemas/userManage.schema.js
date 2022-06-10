@@ -7,8 +7,8 @@ const emailRule = Joi.string().email();
 module.exports = Joi.object({
     email: emailRule,
     password: textRule,
-    firstName: textRule,
-    lastName: textRule,
+    firstname: textRule,
+    lastname: textRule,
     picture: textRule,
     about: textRule,
     address: textRule,
