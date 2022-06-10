@@ -117,9 +117,12 @@ const user = {
             values: [data.cookie, data.landmark, id],
         };
         const meta = await client.query(queryMeta);
+        if (!response.rows[0]) {
+            throw new Error('User not found');
+        }
         return {
-            response,
-            meta,
+            response: response.rows[0],
+            meta: meta.rows[0],
         };
     },
 
