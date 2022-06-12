@@ -6,8 +6,8 @@ const activityController = require('../../controllers/api/activityController');
 const apiErrorController = require('../../controllers/api/error');
 const validator = require('../../validation/validator');
 
-const activityPostSchema = require('../../validation/schemas/activityPost.schema');
-const activityManageSchema = require('../../validation/schemas/activityManage.schema');
+const activityPostSchema = require('../../validation/schemas/activity/activityPost.schema');
+const activityManageSchema = require('../../validation/schemas/activity/activityManage.schema');
 
 const controllerHandler = require('../../helpers/controllerHandler');
 const errorHandler = require('../../helpers/errorHandler');

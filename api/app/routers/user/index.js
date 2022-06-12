@@ -6,7 +6,7 @@ const userController = require('../../controllers/api/userController');
 const apiErrorController = require('../../controllers/api/error');
 const validator = require('../../validation/validator');
 
-const userGetSchema = require('../../validation/schemas/activityCategory.schema');
+const userGetSchema = require('../../validation/schemas/activity/activityCategory.schema');
 const userPostSchema = require('../../validation/schemas/userPost.schema');
 const userLoginSchema = require('../../validation/schemas/userLogin.schema');
 const userManageSchema = require('../../validation/schemas/userManage.schema');
@@ -43,6 +43,12 @@ router
     )
     .delete(
         controllerHandler(userController.removeUser),
+    );
+
+router.route('/:id/activity')
+    .get(
+        validator('query', userGetSchema),
+        controllerHandler(userController.getUserActivity),
     );
 
 router.use(apiErrorController.error404);
