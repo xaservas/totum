@@ -17,6 +17,7 @@ const userController = {
     },
 
     logout(req, res) {
+        // destroy session
         res.json({ message: 'Logout successful' });
     },
 
@@ -42,6 +43,12 @@ const userController = {
     async removeUser(req, res) {
         const { id } = req.params;
         const user = await userDatamapper.removeUser(id);
+        res.json(user);
+    },
+
+    async getUserActivity(req, res) {
+        const { id } = req.params;
+        const user = await userDatamapper.getUserActivity(id);
         res.json(user);
     },
 };

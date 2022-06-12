@@ -154,6 +154,35 @@ const user = {
         };
     },
 
+    async getUserActivity(id) {
+        const query = {
+            text: `
+                    SELECT
+                        users.id AS user_id,
+                        users.email AS user_email,
+                        users.firstname AS user_firstname,
+                        users.lastname AS user_lastname,
+                        activity.name AS activity_name,
+                        activity.description AS activity_description,
+                        activity.date AS activity_date,
+                        category.name AS category_name,
+                        level.name AS level_name
+                    FROM users
+                    JOIN user_activity ON users.id = user_activity.id_user
+                    JOIN activity ON user_activity.id_activity = activity.id
+                    JOIN category ON activity.id_category = category.id
+                    JOIN id_level ON activity.level = level.id
+                    WHERE users.id = $1
+                `,
+            values: [id],
+        };
+        const result = await client.query(query);
+        if (!result.rows[0]) {
+            throw new Error('No activity found for this user');
+        }
+        return result.rows;
+    },
+
 };
 
 module.exports = user;
