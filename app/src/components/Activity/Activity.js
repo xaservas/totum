@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import './activity.scss';
+import './Activity.scss';
 /**Xavier/10/06/2022:
  * 
  * this component could be a modal that could be used in lists and map
@@ -28,7 +28,7 @@ function Activity({...rest}){
                             alt='activity.owner'/>
                 </figure>
                 <p className='activity-level'>Apéro déguisé</p>
-                <button class="modal-close is-large" aria-label="close"></button>
+                <button className="modal-close is-large" aria-label="close"></button>
            </header>
            <body className='card-content'>
                 <progress className="activity__takeholders progress" value="15" max="100">15%</progress>
@@ -36,7 +36,7 @@ function Activity({...rest}){
                 <p className='activity__description'>Verrat de saintes fesses de ciarge de torvisse d'étole d'esprit de Jésus de plâtre de bâtard de batèche de cibouleau de viande à chien de sacrament.</p>
            </body>
            <footer className='card-footer'>
-             <a href="#" className="card-footer-item">Participer</a>
+             <a href="/" className="card-footer-item">Participer</a>
            </footer>
        </article>
    );

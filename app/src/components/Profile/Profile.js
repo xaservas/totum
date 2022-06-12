@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import data from '../../data/activities'
-import './profile.scss';
+import './Profile.scss';
 import ListActivities from '../ListActivities/ListActivities';
 
 function Profile({...rest}){
