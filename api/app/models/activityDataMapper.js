@@ -36,7 +36,6 @@ const activityDataMapper = {
     },
 
     async getBySearch(idKeyWord) {
-        console.log(idKeyWord);
         const query = {
             text: ' SELECT * FROM activity WHERE name LIKE \'% $1 %\' ',
             values: [idKeyWord],
