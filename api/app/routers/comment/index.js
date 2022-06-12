@@ -6,35 +6,14 @@ const activityController = require('../../controllers/api/activityController');
 const apiErrorController = require('../../controllers/api/error');
 const validator = require('../../validation/validator');
 
-const activityGeoSchema = require('../../validation/schemas/activity/activityGeo.schema');
-const activitySearchSchema = require('../../validation/schemas/activity/activitySearch.schema');
-const activityCategorySchema = require('../../validation/schemas/activity/activityCategory.schema');
+const commentGetSchema = require('../../validation/schemas/comment/commentGet.schema');
+const commentPostSchema = require('../../validation/schemas/comment/commentPost.schema');
+const commentManageSchema = require('../../validation/schemas/comment/commentManage.schema');
 
 const controllerHandler = require('../../helpers/controllerHandler');
 const errorHandler = require('../../helpers/errorHandler');
 
-router.route('/')
-    .get(
-        controllerHandler(activityController.getAll),
-    );
-
-router.route('/:category/category')
-    .get(
-        validator('query', activityCategorySchema),
-        controllerHandler(activityController.getByCategory),
-    );
-
-router.route('/:geo/geo')
-    .get(
-        validator('query', activityGeoSchema),
-        controllerHandler(activityController.getByGeo),
-    );
-
-router.route('/:search/search')
-    .get(
-        validator('params', activitySearchSchema),
-        controllerHandler(activityController.getBySearch),
-    );
+// liste des routes
 
 router.use(apiErrorController.error404);
 router.use(errorHandler);

@@ -1,4 +1,4 @@
-const activityDataMapper = require('../../models/activityDataMapper');
+const activityDataMapper = require('../../models/activityDatamapper');
 
 const activityController = {
     async getAll(_, res) {
@@ -41,6 +41,11 @@ const activityController = {
 
     async removeActivity(req, res) {
         const activities = await activityDataMapper.removeActivity(req.params.id);
+        return res.json(activities);
+    },
+
+    async getUser(req, res) {
+        const activities = await activityDataMapper.getUser(req.params.id);
         return res.json(activities);
     },
 

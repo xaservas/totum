@@ -24,7 +24,18 @@ const user = {
     async createUser(data) {
         const query = {
             text: `
-                    INSERT INTO users (email, password, firstname, lastname, picture, about, address, city, country, zip_code)
+                    INSERT INTO users
+                    (
+                        email,
+                        password,
+                        firstname,
+                        lastname,
+                        picture,
+                        about,
+                        address,
+                        city,
+                        country,
+                        zip_code)
                     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
                     RETURNING *
                     `,
@@ -46,7 +57,12 @@ const user = {
 
         const query2 = {
             text: `
-                    INSERT INTO meta (cookie, landmark, id_user)
+                    INSERT INTO meta
+                        (
+                        cookie,
+                        landmark,
+                        id_user
+                        )
                     VALUES ($1, $2, $3)
                     RETURNING *
                     `,
@@ -152,6 +168,35 @@ const user = {
             response: response.rows[0],
             meta: meta.rows[0],
         };
+    },
+
+    async getUserActivity(id) {
+        const query = {
+            text: `
+                    SELECT
+                        users.id AS user_id,
+                        users.email AS user_email,
+                        users.firstname AS user_firstname,
+                        users.lastname AS user_lastname,
+                        activity.name AS activity_name,
+                        activity.description AS activity_description,
+                        activity.date AS activity_date,
+                        category.name AS category_name,
+                        level.name AS level_name
+                    FROM users
+                    JOIN user_activity ON users.id = user_activity.id_user
+                    JOIN activity ON user_activity.id_activity = activity.id
+                    JOIN category ON activity.id_category = category.id
+                    JOIN level ON activity.level = level.id
+                    WHERE users.id = $1
+                `,
+            values: [id],
+        };
+        const result = await client.query(query);
+        if (!result.rows[0]) {
+            throw new Error('No activity found for this user');
+        }
+        return result.rows;
     },
 
 };

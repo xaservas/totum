@@ -34,7 +34,7 @@ CREATE TABLE category (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     name TEXT NOT NULL,
     picto TEXT,
-    id_user INT NOT NULL REFERENCES users(id),
+    id_user INT REFERENCES users(id),
     created_at TIMESTAMP NOT NULL DEFAULT NOW(),
     updated_at TIMESTAMP
 );

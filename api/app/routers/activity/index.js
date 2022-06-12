@@ -1,18 +1,19 @@
 const express = require('express');
 
 const router = express.Router();
-const activityController = require('../../controllers/api/activitycontroller');
+const activityController = require('../../controllers/api/activityController');
 
 const apiErrorController = require('../../controllers/api/error');
 const validator = require('../../validation/validator');
 
-const activityPostSchema = require('../../validation/schemas/activityPost.schema');
-const activityManageSchema = require('../../validation/schemas/activityManage.schema');
+const activityPostSchema = require('../../validation/schemas/activity/activityPost.schema');
+const activityManageSchema = require('../../validation/schemas/activity/activityManage.schema');
+const activityGetSchema = require('../../validation/schemas/activity/activityGet.schema');
 
 const controllerHandler = require('../../helpers/controllerHandler');
 const errorHandler = require('../../helpers/errorHandler');
 
-router.route('/')
+router.route('/createNew')
     .post(
         validator('body', activityPostSchema),
         controllerHandler(activityController.createActivity),
@@ -20,7 +21,7 @@ router.route('/')
 
 router.route('/:id/manage')
     .get(
-        validator('query', activityManageSchema),
+        validator('query', activityGetSchema),
         controllerHandler(activityController.getOneActivity),
     )
     .patch(
@@ -30,6 +31,12 @@ router.route('/:id/manage')
     .delete(
         validator('query', activityManageSchema),
         controllerHandler(activityController.removeActivity),
+    );
+
+router.route('/:id/user')
+    .get(
+        validator('query', activityGetSchema),
+        controllerHandler(activityController.getUser),
     );
 
 router.use(apiErrorController.error404);
