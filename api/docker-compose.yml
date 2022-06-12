@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+    db_totum:
+      image: postgres:latest
+      container_name: db_totum
+      restart: always
+      environment:
+        POSTGRES_PASSWORD: totum
+        POSTGRES_USER: totum
+        POSTGRES_DB: totum
+        ports: 5432
+      labels:
+        - traefik.enable=false
+
+    app:
+      build:
+        context: .
+        dockerfile: ./Dockerfile
+      image: api_totum
+      depends_on:
+        - db_totum
+      stdin_open: true
+      tty: true
+      expose:
+        - 3000
+      links:
+        - db_totum:db_totum
+      labels:
+        - traefik.http.routers.totum.rule=Host(`api.totum.ovh`)
+        - traefik.http.routers.totum.tls=true
+        - traefik.http.routers.totum.tls.certresolver=lets-encrypt
+        - traefik.port=80
+
+networks:
+  default:
+    external:
+      name: web
+
