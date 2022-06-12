@@ -1,5 +1,6 @@
 import Header from "../Header/Header";
 import Profile from "../Profile/Profile";
+import Activity from "../Activity/Activity";
 
 
 function App() {
@@ -9,7 +10,7 @@ function App() {
         <Header/>
         <h1>Salut les blobs</h1>
         <button class="button is-success is-outlined">Outlined</button>
-        <Profile/>
+        <Activity/>
       </header>
     </div>
   );
