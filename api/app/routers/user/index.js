@@ -159,7 +159,6 @@ router
         * @return {object}  500 - Error
         * @example request - User data
         * {
-        * "email": "test@test.com",
         * "firstname": "firstname",
         * "lastname": "lastname",
         * "about": "presentation about user",
@@ -258,6 +257,74 @@ router.route('/:id/activity')
     .get(
         validator('query', userGetSchema),
         controllerHandler(userController.getActivity),
+    );
+
+router.route('/:id/manage/passwordUpdate')
+/**
+        * POST /v1/user/{id}/manage/passwordUpdate
+        * @summary Update user password by id
+        * @tags Manage user
+        * @param {number} id.path.required - User id
+        * @param {object} request.body.required - User data
+        * @return {object} 200 - User object
+        * @return {object}  401 - Error
+        * @return {object}  500 - Error
+        * @example request - User data
+        * {
+        * "password": "new password",
+        * "passwordConfirmation": "new password"
+        * }
+        * @example response - 200 - success response example
+        * {
+        * "message": "Password updated"
+        * }
+        *  @example response - 500 - error response example
+        * {
+        * "error": "Une erreur est survenue, veuillez réessayer plus tard…"
+        * }
+        *  @example response - 401 - error response example
+        * {
+        * "message": "Passwords do not match"
+        * }
+ */
+    .post(
+        validator('body', userManageSchema),
+        controllerHandler(userController.updatePassword),
+    );
+
+router.route('/:id/manage/emailUpdate')
+/**
+        * POST /v1/user/{id}/manage/emailUpdate
+        * @summary Update user email by id
+        * @tags Manage user
+        * @param {number} id.path.required - User id
+        * @param {object} request.body.required - User data
+        * @return {object} 200 - User object
+        * @return {object}  401 - Error
+        * @return {object}  500 - Error
+        * @example request - User data
+        * {
+        * "email": "email",
+        * "emailNew": "new email",
+        * "emailConfirmation": "new email"
+        * }
+        * @example response - 200 - success response example
+        * {
+        * "message": "email updated"
+        * }
+        *  @example response - 500 - error response example
+        * {
+        * "error": "Une erreur est survenue, veuillez réessayer plus tard…"
+        * }
+        *  @example response - 401 - error response example
+        * {
+        * "message": "email do not match",
+        * "message": "email is the same as the old one"
+        * }
+ */
+    .post(
+        validator('body', userManageSchema),
+        controllerHandler(userController.updateEmail),
     );
 
 router.use(apiErrorController.error404);

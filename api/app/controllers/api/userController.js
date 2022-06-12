@@ -21,6 +21,39 @@ const userController = {
         res.json({ message: 'Logout successful' });
     },
 
+    async updatePassword(req, res) {
+        const { password, passwordConfirmation } = req.body;
+        const { id } = req.params;
+        if (password === passwordConfirmation) {
+            const user = await userDatamapper.updatePassword(id, password);
+            if (user) {
+                res.status(200).json({ message: 'Password updated' });
+            } else {
+                res.status(401).json({ message: 'Invalid credentials' });
+            }
+        } else {
+            res.status(401).json({ message: 'Passwords do not match' });
+        }
+    },
+
+    async updateEmail(req, res) {
+        const { email, emailNew, emailConfirmation } = req.body;
+        const { id } = req.params;
+        if (email === emailNew) {
+            res.status(401).json({ message: 'Email is the same' });
+        }
+        if (emailNew === emailConfirmation) {
+            const user = await userDatamapper.updateEmail(id, emailNew);
+            if (user) {
+                res.status(200).json({ message: 'Email updated' });
+            } else {
+                res.status(401).json({ message: 'Invalid credentials' });
+            }
+        } else {
+            res.status(401).json({ message: 'Emails do not match' });
+        }
+    },
+
     async createUser(req, res) {
         const data = req.body;
         const user = await userDatamapper.createUser(data);

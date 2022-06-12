@@ -21,6 +21,34 @@ const user = {
         return result.rows[0];
     },
 
+    async updatePassword(id, password) {
+        const query = {
+            text: `
+                    UPDATE users
+                    SET password = $2
+                    WHERE id = $1
+                    RETURNING *
+                `,
+            values: [id, password],
+        };
+        const result = await client.query(query);
+        return result.rows[0];
+    },
+
+    async updateEmail(id, email) {
+        const query = {
+            text: `
+                    UPDATE users
+                    SET email = $2
+                    WHERE id = $1
+                    RETURNING *
+                `,
+            values: [id, email],
+        };
+        const result = await client.query(query);
+        return result.rows[0];
+    },
+
     async createUser(data) {
         const query = {
             text: `
@@ -108,20 +136,19 @@ const user = {
         const query = {
             text: `
                     UPDATE users SET
-                    password = $1,
-                    firstname = $2,
-                    lastname = $3,
-                    picture = $4,
-                    about = $5,
-                    address = $6,
-                    city = $7,
-                    country = $8,
-                    zip_code = $9
-                    WHERE id = $10
+                    firstname = $1,
+                    lastname = $2,
+                    picture = $3,
+                    about = $4,
+                    address = $5,
+                    city = $6,
+                    country = $7,
+                    zip_code = $8
+                    WHERE id = $9
                     RETURNING *
                 `,
             // eslint-disable-next-line max-len
-            values: [data.password, data.firstname, data.lastname, data.picture, data.about, data.address, data.city, data.country, data.zip_code, id],
+            values: [data.firstname, data.lastname, data.picture, data.about, data.address, data.city, data.country, data.zip_code, id],
         };
         const response = await client.query(query);
         const queryMeta = {
