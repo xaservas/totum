@@ -1,17 +1,22 @@
 import Header from "../Header/Header";
 import Profile from "../Profile/Profile";
 import Activity from "../Activity/Activity";
+import { Route, Routes } from 'react-router-dom';
+import Login from "../Login/Login";
 
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <Header/>
-        <h1>Salut les blobs</h1>
-        <button class="button is-success is-outlined">Outlined</button>
-        <Activity/>
-      </header>
+      
+    <Header/>
+    <Routes>
+      <Route path="/" element={<Login/>}></Route>
+      <Route path="/activity" element={<Activity/>}></Route>
+      <Route path="/profil" element={<Profile/>}></Route>
+    </Routes>
+        
+      
     </div>
   );
 }
