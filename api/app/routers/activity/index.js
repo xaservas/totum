@@ -1,7 +1,7 @@
 const express = require('express');
 
 const router = express.Router();
-const activityController = require('../../controllers/api/activitycontroller');
+const activityController = require('../../controllers/api/activityController');
 
 const apiErrorController = require('../../controllers/api/error');
 const validator = require('../../validation/validator');

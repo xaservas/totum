@@ -1,4 +1,4 @@
-const activityDataMapper = require('../../models/activityDataMapper');
+const activityDataMapper = require('../../models/activityDatamapper');
 
 const activityController = {
     async getAll(_, res) {
