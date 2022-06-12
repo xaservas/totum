@@ -50,7 +50,7 @@ router
 router.route('/:id/activity')
     .get(
         validator('query', userGetSchema),
-        controllerHandler(userController.getUserActivity),
+        controllerHandler(userController.getActivity),
     );
 
 router.use(apiErrorController.error404);

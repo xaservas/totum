@@ -24,7 +24,18 @@ const user = {
     async createUser(data) {
         const query = {
             text: `
-                    INSERT INTO users (email, password, firstname, lastname, picture, about, address, city, country, zip_code)
+                    INSERT INTO users
+                    (
+                        email,
+                        password,
+                        firstname,
+                        lastname,
+                        picture,
+                        about,
+                        address,
+                        city,
+                        country,
+                        zip_code)
                     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
                     RETURNING *
                     `,
@@ -46,7 +57,12 @@ const user = {
 
         const query2 = {
             text: `
-                    INSERT INTO meta (cookie, landmark, id_user)
+                    INSERT INTO meta
+                        (
+                        cookie,
+                        landmark,
+                        id_user
+                        )
                     VALUES ($1, $2, $3)
                     RETURNING *
                     `,
@@ -171,7 +187,7 @@ const user = {
                     JOIN user_activity ON users.id = user_activity.id_user
                     JOIN activity ON user_activity.id_activity = activity.id
                     JOIN category ON activity.id_category = category.id
-                    JOIN id_level ON activity.level = level.id
+                    JOIN level ON activity.level = level.id
                     WHERE users.id = $1
                 `,
             values: [id],
