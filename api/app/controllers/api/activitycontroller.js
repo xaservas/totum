@@ -44,6 +44,11 @@ const activityController = {
         return res.json(activities);
     },
 
+    async getUser(req, res) {
+        const activities = await activityDataMapper.getUser(req.params.id);
+        return res.json(activities);
+    },
+
 };
 
 module.exports = activityController;
