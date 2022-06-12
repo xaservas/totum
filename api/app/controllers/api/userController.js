@@ -46,7 +46,7 @@ const userController = {
         res.json(user);
     },
 
-    async getUserActivity(req, res) {
+    async getActivity(req, res) {
         const { id } = req.params;
         const user = await userDatamapper.getUserActivity(id);
         res.json(user);
