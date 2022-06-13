@@ -33,7 +33,7 @@ function Activity({
        >
            <header className='card-header'>
                 <p className='activity__name card-header-title'>{currentActivity.name}</p>
-                <figure className='image is-24x24'>
+                <figure className='image is-48x48'>
                     <img className='activity__owner is-rounded' 
                             src={currentActivity.owner_picture}
                             alt={currentActivity.owner}/>
