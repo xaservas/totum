@@ -12,8 +12,26 @@ const categoryManageSchema = require('../../validation/schemas/category/category
 
 const controllerHandler = require('../../helpers/controllerHandler');
 const errorHandler = require('../../helpers/errorHandler');
+const categoryController = require('../../controllers/api/categoryController');
 
 // liste des routes
+
+router.route('categories')
+    .get(
+        validator('query', categoryGetSchema),
+        controllerHandler(categoryController.getAll),
+      );
+
+router.route('category/createNew')
+
+    .post(
+        validator('body', categoryPostSchema),
+        controllerHandler(categoryController.createCategory),
+    )
+
+router.route('')
+
+
 
 router.use(apiErrorController.error404);
 router.use(errorHandler);
