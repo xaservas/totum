@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import './Activity.scss';
+import './activity.scss';
 /**Xavier/10/06/2022:
  * 
  * this component could be a modal that could be used in lists and map

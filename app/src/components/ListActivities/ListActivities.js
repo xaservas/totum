@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import './ListActivities.scss';
+import './listActivities.scss';
 
 function ListActivities({
     list_type,
