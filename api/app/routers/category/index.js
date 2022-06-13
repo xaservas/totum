@@ -15,7 +15,7 @@ const errorHandler = require('../../helpers/errorHandler');
 const jwt = require('../../services/token');
 
 router.route('categories')
- /**
+/**
         * GET /v1/user/categories
         * @summary See Categories
         * @tags Categories
@@ -23,7 +23,7 @@ router.route('categories')
         * @return {object}  500 - Error
         * @example response - 200 - success response example
         * {
-        * "picto": <FontAwesomeIcon icon="fa-thin fa-alicorn" />,
+        * "picto": "<FontAwesomeIcon icon='fa-thin fa-alicorn' />",
         * "id_user": "1"
         *  }
         *  @example response - 500 - error response example
@@ -34,37 +34,37 @@ router.route('categories')
     .get(
         validator('query', categoryGetSchema),
         controllerHandler(categoryController.getAll),
-      ); 
+    );
 
 router.route('category/createNew')
 
     .post(
+        controllerHandler(jwt.verifyToken),
         validator('body', categoryPostSchema),
         controllerHandler(categoryController.createCategory),
     );
 
 router.route('/category/:id/manage')
 
-.get(
-    validator('body', categoryGetSchema),
-    controllerHandler(categoryController.getOneCategory),
-)
+    .get(
+        validator('body', categoryGetSchema),
+        controllerHandler(categoryController.getOneCategory),
+    )
 
-.patch(
-    validator('body', categoryManageSchema),
-    controllerHandler(categoryController.updateCategory)
+    .patch(
+        controllerHandler(jwt.verifyToken),
+        validator('body', categoryManageSchema),
+        controllerHandler(categoryController.updateCategory),
 
-)
+    )
 
-.delete(
-    validator('query',categoryManageSchema),
-    controllerHandler(categoryController.removeCategory)
-)
+    .delete(
+        controllerHandler(jwt.verifyToken),
+        validator('query', categoryManageSchema),
+        controllerHandler(categoryController.removeCategory),
+    );
 
-
-router.route('')
-
-
+router.route('');
 
 router.use(apiErrorController.error404);
 router.use(errorHandler);
