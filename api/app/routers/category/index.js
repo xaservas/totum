@@ -29,12 +29,12 @@ router.route('category/createNew')
         controllerHandler(categoryController.createCategory),
     );
 
-router.route('/category/:id/manage')
+// router.route('/category/:id/manage')
 
-.get(
-    validator('body', categoryGetSchema),
-    controllerHandler(categoryController.getOneCategory),
-),
+// .get(
+//     validator('body', categoryGetSchema),
+//     controllerHandler(categoryController.getOneCategory),
+// ),
 
 router.route('')
 
