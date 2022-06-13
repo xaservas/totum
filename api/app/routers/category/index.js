@@ -12,6 +12,7 @@ const categoryManageSchema = require('../../validation/schemas/category/category
 
 const controllerHandler = require('../../helpers/controllerHandler');
 const errorHandler = require('../../helpers/errorHandler');
+const jwt = require('../../services/token');
 
 // liste des routes
 

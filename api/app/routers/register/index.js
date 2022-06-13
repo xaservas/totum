@@ -11,6 +11,7 @@ const registerPostSchema = require('../../validation/schemas/register/registerMa
 
 const controllerHandler = require('../../helpers/controllerHandler');
 const errorHandler = require('../../helpers/errorHandler');
+const jwt = require('../../services/token');
 
 router.route('/')
     /**
@@ -39,6 +40,7 @@ router.route('/')
         * }
         */
     .post(
+        controllerHandler(jwt.verifyToken),
         validator('body', registerPostSchema),
         controllerHandler(registerController.createRegister),
     );
@@ -94,6 +96,7 @@ router.route('/:id/manage')
         * }
         */
     .patch(
+        controllerHandler(jwt.verifyToken),
         validator('body', registerPostSchema),
         controllerHandler(registerController.updateRegister),
     )
@@ -118,6 +121,7 @@ router.route('/:id/manage')
         * }
         */
     .delete(
+        controllerHandler(jwt.verifyToken),
         validator('params', registerGetSchema),
         controllerHandler(registerController.removeRegister),
     );
