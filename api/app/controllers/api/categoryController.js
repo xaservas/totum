@@ -1,4 +1,3 @@
-const { getOneCategory, createCategory, removeCategory } = require('../../models/categoryDatamapper');
 const categoryDataMapper = require('../../models/categoryDatamapper');
 
 const categoryController = {
@@ -8,13 +7,13 @@ const categoryController = {
         return res.json(categories);
     },
 
-    async getOneCategory(req, res) {
-        const categories = await categoryDataMapper.getOneCategory(req.params.id);
+    async createCategory(req, res) {
+        const categories = await categoryDataMapper.createCategory(req.body);
         return res.json(categories);
     },
 
-    async createCategory(req, res) {
-        const categories = await categoryDataMapper.createCategory(req.body);
+    async getOneCategory(req, res) {
+        const categories = await categoryDataMapper.getOneCategory(req.params.id);
         return res.json(categories);
     },
 
@@ -27,7 +26,6 @@ const categoryController = {
         const activities = await categoryDataMapper.removeCategory(req.params.id);
         return res.json(activities);
     },
-
 
 };
 
