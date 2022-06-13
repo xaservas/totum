@@ -50,10 +50,10 @@ router.route('/:id/manage')
         controllerHandler(commentController.updateComment),
     )
 
-    // .delete(
-    //     validator('query', commentManageSchema),
-    //     controllerHandler(commentController.removeComment)
-    // )
+    .delete(
+        validator('query', commentManageSchema),
+        controllerHandler(commentController.removeComment)
+    )
 
 
 
