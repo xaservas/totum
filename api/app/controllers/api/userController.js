@@ -12,15 +12,16 @@ const userController = {
         const user = await userDatamapper.login(email, password);
         if (user) {
             const token = jwt.generateToken(user.email);
-            res.json({ user, token: `Bearer ${token}` });
+            res.json({ user, token });
         } else {
             res.status(401).json({ message: 'Invalid credentials' });
         }
     },
 
-    logout(req, res) {
-        // destroy session
-        res.json({ message: 'Logout successful' });
+    async logout(req, res) {
+        const token = req.headers.authorization;
+        await userDatamapper.logout(token);
+        res.json('User logged out');
     },
 
     async updatePassword(req, res) {

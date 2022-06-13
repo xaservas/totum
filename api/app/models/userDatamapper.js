@@ -21,6 +21,18 @@ const user = {
         return result.rows[0];
     },
 
+    async logout(token) {
+        const query = {
+            text: `
+                    INSERT INTO token_blacklist (token)
+                    VALUES ($1)
+                `,
+            values: [token],
+        };
+        const result = await client.query(query);
+        return result.rows[0];
+    },
+
     async updatePassword(id, password) {
         const query = {
             text: `
@@ -154,8 +166,18 @@ const user = {
                     WHERE id = $9
                     RETURNING *
                 `,
-            // eslint-disable-next-line max-len
-            values: [data.firstname, data.lastname, data.picture, data.about, data.address, data.city, data.country, data.zip_code, id],
+
+            values: [
+                data.firstname,
+                data.lastname,
+                data.picture,
+                data.about,
+                data.address,
+                data.city,
+                data.country,
+                data.zip_code,
+                id,
+            ],
         };
         const response = await client.query(query);
         const queryMeta = {
