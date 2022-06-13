@@ -20,10 +20,10 @@ function Activity({
     activities,
     ...rest}) {
         //console.log(activities)
-        const { name } = useParams();
-        console.log(name);
+        const { id } = useParams();
+        console.log(id);
 
-        const currentActivity = findActivityByName(activities, name);
+        const currentActivity = findActivityById(activities, id);
         console.log(currentActivity);
 
    return (

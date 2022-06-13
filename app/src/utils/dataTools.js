@@ -1,5 +1,5 @@
 export function findActivityById(activities, id) {
-    return activities.find((activity) => activity.id === id)
+    return activities.find((activity) => activity.id === parseInt(id))
 }
 
 export function findActivityByName(activities, name) {

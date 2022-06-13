@@ -14,7 +14,7 @@ function App() {
     <Header/>
     <Routes>
       <Route path="/" element={<Login/>}></Route>
-      <Route path="/activity/:name" element={<Activity activities={activities}/>}></Route>
+      <Route path="/activity/:id" element={<Activity activities={activities}/>}></Route>
       <Route path="/profile" element={<Profile activities={activities}/>}></Route>
       <Route path="/activities" element={<ListActivities activities={activities}/>}></Route>
     </Routes>
