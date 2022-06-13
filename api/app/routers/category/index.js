@@ -32,7 +32,7 @@ router.route('categories')
        * {
         * "error": "Une erreur est survenue, veuillez réessayer plus tard…"
         * }
-        */
+        */ 
     .get(
         validator('query', categoryGetSchema),
         controllerHandler(categoryController.getAll),
