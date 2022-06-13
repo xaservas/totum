@@ -181,6 +181,19 @@ const activityDataMapper = {
         return result.rows;
     },
 
+    async removeActivity(id) {
+        const query = {
+            text: 'DELETE FROM activity WHERE id = $1 RETURNING *',
+            values: [id],
+        };
+        const result = await client.query(query);
+        if (!result.rows[0]) {
+            throw new Error('Activity not found');
+        }
+        return result.rows[0];
+    },
+
+
 };
 
 module.exports = activityDataMapper;
