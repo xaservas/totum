@@ -13,6 +13,7 @@ const commentManageSchema = require('../../validation/schemas/comment/commentMan
 const controllerHandler = require('../../helpers/controllerHandler');
 const errorHandler = require('../../helpers/errorHandler');
 const commentController = require('../../controllers/api/commentController');
+const categoryPostSchema = require('../../validation/schemas/category/categoryPost.schema');
 
 // liste des routes
 
@@ -26,8 +27,17 @@ router.route('/:id/activity')
     .get(
         validator('query', commentGetSchema),
         controllerHandler(commentController.getByActivity),
-        
+
     )
+
+router.route('/createNew')
+    .post(
+        validator('query', categoryPostSchema),
+        controllerHandler(commentController.createComment),
+
+    )
+
+
 
 
 
