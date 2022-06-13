@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './activity.scss';
 import { useParams } from 'react-router-dom'
-import { findActivityById } from '../../utils/dataTools';
+import { findActivityById, findActivityByName } from '../../utils/dataTools';
 /**Xavier/10/06/2022:
  * 
  * this component could be a modal that could be used in lists and map
@@ -19,9 +19,11 @@ import { findActivityById } from '../../utils/dataTools';
 function Activity({
     activities,
     ...rest}) {
-        const { id } = useParams();
+        //console.log(activities)
+        const { name } = useParams();
+        console.log(name);
 
-        const currentActivity = findActivityById(activities, id);
+        const currentActivity = findActivityByName(activities, name);
         console.log(currentActivity);
 
    return (
