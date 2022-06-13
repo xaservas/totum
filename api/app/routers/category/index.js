@@ -44,7 +44,7 @@ router.route('/category/:id/manage')
 
 .delete(
     validator('query',categoryManageSchema),
-    
+    controllerHandler(categoryController.removeCategory)
 )
 
 
