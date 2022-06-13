@@ -18,25 +18,28 @@ router.route('/')
         * GET /v1/activities/
         * @summary Get all activities
         * @tags Activities
-        * @return {object} 200 - User object
+        * @return {object} 200 - Activities object
         * @return {object}  500 - Error
         * @example response - 200 - success response example
+        * [
         * {
-        * "id": 1,
-        * "email": "test@test.com",
-        * "password": "hash",
-        * "firstname": "firstname",
-        * "lastname": "lastname",
-        * "picture": "asset link to picture",
-        * "about": "presentation about user",
+        *  "id": 1,
+        * "name": "name",
+        * "description": "description",
+        * "max_participants": 1,
+        * "date": "2020-05-05T14:00:00.000Z",
+        * "level": 1,
         * "address": "address",
         * "zip_code": "zip_code",
         * "city": "city",
         * "country": "country",
+        * "landmark": "landmark",
+        * "id_user": 1,
+        * "id_category": 1,
         * "created_at": "2020-05-05T14:00:00.000Z",
-        * "updated_at": "2020-05-05T14:00:00.000Z",
-        * "meta_id": 1
+        * "updated_at": "2020-05-05T14:00:00.000Z"
         * }
+        * ]
         *  @example response - 500 - error response example
         * {
         * "error": "Une erreur est survenue, veuillez réessayer plus tard…"
@@ -47,18 +50,114 @@ router.route('/')
     );
 
 router.route('/:category/category')
+    /**
+     * GET /v1/activities/{category}/category
+     * @summary Get all activities by category
+     * @tags Activities
+     * @param {number} category.path.required - Category name
+     * @return {object} 200 - Category object
+     * @return {object}  500 - Error
+     * @example response - 200 - success response example
+     * [
+     * {
+     *  "id": 1,
+     * "name": "name",
+     * "description": "description",
+     * "max_participants": 1,
+     * "date": "2020-05-05T14:00:00.000Z",
+     * "level": 1,
+     * "address": "address",
+     * "zip_code": "zip_code",
+     * "city": "city",
+     * "country": "country",
+     * "landmark": "landmark",
+     * "id_user": 1,
+     * "id_category": 1,
+     * "created_at": "2020-05-05T14:00:00.000Z",
+     * "updated_at": "2020-05-05T14:00:00.000Z"
+     * }
+     * ]
+     * @example response - 500 - error response example
+     * {
+     * "error": "Une erreur est survenue, veuillez réessayer plus tard…"
+     * }
+     */
     .get(
         validator('query', activityCategorySchema),
         controllerHandler(activityController.getByCategory),
     );
 
 router.route('/:geo/geo')
+    /**
+     * GET /v1/activities/{geo}/geo
+     * @summary Get all activities by geo
+     * @tags Activities
+     * @param {string} geo.path.required - Geo name
+     * @return {object} 200 - Geo object
+     * @return {object}  500 - Error
+     * @example response - 200 - success response example
+     * [
+     * {
+     *  "id": 1,
+     * "name": "name",
+     * "description": "description",
+     * "max_participants": 1,
+     * "date": "2020-05-05T14:00:00.000Z",
+     * "level": 1,
+     * "address": "address",
+     * "zip_code": "zip_code",
+     * "city": "city",
+     * "country": "country",
+     * "landmark": "landmark",
+     * "id_user": 1,
+     * "id_category": 1,
+     * "created_at": "2020-05-05T14:00:00.000Z",
+     * "updated_at": "2020-05-05T14:00:00.000Z"
+     * }
+     * ]
+     * @example response - 500 - error response example
+     * {
+     * "error": "Une erreur est survenue, veuillez réessayer plus tard…"
+     * }
+     */
     .get(
         validator('query', activityGeoSchema),
         controllerHandler(activityController.getByGeo),
     );
 
 router.route('/:search/search')
+    /**
+     * GET /v1/activities/{search}/search
+     * @summary Get all activities by search
+     * @tags Activities
+     * @param {string} search.path.required - Search name
+     * @return {object} 200 - Search object
+     * @return {object}  500 - Error
+     * @example response - 200 - success response example
+     * [
+     * {
+     *  "id": 1,
+     * "name": "name",
+     * "description": "description",
+     * "max_participants": 1,
+     * "date": "2020-05-05T14:00:00.000Z",
+     * "level": 1,
+     * "address": "address",
+     * "zip_code": "zip_code",
+     * "city": "city",
+     * "country": "country",
+     * "landmark": "landmark",
+     * "id_user": 1,
+     * "id_category": 1,
+     * "created_at": "2020-05-05T14:00:00.000Z",
+     * "updated_at": "2020-05-05T14:00:00.000Z"
+     * }
+     * ]
+     * @example response - 500 - error response example
+     * {
+     * "error": "Une erreur est survenue, veuillez réessayer plus tard…"
+     * }
+     */
     .get(
         validator('params', activitySearchSchema),
         controllerHandler(activityController.getBySearch),

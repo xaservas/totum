@@ -3,14 +3,19 @@ const express = require('express');
 const router = express.Router();
 const registerController = require('../../controllers/api/registerController');
 
+// Require validator and schemas Joi
 const apiErrorController = require('../../controllers/api/error');
 const validator = require('../../validation/validator');
-
 const registerGetSchema = require('../../validation/schemas/register/registerGet.schema');
 const registerPostSchema = require('../../validation/schemas/register/registerManage.schema');
 
+// Require controllers try catch
 const controllerHandler = require('../../helpers/controllerHandler');
+
+//  Require error handler
 const errorHandler = require('../../helpers/errorHandler');
+
+// Require services token
 const jwt = require('../../services/token');
 
 router.route('/')
@@ -18,6 +23,7 @@ router.route('/')
         * POST /v1/register
         * @summary Register a new user on activity
         * @tags Register user to activity
+        * @security BearerAuth
         * @param {object} request.body.required - User id && Activity id
         * @return {object} 200 - Register object
         * @return {object}  500 - Error
@@ -78,6 +84,7 @@ router.route('/:id/manage')
         * PATCH /v1/register/{id}/manage
         * @summary Update a register
         * @tags Register user to activity
+        * @security BearerAuth
         * @param {number} id.path - Register id
         * @param {object} request.body.required - User id && Activity id
         * @return {object} 200 - Register object
@@ -104,6 +111,7 @@ router.route('/:id/manage')
         * DELETE /v1/register/{id}/manage
         * @summary Remove a register
         * @tags Register user to activity
+        * @security BearerAuth
         * @param {number} id.path - Register id
         * @return {object} 200 - Register object
         * @return {object}  500 - Error

@@ -37,7 +37,9 @@ const user = {
         const query = {
             text: `
                     UPDATE users
-                    SET password = $2
+                    SET
+                    password = $2,
+                    updated_at = NOW()
                     WHERE id = $1
                     RETURNING *
                 `,
@@ -51,7 +53,9 @@ const user = {
         const query = {
             text: `
                     UPDATE users
-                    SET email = $2
+                    SET
+                    email = $2,
+                    updated_at = NOW()
                     WHERE id = $1
                     RETURNING *
                 `,
@@ -162,7 +166,8 @@ const user = {
                     address = $5,
                     city = $6,
                     country = $7,
-                    zip_code = $8
+                    zip_code = $8,
+                    updated_at = NOW()
                     WHERE id = $9
                     RETURNING *
                 `,
@@ -183,7 +188,10 @@ const user = {
         const queryMeta = {
             text: `
                     UPDATE meta
-                    SET cookie = $1, landmark = $2
+                    SET
+                    cookie = $1,
+                    landmark = $2,
+                    updated_at = NOW()
                     WHERE id_user = $3
                 `,
             values: [data.cookie, data.landmark, id],

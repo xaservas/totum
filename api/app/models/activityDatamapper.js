@@ -114,7 +114,8 @@ const activityDataMapper = {
             country = $8,
             landmark = $9,
             id_user = $10,
-            id_category = $11
+            id_category = $11,
+            updated_at = NOW()
             WHERE id = $12
             RETURNING *`,
             values: [
