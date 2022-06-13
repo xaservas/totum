@@ -1,7 +1,7 @@
 const commentDataMapper = require('../../models/categoryDatamapper');
 const { createComment, getOneComment, removeComment, getByUser, getByActivity } = require('../../models/commentDatamapper');
 
-commentController = {
+const commentController = {
 
     async createComment(req, res) {
         const comments = await commentDataMapper.createComment(req.body);
@@ -38,4 +38,4 @@ commentController = {
 
 };
 
-module.exports = commentController
+module.exports = commentController;
