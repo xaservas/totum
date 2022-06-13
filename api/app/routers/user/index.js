@@ -121,7 +121,7 @@ router
         * GET /v1/user/{id}/manage
         * @summary Get user data by id
         * @tags Manage user
-        * @param {number} id.path - User id
+        * @param {number} id.path.required - User id
         * @return {object} 200 - User object
         * @return {object}  500 - Error
         * @example response - 200 - success response example
