@@ -19,11 +19,12 @@ const categoryDatamapper = {
                 id_user,
             )
                 VALUES ($1, $2)
-                RETURNING *`,
+                RETURNING *
+                `,
             values: [
                 data.picto,
                 data.id_user,
-                    ],
+            ],
 
         };
         const result = await client.query(query);
@@ -44,12 +45,14 @@ const categoryDatamapper = {
 
     async updateCategory(id, data) {
         const query = {
-            text: `UPDATE category
+            text: `
+            UPDATE category
             SET
             picto = $1,
             id_user = $2,
             WHERE id = $3
-            RETURNING *`,
+            RETURNING *
+            `,
             values: [
                 data.picto,
                 data.id_user,
