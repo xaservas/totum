@@ -1,3 +1,4 @@
+/* eslint-disable prefer-destructuring */
 const jwt = require('jsonwebtoken');
 const client = require('../models/client');
 
@@ -23,13 +24,22 @@ const tokenController = {
 
     async verifyToken(req, res, next) {
         const token = req.headers.authorization;
-        if (!token) {
+        const trucatedToken = token.split(' ');
+        let tokenToVerify;
+
+        if (trucatedToken.length > 1) {
+            tokenToVerify = trucatedToken[1];
+        } else {
+            tokenToVerify = trucatedToken[0];
+        }
+
+        if (!tokenToVerify) {
             return res.status(401).json({ message: 'No token provided' });
         }
-        if (await tokenController.blacklistToken(token)) {
+        if (await tokenController.blacklistToken(tokenToVerify)) {
             return res.status(401).json({ message: 'Token blacklisted' });
         }
-        return jwt.verify(token, process.env.TOKEN_SECRET, (err, decoded) => {
+        return jwt.verify(tokenToVerify, process.env.TOKEN_SECRET, (err, decoded) => {
             if (err) {
                 return res.status(401).json({ message: 'Invalid token' });
             }
