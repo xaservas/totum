@@ -17,6 +17,7 @@ const options = {
     info: {
         version: '1.0.0',
         title: 'Totum',
+        description: 'Totum API',
     },
     baseDir: __dirname,
     filesPattern: './**/*.js',
@@ -24,6 +25,14 @@ const options = {
     exposeSwaggerUI: true,
     notRequiredAsNullable: false,
     swaggerUiOptions: {},
+
+    security: {
+        BearerAuth: {
+            type: 'http',
+            scheme: 'bearer',
+        },
+    },
+
 };
 
 expressJSDocSwagger(app)(options);
