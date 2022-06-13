@@ -42,6 +42,11 @@ router.route('/category/:id/manage')
 
 )
 
+.delete(
+    validator('query',categoryManageSchema),
+    
+)
+
 
 router.route('')
 
