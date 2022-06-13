@@ -34,7 +34,14 @@ router.route('/category/:id/manage')
 .get(
     validator('body', categoryGetSchema),
     controllerHandler(categoryController.getOneCategory),
-),
+)
+
+.patch(
+    validator('body', categoryManageSchema),
+    controllerHandler(categoryController.updateCategory)
+
+)
+
 
 router.route('')
 
