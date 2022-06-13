@@ -4,6 +4,8 @@ services:
     db_totum:
       image: postgres:latest
       container_name: db_totum
+      volumes:
+       - ./migrations/deploy/:/docker-entrypoint-initdb.d/
       restart: always
       environment:
         POSTGRES_PASSWORD: totum
