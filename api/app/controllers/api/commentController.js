@@ -1,6 +1,7 @@
 const commentDataMapper = require('../../models/categoryDatamapper');
 
 const commentController = {
+
     async getByUser(req, res) {
         const comments = await commentDataMapper.getByUser(req.params.id);
         return res.json(comments);
@@ -10,6 +11,7 @@ const commentController = {
         const comments = await commentDataMapper.getByActivity(req.params.id);
         return res.json(comments);
     },
+
 
     async createComment(req, res) {
         const comments = await commentDataMapper.createComment(req.body);
