@@ -17,6 +17,22 @@ const categoryController = require('../../controllers/api/categoryController');
 // liste des routes
 
 router.route('categories')
+ /**
+        * GET /v1/user/categories
+        * @summary See Categories
+        * @tags Categories
+        * @return {object} 200 - Categorie object
+        * @return {object}  500 - Error
+        * @example response - 200 - success response example
+        * {
+        * "picto": <FontAwesomeIcon icon="fa-thin fa-alicorn" />,
+        * "id_user": "1"
+        *  }
+        *  @example response - 500 - error response example
+       * {
+        * "error": "Une erreur est survenue, veuillez réessayer plus tard…"
+        * }
+        */
     .get(
         validator('query', categoryGetSchema),
         controllerHandler(categoryController.getAll),
