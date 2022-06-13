@@ -12,7 +12,6 @@ const commentController = {
         return res.json(comments);
     },
 
-
     async createComment(req, res) {
         const comments = await commentDataMapper.createComment(req.body);
         return res.json(comments);

@@ -60,6 +60,7 @@ const categoryDatamapper = {
             SET
                 name = $1,
                 picto = $2,
+                updated_at = NOW()
             RETURNING *
             `,
             values: [
