@@ -1,7 +1,7 @@
 const express = require('express');
 
 const router = express.Router();
-const activityController = require('../../controllers/api/activityController');
+const commentController = require('../../controllers/api/commentController');
 
 const apiErrorController = require('../../controllers/api/error');
 const validator = require('../../validation/validator');
@@ -12,10 +12,7 @@ const commentManageSchema = require('../../validation/schemas/comment/commentMan
 
 const controllerHandler = require('../../helpers/controllerHandler');
 const errorHandler = require('../../helpers/errorHandler');
-const commentController = require('../../controllers/api/commentController');
-const categoryPostSchema = require('../../validation/schemas/category/categoryPost.schema');
-
-// liste des routes
+const jwt = require('../../services/token');
 
 router.route('/:id/user')
     .get(

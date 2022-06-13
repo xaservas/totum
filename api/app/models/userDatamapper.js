@@ -21,6 +21,18 @@ const user = {
         return result.rows[0];
     },
 
+    async logout(token) {
+        const query = {
+            text: `
+                    INSERT INTO token_blacklist (token)
+                    VALUES ($1)
+                `,
+            values: [token],
+        };
+        const result = await client.query(query);
+        return result.rows[0];
+    },
+
     async updatePassword(id, password) {
         const query = {
             text: `
@@ -50,8 +62,16 @@ const user = {
     },
 
     async createUser(data) {
-        const query = {
+        const verification = {
             text: `
+                    SELECT email FROM users WHERE email = $1
+                `,
+            values: [data.email],
+        };
+        const result = await client.query(verification);
+        if (result.rows.length === 0) {
+            const query = {
+                text: `
                     INSERT INTO users
                     (
                         email,
@@ -67,24 +87,23 @@ const user = {
                     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
                     RETURNING *
                     `,
-            // eslint-disable-next-line max-len
-            values: [
-                data.email,
-                data.password,
-                data.firstname,
-                data.lastname,
-                data.picture,
-                data.about,
-                data.address,
-                data.city,
-                data.country,
-                data.zip_code,
-            ],
-        };
-        const response = await client.query(query);
+                values: [
+                    data.email,
+                    data.password,
+                    data.firstname,
+                    data.lastname,
+                    data.picture,
+                    data.about,
+                    data.address,
+                    data.city,
+                    data.country,
+                    data.zip_code,
+                ],
+            };
+            const response = await client.query(query);
 
-        const query2 = {
-            text: `
+            const query2 = {
+                text: `
                     INSERT INTO meta
                         (
                         cookie,
@@ -94,26 +113,26 @@ const user = {
                     VALUES ($1, $2, $3)
                     RETURNING *
                     `,
-            values: [data.cookie, data.landmark, response.rows[0].id],
-        };
-        const response2 = await client.query(query2);
+                values: [data.cookie, data.landmark, response.rows[0].id],
+            };
+            const response2 = await client.query(query2);
 
-        const query3 = {
-            text: `
+            const query3 = {
+                text: `
             UPDATE users
             SET meta_id = $1
             WHERE id = $2
             RETURNING *
             `,
-            // eslint-disable-next-line max-len
-            values: [
-                response2.rows[0].id,
-                response.rows[0].id,
-            ],
-        };
-        const response3 = await client.query(query3);
-
-        return response3.rows[0];
+                values: [
+                    response2.rows[0].id,
+                    response.rows[0].id,
+                ],
+            };
+            const response3 = await client.query(query3);
+            return response3.rows[0];
+        }
+        throw new Error('Email already exists');
     },
 
     async getOneUser(id) {
@@ -147,8 +166,18 @@ const user = {
                     WHERE id = $9
                     RETURNING *
                 `,
-            // eslint-disable-next-line max-len
-            values: [data.firstname, data.lastname, data.picture, data.about, data.address, data.city, data.country, data.zip_code, id],
+
+            values: [
+                data.firstname,
+                data.lastname,
+                data.picture,
+                data.about,
+                data.address,
+                data.city,
+                data.country,
+                data.zip_code,
+                id,
+            ],
         };
         const response = await client.query(query);
         const queryMeta = {

@@ -9,5 +9,6 @@ SELECT * FROM activity;
 SELECT * FROM comment;
 SELECT * FROM meta;
 SELECT * FROM user_activity;
+SELECT * FROM token_blacklist;
 
 ROLLBACK;

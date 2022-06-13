@@ -2,6 +2,7 @@
 
 BEGIN;
 
+DROP TABLE token_blacklist;
 DROP TABLE user_activity;
 DROP TABLE meta CASCADE;
 DROP TABLE comment;

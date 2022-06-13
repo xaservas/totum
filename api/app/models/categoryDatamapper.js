@@ -12,18 +12,29 @@ const categoryDatamapper = {
     },
 
     async createCategory(data) {
+        const check = {
+            text: 'SELECT * FROM category WHERE name = $1',
+            values: [data.name],
+        };
+        const checkResult = await client.query(check);
+        if (checkResult.rows.length > 0) {
+            throw new Error('Category already exists');
+        }
         const query = {
             text: `INSERT INTO category
             (
+                name,
                 picto,
-                id_user,
+                id_user
             )
-                VALUES ($1, $2)
-                RETURNING *`,
+                VALUES ($1, $2, $3)
+                RETURNING *
+                `,
             values: [
+                data.name,
                 data.picto,
                 data.id_user,
-                    ],
+            ],
 
         };
         const result = await client.query(query);
@@ -44,15 +55,16 @@ const categoryDatamapper = {
 
     async updateCategory(id, data) {
         const query = {
-            text: `UPDATE category
+            text: `
+            UPDATE category
             SET
-            picto = $1,
-            id_user = $2,
-            WHERE id = $3
-            RETURNING *`,
+                name = $1,
+                picto = $2,
+            RETURNING *
+            `,
             values: [
+                data.name,
                 data.picto,
-                data.id_user,
                 id,
             ],
         };
