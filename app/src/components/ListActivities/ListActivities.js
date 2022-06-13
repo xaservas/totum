@@ -44,7 +44,7 @@ ListActivities.propTypes = {
     className: PropTypes.string,
     list_type: PropTypes.string,
     activities: PropTypes.arrayOf(PropTypes.shape({
-        id:PropTypes.number.isRequired,
+        id: PropTypes.number.isRequired,
         name: PropTypes.string.isRequired,
         level: PropTypes.string.isRequired,
         tag: PropTypes.string.isRequired,
