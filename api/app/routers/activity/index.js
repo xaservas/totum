@@ -12,9 +12,11 @@ const activityGetSchema = require('../../validation/schemas/activity/activityGet
 
 const controllerHandler = require('../../helpers/controllerHandler');
 const errorHandler = require('../../helpers/errorHandler');
+const jwt = require('../../services/token');
 
 router.route('/createNew')
     .post(
+        controllerHandler(jwt.verifyToken),
         validator('body', activityPostSchema),
         controllerHandler(activityController.createActivity),
     );
@@ -25,10 +27,12 @@ router.route('/:id/manage')
         controllerHandler(activityController.getOneActivity),
     )
     .patch(
+        controllerHandler(jwt.verifyToken),
         validator('body', activityManageSchema),
         controllerHandler(activityController.updateActivity),
     )
     .delete(
+        controllerHandler(jwt.verifyToken),
         validator('query', activityManageSchema),
         controllerHandler(activityController.removeActivity),
     );

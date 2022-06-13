@@ -18,6 +18,8 @@ const controllerHandler = require('../../helpers/controllerHandler');
 //  Require error handler
 const errorHandler = require('../../helpers/errorHandler');
 
+const jwt = require('../../services/token');
+
 router.route('/login')
     /**
         * POST /v1/user/login
@@ -119,7 +121,7 @@ router
         * GET /v1/user/{id}/manage
         * @summary Get user data by id
         * @tags Manage user
-        * @param {number} id.path - User id
+        * @param {number} id.path.required - User id
         * @return {object} 200 - User object
         * @return {object}  500 - Error
         * @example response - 200 - success response example
@@ -192,6 +194,7 @@ router
         * }
         */
     .patch(
+        controllerHandler(jwt.verifyToken),
         validator('body', userManageSchema),
         controllerHandler(userController.updateUser),
     )
@@ -225,6 +228,7 @@ router
         * }
  */
     .delete(
+        controllerHandler(jwt.verifyToken),
         validator('query', userGetSchema),
         controllerHandler(userController.removeUser),
     );
@@ -288,6 +292,7 @@ router.route('/:id/manage/passwordUpdate')
         * }
  */
     .post(
+        controllerHandler(jwt.verifyToken),
         validator('body', userManageSchema),
         controllerHandler(userController.updatePassword),
     );
@@ -323,6 +328,7 @@ router.route('/:id/manage/emailUpdate')
         * }
  */
     .post(
+        controllerHandler(jwt.verifyToken),
         validator('body', userManageSchema),
         controllerHandler(userController.updateEmail),
     );

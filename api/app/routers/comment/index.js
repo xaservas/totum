@@ -1,7 +1,7 @@
 const express = require('express');
 
 const router = express.Router();
-const activityController = require('../../controllers/api/activityController');
+const commentController = require('../../controllers/api/commentController');
 
 const apiErrorController = require('../../controllers/api/error');
 const validator = require('../../validation/validator');
@@ -12,11 +12,52 @@ const commentManageSchema = require('../../validation/schemas/comment/commentMan
 
 const controllerHandler = require('../../helpers/controllerHandler');
 const errorHandler = require('../../helpers/errorHandler');
+const jwt = require('../../services/token');
 
-// liste des routes
+router.route('/:id/user')
+    .get(
+        validator('query', commentGetSchema),
+        controllerHandler(commentController.getByUser)
+    );
+
+router.route('/:id/activity')
+    .get(
+        validator('query', commentGetSchema),
+        controllerHandler(commentController.getByActivity),
+
+    )
+
+router.route('/createNew')
+    .post(
+        validator('query', categoryPostSchema),
+        controllerHandler(commentController.createComment),
+
+    )
+
+
+router.route('/:id/manage')
+    .get(
+        validator('body', commentGetSchema),
+        controllerHandler(commentController.getOneComment),
+
+    )
+
+    .patch(
+        validator('body', commentManageSchema),
+        controllerHandler(commentController.updateComment),
+    )
+
+    .delete(
+        validator('query', commentManageSchema),
+        controllerHandler(commentController.removeComment)
+    )
+
+
 
 router.use(apiErrorController.error404);
 router.use(errorHandler);
+
+
 
 module.exports = router;
 

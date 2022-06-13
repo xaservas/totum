@@ -1,5 +1,6 @@
 import React from 'react';
 import './LoginForm.scss';
+import axios from 'axios'
 
 function LoginForm(){
 
@@ -7,6 +8,24 @@ function LoginForm(){
     const [password, setPassword] = React.useState("");
 
     const handleSubmit = (event) => {
+        axios({
+            method: 'post',
+            url: 'https://api.totum.ovh/v1/user/login',
+            data: {
+                email : 'test@test.com',
+                password: 'hash'
+            }
+        })
+        .then(function (response) {
+            console.log(response);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+
+
+
+
         console.log (`
         Email : ${email}
         Mot de passe : ${password}
