@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './activity.scss';
 import { useParams } from 'react-router-dom'
-import { findActivityById, findActivityByName } from '../../utils/dataTools';
+import { findActivityById } from '../../utils/dataTools';
 /**Xavier/10/06/2022:
  * 
  * this component could be a modal that could be used in lists and map
@@ -55,7 +55,7 @@ function Activity({
 
 Activity.propTypes = {
     className: PropTypes.string,
-    activity: PropTypes.shape({
+    activities: PropTypes.arrayOf(PropTypes.shape({
         id: PropTypes.number.isRequired,
         name: PropTypes.string.isRequired,
         description: PropTypes.string,
@@ -65,7 +65,7 @@ Activity.propTypes = {
         zip_code: PropTypes.string.isRequired,
         city: PropTypes.string.isRequired,
         country: PropTypes.string.isRequired,
-    }).isRequired
+    }).isRequired).isRequired
 };
 Activity.defaultProps = {
     className: '',
