@@ -27,7 +27,7 @@ router.route('category/createNew')
     .post(
         validator('body', categoryPostSchema),
         controllerHandler(categoryController.createCategory),
-    )
+    );
 
 router.route('')
 
