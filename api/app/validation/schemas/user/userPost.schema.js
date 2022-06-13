@@ -8,6 +8,7 @@ const meta = Joi.boolean();
 module.exports = Joi.object({
     email: emailRule.required(),
     password: textRule.required(),
+    passwordConfirmation: textRule.required(),
     firstname: textRule.required(),
     lastname: textRule.required(),
     picture: textRule,
