@@ -43,6 +43,7 @@ CREATE TABLE activity (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     name TEXT NOT NULL,
     description TEXT NOT NULL,
+    max_participants INT NOT NULL,
     date TEXT NOT NULL,
     level INT NOT NULL REFERENCES level(id) ON DELETE CASCADE,
     address TEXT NOT NULL,
@@ -79,6 +80,13 @@ CREATE TABLE user_activity (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     id_user INT NOT NULL REFERENCES users(id),
     id_activity INT NOT NULL REFERENCES activity(id),
+    created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMP
+);
+
+CREATE TABLE token_blacklist (
+    id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    token TEXT NOT NULL,
     created_at TIMESTAMP NOT NULL DEFAULT NOW(),
     updated_at TIMESTAMP
 );
