@@ -38,7 +38,22 @@ router.route('/createNew')
     )
 
 
+router.route('/:id/manage')
+    .get(
+        validator('body', commentGetSchema),
+        controllerHandler(commentController.getOneComment),
 
+    )
+
+    .patch(
+        validator('body', commentManageSchema),
+        controllerHandler(commentController.updateComment),
+    )
+
+    // .delete(
+    //     validator('query', commentManageSchema),
+    //     controllerHandler(commentController.removeComment)
+    // )
 
 
 
