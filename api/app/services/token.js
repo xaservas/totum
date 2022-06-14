@@ -24,6 +24,10 @@ const tokenController = {
 
     async verifyToken(req, res, next) {
         const token = req.headers.authorization;
+        if (!token) {
+            return res.status(401).json({ message: 'No token provided' });
+        }
+
         const trucatedToken = token.split(' ');
         let tokenToVerify;
 
@@ -34,9 +38,6 @@ const tokenController = {
             tokenToVerify = trucatedToken[0];
         }
 
-        if (!tokenToVerify) {
-            return res.status(401).json({ message: 'No token provided' });
-        }
         if (await tokenController.blacklistToken(tokenToVerify)) {
             return res.status(401).json({ message: 'Token blacklisted' });
         }
