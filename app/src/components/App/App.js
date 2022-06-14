@@ -23,7 +23,7 @@ function App() {
       <Route path="/profile" element={<Profile activities={activities}/>}></Route>
       <Route path="/activities" element={<ListActivities activities={activities}/>}></Route>
       <Route path="/activity/create" element={<CreateActivity/>}></Route>
-      <Route path="/createProfil" element={<CreateProfile/>}></Route>
+      <Route path="/profile/create" element={<CreateProfile/>}></Route>
 
     </Routes>
         
