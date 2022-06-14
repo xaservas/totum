@@ -1,32 +1,59 @@
 import React from 'react';
-import './LoginForm.scss';
-import axios from 'axios'
 
-function LoginForm(){
+import './LoginForm.scss';
+import axios from '../../../utils/axiosPool'
+// import PropTypes from 'prop-types';
+
+
+const instance  = axios.create({
+    baseUrl: 'https://api.totum.ovh/v1/',
+   /* headers: {
+                  Authorization: `bearer ${"token"}`
+              },*/
+    
+});
+
+/* https://www.bezkoder.com/react-jwt-auth/  jwt without redux>>>>trop long, local storage???*/
+// https://www.digitalocean.com/community/tutorials/how-to-add-login-authentication-to-react-applications
+
+function LoginForm({
+    setToken
+}){
 
     const [email, setEmail] = React.useState("");
     const [password, setPassword] = React.useState("");
+    // const [token, setToken] = React.useState("");
+    
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         axios({
             method: 'post',
             url: 'https://api.totum.ovh/v1/user/login',
             data: {
-                email : 'test@test.com',
-                password: 'hash'
-            }
+                email : `${email}`,
+                password: `${password}`
+            },
         })
         .then(function (response) {
-            console.log(response);
+            localStorage.setItem('token', response.data.token);
           })
           .catch(function (error) {
-            console.log(error);
+           // console.log(error);
           });
-
-        console.log (`
+         // console.log(instanceAxios);
+        {/*console.log (`
         Email : ${email}
         Mot de passe : ${password}
-        `)
+        `)*/}
+
+        //   axios.get('https://api.totum.ovh/v1/user/logout', {
+        //       headers: {
+        //           Authorization: `bearer ${token}`
+        //       },
+        //   })
+
+
+
         event.preventDefault ();
     }
 
@@ -52,5 +79,10 @@ function LoginForm(){
         </form>
         );
 };
+
+
+// LoginForm.propTypes = {
+//     setToken: PropTypes.func.isRequired
+// };
 
 export default LoginForm;
