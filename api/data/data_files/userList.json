@@ -1,0 +1,44 @@
+[
+    {
+        "email": "test@test.com",
+        "password": "hash",
+        "passwordConfirmation": "hash",
+        "firstname": "firstname",
+        "lastname": "lastname",
+        "about": "presentation about user",
+        "address": "address",
+        "zip_code": "zip_code",
+        "city": "city",
+        "country": "country",
+        "cookie": "true / false (false by default)",
+        "landmark": "true / false (false by default)"
+      },
+      {
+        "email": "test@test.com",
+        "password": "hash",
+        "passwordConfirmation": "hash",
+        "firstname": "firstname",
+        "lastname": "lastname",
+        "about": "presentation about user",
+        "address": "address",
+        "zip_code": "zip_code",
+        "city": "city",
+        "country": "country",
+        "cookie": "true / false (false by default)",
+        "landmark": "true / false (false by default)"
+      },
+      {
+        "email": "test@test.com",
+        "password": "hash",
+        "passwordConfirmation": "hash",
+        "firstname": "firstname",
+        "lastname": "lastname",
+        "about": "presentation about user",
+        "address": "address",
+        "zip_code": "zip_code",
+        "city": "city",
+        "country": "country",
+        "cookie": "true / false (false by default)",
+        "landmark": "true / false (false by default)"
+      }
+]

@@ -27,6 +27,7 @@ const tokenController = {
         const trucatedToken = token.split(' ');
         let tokenToVerify;
 
+        // Check if the token have the Bearer prefix
         if (trucatedToken.length > 1) {
             tokenToVerify = trucatedToken[1];
         } else {

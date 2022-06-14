@@ -23,9 +23,6 @@ function LoginForm(){
             console.log(error);
           });
 
-
-
-
         console.log (`
         Email : ${email}
         Mot de passe : ${password}

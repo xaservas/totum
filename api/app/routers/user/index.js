@@ -67,10 +67,10 @@ router.route('/login')
 
 router.route('/logout')
     /**
-     * POST /v1/user/logout
+     * GET /v1/user/logout
      * @summary Logout user
      * @tags Manage user
-     * @security Bearer
+     * @security BearerAuth
      * @return {string} 200 - Logout success
      * @return {object}  500 - Error
      * @example response - 200 - success response example
@@ -99,6 +99,7 @@ router.route('/createNew')
         * {
         * "email": "test@test.com",
         * "password": "hash",
+        * "passwordConfirmation": "hash",
         * "firstname": "firstname",
         * "lastname": "lastname",
         * "about": "presentation about user",
