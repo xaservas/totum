@@ -94,9 +94,12 @@ CREATE TABLE token_blacklist (
 ALTER TABLE users
 ADD COLUMN meta_id INT REFERENCES meta(id);
 
+COMMIT;
+
+BEGIN;
+
 INSERT INTO level (name) VALUES ('Beginner');
 INSERT INTO level (name) VALUES ('Intermediate');
 INSERT INTO level (name) VALUES ('Advanced');
-
 
 COMMIT;
