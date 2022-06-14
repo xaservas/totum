@@ -33,7 +33,7 @@ router.route('/login')
         * @example request - User data
         * {
         *  "email": "test@test.com",
-        *  "password": "test"
+        *  "password": "hash"
         * }
         * @example response - 200 - success response example
         * {
@@ -83,7 +83,6 @@ router.route('/logout')
      * }
      */
     .get(
-        validator('query', userGetSchema),
         controllerHandler(userController.logout),
     );
 
@@ -169,7 +168,7 @@ router
         * }
         */
     .get(
-        validator('query', userGetSchema),
+        validator('params', userGetSchema),
         controllerHandler(userController.getOneUser),
     )
 
@@ -218,6 +217,7 @@ router
         */
     .patch(
         controllerHandler(jwt.verifyToken),
+        validator('params', userGetSchema),
         validator('body', userManageSchema),
         controllerHandler(userController.updateUser),
     )
@@ -253,7 +253,7 @@ router
  */
     .delete(
         controllerHandler(jwt.verifyToken),
-        validator('query', userGetSchema),
+        validator('params', userGetSchema),
         controllerHandler(userController.removeUser),
     );
 
@@ -283,7 +283,7 @@ router.route('/:id/activity')
         * }
  */
     .get(
-        validator('query', userGetSchema),
+        validator('params', userGetSchema),
         controllerHandler(userController.getActivity),
     );
 
@@ -318,6 +318,7 @@ router.route('/:id/manage/passwordUpdate')
  */
     .post(
         controllerHandler(jwt.verifyToken),
+        validator('params', userGetSchema),
         validator('body', userManageSchema),
         controllerHandler(userController.updatePassword),
     );
@@ -355,6 +356,7 @@ router.route('/:id/manage/emailUpdate')
  */
     .post(
         controllerHandler(jwt.verifyToken),
+        validator('params', userGetSchema),
         validator('body', userManageSchema),
         controllerHandler(userController.updateEmail),
     );
