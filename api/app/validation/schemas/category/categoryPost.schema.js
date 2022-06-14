@@ -6,7 +6,7 @@ const pictoRule = Joi.string().min(2);
 
 module.exports = Joi.object({
     id: numberRule,
-    name: textRule,
+    name: textRule.required(),
     picto: pictoRule,
     id_user: numberRule,
 });

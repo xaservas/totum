@@ -24,18 +24,20 @@ const tokenController = {
 
     async verifyToken(req, res, next) {
         const token = req.headers.authorization;
+        if (!token) {
+            return res.status(401).json({ message: 'No token provided' });
+        }
+
         const trucatedToken = token.split(' ');
         let tokenToVerify;
 
+        // Check if the token have the Bearer prefix
         if (trucatedToken.length > 1) {
             tokenToVerify = trucatedToken[1];
         } else {
             tokenToVerify = trucatedToken[0];
         }
 
-        if (!tokenToVerify) {
-            return res.status(401).json({ message: 'No token provided' });
-        }
         if (await tokenController.blacklistToken(tokenToVerify)) {
             return res.status(401).json({ message: 'Token blacklisted' });
         }

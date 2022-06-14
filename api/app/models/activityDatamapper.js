@@ -17,9 +17,6 @@ const activityDataMapper = {
             values: [idCategory],
         };
         const result = await client.query(query);
-        if (result.rows.length === 0) {
-            return null;
-        }
         return result.rows;
     },
 
@@ -29,9 +26,6 @@ const activityDataMapper = {
             values: [idGeolocalisation],
         };
         const result = await client.query(query);
-        if (result.rows.length === 0) {
-            return 'No activity found';
-        }
         return result.rows;
     },
 
@@ -45,9 +39,6 @@ const activityDataMapper = {
             values: [idKeyWord],
         };
         const result = await client.query(query);
-        if (result.rows.length === 0) {
-            return 'No results found';
-        }
         return result.rows;
     },
 
@@ -68,26 +59,28 @@ const activityDataMapper = {
             text: `INSERT INTO activity
             (
                 name,
+                description,
+                max_participants,
+                date,
                 level,
                 address,
                 zip_code,
-                description,
-                date,
                 city,
                 country,
                 landmark,
                 id_user,
                 id_category
-                )
-                VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
-                RETURNING *`,
+            ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
+            RETURNING *
+                `,
             values: [
                 data.name,
+                data.description,
+                data.max_participants,
+                data.date,
                 data.level,
                 data.address,
                 data.zip_code,
-                data.description,
-                data.date,
                 data.city,
                 data.country,
                 data.landmark,
