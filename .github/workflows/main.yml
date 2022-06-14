@@ -36,7 +36,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-      working-directory: api/
+      working-directory: ./api
 
     - uses: kenny-caldieraro/github-action-ssh-docker-compose@master
       name: Docker-Compose Remote Deployment
