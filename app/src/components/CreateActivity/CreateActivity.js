@@ -27,19 +27,17 @@ function CreateActivity({
         console.log(activity)
     };
 
-    const handleSubmit = (event) =>{
-        axios({
-            method:'post',
-            url:'https://api.totum.ovh/v1/activity/createNew',
-            data:{activity}
-        })
-        .then((response)=>{
+    const handleSubmit = async (event) =>{
+        try {
+            const response = await axios({
+                method:'post',
+                url:'https://api.totum.ovh/v1/activity/createNew',
+                data:{activity}
+            })
             console.log(response);
-        })
-        .catch((error)=>{
+        } catch (error) {
             console.log(error);
-        })
-
+        }
         console.log(`new activity object${activity}`)
         event.preventDefault();
     }
