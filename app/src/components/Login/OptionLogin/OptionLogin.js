@@ -1,6 +1,6 @@
 
 
-import './OptionLogin.scss';
+import './optionLogin.scss';
 
 function OptionLogin(){
         return (
