@@ -1,4 +1,4 @@
-import './Login.scss';
+import './login.scss';
 import React from 'react';
 import LoginForm from './LoginForm/LoginForm';
 import OptionLogin from './OptionLogin/OptionLogin';
