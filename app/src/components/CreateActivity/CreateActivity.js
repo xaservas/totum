@@ -69,7 +69,8 @@ function CreateActivity({
                     placeholder='intitulé'
                     name='name' 
                     value={activity.name} 
-                    onChange={handleChange}/>
+                    onChange={handleChange}
+                    />
                 </div>
             </div>
             <div className='field'>
