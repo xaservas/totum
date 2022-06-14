@@ -10,8 +10,8 @@
         "zip_code": "13000",
         "city": "Marseille",
         "country": "France",
-        "cookie": "true / false (false by default)",
-        "landmark": "true / false (false by default)"
+        "cookie": "true",
+        "landmark": "true"
       },
       {
         "email": "jerome24@gmail.com",
@@ -24,8 +24,8 @@
         "zip_code": "37000",
         "city": "Tours",
         "country": "France",
-        "cookie": "true / false (false by default)",
-        "landmark": "true / false (false by default)"
+        "cookie": "true",
+        "landmark": "true"
       },
       {
         "email": "juliettedu34@gmail.com",
@@ -38,8 +38,8 @@
         "zip_code": "21000",
         "city": "Dijon",
         "country": "France",
-        "cookie": "true / false (false by default)",
-        "landmark": "true / false (false by default)"
+        "cookie": "true",
+        "landmark": "true"
       },
 
       {
@@ -53,8 +53,8 @@
         "zip_code": "69000",
         "city": "Lyon",
         "country": "France",
-        "cookie": "true / false (false by default)",
-        "landmark": "true / false (false by default)"
+        "cookie": "true",
+        "landmark": "true"
       },
       {
         "email": "clem24@gmail.com",
@@ -67,8 +67,8 @@
         "zip_code": "96000",
         "city": "Lille",
         "country": "France",
-        "cookie": "true / false (false by default)",
-        "landmark": "true / false (false by default)"
+        "cookie": "true",
+        "landmark": "true"
       },
       {
         "email": "laurencedu25@gmail.com",
@@ -81,8 +81,8 @@
         "zip_code": "25000",
         "city": "Besançon",
         "country": "France",
-        "cookie": "true / false (false by default)",
-        "landmark": "true / false (false by default)"
+        "cookie": "true",
+        "landmark": "true"
       },
 
       {
@@ -93,11 +93,11 @@
         "lastname": "Smith",
         "about": "Salut moi c'est Kevin ! Passioné par le sport j'ai hâte de partager des activités avec vous",
         "address": "8 rue du volcan",
-        "zip_code": "1000",
+        "zip_code": "10000",
         "city": "Bruxelles",
         "country": "Belgique",
-        "cookie": "true / false (false by default)",
-        "landmark": "true / false (false by default)"
+        "cookie": "true",
+        "landmark": "true"
       },
       {
         "email": "paul35@gmail.com",
@@ -110,8 +110,8 @@
         "zip_code": "35000",
         "city": "Rennes",
         "country": "France",
-        "cookie": "true / false (false by default)",
-        "landmark": "true / false (false by default)"
+        "cookie": "true",
+        "landmark": "true"
       },
       {
         "email": "juliedu42@gmail.com",
@@ -124,8 +124,8 @@
         "zip_code": "42000",
         "city": "Saint-Etienne",
         "country": "France",
-        "cookie": "true / false (false by default)",
-        "landmark": "true / false (false by default)"
+        "cookie": "true",
+        "landmark": "true"
       },
       {
         "email": "karl.marx@gmail.com",
@@ -138,7 +138,7 @@
         "zip_code": "14000",
         "city": "Cean",
         "country": "France",
-        "cookie": "true / false (false by default)",
-        "landmark": "true / false (false by default)"
+        "cookie": "true",
+        "landmark": "true"
       }
 ]
