@@ -16,7 +16,7 @@ function CreateProfile(){
     const handleSubmit = (event) => {
         axios({
             method: 'post',
-            url: 'https://api.totum.ovh/v1/user/login',
+            url: 'https://api.totum.ovh/v1/user/createNew',
             data: {
                 email : 'test@test.com',
                 password: 'hash'
