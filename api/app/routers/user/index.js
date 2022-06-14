@@ -33,7 +33,7 @@ router.route('/login')
         * @example request - User data
         * {
         *  "email": "test@test.com",
-        *  "password": "test"
+        *  "password": "hash"
         * }
         * @example response - 200 - success response example
         * {

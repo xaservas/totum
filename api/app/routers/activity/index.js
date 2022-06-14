@@ -41,6 +41,7 @@ router.route('/createNew')
      * @example response - 200 - success response example
      * {
      * "id": 1,
+     * "name": "String",
      * "description": "String",
      * "max_participants": "Number Integer",
      * "date": "String",
@@ -70,13 +71,14 @@ router.route('/:id/manage')
 
 /**
      * GET /v1/activity/{id}/manage
-     * @summary Get an activity
-     * @tags activity
+     * @summary Get an activity by id
+     * @tags Activity
      * @param {number} id.path.required - activity id
      * @return {object} 200 - Comments object
      * @return {object}  500 - Error
      * @example response - 200 - success response example
      * {
+     * "id": 1,
      * "name": "String",
      * "description": "String",
      * "max_participants": "Number Integer",
@@ -88,22 +90,23 @@ router.route('/:id/manage')
      * "country": "String",
      * "landmark": "String",
      * "id_user": "Number Integer",
-     * "id_category": "Number Integer"
+     * "id_category": "Number Integer",
+     * "created_at": "2020-05-05T14:00:00.000Z",
+     * "updated_at": "2020-05-05T14:00:00.000Z"
      * }
      * @example response - 500 - error response example
      * {
      * "error": "Une erreur est survenue, veuillez réessayer plus tard…"
      * }
      */
-
     .get(
-        validator('query', activityGetSchema),
+        validator('params', activityGetSchema),
         controllerHandler(activityController.getOneActivity),
     )
 
 /**
      * PATCH /v1/activity/{id}/manage
-     * @summary Update a activity by id
+     * @summary Update an activity by id
      * @tags Activity
      * @security BearerAuth
      * @param {number} id.path.required - Activity id
@@ -127,6 +130,7 @@ router.route('/:id/manage')
      * }
      * @example response - 200 - success response example
      * {
+     * "id": 1,
      * "name": "String",
      * "description": "String",
      * "max_participants": "Number Integer",
@@ -139,14 +143,14 @@ router.route('/:id/manage')
      * "landmark": "String",
      * "id_user": "Number Integer",
      * "id_category": "Number Integer",
-     * "updated_at": "2020-01-01T00:00:00.000Z"
+     * "created_at": "2020-05-05T14:00:00.000Z",
+     * "updated_at": "2020-05-05T14:00:00.000Z"
      * }
      * @example response - 500 - error response example
      * {
      * "error": "Une erreur est survenue, veuillez réessayer plus tard…"
      * }
      */
-
     .patch(
         controllerHandler(jwt.verifyToken),
         validator('body', activityManageSchema),
@@ -155,7 +159,7 @@ router.route('/:id/manage')
 
 /**
      * DELETE /v1/activity/{id}/manage
-     * @summary Delete a activity by id
+     * @summary Delete an activity by id
      * @tags Activity
      * @security BearerAuth
      * @param {number} id.path.required - Activity id
@@ -163,6 +167,7 @@ router.route('/:id/manage')
      * @return {object}  500 - Error
      * @example response - 200 - success response example
      * {
+     * "id": 1,
      * "name": "String",
      * "description": "String",
      * "max_participants": "Number Integer",
@@ -175,15 +180,14 @@ router.route('/:id/manage')
      * "landmark": "String",
      * "id_user": "Number Integer",
      * "id_category": "Number Integer",
-     * "created_at": "2020-01-01T00:00:00.000Z",
-     * "updated_at": "2020-01-01T00:00:00.000Z"
+     * "created_at": "2020-05-05T14:00:00.000Z",
+     * "updated_at": "2020-05-05T14:00:00.000Z"
      * }
      * @example response - 500 - error response example
      * {
      * "error": "Une erreur est survenue, veuillez réessayer plus tard…"
      * }
      */
-
     .delete(
         controllerHandler(jwt.verifyToken),
         validator('query', activityManageSchema),
@@ -192,35 +196,34 @@ router.route('/:id/manage')
 
 router.route('/:id/user')
 /**
-     * GET /v1/comment/{id}/activity
-     * @summary Get all activities of an user
-     * @tags activity
+     * GET /v1/activity/{id}/user
+     * @summary Get all users of an activity
+     * @tags Activity
      * @param {number} id.path.required - User id
      * @return {object} 200 - Comments object
      * @return {object}  500 - Error
      * @example response - 200 - success response example
+     * [
      * {
-     * "name": "String",
-     * "description": "String",
-     * "max_participants": "Number Integer",
-     * "date": "String",
-     * "level": "Number Integer",
-     * "address": "String",
-     * "zip_code": "String",
-     * "city": "String",
-     * "country": "String",
-     * "landmark": "String",
-     * "id_user": "Number Integer",
-     * "id_category": "Number Integer"
+     * "id": 1,
+     * "activity_name": "String",
+     * "activity_description": "String",
+     * "activity_date": "String",
+     * "category_name": "String",
+     * "level_name": "String",
+     * "participant_id": "Number Integer",
+     * "participant_email": "String",
+     * "participant_firstname": "String",
+     * "participant_lastname": "String"
      * }
+     * ]
      * @example response - 500 - error response example
      * {
      * "error": "Une erreur est survenue, veuillez réessayer plus tard…"
      * }
      */
-
     .get(
-        validator('query', activityGetSchema),
+        validator('params', activityGetSchema),
         controllerHandler(activityController.getUser),
     );
 
