@@ -58,6 +58,18 @@ const register = {
     },
 
     async updateRegister(data, id) {
+        const check = {
+            text: `
+            SELECT *
+            FROM user_activity
+            WHERE id_user = $1 AND id_activity = $2
+            `,
+            values: [data.id_user, data.id_activity],
+        };
+        const checkResult = await client.query(check);
+        if (checkResult.rows.length > 0) {
+            throw new Error('User as already registered for this activity');
+        }
         const query = {
             text: `
             UPDATE user_activity

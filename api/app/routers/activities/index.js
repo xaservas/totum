@@ -20,6 +20,7 @@ router.route('/')
         * @tags Activities
         * @return {object} 200 - Activities object
         * @return {object}  500 - Error
+        * @return {object}  400 - Error
         * @example response - 200 - success response example
         * [
         * {
@@ -44,6 +45,10 @@ router.route('/')
         * {
         * "error": "Une erreur est survenue, veuillez réessayer plus tard…"
         * }
+        * @example response - 400 - error response example
+        * {
+        * "error": "No activities found"
+        * }
         */
     .get(
         controllerHandler(activityController.getAll),
@@ -57,6 +62,7 @@ router.route('/:category/category')
      * @param {number} category.path.required - Category name
      * @return {object} 200 - Category object
      * @return {object}  500 - Error
+     * @return {object}  400 - Error
      * @example response - 200 - success response example
      * [
      * {
@@ -81,9 +87,13 @@ router.route('/:category/category')
      * {
      * "error": "Une erreur est survenue, veuillez réessayer plus tard…"
      * }
+     * @example response - 400 - error response example
+     * {
+     * "error": "No activities found"
+     * }
      */
     .get(
-        validator('query', activityCategorySchema),
+        validator('params', activityCategorySchema),
         controllerHandler(activityController.getByCategory),
     );
 
@@ -95,6 +105,7 @@ router.route('/:geo/geo')
      * @param {string} geo.path.required - Geo name
      * @return {object} 200 - Geo object
      * @return {object}  500 - Error
+     * @return {object}  400 - Error
      * @example response - 200 - success response example
      * [
      * {
@@ -119,9 +130,13 @@ router.route('/:geo/geo')
      * {
      * "error": "Une erreur est survenue, veuillez réessayer plus tard…"
      * }
+     * @example response - 400 - error response example
+     * {
+     * "error": "No activities found"
+     * }
      */
     .get(
-        validator('query', activityGeoSchema),
+        validator('params', activityGeoSchema),
         controllerHandler(activityController.getByGeo),
     );
 
@@ -133,6 +148,7 @@ router.route('/:search/search')
      * @param {string} search.path.required - Search name
      * @return {object} 200 - Search object
      * @return {object}  500 - Error
+     * @return {object}  400 - Error
      * @example response - 200 - success response example
      * [
      * {
@@ -156,6 +172,10 @@ router.route('/:search/search')
      * @example response - 500 - error response example
      * {
      * "error": "Une erreur est survenue, veuillez réessayer plus tard…"
+     * }
+     * @example response - 400 - error response example
+     * {
+     * "error": "No activities found"
      * }
      */
     .get(

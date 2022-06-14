@@ -1,8 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './createActivity.scss';
+import axios from 'axios';
 
-function CreateActivity({...rest}){
+function CreateActivity({
+    ...rest
+}){
     const [activity, setActivity] = React.useState({
         name:"",
         level:"",
@@ -25,7 +28,19 @@ function CreateActivity({...rest}){
     };
 
     const handleSubmit = (event) =>{
-        console.log(activity)
+        axios({
+            method:'post',
+            url:'https://api.totum.ovh/v1/activity/createNew',
+            data:{activity}
+        })
+        .then((response)=>{
+            console.log(response);
+        })
+        .catch((error)=>{
+            console.log(error);
+        })
+
+        console.log(`new activity object${activity}`)
         event.preventDefault();
     }
 
@@ -54,7 +69,8 @@ function CreateActivity({...rest}){
                     placeholder='intitulé'
                     name='name' 
                     value={activity.name} 
-                    onChange={handleChange}/>
+                    onChange={handleChange}
+                    />
                 </div>
             </div>
             <div className='field'>
@@ -113,6 +129,7 @@ function CreateActivity({...rest}){
         </div>*/}
             <div className='field'>
                 <label className='label'>Date</label>
+                {/*Find a calendar module */}
                 <div className='control'>
                     <input 
                     className='input' 
@@ -124,6 +141,7 @@ function CreateActivity({...rest}){
                 </div>
             </div>
             <div className='field'>
+                {/*might be a select and give options according to ux */}
                 <label className='label'>Niveau</label>
                 <div className='control'>
                     <input 
@@ -150,13 +168,21 @@ function CreateActivity({...rest}){
             </div>
             <div className='field is-grouped'>
                 <p className='control'>
+                    {/*redirect to the activity page */}
                     <button 
                     className='button is-primary'
                     type='submit'
-                    >Submit</button>
+                    >
+                    Submit
+                    </button>
                 </p>
                 <p className='control'>
-                    <button className='button is-light'>Cancel</button>
+                    {/*redirect to root */}
+                    <button 
+                    className='button is-light'
+                    >
+                    Cancel
+                    </button>
                 </p>
             </div>
 

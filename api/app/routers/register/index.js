@@ -89,6 +89,11 @@ router.route('/:id/manage')
         * @param {object} request.body.required - User id && Activity id
         * @return {object} 200 - Register object
         * @return {object}  500 - Error
+        * @example request - User data
+        * {
+        * "id_user": "Number Integer",
+        * "id_activity": "Number Integer"
+        * }
         * @example response - 200 - success response example
         * {
         * "id": 1,
