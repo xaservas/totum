@@ -20,3 +20,5 @@ jobs:
         destination_repo: 'kenny-caldieraro/api_totum'
         user_email: 'kenny.caldieraro@gmail.com'
         user_name: 'kenny-caldieraro'
+        destination_branch: 'main'
+        
