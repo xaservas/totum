@@ -1,5 +1,6 @@
 require('dotenv').config();
 const express = require('express');
+const cors = require('cors');
 const expressJSDocSwagger = require('express-jsdoc-swagger');
 const logger = require('./app/helpers/logger');
 
@@ -16,6 +17,7 @@ const options = {
     info: {
         version: '1.0.0',
         title: 'Totum',
+        description: 'Totum API',
     },
     baseDir: __dirname,
     filesPattern: './**/*.js',
@@ -23,6 +25,14 @@ const options = {
     exposeSwaggerUI: true,
     notRequiredAsNullable: false,
     swaggerUiOptions: {},
+
+    security: {
+        BearerAuth: {
+            type: 'http',
+            scheme: 'bearer',
+        },
+    },
+
 };
 
 expressJSDocSwagger(app)(options);
@@ -31,6 +41,10 @@ expressJSDocSwagger(app)(options);
 app.use(express.json());
 // On peut si on veut le permettre, ajouter l'interpretation de données sous forme urlencoded
 app.use(express.urlencoded({ extended: true }));
+
+app.use(cors({
+    origin: '*',
+}));
 
 app.use(router);
 

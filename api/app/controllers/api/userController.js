@@ -1,4 +1,5 @@
 const userDatamapper = require('../../models/userDatamapper');
+const jwt = require('../../services/token');
 
 const userController = {
     async getAll(_, res) {
@@ -10,15 +11,17 @@ const userController = {
         const { email, password } = req.body;
         const user = await userDatamapper.login(email, password);
         if (user) {
-            res.json(user);
+            const token = jwt.generateToken(user.email);
+            res.json({ user, token });
         } else {
             res.status(401).json({ message: 'Invalid credentials' });
         }
     },
 
-    logout(req, res) {
-        // destroy session
-        res.json({ message: 'Logout successful' });
+    async logout(req, res) {
+        const token = req.headers.authorization;
+        await userDatamapper.logout(token);
+        res.json('User logged out');
     },
 
     async updatePassword(req, res) {
@@ -56,8 +59,12 @@ const userController = {
 
     async createUser(req, res) {
         const data = req.body;
-        const user = await userDatamapper.createUser(data);
-        res.json(user);
+        if (data.password === data.passwordConfirmation) {
+            const user = await userDatamapper.createUser(data);
+            res.json(user);
+        } else {
+            res.status(401).json({ message: 'Passwords do not match' });
+        }
     },
 
     async getOneUser(req, res) {
