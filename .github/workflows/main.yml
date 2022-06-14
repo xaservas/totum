@@ -21,7 +21,7 @@ jobs:
 
       - uses: iamsauravsharma/create-dotenv@v1.2.1
         with:
-          directory: 'api/'
+          directory: './api/'
         env:
           PORT: ${{ secrets.PORT }}
           DB_USER: ${{ secrets.DB_USER }}
