@@ -4,7 +4,7 @@ const users = require('./data_files/userList.json');
 const categoryList = require('./data_files/categoryList.json');
 const activitiesList = require('./data_files/activitiesList.json');
 
-const TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoidGVzdEB0ZXN0LmNvbSIsImlhdCI6MTY1NTIwODQ1NCwiZXhwIjoxNjU1Mjk0ODU0fQ.s40_7yG4OnWeGLZhGuvgPHFeagnnENDJkkHXYHeDWF4';
+const TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoianVsaWV0dGVkdTM0QGdtYWlsLmNvbSIsImlhdCI6MTY1NTIxMTQwMSwiZXhwIjoxNjU1Mjk3ODAxfQ.snHUazSRBWLcRI0mLoh7nP3yf-h7js3fzORVCv1dVQ8';
 
 users.forEach((user) => {
     const query = {
@@ -28,8 +28,7 @@ users.forEach((user) => {
             Authorization: `Bearer ${TOKEN}`,
         },
         body: JSON.stringify(query),
-    }).then((res) => res.json())
-        .then((data) => console.log(data));
+    }).then((res) => res.json());
 });
 
 for (let i = 0; i < Object.keys(categoryList).length; i++) {
@@ -44,8 +43,7 @@ for (let i = 0; i < Object.keys(categoryList).length; i++) {
                 Authorization: `Bearer ${TOKEN}`,
             },
             body: JSON.stringify(query),
-        }).then((res) => res.json())
-            .then((data) => console.log(data));
+        }).then((res) => res.json());
     }
 }
 
@@ -71,6 +69,5 @@ activitiesList.forEach((activity) => {
             Authorization: `Bearer ${TOKEN}`,
         },
         body: JSON.stringify(query),
-    }).then((res) => res.json())
-        .then((data) => console.log(data));
+    }).then((res) => res.json());
 });
