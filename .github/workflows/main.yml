@@ -47,4 +47,4 @@ jobs:
         ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
         ssh_user: ${{ secrets.SSH_USER }}
         docker_compose_prefix: oclock
-        docker_compose_filename : docker-compose.yml
+        docker_compose_filename : ./api/docker-compose.yml
