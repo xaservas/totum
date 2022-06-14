@@ -55,7 +55,6 @@ router.route('/category/:id/manage')
         controllerHandler(jwt.verifyToken),
         validator('body', categoryManageSchema),
         controllerHandler(categoryController.updateCategory),
-
     )
 
     .delete(
