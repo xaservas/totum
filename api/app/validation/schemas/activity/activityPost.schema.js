@@ -1,13 +1,14 @@
 const Joi = require('joi');
 
-const textRule = Joi.string().min(2).pattern(/^[a-zA-ZÀ-ÿ0-9 ']+$/);
-const numberRule = Joi.number().min(0);
+const textRule = Joi.string().min(2).pattern(/^[a-zA-ZÀ-ÿ0-9 ']+$/).required();
+const numberRule = Joi.number().min(0).required();
 
 module.exports = Joi.object({
     name: textRule,
     description: textRule,
+    max_participants: numberRule,
     date: textRule,
-    level: textRule,
+    level: numberRule,
     address: textRule,
     zip_code: textRule,
     city: textRule,
