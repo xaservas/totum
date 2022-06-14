@@ -68,7 +68,7 @@ router.route('/createNew')
 
 router.route('/:id/manage')
 
-         /**
+/**
      * GET /v1/activity/{id}/manage
      * @summary Get an activity
      * @tags activity
@@ -76,7 +76,6 @@ router.route('/:id/manage')
      * @return {object} 200 - Comments object
      * @return {object}  500 - Error
      * @example response - 200 - success response example
-     * [
      * {
      * "name": "String",
      * "description": "String",
@@ -91,7 +90,6 @@ router.route('/:id/manage')
      * "id_user": "Number Integer",
      * "id_category": "Number Integer"
      * }
-     * ]
      * @example response - 500 - error response example
      * {
      * "error": "Une erreur est survenue, veuillez réessayer plus tard…"
@@ -103,7 +101,7 @@ router.route('/:id/manage')
         controllerHandler(activityController.getOneActivity),
     )
 
-     /**
+/**
      * PATCH /v1/activity/{id}/manage
      * @summary Update a activity by id
      * @tags Activity
@@ -140,7 +138,7 @@ router.route('/:id/manage')
      * "country": "String",
      * "landmark": "String",
      * "id_user": "Number Integer",
-     * "id_category": "Number Integer"
+     * "id_category": "Number Integer",
      * "updated_at": "2020-01-01T00:00:00.000Z"
      * }
      * @example response - 500 - error response example
@@ -155,7 +153,7 @@ router.route('/:id/manage')
         controllerHandler(activityController.updateActivity),
     )
 
-     /**
+/**
      * DELETE /v1/activity/{id}/manage
      * @summary Delete a activity by id
      * @tags Activity
@@ -176,7 +174,7 @@ router.route('/:id/manage')
      * "country": "String",
      * "landmark": "String",
      * "id_user": "Number Integer",
-     * "id_category": "Number Integer"
+     * "id_category": "Number Integer",
      * "created_at": "2020-01-01T00:00:00.000Z",
      * "updated_at": "2020-01-01T00:00:00.000Z"
      * }
@@ -193,7 +191,7 @@ router.route('/:id/manage')
     );
 
 router.route('/:id/user')
-     /**
+/**
      * GET /v1/comment/{id}/activity
      * @summary Get all activities of an user
      * @tags activity
@@ -201,7 +199,6 @@ router.route('/:id/user')
      * @return {object} 200 - Comments object
      * @return {object}  500 - Error
      * @example response - 200 - success response example
-     * [
      * {
      * "name": "String",
      * "description": "String",
@@ -216,7 +213,6 @@ router.route('/:id/user')
      * "id_user": "Number Integer",
      * "id_category": "Number Integer"
      * }
-     * ]
      * @example response - 500 - error response example
      * {
      * "error": "Une erreur est survenue, veuillez réessayer plus tard…"

@@ -54,7 +54,7 @@ router.route('category/createNew')
      * @example response - 200 - success response example
      * {
      * "picture": "<FontAwesomeIcon icon='fa-thin fa-alicorn' />",
-     * "id_user": 1,
+     * "id_user": 1
      * }
      * @example response - 500 - error response example
      * {
@@ -92,7 +92,7 @@ router.route('/category/:id/manage')
         controllerHandler(categoryController.getOneCategory),
     )
 
-         /**
+/**
      * PATCH /v1/category/{id}/manage
      * @summary Update a category by id
      * @tags Category
@@ -124,7 +124,7 @@ router.route('/category/:id/manage')
         controllerHandler(categoryController.updateCategory),
     )
 
-     /**
+/**
      * DELETE /v1/category/{id}/manage
      * @summary Delete a category by id
      * @tags Category
