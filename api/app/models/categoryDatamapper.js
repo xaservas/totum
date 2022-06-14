@@ -54,6 +54,14 @@ const categoryDatamapper = {
     },
 
     async updateCategory(id, data) {
+        const check = {
+            text: 'SELECT * FROM category WHERE name = $1',
+            values: [data.name],
+        };
+        const checkResult = await client.query(check);
+        if (checkResult.rows.length > 0) {
+            throw new Error('Category already exists');
+        }
         const query = {
             text: `
             UPDATE category
@@ -61,6 +69,7 @@ const categoryDatamapper = {
                 name = $1,
                 picto = $2,
                 updated_at = NOW()
+            WHERE id = $3
             RETURNING *
             `,
             values: [

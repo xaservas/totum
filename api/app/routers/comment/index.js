@@ -47,7 +47,7 @@ router.route('/:id/user')
      * }
      */
     .get(
-        validator('query', commentGetSchema),
+        validator('params', commentGetSchema),
         controllerHandler(commentController.getByUser),
     );
 
@@ -79,7 +79,7 @@ router.route('/:id/activity')
      * }
      */
     .get(
-        validator('query', commentGetSchema),
+        validator('params', commentGetSchema),
         controllerHandler(commentController.getByActivity),
     );
 
@@ -101,10 +101,13 @@ router.route('/createNew')
      * }
      * @example response - 200 - success response example
      * {
+     * "id": 1,
      * "content": "string",
      * "picture": "string",
      * "id_user": 1,
-     * "id_activity": 1
+     * "id_activity": 1,
+     * "created_at": "2020-01-01T00:00:00.000Z",
+     * "updated_at": "2020-01-01T00:00:00.000Z"
      * }
      * @example response - 500 - error response example
      * {
@@ -113,7 +116,7 @@ router.route('/createNew')
      */
     .post(
         controllerHandler(jwt.verifyToken),
-        validator('query', commentPostSchema),
+        validator('body', commentPostSchema),
         controllerHandler(commentController.createComment),
     );
 
@@ -127,10 +130,13 @@ router.route('/:id/manage')
      * @return {object}  500 - Error
      * @example response - 200 - success response example
      * {
+     * "id": 1,
      * "content": "string",
      * "picture": "string",
      * "id_user": 1,
-     * "id_activity": 1
+     * "id_activity": 1,
+     * "created_at": "2020-01-01T00:00:00.000Z",
+     * "updated_at": "2020-01-01T00:00:00.000Z"
      * }
      * @example response - 500 - error response example
      * {
@@ -138,7 +144,7 @@ router.route('/:id/manage')
      * }
      */
     .get(
-        validator('body', commentGetSchema),
+        validator('params', commentGetSchema),
         controllerHandler(commentController.getOneComment),
     )
 
@@ -158,8 +164,12 @@ router.route('/:id/manage')
      * }
      * @example response - 200 - success response example
      * {
+     * "id": 1,
      * "content": "string",
      * "picture": "string",
+     * "id_user": 1,
+     * "id_activity": 1,
+     * "created_at": "2020-01-01T00:00:00.000Z",
      * "updated_at": "2020-01-01T00:00:00.000Z"
      * }
      * @example response - 500 - error response example
@@ -169,6 +179,7 @@ router.route('/:id/manage')
      */
     .patch(
         controllerHandler(jwt.verifyToken),
+        validator('params', commentGetSchema),
         validator('body', commentManageSchema),
         controllerHandler(commentController.updateComment),
     )
@@ -183,6 +194,7 @@ router.route('/:id/manage')
      * @return {object}  500 - Error
      * @example response - 200 - success response example
      * {
+     * "id": 1,
      * "content": "string",
      * "picture": "string",
      * "id_user": 1,
@@ -197,7 +209,7 @@ router.route('/:id/manage')
      */
     .delete(
         controllerHandler(jwt.verifyToken),
-        validator('query', commentManageSchema),
+        validator('params', commentGetSchema),
         controllerHandler(commentController.removeComment),
     );
 

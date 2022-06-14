@@ -13,7 +13,7 @@ router.use('/v1/user', routerUser);
 router.use('/v1/activities', routerActivities);
 router.use('/v1/activity', routerActivity);
 router.use('/v1/comment', routerComment);
-router.use('/v1/caterory', routerCategory);
+router.use('/v1/category', routerCategory);
 router.use('/v1/register', routerRegister);
 
 module.exports = router;

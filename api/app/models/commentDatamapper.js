@@ -11,7 +11,7 @@ const commentDatamapper = {
                         comment.id_user AS comment_id_user,
                         users.email AS user_email,
                         users.firstname AS user_firstname,
-                        users.lastname AS user_lastname
+                        users.lastname AS user_lastname,
                         activity.id AS activity_id,
                         activity.name AS activity_name
                     FROM comment
@@ -22,9 +22,6 @@ const commentDatamapper = {
             values: [idUser],
         };
         const result = await client.query(query);
-        if (result.rows.length === 0) {
-            return 'No results found';
-        }
         return result.rows;
     },
 
@@ -38,7 +35,7 @@ const commentDatamapper = {
                         comment.id_user AS comment_id_user,
                         users.email AS user_email,
                         users.firstname AS user_firstname,
-                        users.lastname AS user_lastname
+                        users.lastname AS user_lastname,
                         activity.id AS activity_id,
                         activity.name AS activity_name
                     FROM comment
@@ -49,9 +46,6 @@ const commentDatamapper = {
             values: [idActivity],
         };
         const result = await client.query(query);
-        if (result.rows.length === 0) {
-            return 'No results found';
-        }
         return result.rows;
     },
 
@@ -96,7 +90,7 @@ const commentDatamapper = {
             SET
             content = $1,
             picture = $2,
-            updated_at = NOW(),
+            updated_at = NOW()
             WHERE id = $3
             RETURNING *`,
             values: [
