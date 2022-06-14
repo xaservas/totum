@@ -5,7 +5,8 @@ services:
       image: postgres:latest
       container_name: db_totum
       volumes:
-       - ./data/deploy/:/docker-entrypoint-initdb.d/
+       - ./data/deploy/:/docker-entrypoint-initdb.d
+       - database_totum:/var/lib/postgresql/data
       restart: always
       environment:
         POSTGRES_PASSWORD: totum
@@ -34,8 +35,11 @@ services:
         - traefik.http.routers.totum.tls.certresolver=lets-encrypt
         - traefik.port=80
 
+volumes:
+    database_totum:
+        external: false
+
 networks:
   default:
     external:
       name: web
-
