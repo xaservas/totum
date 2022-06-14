@@ -15,7 +15,7 @@ jobs:
       uses: andstor/copycat-action@v3
       with:
         personal_token: ${{ secrets.API_TOKEN_GITHUB }}
-        src_path: api/
+        src_path: api/.
         dst_path: /.
         dst_owner: kenny-caldieraro
         dst_repo_name: api_totum
