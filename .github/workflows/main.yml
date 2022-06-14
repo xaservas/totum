@@ -33,10 +33,12 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
+    default:
+      runs:
+        working-directory: ./api
 
     steps:
     - uses: actions/checkout@v2
-      working-directory: ./api
 
     - uses: kenny-caldieraro/github-action-ssh-docker-compose@master
       name: Docker-Compose Remote Deployment
