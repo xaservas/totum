@@ -17,8 +17,7 @@ jobs:
         API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
       with:
         source_folder: 'api'
-        destination_repo: 'kenny-caldieraro/api_totum'
+        destination_repo: 'kenny-caldieraro/api_totum.git'
         user_email: 'kenny.caldieraro@gmail.com'
         user_name: 'kenny-caldieraro'
         destination_branch: 'main'
-        
