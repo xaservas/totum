@@ -36,9 +36,10 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-      working-directory: ./api
+
     - uses: kenny-caldieraro/github-action-ssh-docker-compose@master
       name: Docker-Compose Remote Deployment
+      working-directory: ./api
       with:
         ssh_host: ${{ secrets.SSH_HOST }}
         ssh_port: ${{ secrets.SSH_PORT }}
