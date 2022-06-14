@@ -3,12 +3,15 @@ const activityDataMapper = require('../../models/activityDatamapper');
 const activityController = {
     async getAll(_, res) {
         const activities = await activityDataMapper.getAll();
+        if (activities.length === 0) {
+            return res.status(404).json({ error: 'No activities found' });
+        }
         return res.json(activities);
     },
 
     async getByCategory(req, res) {
         const activities = await activityDataMapper.getByCategory(req.params.category);
-        if (!activities) {
+        if (activities.length === 0) {
             return res.status(404).json({ message: 'No activities found' });
         }
         return res.json(activities);
@@ -16,11 +19,17 @@ const activityController = {
 
     async getByGeo(req, res) {
         const activities = await activityDataMapper.getByGeo(req.params.geo);
+        if (activities.length === 0) {
+            return res.status(404).json({ message: 'No activities found' });
+        }
         return res.json(activities);
     },
 
     async getBySearch(req, res) {
         const activities = await activityDataMapper.getBySearch(req.params.search);
+        if (activities.length === 0) {
+            return res.status(404).json({ message: 'No activities found' });
+        }
         return res.json(activities);
     },
 
