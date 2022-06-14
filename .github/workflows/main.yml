@@ -1,52 +1,22 @@
-name: Deploy
+name: Push File
 
 on:
   push:
     branches: [ main ]
 
-env:
-  PRODUCTION: true
-  ENV_KEY_PROJECT_NAME: dot-env
-
-defaults:
-  run:
-    working-directory: api
-
 jobs:
-  create-env-file:
-    name: Create env file
+  copy-file:
     runs-on: ubuntu-latest
-    env:
-      ENV_KEY_DEBUG: true
-      ENV_KEY_USERNAME: root
-
     steps:
-      - uses: actions/checkout@v2
+    - name: Checkout
+      uses: actions/checkout@v2
 
-      - uses: iamsauravsharma/create-dotenv@v1.2.1
-        with:
-          directory: './api/'
-        env:
-          PORT: ${{ secrets.PORT }}
-          DB_USER: ${{ secrets.DB_USER }}
-          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-          DB_NAME: ${{ secrets.DB_NAME }}
-          DB_HOST: ${{ secrets.DB_HOST }}
-          DB_PORT: ${{ secrets.DB_PORT }}
-          TOKEN_SECRET: ${{ secrets.TOKEN_SECRET }}
-
-  deploy:
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@v2
-
-    - uses: kenny-caldieraro/github-action-ssh-docker-compose@master
-      name: Docker-Compose Remote Deployment
+    - name: Pushes api folder
+      uses: datalbry/copy_folder_to_another_repo_action@1.0.0
+      env:
+        API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
       with:
-        ssh_host: ${{ secrets.SSH_HOST }}
-        ssh_port: ${{ secrets.SSH_PORT }}
-        ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
-        ssh_user: ${{ secrets.SSH_USER }}
-        docker_compose_prefix: oclock
-        docker_compose_filename : ./api/docker-compose.yml
+        source_folder: 'api'
+        destination_repo: 'kenny-caldieraro/api_totum'
+        user_email: 'kenny.caldieraro@gmail.com'
+        user_name: 'kenny-caldieraro'
