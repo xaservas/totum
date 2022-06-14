@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import './Activity.scss';
+import './activity.scss';
+import { useParams } from 'react-router-dom'
+import { findActivityById } from '../../utils/dataTools';
 /**Xavier/10/06/2022:
  * 
  * this component could be a modal that could be used in lists and map
@@ -14,26 +16,35 @@ import './Activity.scss';
  * 
  * 
  */
-function Activity({...rest}){
+function Activity({
+    activities,
+    ...rest}) {
+        //console.log(activities)
+        const { id } = useParams();
+        console.log(id);
+
+        const currentActivity = findActivityById(activities, id);
+        console.log(currentActivity);
+
    return (
        <article
            className={'activity card'}
            {...rest}
        >
            <header className='card-header'>
-                <p className='activity__name card-header-title'>Escalade</p>
-                <figure className='image is-24x24'>
+                <p className='activity__name card-header-title'>{currentActivity.name}</p>
+                <figure className='image is-48x48'>
                     <img className='activity__owner is-rounded' 
-                            src='https://dodoodad.com/wp-content/uploads/2021/01/Untitled-2-57.jpg'
-                            alt='activity.owner'/>
+                            src={currentActivity.owner_picture}
+                            alt={currentActivity.owner}/>
                 </figure>
-                <p className='activity-level'>Apéro déguisé</p>
+                <p className='activity-level'>{currentActivity.level}</p>
                 <button className="modal-close is-large" aria-label="close"></button>
            </header>
            <body className='card-content'>
                 <progress className="activity__takeholders progress" value="15" max="100">15%</progress>
-                <p className='activity__adress'>the Nose, Yosemite Park, USA</p>
-                <p className='activity__description'>Verrat de saintes fesses de ciarge de torvisse d'étole d'esprit de Jésus de plâtre de bâtard de batèche de cibouleau de viande à chien de sacrament.</p>
+                <p className='activity__adress'>{currentActivity.address}, {currentActivity.city}, {currentActivity.zip_code}, {currentActivity.country}</p>
+                <p className='activity__description'>{currentActivity.description}</p>
            </body>
            <footer className='card-footer'>
              <a href="/" className="card-footer-item">Participer</a>
@@ -44,9 +55,22 @@ function Activity({...rest}){
 
 Activity.propTypes = {
     className: PropTypes.string,
+    activities: PropTypes.arrayOf(PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        name: PropTypes.string.isRequired,
+        description: PropTypes.string,
+        date: PropTypes.string.isRequired,
+        level: PropTypes.string,
+        address: PropTypes.string.isRequired,
+        zip_code: PropTypes.string.isRequired,
+        city: PropTypes.string.isRequired,
+        country: PropTypes.string.isRequired,
+    }).isRequired).isRequired
 };
 Activity.defaultProps = {
     className: '',
+    descritpion: 'activité sans description',
+    level: 'activité sans niveau',
 };
 export default Activity;
 
