@@ -5,27 +5,22 @@ on:
     branches: [ main ]
 
 jobs:
-  create-env-file:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Create env file
-
-      - uses: ozaytsev86/create-env-file@v1
-        with:
-          ENV_PORT: ${{ secrets.PORT }}
-          ENV_DB_USER: ${{ secrets.DB_USER }}
-          ENV_DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-          ENV_DB_NAME: ${{ secrets.DB_NAME }}
-          ENV_DB_HOST: ${{ secrets.DB_HOST }}
-          ENV_DB_PORT: ${{ secrets.DB_PORT }}
-          ENV_TOKEN_SECRET: ${{ secrets.TOKEN_SECRET }}
-
   deploy:
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v2
+
+    - uses: ozaytsev86/create-env-file@v1
+      name: Create .env
+      with:
+        ENV_PORT: ${{ secrets.PORT }}
+        ENV_DB_USER: ${{ secrets.DB_USER }}
+        ENV_DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+        ENV_DB_NAME: ${{ secrets.DB_NAME }}
+        ENV_DB_HOST: ${{ secrets.DB_HOST }}
+        ENV_DB_PORT: ${{ secrets.DB_PORT }}
+        ENV_TOKEN_SECRET: ${{ secrets.TOKEN_SECRET }}
 
     - uses: kenny-caldieraro/github-action-ssh-docker-compose@master
       name: Docker-Compose Remote Deployment
@@ -36,4 +31,3 @@ jobs:
         ssh_user: ${{ secrets.SSH_USER }}
         docker_compose_prefix: oclock
         docker_compose_filename : docker-compose.yml
-
