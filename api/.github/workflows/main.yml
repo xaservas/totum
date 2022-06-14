@@ -1,0 +1,34 @@
+name: Deploy
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: DeveloperRic/action-create-env@v1.0.2
+        with:
+            include_env_vars: true
+        env:
+            PORT: ${{ secrets.PORT }}
+            DB_USER: ${{ secrets.DB_USER }}
+            DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+            DB_NAME: ${{ secrets.DB_NAME }}
+            DB_HOST: ${{ secrets.DB_HOST }}
+            DB_PORT: ${{ secrets.DB_PORT }}
+            TOKEN_SECRET: ${{ secrets.TOKEN_SECRET }}
+
+    - uses: actions/checkout@v2
+
+    - uses: kenny-caldieraro/github-action-ssh-docker-compose@master
+      name: Docker-Compose Remote Deployment
+      with:
+        ssh_host: ${{ secrets.SSH_HOST }}
+        ssh_port: ${{ secrets.SSH_PORT }}
+        ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
+        ssh_user: ${{ secrets.SSH_USER }}
+        docker_compose_prefix: oclock
+        docker_compose_filename : docker-compose.yml
