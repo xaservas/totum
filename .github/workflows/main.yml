@@ -1,23 +1,13 @@
-name: Push File
-
-on:
-  push:
-    branches: [ main ]
-
-jobs:
-  copy-file:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-
-    - name: Pushes api folder
-      uses: datalbry/copy_folder_to_another_repo_action@1.0.0
-      env:
-        API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
-      with:
-        source_folder: 'api'
-        destination_repo: 'kenny-caldieraro/api_totum'
-        user_email: 'kenny.caldieraro@gmail.com'
-        user_name: 'kenny-caldieraro'
-        destination_branch: 'main'
+- name: Copy
+  uses: andstor/copycat-action@v3
+  with:
+    personal_token: ${{ secrets.API_TOKEN_GITHUB }}
+    src_path: api/
+    dst_path: /.
+    dst_owner: kenny-caldieraro
+    dst_repo_name: api_totum
+    src_branch: main
+    dst_branch: main
+    clean: true
+    username: kenny-caldieraro
+    email: kenny.caldieraro@gmail.com
