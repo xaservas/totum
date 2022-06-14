@@ -1,5 +1,5 @@
 import React from 'react';
-import './LoginForm.scss';
+import './loginForm.scss';
 import axios from 'axios'
 
 function LoginForm(){
