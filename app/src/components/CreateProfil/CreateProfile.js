@@ -1,6 +1,6 @@
 
 import React from 'react';
-import './CreateProfile.scss';
+import './createProfile.scss';
 import axios from 'axios'
 
 function CreateProfile(){
