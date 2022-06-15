@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import './createActivity.scss';
 import axios from '../../utils/axiosPool';
@@ -6,8 +6,7 @@ import axios from '../../utils/axiosPool';
 function CreateActivity({
     ...rest
 }){
-    let categories = [] ;
-
+    const [ categories, setCategories] = React.useState([]);
     const userId = localStorage.getItem("id");
     const [activity, setActivity] = React.useState({
         name: "",
@@ -26,10 +25,10 @@ function CreateActivity({
     
     
     useEffect(() => {   
-        categories = getCategories();   
+       // setCategories (getCategories());   
         //console.log(categories);   
         //categories.forEach(category => console.log(category.name))
-       console.log(categories);
+       console.log('rien');
     }, []);
 
     const getCategories = async () => {
@@ -39,9 +38,9 @@ function CreateActivity({
                 url:'/category/categories'
             })
             
-            const categories =  response.data;
-            const categoriesNames = categories.map(category => {return category.name});
-            return categories;
+            setCategories(response.data);
+            //const categoriesNames = categories.map(category => {return category.name});
+           // return categories;
            // return response.data;
         } catch (error) {
             console.log(error);
