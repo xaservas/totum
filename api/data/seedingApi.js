@@ -4,7 +4,7 @@ const users = require('./data_files/userList.json');
 const categoryList = require('./data_files/categoryList.json');
 const activitiesList = require('./data_files/activitiesList.json');
 
-const TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoianVsaWV0dGVkdTM0QGdtYWlsLmNvbSIsImlhdCI6MTY1NTIxMTQwMSwiZXhwIjoxNjU1Mjk3ODAxfQ.snHUazSRBWLcRI0mLoh7nP3yf-h7js3fzORVCv1dVQ8';
+const TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoidGVzdEB0ZXN0LmNvbSIsImlhdCI6MTY1NTI4MTI1MSwiZXhwIjoxNjU1MzY3NjUxfQ.BbQxmgKvF8-LLn3y1JULn_aBo8fd7F6cNXS2LPoY3AQ';
 
 users.forEach((user) => {
     const query = {
@@ -21,7 +21,7 @@ users.forEach((user) => {
         cookie: user.cookie,
         landmark: user.landmark,
     };
-    fetch('https://api.totum.ovh/v1/user/createNew', {
+    fetch('http://localhost:3000/v1/user/createNew', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -36,7 +36,7 @@ for (let i = 0; i < Object.keys(categoryList).length; i++) {
         const query = {
             name: Object.values(categoryList)[i][j],
         };
-        fetch('https://api.totum.ovh/v1/category/createNew', {
+        fetch('http://localhost:3000/v1/category/createNew', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -62,7 +62,7 @@ activitiesList.forEach((activity) => {
         id_user: activity.id_user,
         id_category: activity.id_category,
     };
-    fetch('https://api.totum.ovh/v1/activity/createNew', {
+    fetch('http://localhost:3000/v1/activity/createNew', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
