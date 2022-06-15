@@ -48,9 +48,9 @@ const activityDataMapper = {
             values: [idActivity],
         };
         const result = await client.query(query);
-        if (!result.rows[0]) {
-            throw new Error('Activity not found');
-        }
+        // if (!result.rows[0]) {
+        //     throw new Error('Activity not found');
+        // }
         return result.rows;
     },
 
@@ -127,9 +127,9 @@ const activityDataMapper = {
             ],
         };
         const result = await client.query(query);
-        if (!result.rows[0]) {
-            throw new Error('Activity not found');
-        }
+        // if (!result.rows[0]) {
+        //     throw new Error('Activity not found');
+        // }
         return result.rows[0];
     },
 
@@ -139,9 +139,9 @@ const activityDataMapper = {
             values: [id],
         };
         const result = await client.query(query);
-        if (!result.rows[0]) {
-            throw new Error('Activity not found');
-        }
+        // if (!result.rows[0]) {
+        //     throw new Error('Activity not found');
+        // }
         return result.rows[0];
     },
 
@@ -169,9 +169,9 @@ const activityDataMapper = {
             values: [id],
         };
         const result = await client.query(query);
-        if (!result.rows[0]) {
-            throw new Error('User not found');
-        }
+        // if (!result.rows[0]) {
+        //     throw new Error('User not found');
+        // }
         return result.rows;
     },
 
