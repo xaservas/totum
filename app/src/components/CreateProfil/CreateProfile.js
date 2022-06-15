@@ -12,6 +12,7 @@ function CreateProfile({newValue, newValueB}){
     const [lastname, setLastname] = React.useState("");
     const [email, setEmail] = React.useState("");
     const [password, setPassword] = React.useState("");
+
     const [passwordConfirmation, setPasswordConfirmation] = React.useState("");
     const [address, setAddress] = React.useState("");
     const [zip_code, setZip_code] = React.useState("");
@@ -19,8 +20,7 @@ function CreateProfile({newValue, newValueB}){
     const [country, setCountry] = React.useState("");
     const [about, setAbout] = React.useState("");
 
-    
-   
+
 
     const handleSubmit = (event) => {
         axios({
@@ -42,8 +42,11 @@ function CreateProfile({newValue, newValueB}){
             }
         })
         .then(function (response) {
+
             console.log(response);
-            
+
+            console.log(response.data);
+
           })
           .catch(function (error) {
             console.log(error);
@@ -59,6 +62,7 @@ function CreateProfile({newValue, newValueB}){
         Ville : ${city}
         Pays: ${country}
         Présentation : ${about}
+
         `)
         event.preventDefault ();
     }
@@ -143,6 +147,14 @@ function CreateProfile({newValue, newValueB}){
             className="input"
             placeholder="Pays"
             onChange={e => setCountry (e.target.value)}
+            />
+
+<input
+            name="zip_code"
+            type="text"
+            className="input"
+            placeholder="Code Postal"
+            onChange={e => setZip_code (e.target.value)}
             />
 
             <input
