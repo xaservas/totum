@@ -35,7 +35,7 @@ function ListActivities({
             <ul className='activities'>
 
                     {activities.map(activity => (
-                    <li key='activity.id' 
+                    <li key={activity.id} 
                         className='activity panel-block'>
                             <div className='column activity-name'>{activity.name}</div>
                             <div className='column activity-date'>{activity.date}</div>    

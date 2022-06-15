@@ -1,22 +1,47 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import './createActivity.scss';
-import axios from 'axios';
+import axios from '../../utils/axiosPool';
 
 function CreateActivity({
     ...rest
 }){
+    let categories=[];
+
+    const userId = localStorage.getItem("id");
     const [activity, setActivity] = React.useState({
-        name:"",
-        level:"",
-        date:"",
-        tag: "",
-        address:"",
-        zip_code:"",
-        city:"",
-        country:"",
-        description:""
+        name: "",
+        description: "",
+        max_participants: "",
+        date: "",
+        level: "",
+        address: "",
+        zip_code: "",
+        city: "",
+        country: "",
+        landmark: "landmarkFake",
+        id_user: userId,// localStorage.getItem(user.id)
+        id_category: "" //requete get pour créer un select
     });
+    
+    
+    useEffect(() => {   
+        categories = getCategories();   
+        //console.log(categories);   
+        console.log(categories);
+    }, []);
+
+    const getCategories = async () => {
+        try {
+            const response = await axios({
+                method:'get',
+                url:'/category/categories'
+            })
+            return response.data;
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
     const handleChange = e =>{
         const { name, value } = e.target;
@@ -24,15 +49,15 @@ function CreateActivity({
             ...previousActivity,
             [name]: value
         }));
-        console.log(activity)
+        //console.log(activity)
     };
 
     const handleSubmit = async (event) =>{
         try {
             const response = await axios({
                 method:'post',
-                url:'https://api.totum.ovh/v1/activity/createNew',
-                data:{activity}
+                url:'/activity/createNew',
+                body:{activity}
             })
             console.log(response);
         } catch (error) {
@@ -41,8 +66,13 @@ function CreateActivity({
         console.log(`new activity object${activity}`)
         event.preventDefault();
     }
-
-
+/*
+    const categoriesNames = (myCategories) => {
+        myCategories.forEach(category => {
+            console.log (category.name);
+        })
+    }
+*/
    return (
        <form
            className={'createActivity'}
