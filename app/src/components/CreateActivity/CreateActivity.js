@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import './createActivity.scss';
 import axios from '../../utils/axiosPool';
@@ -25,11 +25,12 @@ function CreateActivity({
     
     
     useEffect(() => {   
+        getCategories();
        // setCategories (getCategories());   
         //console.log(categories);   
         //categories.forEach(category => console.log(category.name))
-       console.log('rien');
-    }, []);
+       console.log(categories);
+    },[]);
 
     const getCategories = async () => {
         try {
@@ -116,13 +117,13 @@ function CreateActivity({
                     value={activity.id_category} 
                     onChange={handleChange}
                     >
-                        <option value='1'>truc</option>
+                       {/* <option value='1'>truc</option>
                         <option value='2'>truc</option>
-                        <option value='3'>truc</option>
-                        {/*categories.map(category => (
-                        <option>{category.name}</option>             
+                        <option value='3'>truc</option>*/}
+                        {categories.map(category => (
+                        <option value={category.id}>{category.name}</option>             
                         )
-                        )*/}
+                        )}
                     </select>
                 </div>
             </div>
