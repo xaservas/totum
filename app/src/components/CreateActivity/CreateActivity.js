@@ -6,7 +6,7 @@ import axios from '../../utils/axiosPool';
 function CreateActivity({
     ...rest
 }){
-    let categories=[];
+    let categories = [] ;
 
     const userId = localStorage.getItem("id");
     const [activity, setActivity] = React.useState({
@@ -28,7 +28,8 @@ function CreateActivity({
     useEffect(() => {   
         categories = getCategories();   
         //console.log(categories);   
-        console.log(categories);
+        //categories.forEach(category => console.log(category.name))
+       console.log(categories.results);
     }, []);
 
     const getCategories = async () => {
@@ -37,7 +38,11 @@ function CreateActivity({
                 method:'get',
                 url:'/category/categories'
             })
-            return response.data;
+            
+            const categories =  response.data;
+            const categoriesNames = categories.map(category => {return category.name})
+            console.log(categoriesNames);
+           // return response.data;
         } catch (error) {
             console.log(error);
         }
@@ -53,6 +58,7 @@ function CreateActivity({
     };
 
     const handleSubmit = async (event) =>{
+        event.preventDefault();
         try {
             const response = await axios({
                 method:'post',
@@ -64,7 +70,6 @@ function CreateActivity({
             console.log(error);
         }
         console.log(`new activity object${activity}`)
-        event.preventDefault();
     }
 /*
     const categoriesNames = (myCategories) => {
