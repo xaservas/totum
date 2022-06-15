@@ -24,7 +24,7 @@ function LoginForm({
         if (loggedInUser) {
           console.log('tu es logué')
         } else {
-            console.log('blabla')
+            console.log("tu n'es pas connecté")
         }
       }, []);
 
