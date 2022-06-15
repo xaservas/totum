@@ -18,13 +18,14 @@ function Header({...rest}){
         <nav className="navbar" role="navigation" aria-label="main navigation">
          <div  className="navbar-brand title is large">
             <div className='barre'>
-                <div className='title'>
-                TOTUM 
+                <div className='totumtitle'>
+                    <span>TOTUM</span>
                 </div>
                 <div className='icon'>
-                <FontAwesomeIcon icon={faUser} className='navbar-item ' />
-
+                    <FontAwesomeIcon icon={faUser} className='navbar-item ' />
+                
                 </div>
+                
             </div>
             
           

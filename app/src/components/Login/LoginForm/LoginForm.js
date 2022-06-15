@@ -2,6 +2,7 @@
 import React,{useEffect} from 'react';
 import './loginForm.scss';
 import { useNavigate } from "react-router-dom";
+
 import axios from '../../../utils/axiosPool'
 //import { saveAuthorization } from '../../../utils/axiosPool';
 // import PropTypes from 'prop-types';
@@ -24,7 +25,7 @@ function LoginForm({
         if (loggedInUser) {
           console.log('tu es logué')
         } else {
-            console.log('blabla')
+            console.log("tu n'es pas connecté")
         }
       }, []);
 
@@ -68,6 +69,17 @@ function LoginForm({
             
           })
           .catch(function (error) {
+
+            console.log(error);
+          });
+         // console.log(instanceAxios);
+        //   axios.get('https://api.totum.ovh/v1/user/logout', {
+        //       headers: {
+        //           Authorization: `bearer ${token}`
+        //       },
+        //   })
+        console.log(axios);
+
            console.log(error);
           });
         

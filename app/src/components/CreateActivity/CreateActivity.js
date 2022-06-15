@@ -1,22 +1,52 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import './createActivity.scss';
-import axios from 'axios';
+import axios from '../../utils/axiosPool';
 
 function CreateActivity({
     ...rest
 }){
+    const [ categories, setCategories] = React.useState([]);
+    const userId = localStorage.getItem("id");
     const [activity, setActivity] = React.useState({
-        name:"",
-        level:"",
-        date:"",
-        tag: "",
-        address:"",
-        zip_code:"",
-        city:"",
-        country:"",
-        description:""
+        name: "",
+        description: "",
+        max_participants: "",
+        date: "",
+        level: "",
+        address: "",
+        zip_code: "",
+        city: "",
+        country: "",
+        landmark: "landmarkFake",
+        id_user: userId,// localStorage.getItem(user.id)
+        id_category: "" //requete get pour créer un select
     });
+    
+    
+    useEffect(() => {   
+        getCategories();
+       // setCategories (getCategories());   
+        //console.log(categories);   
+        //categories.forEach(category => console.log(category.name))
+       console.log(categories);
+    },[]);
+
+    const getCategories = async () => {
+        try {
+            const response = await axios({
+                method:'get',
+                url:'/category/categories'
+            })
+            
+            setCategories(response.data);
+            //const categoriesNames = categories.map(category => {return category.name});
+           // return categories;
+           // return response.data;
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
     const handleChange = e =>{
         const { name, value } = e.target;
@@ -28,21 +58,26 @@ function CreateActivity({
     };
 
     const handleSubmit = async (event) =>{
+        event.preventDefault();
         try {
             const response = await axios({
                 method:'post',
-                url:'https://api.totum.ovh/v1/activity/createNew',
-                data:{activity}
+                url:'/activity/createNew',
+                body:{activity}
             })
             console.log(response);
         } catch (error) {
             console.log(error);
         }
         console.log(`new activity object${activity}`)
-        event.preventDefault();
     }
-
-
+/*
+    const categoriesNames = (myCategories) => {
+        myCategories.forEach(category => {
+            console.log (category.name);
+        })
+    }
+*/
    return (
        <form
            className={'createActivity'}
@@ -69,6 +104,27 @@ function CreateActivity({
                     value={activity.name} 
                     onChange={handleChange}
                     />
+                </div>
+            </div>
+            <div className='field'>
+                <label className='label'>Catégorie</label>
+                <div className='select'>
+                    <select 
+                    className='input' 
+                    type='text' 
+                    placeholder='intitulé'
+                    name='id_category' 
+                    value={activity.id_category} 
+                    onChange={handleChange}
+                    >
+                       {/* <option value='1'>truc</option>
+                        <option value='2'>truc</option>
+                        <option value='3'>truc</option>*/}
+                        {categories.map(category => (
+                        <option value={category.id}>{category.name}</option>             
+                        )
+                        )}
+                    </select>
                 </div>
             </div>
             <div className='field'>
