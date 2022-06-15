@@ -142,6 +142,7 @@ router
         * GET /v1/user/{id}/manage
         * @summary Get user data by id
         * @tags Manage user
+        * @security BearerAuth
         * @param {number} id.path.required - User id
         * @return {object} 200 - User object
         * @return {object}  500 - Error
@@ -168,6 +169,7 @@ router
         * }
         */
     .get(
+        controllerHandler(jwt.verifyToken),
         validator('params', userGetSchema),
         controllerHandler(userController.getOneUser),
     )
@@ -194,6 +196,7 @@ router
         * "landmark": "true / false (false by default)"
         * }
         * @example response - 200 - success response example
+        * [
         * {
         * "id": 1,
         * "email": "test@test.com",
@@ -209,7 +212,16 @@ router
         * "created_at": "2020-05-05T14:00:00.000Z",
         * "updated_at": "2020-05-05T14:00:00.000Z",
         * "meta_id": 1
+        * },
+        * {
+        * "id": 1,
+        * "cookie": "boolean",
+        * "landmark": "boolean",
+        * "id_user": 1,
+        * "created_at": "2020-05-05T14:00:00.000Z",
+        * "updated_at": "2020-05-05T14:00:00.000Z"
         * }
+        * ]
         *  @example response - 500 - error response example
         * {
         *  "error": "Une erreur est survenue, veuillez réessayer plus tard…"
@@ -262,10 +274,12 @@ router.route('/:id/activity')
         * GET /v1/user/{id}/activity
         * @summary Get user activities by id
         * @tags Manage user
+        * @security BearerAuth
         * @param {number} id.path.required - User id
         * @return {array<object>} 200 - Array of activities for user
         * @return {object}  500 - Error
         * @example response - 200 - success response example
+        * [
         * {
         * "user_id": 1,
         * "user_email": "test@test.com",
@@ -277,12 +291,14 @@ router.route('/:id/activity')
         * "category_name": "category name",
         * "level_name": "level name"
         * }
+        * ]
         *  @example response - 500 - error response example
         * {
         * "error": "Une erreur est survenue, veuillez réessayer plus tard…"
         * }
  */
     .get(
+        controllerHandler(jwt.verifyToken),
         validator('params', userGetSchema),
         controllerHandler(userController.getActivity),
     );
