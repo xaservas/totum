@@ -49,9 +49,9 @@ const activityDataMapper = {
         };
         const result = await client.query(query);
         if (!result.rows[0]) {
-            throw new Error('Activity not found');
+            return undefined;
         }
-        return result.rows;
+        return result.rows[0];
     },
 
     async createActivity(data) {
@@ -128,7 +128,7 @@ const activityDataMapper = {
         };
         const result = await client.query(query);
         if (!result.rows[0]) {
-            throw new Error('Activity not found');
+            return undefined;
         }
         return result.rows[0];
     },
@@ -170,7 +170,7 @@ const activityDataMapper = {
         };
         const result = await client.query(query);
         if (!result.rows[0]) {
-            throw new Error('User not found');
+            return undefined;
         }
         return result.rows;
     },
