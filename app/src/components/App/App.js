@@ -1,9 +1,9 @@
 import React from "react";
 
 import Header from "../Header/Header";
-// import Profile from "../Profile/Profile";
-// import Activity from "../Activity/Activity";
-// import ListActivities from "../ListActivities/ListActivities";
+import Profile from "../Profile/Profile";
+import Activity from "../Activity/Activity";
+import ListActivities from "../ListActivities/ListActivities";
 import { Route, Routes } from 'react-router-dom';
 import Login from "../Login/Login";
 
@@ -31,7 +31,7 @@ function App() {
       <Route path="/profile" element={<Profile activities={activities}/>}></Route>
       <Route path="/activities" element={<ListActivities activities={activities}/>}></Route>
       <Route path="/activity/create" element={<CreateActivity/>}></Route>
-      <Route path="/profile/create" element={<CreateProfile/>}></Route>
+      {/*<Route path="/profile/create" element={<CreateProfile/>}></Route>*/}
       <Route path="/search" element={<Search/>}></Route>
 
 

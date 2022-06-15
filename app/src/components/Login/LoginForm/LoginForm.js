@@ -1,18 +1,18 @@
 import React from 'react';
 
-import './LoginForm.scss';
+import './loginForm.scss';
 import axios from '../../../utils/axiosPool'
 // import PropTypes from 'prop-types';
 
-
+/*
 const instance  = axios.create({
     baseUrl: 'https://api.totum.ovh/v1/',
-   /* headers: {
+    headers: {
                   Authorization: `bearer ${"token"}`
-              },*/
+              },
     
 });
-
+*/
 /* https://www.bezkoder.com/react-jwt-auth/  jwt without redux>>>>trop long, local storage???*/
 // https://www.digitalocean.com/community/tutorials/how-to-add-login-authentication-to-react-applications
 
@@ -38,22 +38,15 @@ function LoginForm({
             localStorage.setItem('token', response.data.token);
           })
           .catch(function (error) {
-           // console.log(error);
+            console.log(error);
           });
          // console.log(instanceAxios);
-        {/*console.log (`
-        Email : ${email}
-        Mot de passe : ${password}
-        `)*/}
-
         //   axios.get('https://api.totum.ovh/v1/user/logout', {
         //       headers: {
         //           Authorization: `bearer ${token}`
         //       },
         //   })
-
-
-
+        console.log(axios);
         event.preventDefault ();
     }
 

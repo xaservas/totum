@@ -1,6 +1,6 @@
 
 import React from 'react';
-import './CreateProfile.scss';
+import './createProfile.scss';
 import axios from 'axios'
 
 function CreateProfile(){
@@ -23,7 +23,7 @@ function CreateProfile(){
             }
         })
         .then(function (response) {
-            console.log(response);
+            console.log(response.data);
           })
           .catch(function (error) {
             console.log(error);
