@@ -1,13 +1,14 @@
 .iconbar {
-    height: 500px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    
+    background-color:rgb(197, 197, 197);
+    width: 100%;
+  bottom: 0;
+  height: 6.5%;
 }
 
-.icon {
+.icon_create {
+    
+    background-color:rgb(197, 197, 197);
     display: flex;
-    justify-content: center;
-
+    margin: auto;
+    border: none;
 }
