@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './header.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCoffee, faUser  } from '@fortawesome/free-solid-svg-icons'
+import { faUser  } from '@fortawesome/free-solid-svg-icons'
 
 /*
 HELLO

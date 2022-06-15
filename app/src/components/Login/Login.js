@@ -1,4 +1,4 @@
-import './Login.scss';
+import './login.scss';
 import React from 'react';
 import LoginForm from './LoginForm/LoginForm';
 import OptionLogin from './OptionLogin/OptionLogin';
@@ -12,9 +12,9 @@ function Login(){
                 <div className='login'>
                     
                     <OptionLogin/>
-                    <a href="/">Pas encore inscrit ?</a>
+                    <a href="/createProfil">Pas encore inscrit ?</a>
                     <LoginForm/>
-                    <a href="/">Découvrir l'application</a>
+                    <a href="/activities">Découvrir l'application</a>
                 </div>
         );
 };

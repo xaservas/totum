@@ -1,0 +1,28 @@
+name: Push File
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  copy-file:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Pushes api folder
+      uses: andstor/copycat-action@v3
+      with:
+        personal_token: ${{ secrets.API_TOKEN_GITHUB }}
+        src_path: api/.
+        dst_path: /.
+        dst_owner: kenny-caldieraro
+        dst_repo_name: api_totum
+        src_branch: main
+        dst_branch: main
+        clean: true
+        username: kenny-caldieraro
+        mail: kenny.caldieraro@gmail.com
+
+
