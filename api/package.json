@@ -10,7 +10,7 @@
     "start": "node index.js",
     "dev": "npx nodemon",
     "resetDB": "psql -U cadex -f data/create_table.sql; psql -U cadex -f data/seeding.sql",
-    "test": "jest",
+    "test": "jest --detectOpenHandles",
     "sqitchResetDB": "sqitch revert -y; sqitch deploy"
   },
   "author": "",
