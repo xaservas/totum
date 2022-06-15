@@ -52,7 +52,7 @@ const register = {
         };
         const result = await client.query(query);
         if (result.rows.length === 0) {
-            throw new Error('Register not found');
+            return undefined;
         }
         return result.rows[0];
     },

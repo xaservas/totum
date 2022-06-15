@@ -10,7 +10,10 @@ const registerController = {
     async getOneRegister(req, res) {
         const { id } = req.params;
         const register = await registerDatamapper.getOneRegister(id);
-        res.json(register);
+        if (!register) {
+            res.status(404).json({ message: 'Register not found' });
+        }
+        res.status(200).json(register);
     },
 
     async updateRegister(req, res) {
