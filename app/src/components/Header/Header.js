@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './header.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCoffee, faUser  } from '@fortawesome/free-solid-svg-icons'
+import { faUser  } from '@fortawesome/free-solid-svg-icons'
 
 /*
 HELLO
@@ -15,16 +15,17 @@ Xav
 function Header({...rest}){
    return (
        <header>  
-        <nav class="navbar" role="navigation" aria-label="main navigation">
-         <div  class="navbar-brand title is large">
+        <nav className="navbar" role="navigation" aria-label="main navigation">
+         <div  className="navbar-brand title is large">
             <div className='barre'>
-                <div className='title'>
-                TOTUM 
+                <div className='totumtitle'>
+                    <span>TOTUM</span>
                 </div>
                 <div className='icon'>
-                <FontAwesomeIcon icon={faUser} className='navbar-item ' />
-
+                    <FontAwesomeIcon icon={faUser} className='navbar-item ' />
+                
                 </div>
+                
             </div>
             
           

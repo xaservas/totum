@@ -1,9 +1,10 @@
 
 import React,{useEffect} from 'react';
 import './loginForm.scss';
+import { useNavigate } from "react-router-dom";
 
 import axios from '../../../utils/axiosPool'
-
+//import { saveAuthorization } from '../../../utils/axiosPool';
 // import PropTypes from 'prop-types';
 
 
@@ -14,7 +15,7 @@ import axios from '../../../utils/axiosPool'
 function LoginForm({
     setToken
 }){
-
+    let navigate = useNavigate();
     const [email, setEmail] = React.useState("");
     const [password, setPassword] = React.useState("");
     // const [user, setUser] = React.useState("");
@@ -24,34 +25,61 @@ function LoginForm({
         if (loggedInUser) {
           console.log('tu es logué')
         } else {
-            console.log('blabla')
+            console.log("tu n'es pas connecté")
         }
       }, []);
 
-      const hangleLogout = async (event) => {
+      const handleLogout = async (event) => {
+          axios({
+              method: 'get',
+              url: '/user/logout',
+          })
           setEmail("");
           setPassword("");
           localStorage.clear();
           console.log('tu es déco')
       }
 
+      const saveUser = (data) => {
+        Object.keys(data).forEach(key => {
+            localStorage.setItem(key, data[key])
+        });
+      };
+
 
 
     const handleSubmit = async (event) => {
         axios({
             method: 'post',
-            url: 'https://api.totum.ovh/v1/user/login',
+            url: '/user/login',
             data: {
                 email : `${email}`,
                 password: `${password}`
             },
         })
         .then(function (response) {
+            console.log(response.data)
             localStorage.setItem('token', response.data.token);
-
+            saveUser(response.data.user)
+            navigate("/activities",{replace: true })
+           /*
+           si on reçoit le token
+           on est redirigé vers la liste des activités
+           sinon on reste sur place */
             
           })
           .catch(function (error) {
+
+            console.log(error);
+          });
+         // console.log(instanceAxios);
+        //   axios.get('https://api.totum.ovh/v1/user/logout', {
+        //       headers: {
+        //           Authorization: `bearer ${token}`
+        //       },
+        //   })
+        console.log(axios);
+
            console.log(error);
           });
         
@@ -67,7 +95,7 @@ function LoginForm({
                        type="email"
                        className="input"
                         placeholder="Mail"
-                        onChange={e => setEmail (e.target.value)}
+                        onChange={e => setEmail (e.target.value)}                     
                         />
                        <input
                        name="password"
@@ -79,7 +107,7 @@ function LoginForm({
                        <button className="button">Login</button>
                        
                    </form>
-                   <button className="button" onClick={hangleLogout}>Déco</button>
+                   <button className="button" onClick={handleLogout}>Déco</button>
             </div>
         );
 };
