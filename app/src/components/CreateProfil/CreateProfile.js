@@ -11,6 +11,7 @@ function CreateProfile(){
     const [email, setEmail] = React.useState("");
     const [password, setPassword] = React.useState("");
      const [adress, setAdress] = React.useState("");
+     const [zip_code, setZip_code] = React.useState("");
      const [description, setDescription] = React.useState("");
 
     const handleSubmit = (event) => {
@@ -35,6 +36,7 @@ function CreateProfile(){
         Email : ${email}
         Mot de passe : ${password}
         Adresse: ${adress}
+        Code Postal: ${zip_code}
         Présentation : ${description}
         `)
         event.preventDefault ();
@@ -84,6 +86,14 @@ function CreateProfile(){
             className="input"
             placeholder="Adress"
             onChange={e => setAdress (e.target.value)}
+            />
+
+<input
+            name="zip_code"
+            type="text"
+            className="input"
+            placeholder="Code Postal"
+            onChange={e => setZip_code (e.target.value)}
             />
 
             <input

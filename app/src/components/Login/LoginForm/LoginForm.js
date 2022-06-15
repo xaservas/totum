@@ -39,6 +39,12 @@ function LoginForm({
           console.log('tu es déco')
       }
 
+      const saveUser = (data) => {
+        Object.keys(data).forEach(key => {
+            localStorage.setItem(key, data[key])
+        });
+      };
+
 
 
     const handleSubmit = async (event) => {
@@ -53,6 +59,7 @@ function LoginForm({
         .then(function (response) {
             console.log(response.data)
             localStorage.setItem('token', response.data.token);
+            saveUser(response.data.user)
             navigate("/activities",{replace: true })
            /*
            si on reçoit le token
