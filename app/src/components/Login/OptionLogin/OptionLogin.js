@@ -18,6 +18,7 @@ function OptionLogin({newValue, newValueB}){
     const landmarkClick = () => {
         const newValue = !landmarkValue;
         setLandmarkValue(newValue);
+        
     
         console.log(newValue)
     }
