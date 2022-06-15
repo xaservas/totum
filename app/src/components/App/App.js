@@ -14,6 +14,10 @@ import activities from "../../data/activities"
 import CreateActivity from "../CreateActivity/CreateActivity";
 import CreateProfile from "../CreateProfil/CreateProfile";
 
+import Search from "../Search/Search";
+import Footer from "../Footer/Footer";
+
+
 
 
 
@@ -34,14 +38,15 @@ function App() {
       <Route path="/activities" element={<ListActivities activities={activities}/>}></Route>
       <Route path="/activity/create" element={<CreateActivity/>}></Route>
 
-      {/*<Route path="/profile/create" element={<CreateProfile/>}></Route>*/}
-      <Route path="/search" element={<Search/>}></Route>
       <Route path="/createProfil" element={<CreateProfile/>}></Route>
       <Route path="*" element={<Navigate to='/' />} />
+      <Route path="/profile/create" element={<CreateProfile/>}></Route>
+      <Route path="/search" element={<Search/>}></Route>
+
 
 
     </Routes>
-        
+    <Footer/>
       
     </div>
   );
