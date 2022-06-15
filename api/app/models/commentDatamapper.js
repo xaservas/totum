@@ -8,7 +8,7 @@ const commentDatamapper = {
                         comment.id AS comment_id,
                         comment.content AS comment_content,
                         comment.created_at AS comment_date,
-                        comment.id_user AS comment_id_user,
+                        comment.id_user AS id_user,
                         users.email AS user_email,
                         users.firstname AS user_firstname,
                         users.lastname AS user_lastname,
@@ -32,7 +32,7 @@ const commentDatamapper = {
                         comment.id AS comment_id,
                         comment.content AS comment_content,
                         comment.created_at AS comment_date,
-                        comment.id_user AS comment_id_user,
+                        comment.id_user AS id_user,
                         users.email AS user_email,
                         users.firstname AS user_firstname,
                         users.lastname AS user_lastname,
@@ -78,7 +78,7 @@ const commentDatamapper = {
         };
         const result = await client.query(query);
         if (!result.rows[0]) {
-            throw new Error('Comment not found');
+            return undefined;
         }
         return result.rows[0];
     },
@@ -101,7 +101,7 @@ const commentDatamapper = {
         };
         const result = await client.query(query);
         if (!result.rows[0]) {
-            throw new Error('Comment not found');
+            return undefined;
         }
         return result.rows[0];
     },
