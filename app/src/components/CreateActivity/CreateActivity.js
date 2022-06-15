@@ -29,7 +29,7 @@ function CreateActivity({
         categories = getCategories();   
         //console.log(categories);   
         //categories.forEach(category => console.log(category.name))
-       console.log(categories.results);
+       console.log(categories);
     }, []);
 
     const getCategories = async () => {
@@ -40,8 +40,8 @@ function CreateActivity({
             })
             
             const categories =  response.data;
-            const categoriesNames = categories.map(category => {return category.name})
-            console.log(categoriesNames);
+            const categoriesNames = categories.map(category => {return category.name});
+            return categories;
            // return response.data;
         } catch (error) {
             console.log(error);
@@ -54,7 +54,7 @@ function CreateActivity({
             ...previousActivity,
             [name]: value
         }));
-        //console.log(activity)
+        console.log(activity)
     };
 
     const handleSubmit = async (event) =>{
@@ -104,6 +104,27 @@ function CreateActivity({
                     value={activity.name} 
                     onChange={handleChange}
                     />
+                </div>
+            </div>
+            <div className='field'>
+                <label className='label'>Catégorie</label>
+                <div className='select'>
+                    <select 
+                    className='input' 
+                    type='text' 
+                    placeholder='intitulé'
+                    name='id_category' 
+                    value={activity.id_category} 
+                    onChange={handleChange}
+                    >
+                        <option value='1'>truc</option>
+                        <option value='2'>truc</option>
+                        <option value='3'>truc</option>
+                        {/*categories.map(category => (
+                        <option>{category.name}</option>             
+                        )
+                        )*/}
+                    </select>
                 </div>
             </div>
             <div className='field'>
