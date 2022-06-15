@@ -23,7 +23,7 @@ describe('Check Category creator', () => {
     });
 });
 
-describe('Check getOneCategory controllerr', () => {
+describe('Check getOneCategoryy controllerr', () => {
     test('should 200 and return correct values', async () => {
         const req = mockRequest();
 
@@ -40,7 +40,18 @@ describe('Check updateCategory controller', () => {
 
         const res = mockResponse();
 
-        await categoryController.getOneCategory(req, res);
+        await categoryController.updateCategory(req, res);
+        expect(res.status).toHaveBeenCalledWith(200);
+    });
+});
+
+describe('Check removeCategory controller', () => {
+    test('should 200 and return correct values', async () => {
+        const req = mockRequest();
+
+        const res = mockResponse();
+
+        await categoryController.removeCategory(req, res);
         expect(res.status).toHaveBeenCalledWith(200);
     });
 });

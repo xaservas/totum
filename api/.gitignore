@@ -28,5 +28,5 @@ package-lock.json
 .env
 sqitch.conf
 
-#test
+# #test
 coverage/

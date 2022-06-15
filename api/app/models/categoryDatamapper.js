@@ -54,14 +54,14 @@ const categoryDatamapper = {
     },
 
     async updateCategory(id, data) {
-        const check = {
-            text: 'SELECT * FROM category WHERE name = $1',
-            values: [data.name],
-        };
-        const checkResult = await client.query(check);
-        if (checkResult.rows.length > 0) {
-            throw new Error('Category already exists');
-        }
+        // const check = {
+        //     text: 'SELECT * FROM category WHERE name = $1',
+        //     values: [data.name],
+        // };
+        // const checkResult = await client.query(check);
+        // if (checkResult.rows.length > 0) {
+        //     throw new Error('Category already exists');
+        // }
         const query = {
             text: `
             UPDATE category
@@ -79,9 +79,9 @@ const categoryDatamapper = {
             ],
         };
         const result = await client.query(query);
-        if (!result.rows[0]) {
-            throw new Error('Category not found');
-        }
+        // if (!result.rows[0]) {
+        //     throw new Error('Category not found');
+        // }
         return result.rows[0];
     },
 
@@ -91,9 +91,9 @@ const categoryDatamapper = {
             values: [id],
         };
         const result = await client.query(query);
-        if (!result.rows[0]) {
-            throw new Error('Category not found');
-        }
+        // if (!result.rows[0]) {
+        //     throw new Error('Category not found');
+        // }
         return result.rows[0];
     },
 
