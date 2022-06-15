@@ -11,7 +11,13 @@ const instance = axios.create({
     }
 
 });
+/*
+export function saveAuthorization(token) {
+    instance.defaults.headers.common.Authorization = `bearer ${token}`;
+    console.log(`je suis dans saveAuthorization et j'ai bien le token: ${token}`)
+}*/
 
 console.log(localStorage.getItem('token'));
+//console.log(instance.headers);
 
 export default instance;
