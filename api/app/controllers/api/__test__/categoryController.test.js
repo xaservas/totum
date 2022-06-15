@@ -12,13 +12,35 @@ describe('Check CategoryController', () => {
     });
 });
 
-describe('Check Category creatorr', () => {
+describe('Check Category creator', () => {
     test('should 200 and return correct values', async () => {
         const req = mockRequest();
 
         const res = mockResponse();
 
         await categoryController.createCategory(req, res);
+        expect(res.status).toHaveBeenCalledWith(200);
+    });
+});
+
+describe('Check getOneCategory controllerr', () => {
+    test('should 200 and return correct values', async () => {
+        const req = mockRequest();
+
+        const res = mockResponse();
+
+        await categoryController.getOneCategory(req, res);
+        expect(res.status).toHaveBeenCalledWith(200);
+    });
+});
+
+describe('Check updateCategory controller', () => {
+    test('should 200 and return correct values', async () => {
+        const req = mockRequest();
+
+        const res = mockResponse();
+
+        await categoryController.getOneCategory(req, res);
         expect(res.status).toHaveBeenCalledWith(200);
     });
 });
