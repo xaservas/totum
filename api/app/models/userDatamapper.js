@@ -149,9 +149,6 @@ const user = {
             values: [id],
         };
         const result = await client.query(query);
-        if (!result.rows[0]) {
-            throw new Error('User not found');
-        }
         return result.rows[0];
     },
 
@@ -193,17 +190,15 @@ const user = {
                     landmark = $2,
                     updated_at = NOW()
                     WHERE id_user = $3
+                    RETURNING *
                 `,
             values: [data.cookie, data.landmark, id],
         };
         const meta = await client.query(queryMeta);
         if (!response.rows[0]) {
-            throw new Error('User not found');
+            return undefined;
         }
-        return {
-            response: response.rows[0],
-            meta: meta.rows[0],
-        };
+        return [response.rows[0], meta.rows[0]];
     },
 
     async removeUser(id) {
@@ -257,9 +252,6 @@ const user = {
             values: [id],
         };
         const result = await client.query(query);
-        if (!result.rows[0]) {
-            throw new Error('No activity found for this user');
-        }
         return result.rows;
     },
 
