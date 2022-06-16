@@ -1,34 +1,48 @@
 const userDatamapper = require('../../models/userDatamapper');
+const bcrypt = require('../../services/bcrypt');
 const jwt = require('../../services/token');
 
 const userController = {
     async getAll(_, res) {
         const users = await userDatamapper.getAll();
-        res.json(users);
+        if (users.length > 0) {
+            res.status(200).json(users);
+        } else {
+            res.status(404).json({ message: 'No users found' });
+        }
     },
 
     async login(req, res) {
         const { email, password } = req.body;
-        const user = await userDatamapper.login(email, password);
+        const user = await userDatamapper.login(email);
         if (user) {
-            const token = jwt.generateToken(user.email);
-            res.json({ user, token });
+            const isValid = await bcrypt.compare(password, user.password);
+            if (isValid) {
+                const token = jwt.generateToken(user.email);
+                res.status(200).json({
+                    user,
+                    token,
+                });
+            } else {
+                res.status(401).json({ message: 'Invalid password' });
+            }
         } else {
-            res.status(401).json({ message: 'Invalid credentials' });
+            res.status(404).json({ message: 'User not found' });
         }
     },
 
     async logout(req, res) {
         const token = req.headers.authorization;
         await userDatamapper.logout(token);
-        res.json('User logged out');
+        res.status(200).json('User logged out');
     },
 
     async updatePassword(req, res) {
         const { password, passwordConfirmation } = req.body;
         const { id } = req.params;
         if (password === passwordConfirmation) {
-            const user = await userDatamapper.updatePassword(id, password);
+            const hash = await bcrypt.hash(password);
+            const user = await userDatamapper.updatePassword(id, hash);
             if (user) {
                 res.status(200).json({ message: 'Password updated' });
             } else {
@@ -60,6 +74,8 @@ const userController = {
     async createUser(req, res) {
         const data = req.body;
         if (data.password === data.passwordConfirmation) {
+            const hash = await bcrypt.hash(data.password);
+            data.password = hash;
             const user = await userDatamapper.createUser(data);
             res.json(user);
         } else {
@@ -70,14 +86,20 @@ const userController = {
     async getOneUser(req, res) {
         const { id } = req.params;
         const user = await userDatamapper.getOneUser(id);
-        res.json(user);
+        if (!user) {
+            res.status(404).json({ message: 'User not found' });
+        }
+        res.status(200).json(user);
     },
 
     async updateUser(req, res) {
         const { id } = req.params;
         const data = req.body;
         const user = await userDatamapper.updateUser(id, data);
-        res.json(user);
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        return res.status(200).json(user);
     },
 
     async removeUser(req, res) {
@@ -89,7 +111,10 @@ const userController = {
     async getActivity(req, res) {
         const { id } = req.params;
         const user = await userDatamapper.getUserActivity(id);
-        res.json(user);
+        if (user.length > 0) {
+            res.status(200).json(user);
+        }
+        res.status(404).json({ message: 'No activity found' });
     },
 };
 

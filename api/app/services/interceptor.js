@@ -15,4 +15,10 @@ module.exports = {
         const next = jest.fn();
         return next;
     },
+    mockError: () => {
+        const err = {};
+        err.status = jest.fn().mockReturnValue(err);
+        err.json = jest.fn().mockReturnValue(err);
+        return err;
+    },
 };

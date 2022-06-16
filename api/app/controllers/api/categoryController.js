@@ -4,42 +4,38 @@ const categoryController = {
 
     async getAll(_, res) {
         const categories = await categoryDataMapper.getAll();
-        if (!categories) {
-            res.status(404).json({ message: 'Categories not found' });
+        if (categories.length > 0) {
+            res.status(200).json(categories);
+        } else {
+            res.status(404).json({
+                message: 'No categories found',
+            });
         }
-        res.status(200).json(categories);
     },
 
     async createCategory(req, res) {
         const categories = await categoryDataMapper.createCategory(req.body);
-        if (!categories) {
-            res.status(404).json({ message: 'Categories not created' });
-        }
-        res.status(200).json(categories);
+        res.json(categories);
     },
 
     async getOneCategory(req, res) {
         const categories = await categoryDataMapper.getOneCategory(req.params.id);
         if (!categories) {
-            res.status(404).json({ message: 'Categories not found' });
+            res.status(404).json({
+                message: 'Category not found',
+            });
         }
         res.status(200).json(categories);
     },
 
     async updateCategory(req, res) {
         const categories = await categoryDataMapper.updateCategory(req.params.id, req.body);
-        if (!categories) {
-            res.status(404).json({ message: 'Categories not updated' });
-        }
         res.status(200).json(categories);
     },
 
     async removeCategory(req, res) {
-        const categories = await categoryDataMapper.removeCategory(req.params.id);
-        if (!categories) {
-            res.status(404).json({ message: 'Categories not removed' });
-        }
-        res.status(200).json(categories);
+        const activities = await categoryDataMapper.removeCategory(req.params.id);
+        res.json(activities);
     },
 
 };
