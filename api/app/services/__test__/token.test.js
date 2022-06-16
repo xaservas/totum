@@ -1,4 +1,3 @@
-const { mockRequest, mockResponse } = require('../interceptor');
 const tokenController = require('../token');
 const userDataMapper = require('../../models/userDatamapper');
 
