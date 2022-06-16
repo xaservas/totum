@@ -47,9 +47,6 @@ const categoryDatamapper = {
             values: [idCategory],
         };
         const result = await client.query(query);
-        if (!result.rows[0]) {
-            throw new Error('Category not found');
-        }
         return result.rows[0];
     },
 

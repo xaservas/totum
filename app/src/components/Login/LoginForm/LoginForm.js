@@ -72,16 +72,7 @@ function LoginForm({
 
             console.log(error);
           });
-         // console.log(instanceAxios);
-        //   axios.get('https://api.totum.ovh/v1/user/logout', {
-        //       headers: {
-        //           Authorization: `bearer ${token}`
-        //       },
-        //   })
-        console.log(axios);
-
-           console.log(error);
-          });
+         
         
         event.preventDefault ();
     }
