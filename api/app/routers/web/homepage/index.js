@@ -2,15 +2,15 @@ const express = require('express');
 
 const router = express.Router();
 
-const webErrorController = require('../../controllers/web/error');
+const webErrorController = require('../../../controllers/web/error');
 
 // Require controllers try catch
-const controllerHandler = require('../../helpers/controllerHandler');
+const controllerHandler = require('../../../helpers/controllerHandler');
 
 //  Require error handler
-const errorHandler = require('../../helpers/errorHandler');
+const errorHandler = require('../../../helpers/errorHandler');
 
-const homepageController = require('../../controllers/web/homepageController');
+const homepageController = require('../../../controllers/web/homepageController');
 
 router
     .route('/')

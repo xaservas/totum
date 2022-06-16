@@ -1,20 +1,19 @@
 const express = require('express');
 const controlle = require('../controllers/web/homepageController');
 
-const routerUser = require('./user');
-const routerActivities = require('./activities');
-const routerActivity = require('./activity');
-const routerCategory = require('./category');
-const routerComment = require('./comment');
-const routerRegister = require('./register');
-const routerMeta = require('./meta');
-const routerLevel = require('./level');
+const routerUser = require('./api/user');
+const routerActivities = require('./api/activities');
+const routerActivity = require('./api/activity');
+const routerCategory = require('./api/category');
+const routerComment = require('./api/comment');
+const routerRegister = require('./api/register');
+const routerMeta = require('./api/meta');
+const routerLevel = require('./api/level');
 
-// const routerHome = require('./homepage');
+// const routerHome = require('./web/homepage');
 
 const router = express.Router();
 
-router.use('/', controlle.homePage);
 router.use('/v1/user', routerUser);
 router.use('/v1/activities', routerActivities);
 router.use('/v1/activity', routerActivity);
@@ -23,5 +22,6 @@ router.use('/v1/category', routerCategory);
 router.use('/v1/register', routerRegister);
 router.use('/v1/meta', routerMeta);
 router.use('/v1/level', routerLevel);
+router.use('/', controlle.homePage);
 
 module.exports = router;
