@@ -1,4 +1,4 @@
-const levelDataMapper = require('../models/levelDatamapper');
+const levelDataMapper = require('../../models/levelDatamapper');
 
 const levelController = {
 
