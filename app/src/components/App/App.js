@@ -13,6 +13,7 @@ import Login from "../Login/Login";
 import activities from "../../data/activities"
 import CreateActivity from "../CreateActivity/CreateActivity";
 import CreateProfile from "../CreateProfil/CreateProfile";
+import Map from "../Map/Map";
 
 import Search from "../Search/Search";
 import Footer from "../Footer/Footer";
@@ -44,7 +45,7 @@ function App() {
       <Route path="/profile/create" element={<CreateProfile/>}></Route>
       <Route path="/search" element={<Search/>}></Route>
 
-
+      <Route path="/map" element={<Map/>}></Route>
 
     </Routes>
     <Footer />
