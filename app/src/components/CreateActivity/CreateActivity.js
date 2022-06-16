@@ -29,7 +29,7 @@ function CreateActivity({
        // setCategories (getCategories());   
         //console.log(categories);   
         //categories.forEach(category => console.log(category.name))
-       console.log(categories);
+       console.log('categories');
     },[]);
 
     const getCategories = async () => {
