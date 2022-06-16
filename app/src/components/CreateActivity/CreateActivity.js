@@ -32,9 +32,13 @@ function CreateActivity({
         getLevels();
       
         //categories.forEach(category => console.log(category.name))
+
+       console.log('categories');
+
         
        //const sortedCategories = sortObjectsByProp(categories, "name") ;
        //console.log(categories);
+
     },[]);
     
     const sortObjectsByProp = (objectsArr, prop, ascending = true) => {
