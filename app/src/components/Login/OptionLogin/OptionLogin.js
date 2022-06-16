@@ -1,5 +1,5 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 
 import './optionLogin.scss';
@@ -18,15 +18,13 @@ function OptionLogin(){
     const landmarkClick = () => {
         const newValue = !landmarkValue;
         setLandmarkValue(newValue);
-        
-    
         console.log(newValue)
     }
+
 
     const cookieClick = () => {
         const newValueB = !cookieValue;
         setCookieValue(newValueB);
-    
         console.log(newValueB)
     }
     
@@ -53,9 +51,9 @@ function OptionLogin(){
 
 
 
-// OptionLogin.propTypes= {
-//     newValue : PropTypes.bool.isRequired,
-//     newValueB: PropTypes.bool.isRequired
-// }
+OptionLogin.propTypes= {
+    newValue : PropTypes.bool.isRequired,
+    newValueB: PropTypes.bool.isRequired
+}
 
 export default OptionLogin;
