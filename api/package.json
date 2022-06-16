@@ -13,6 +13,9 @@
     "test": "jest --detectOpenHandles",
     "sqitchResetDB": "sqitch revert -y; sqitch deploy"
   },
+  "prettier": {
+    "singleQuote": true
+  },
   "author": "",
   "license": "ISC",
   "dependencies": {
