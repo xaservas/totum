@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import './activity.scss';
 import { useParams } from 'react-router-dom'
-import { findActivityById } from '../../utils/dataTools';
+//import { findActivityById } from '../../utils/dataTools';
 import axios from '../../utils/axiosPool';
 /**Xavier/10/06/2022:
  * 
@@ -23,25 +23,30 @@ function Activity({
         //console.log(activities)
         const { id } = useParams();
         console.log(id);
-        const [activities, setActivities] = useState([]);
-        const currentActivity = '';
+        const [activity, setActivity] = useState();
 
-        const ActivitiesDataRequest = async () => {
+        
+        
+//request l'activté grâce à l'id 
+//id must be a number
+        const activitiyDataRequest = async (idElement) => {
             try {
                 const result= await axios({
                     method:'get',
-                    url: '/activities'
+                    url: `/activity/${idElement}/manage`
                 })
-                console.log(result.data); 
-                setActivities(result.data) ;
+                 //setCurrentActivity(result.data);
+                 console.log(result.data);
+               // setActivities(result.data) ;
+                
             } catch (error) {
-                console.log(error)
+                console.log(error);
             }
         };
         useEffect(() => {
-            ActivitiesDataRequest()
-            const currentActivity = findActivityById(activities, id);
-            console.log(currentActivity);
+            
+            activitiyDataRequest(id);
+           // console.log(currentActivity);
         },[]);
 
         
@@ -52,45 +57,34 @@ function Activity({
            {...rest}
        >
            <header className='card-header'>
-                <p className='activity__name card-header-title'>{currentActivity.name}</p>
-                <figure className='image is-48x48'>
+                <p className='activity__name card-header-title'>{activity.name}</p>
+                {/*<figure className='image is-48x48'>
                     <img className='activity__owner is-rounded' 
                             src={currentActivity.owner_picture}
                             alt={currentActivity.owner}/>
-                </figure>
-                <p className='activity-level'>{currentActivity.level}</p>
+                </figure>*/}
+                <p className='activity-level'>{activity.level}</p>
                 <button className="modal-close is-large" aria-label="close"></button>
            </header>
-           <body className='card-content'>
+           {/*<body className='card-content'>
                 <progress className="activity__takeholders progress" value="15" max="100">15%</progress>
                 <p className='activity__adress'>{currentActivity.address}, {currentActivity.city}, {currentActivity.zip_code}, {currentActivity.country}</p>
                 <p className='activity__description'>{currentActivity.description}</p>
            </body>
            <footer className='card-footer'>
              <a href="/" className="card-footer-item">Participer</a>
-           </footer>
+            </footer>*/}
        </article>
    );
 };
 
 Activity.propTypes = {
     className: PropTypes.string,
-    activities: PropTypes.arrayOf(PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        name: PropTypes.string.isRequired,
-        description: PropTypes.string,
-        date: PropTypes.string.isRequired,
-        level: PropTypes.string,
-        address: PropTypes.string.isRequired,
-        zip_code: PropTypes.string.isRequired,
-        city: PropTypes.string.isRequired,
-        country: PropTypes.string.isRequired,
-    }).isRequired).isRequired
+    
 };
 Activity.defaultProps = {
     className: '',
-    descritpion: 'activité sans description',
-    level: 'activité sans niveau',
+
 };
 export default Activity;
 
