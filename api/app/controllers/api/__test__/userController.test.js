@@ -167,8 +167,8 @@ describe('Check userController', () => {
     test('login should 200 and return correct values', async () => {
         const req = mockRequest();
         req.body = {
-            email: 'test@test.com',
-            password: 'hash',
+            email: 'test@plouf.com',
+            password: 'new password',
         };
         const res = mockResponse();
         await userController.login(req, res);

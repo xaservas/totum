@@ -10,7 +10,7 @@ import './optionLogin.scss';
 
 
 
-function OptionLogin({newValue, newValueB}){
+function OptionLogin(){
 
     const [cookieValue, setCookieValue] = React.useState("");
     const [landmarkValue, setLandmarkValue] = React.useState("");
@@ -18,15 +18,13 @@ function OptionLogin({newValue, newValueB}){
     const landmarkClick = () => {
         const newValue = !landmarkValue;
         setLandmarkValue(newValue);
-        
-    
         console.log(newValue)
     }
+
 
     const cookieClick = () => {
         const newValueB = !cookieValue;
         setCookieValue(newValueB);
-    
         console.log(newValueB)
     }
     

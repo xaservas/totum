@@ -1,24 +1,24 @@
-const { mockRequest, mockResponse } = require('../../../services/interceptor');
-const levelController = require('../levelController');
+const { mockRequest, mockResponse } = require("../../../services/interceptor");
+const levelController = require("../levelController");
 
 expect.extend({
     toBeTypeOrNull(received) {
         const pass = expect(received);
         if (pass || received === null) {
             return {
-                message: () => 'Ok',
+                message: () => "Ok",
                 pass: true,
             };
         }
         return {
-            message: () => 'Not ok',
+            message: () => "Not ok",
             pass: false,
         };
     },
 });
 
-describe('Check CategoryController', () => {
-    test('get all should return status 200 and value', async () => {
+describe("Check CategoryController", () => {
+    test("get all should return status 200 and value", async () => {
         const req = mockRequest();
         const res = mockResponse();
 

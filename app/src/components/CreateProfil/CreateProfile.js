@@ -2,7 +2,7 @@
 import React from 'react';
 import './createProfile.scss';
 import axios from 'axios'
-import OptionLogin from '../Login/OptionLogin/OptionLogin';
+
 
 
 function CreateProfile({newValue, newValueB}){
@@ -19,7 +19,21 @@ function CreateProfile({newValue, newValueB}){
     const [city, setCity] = React.useState("");
     const [country, setCountry] = React.useState("");
     const [about, setAbout] = React.useState("");
+    const [cookieValue, setCookieValue] = React.useState("");
+    const [landmarkValue, setLandmarkValue] = React.useState("");
 
+    const landmarkClick = () => {
+        const newValue = !landmarkValue;
+        setLandmarkValue(newValue);
+        console.log(newValue)
+    }
+
+
+    const cookieClick = () => {
+        const newValueB = !cookieValue;
+        setCookieValue(newValueB);
+        console.log(newValueB)
+    }
 
 
     const handleSubmit = (event) => {
@@ -37,7 +51,8 @@ function CreateProfile({newValue, newValueB}){
                 city: `${city}`,
                 country: `${country}`,
                 about: `${about}`,
-                
+                cookie:`${cookieValue}`,
+                landmark: `${landmarkValue}`
 
             }
         })
@@ -62,7 +77,8 @@ function CreateProfile({newValue, newValueB}){
         Ville : ${city}
         Pays: ${country}
         Présentation : ${about}
-
+        cookie:${cookieValue}
+        landmark: ${landmarkValue}
         `)
         event.preventDefault ();
     }
@@ -164,7 +180,20 @@ function CreateProfile({newValue, newValueB}){
             placeholder="Présentation"
             onChange={e => setAbout (e.target.value)}
             />
-            <OptionLogin />
+
+            <div className="OptionLogin">
+            <label className="checkbox">
+                <input name="landmark" type="checkbox" onClick={landmarkClick} />
+                <span className="slider round"></span>
+                <p>Géolocalisation</p>
+            </label>
+            <label className="checkbox">
+                <input name="cookie" type="checkbox"  onClick={cookieClick}/>
+                <span className="slider round"></span>
+                <p>Coockies</p>
+            </label>
+            
+        </div>
 
 
 
