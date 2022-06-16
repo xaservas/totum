@@ -6,7 +6,7 @@ const commentController = require('../../controllers/api/commentController');
 // Require validator and schemas Joi
 const apiErrorController = require('../../controllers/api/error');
 const validator = require('../../validation/validator');
-const levelGetSchema = require('../../validation/schemas/level/levelGet.schema');
+
 
 // Require controllers try catch
 const controllerHandler = require('../../helpers/controllerHandler');
@@ -38,7 +38,7 @@ router.route('/getAll')
         */
 
     .get(
-        validator('query', levelGetSchema),
+        validator('query'),
         controllerHandler(levelController.getAll),
     );
 
