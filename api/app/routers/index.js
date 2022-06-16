@@ -7,7 +7,7 @@ const routerCategory = require('./category');
 const routerComment = require('./comment');
 const routerRegister = require('./register');
 const routerMeta = require('./meta');
-const routerLevel = require('./levels');
+const routerLevel = require('./level');
 
 const router = express.Router();
 
