@@ -1,4 +1,5 @@
 const express = require('express');
+const controlle = require('../controllers/api/homepageController')
 
 const routerUser = require('./user');
 const routerActivities = require('./activities');
@@ -8,9 +9,11 @@ const routerComment = require('./comment');
 const routerRegister = require('./register');
 const routerMeta = require('./meta');
 const routerLevel = require('./levels');
+// const routerHome = require('./homepage');
 
 const router = express.Router();
 
+router.use('/', controlle.homePage);
 router.use('/v1/user', routerUser);
 router.use('/v1/activities', routerActivities);
 router.use('/v1/activity', routerActivity);
