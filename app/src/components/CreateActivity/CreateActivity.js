@@ -8,20 +8,7 @@ function CreateActivity({
 }){
     const userId = localStorage.getItem("id");
     const [ categories, setCategories] = React.useState([]);
-    const [levels, setLevels] = React.useState([
-        {
-            id:1,
-            name:"Beginner",
-        },
-        {
-            id:2,
-            name:"Intermediate",
-        },
-        {
-            id:3,
-            name:"Advanced",
-        }
-    ]); 
+    const [levels, setLevels] = React.useState([]); 
     const [activity, setActivity] = React.useState({
         name: "",
         description: "",
@@ -42,12 +29,10 @@ function CreateActivity({
     
     useEffect(() => {   
         getCategories();
-        // getLevels();
-       // setCategories (getCategories());   
-        //console.log(categories);   
+        getLevels();
+      
         //categories.forEach(category => console.log(category.name))
         
-       //console.log(categories);
        //const sortedCategories = sortObjectsByProp(categories, "name") ;
        console.log(categories);
     },[]);
@@ -95,9 +80,10 @@ function CreateActivity({
         try {
             const response = await axios({
                 method:'get',
-                url:'/levels/levels'
+                url:'/level/getAll'
             })
-            console.log(response.data);
+           // console.log(response.data);
+            setLevels(response.data);
 
         } catch (error) {
             console.log(error);
@@ -262,8 +248,7 @@ function CreateActivity({
                     />
                 </div>
             </div>
-            <div className='field'>
-                {/*might be a select and give options according to ux */}
+            {/*<div className='field'>
                 <label className='label'>Niveau</label>
                 <div className='control'>
                     <input 
@@ -273,6 +258,23 @@ function CreateActivity({
                     value={activity.level}
                     onChange={handleChange} 
                     />
+                </div>
+            </div>*/}
+            <div className='field'>
+                <label className='label'>Niveau</label>
+                <div className='select'>
+                    <select 
+                    className='input' 
+                    type='text' 
+                    placeholder='intitulé'
+                    name='id_level' 
+                    value={activity.id_level} 
+                    onChange={handleChange}
+                    >
+                    {levels.map(level => (
+                        <option value={level.id} key={level.id}>{level.name}</option>             
+                        ))}
+                    </select>
                 </div>
             </div>
             <div className='field'>
