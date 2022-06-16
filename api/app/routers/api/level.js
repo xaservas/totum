@@ -1,15 +1,15 @@
 const express = require('express');
 
 const router = express.Router();
-const levelController = require('../../../controllers/api/levelController');
+const levelController = require('../../controllers/api/levelController');
 
-const apiErrorController = require('../../../controllers/api/error');
+const apiErrorController = require('../../controllers/api/error');
 
 // Require controllers try catch
-const controllerHandler = require('../../../helpers/controllerHandler');
+const controllerHandler = require('../../helpers/controllerHandler');
 
 //  Require error handler
-const errorHandler = require('../../../helpers/errorHandler');
+const errorHandler = require('../../helpers/errorHandler');
 
 router
     .route('/getAll')

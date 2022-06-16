@@ -1,18 +1,18 @@
 const express = require('express');
 
 const router = express.Router();
-const categoryController = require('../../../controllers/api/categoryController');
+const categoryController = require('../../controllers/api/categoryController');
 
-const apiErrorController = require('../../../controllers/api/error');
-const validator = require('../../../validation/validator');
+const apiErrorController = require('../../controllers/api/error');
+const validator = require('../../validation/validator');
 
-const categoryGetSchema = require('../../../validation/schemas/category/categoryGet.schema');
-const categoryPostSchema = require('../../../validation/schemas/category/categoryPost.schema');
-const categoryManageSchema = require('../../../validation/schemas/category/categoryManage.schema');
+const categoryGetSchema = require('../../validation/schemas/category/categoryGet.schema');
+const categoryPostSchema = require('../../validation/schemas/category/categoryPost.schema');
+const categoryManageSchema = require('../../validation/schemas/category/categoryManage.schema');
 
-const controllerHandler = require('../../../helpers/controllerHandler');
-const errorHandler = require('../../../helpers/errorHandler');
-const jwt = require('../../../services/token');
+const controllerHandler = require('../../helpers/controllerHandler');
+const errorHandler = require('../../helpers/errorHandler');
+const jwt = require('../../services/token');
 
 router
     .route('/categories')

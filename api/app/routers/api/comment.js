@@ -1,23 +1,23 @@
 const express = require('express');
 
 const router = express.Router();
-const commentController = require('../../../controllers/api/commentController');
+const commentController = require('../../controllers/api/commentController');
 
 // Require validator and schemas Joi
-const apiErrorController = require('../../../controllers/api/error');
-const validator = require('../../../validation/validator');
-const commentGetSchema = require('../../../validation/schemas/comment/commentGet.schema');
-const commentPostSchema = require('../../../validation/schemas/comment/commentPost.schema');
-const commentManageSchema = require('../../../validation/schemas/comment/commentManage.schema');
+const apiErrorController = require('../../controllers/api/error');
+const validator = require('../../validation/validator');
+const commentGetSchema = require('../../validation/schemas/comment/commentGet.schema');
+const commentPostSchema = require('../../validation/schemas/comment/commentPost.schema');
+const commentManageSchema = require('../../validation/schemas/comment/commentManage.schema');
 
 // Require controllers try catch
-const controllerHandler = require('../../../helpers/controllerHandler');
+const controllerHandler = require('../../helpers/controllerHandler');
 
 //  Require error handler
-const errorHandler = require('../../../helpers/errorHandler');
+const errorHandler = require('../../helpers/errorHandler');
 
 // Require services token
-const jwt = require('../../../services/token');
+const jwt = require('../../services/token');
 
 router
     .route('/:id/user')

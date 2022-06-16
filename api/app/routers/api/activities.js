@@ -1,17 +1,17 @@
 const express = require('express');
 
 const router = express.Router();
-const activityController = require('../../../controllers/api/activityController');
+const activityController = require('../../controllers/api/activityController');
 
-const apiErrorController = require('../../../controllers/api/error');
-const validator = require('../../../validation/validator');
+const apiErrorController = require('../../controllers/api/error');
+const validator = require('../../validation/validator');
 
-const activityGeoSchema = require('../../../validation/schemas/activity/activityGeo.schema');
-const activitySearchSchema = require('../../../validation/schemas/activity/activitySearch.schema');
-const activityCategorySchema = require('../../../validation/schemas/activity/activityCategory.schema');
+const activityGeoSchema = require('../../validation/schemas/activity/activityGeo.schema');
+const activitySearchSchema = require('../../validation/schemas/activity/activitySearch.schema');
+const activityCategorySchema = require('../../validation/schemas/activity/activityCategory.schema');
 
-const controllerHandler = require('../../../helpers/controllerHandler');
-const errorHandler = require('../../../helpers/errorHandler');
+const controllerHandler = require('../../helpers/controllerHandler');
+const errorHandler = require('../../helpers/errorHandler');
 
 router
     .route('/')

@@ -1,5 +1,5 @@
 const express = require('express');
-const controlle = require('../controllers/web/homepageController');
+const controlle = require('../controllers/website/homepageController');
 
 const routerUser = require('./api/user');
 const routerActivities = require('./api/activities');

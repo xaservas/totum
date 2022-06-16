@@ -1,23 +1,23 @@
 const express = require('express');
 
 const router = express.Router();
-const metaController = require('../../../controllers/api/metaController');
+const metaController = require('../../controllers/api/metaController');
 
-const apiErrorController = require('../../../controllers/api/error');
+const apiErrorController = require('../../controllers/api/error');
 
 // Require validator and schemas Joi
-const validator = require('../../../validation/validator');
-const metaGetSchema = require('../../../validation/schemas/meta/metaGet.schema');
-const metaManageSchema = require('../../../validation/schemas/meta/metaManage.schema');
+const validator = require('../../validation/validator');
+const metaGetSchema = require('../../validation/schemas/meta/metaGet.schema');
+const metaManageSchema = require('../../validation/schemas/meta/metaManage.schema');
 
 // Require controllers try catch
-const controllerHandler = require('../../../helpers/controllerHandler');
+const controllerHandler = require('../../helpers/controllerHandler');
 
 //  Require error handler
-const errorHandler = require('../../../helpers/errorHandler');
+const errorHandler = require('../../helpers/errorHandler');
 
 // Require services token
-const jwt = require('../../../services/token');
+const jwt = require('../../services/token');
 
 router
     .route('/:id/manage')

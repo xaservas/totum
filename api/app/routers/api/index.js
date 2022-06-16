@@ -1,22 +1,22 @@
 const express = require('express');
 
 const router = express.Router();
-const registerController = require('../../../controllers/api/registerController');
+const registerController = require('../../controllers/api/registerController');
 
 // Require validator and schemas Joi
-const apiErrorController = require('../../../controllers/api/error');
-const validator = require('../../../validation/validator');
-const registerGetSchema = require('../../../validation/schemas/register/registerGet.schema');
-const registerPostSchema = require('../../../validation/schemas/register/registerManage.schema');
+const apiErrorController = require('../../controllers/api/error');
+const validator = require('../../validation/validator');
+const registerGetSchema = require('../../validation/schemas/register/registerGet.schema');
+const registerPostSchema = require('../../validation/schemas/register/registerManage.schema');
 
 // Require controllers try catch
-const controllerHandler = require('../../../helpers/controllerHandler');
+const controllerHandler = require('../../helpers/controllerHandler');
 
 //  Require error handler
-const errorHandler = require('../../../helpers/errorHandler');
+const errorHandler = require('../../helpers/errorHandler');
 
 // Require services token
-const jwt = require('../../../services/token');
+const jwt = require('../../services/token');
 
 router
     .route('/')

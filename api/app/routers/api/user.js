@@ -2,25 +2,25 @@
 const express = require('express');
 
 const router = express.Router();
-const userController = require('../../../controllers/api/userController');
+const userController = require('../../controllers/api/userController');
 
-const apiErrorController = require('../../../controllers/api/error');
+const apiErrorController = require('../../controllers/api/error');
 
 // Require validator and schemas Joi
-const validator = require('../../../validation/validator');
-const userGetSchema = require('../../../validation/schemas/user/userGet.schema');
-const userPostSchema = require('../../../validation/schemas/user/userPost.schema');
-const userLoginSchema = require('../../../validation/schemas/user/userLogin.schema');
-const userManageSchema = require('../../../validation/schemas/user/userManage.schema');
+const validator = require('../../validation/validator');
+const userGetSchema = require('../../validation/schemas/user/userGet.schema');
+const userPostSchema = require('../../validation/schemas/user/userPost.schema');
+const userLoginSchema = require('../../validation/schemas/user/userLogin.schema');
+const userManageSchema = require('../../validation/schemas/user/userManage.schema');
 
 // Require controllers try catch
-const controllerHandler = require('../../../helpers/controllerHandler');
+const controllerHandler = require('../../helpers/controllerHandler');
 
 //  Require error handler
-const errorHandler = require('../../../helpers/errorHandler');
+const errorHandler = require('../../helpers/errorHandler');
 
 // Require services token
-const jwt = require('../../../services/token');
+const jwt = require('../../services/token');
 
 router
     .route('/login')
