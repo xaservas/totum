@@ -1,12 +1,10 @@
 const express = require('express');
 
 const router = express.Router();
-const commentController = require('../../controllers/api/commentController');
 
 // Require validator and schemas Joi
 const apiErrorController = require('../../controllers/api/error');
 const validator = require('../../validation/validator');
-
 
 // Require controllers try catch
 const controllerHandler = require('../../helpers/controllerHandler');
@@ -15,8 +13,8 @@ const controllerHandler = require('../../helpers/controllerHandler');
 const errorHandler = require('../../helpers/errorHandler');
 
 // Require services token
-const jwt = require('../../services/token');
-const levelController = require('../../controllers/levelController');
+// const jwt = require('../../services/token');
+const levelController = require('../../controllers/api/levelController');
 
 router.route('/getAll')
 
