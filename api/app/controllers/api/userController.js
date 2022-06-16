@@ -1,4 +1,5 @@
 const userDatamapper = require('../../models/userDatamapper');
+const bcrypt = require('../../services/bcrypt');
 const jwt = require('../../services/token');
 
 const userController = {
@@ -13,15 +14,20 @@ const userController = {
 
     async login(req, res) {
         const { email, password } = req.body;
-        const user = await userDatamapper.login(email, password);
+        const user = await userDatamapper.login(email);
         if (user) {
-            const token = jwt.generateToken(user.email);
-            res.status(200).json({
-                user,
-                token,
-            });
+            const isValid = await bcrypt.compare(password, user.password);
+            if (isValid) {
+                const token = jwt.generateToken(user.email);
+                res.status(200).json({
+                    user,
+                    token,
+                });
+            } else {
+                res.status(401).json({ message: 'Invalid password' });
+            }
         } else {
-            res.status(401).json({ message: 'Invalid credentials' });
+            res.status(404).json({ message: 'User not found' });
         }
     },
 
@@ -35,7 +41,8 @@ const userController = {
         const { password, passwordConfirmation } = req.body;
         const { id } = req.params;
         if (password === passwordConfirmation) {
-            const user = await userDatamapper.updatePassword(id, password);
+            const hash = await bcrypt.hash(password);
+            const user = await userDatamapper.updatePassword(id, hash);
             if (user) {
                 res.status(200).json({ message: 'Password updated' });
             } else {
@@ -67,6 +74,8 @@ const userController = {
     async createUser(req, res) {
         const data = req.body;
         if (data.password === data.passwordConfirmation) {
+            const hash = await bcrypt.hash(data.password);
+            data.password = hash;
             const user = await userDatamapper.createUser(data);
             res.json(user);
         } else {

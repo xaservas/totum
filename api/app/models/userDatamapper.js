@@ -7,18 +7,20 @@ const user = {
         return result.rows;
     },
 
-    async login(email, password) {
+    async login(email) {
         const query = {
             text: `
                     SELECT *
                     FROM users
                     WHERE email = $1
-                    AND password = $2
                 `,
-            values: [email, password],
+            values: [email],
         };
         const result = await client.query(query);
-        return result.rows[0];
+        if (result.rows.length > 0) {
+            return result.rows[0];
+        }
+        return undefined;
     },
 
     async logout(token) {
