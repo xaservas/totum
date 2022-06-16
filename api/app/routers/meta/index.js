@@ -28,7 +28,7 @@ router.route('/:id/manage')
  * @security BearerAuth
  * @param {number} id.path.required - User id
  * @returns {object} 200 - Meta data
- * @returns {Error} 400 - Invalid request
+ * @returns {object} 400 - Invalid request
  * @example response - 200 - success response example
  * {
  * "id": 1,
@@ -57,7 +57,7 @@ router.route('/:id/manage')
      * @param {number} id.path.required - User id
      * @param {object} request.body.required - Meta data
      * @returns {object} 200 - Meta data
-     * @returns {Error} 400 - Invalid request
+     * @returns {object} 400 - Invalid request
      * @example request - Meta data
      * {
      * "cookie": "boolean",
