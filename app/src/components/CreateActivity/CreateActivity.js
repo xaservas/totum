@@ -10,19 +10,19 @@ function CreateActivity({
     const [ categories, setCategories] = React.useState([]);
     const [levels, setLevels] = React.useState([]); 
     const [activity, setActivity] = React.useState({
-        name: "",
-        description: "",
-        max_participants: "",
-        date: "",
-        level: "",//requete get route en cours //selecteur de choix
-        address: "",
-        zip_code: "",
-        city: "",
-        country: "",
+        name: "escalade", //name n'apparait pas dans la requete
+        description: "apéro",
+        max_participants: 5,
+        date: "demain",
+        level: 1,
+        address: "outuveux",
+        zip_code: "93000",
+        city: "Montreuil",
+        country: "France",
         landmark: "landmarkFake",
-        id_user: userId,// localStorage.getItem(user.id)---ok
-        id_category: "" //requete get pour créer un select--ok 
-        //affichage par ordre alphabétique //affichage de toute la liste 
+        id_user: userId,
+        id_category: 3 
+         //affichage de toute la liste 
         //utiliser find pour améliorer la sélection
     });
     
@@ -34,7 +34,7 @@ function CreateActivity({
         //categories.forEach(category => console.log(category.name))
         
        //const sortedCategories = sortObjectsByProp(categories, "name") ;
-       console.log(categories);
+       //console.log(categories);
     },[]);
     
     const sortObjectsByProp = (objectsArr, prop, ascending = true) => {
@@ -68,9 +68,6 @@ function CreateActivity({
             })
             const sortedCategories = sortObjectsByProp(response.data, "name") ;
             setCategories(sortedCategories);
-            //const categoriesNames = categories.map(category => {return category.name});
-           // return categories;
-           // return response.data;
         } catch (error) {
             console.log(error);
         }
@@ -98,22 +95,25 @@ function CreateActivity({
             ...previousActivity,
             [name]: value
         }));
-        console.log(activity)
+        //console.log(activity);
     };
 
     const handleSubmit = async (event) =>{
         event.preventDefault();
+        console.log(activity)
         try {
             const response = await axios({
                 method:'post',
                 url:'/activity/createNew',
-                body:{activity}
+                data:{
+                    ...activity
+                }
             })
             console.log(response);
         } catch (error) {
             console.log(error);
         }
-        console.log(`new activity object${activity}`)
+        //console.log(activity)
     }
 /*
     const categoriesNames = (myCategories) => {
@@ -128,15 +128,7 @@ function CreateActivity({
            {...rest}
            onSubmit={handleSubmit}
        >
-           {/**
-            * input activité
-            * input lieu
-            * input nbre participants
-            * input nbre invités
-            * input date
-            * input niveau
-            * textarea description
-            */}
+
             <div className='field'>
                 <label className='label'>Activité</label>
                 <div className='control'>
@@ -165,6 +157,23 @@ function CreateActivity({
                         <option value={category.id} key={category.id}>{category.name}</option>             
                         )
                         )}
+                    </select>
+                </div>
+            </div>
+            <div className='field'>
+                <label className='label'>Niveau</label>
+                <div className='select'>
+                    <select 
+                    className='input' 
+                    type='text' 
+                    placeholder='intitulé'
+                    name='id_level' 
+                    value={activity.id_level} 
+                    onChange={handleChange}
+                    >
+                    {levels.map(level => (
+                        <option value={level.id} key={level.id}>{level.name}</option>             
+                        ))}
                     </select>
                 </div>
             </div>
@@ -217,24 +226,20 @@ function CreateActivity({
                     onChange={handleChange}
                      />
                 </div>
-            </div>
-            {/*<div className='field is-grouped'>
-                <label className='label'>Nombre de participants</label>
+
+                <label className='label'>Pays</label>
                 <div className='control'>
                     <input 
                     className='input' 
                     type='text' 
-                    placeholder='Nombre de participants'
-                    />
+                    placeholder='pays'
+                    name='country'
+                    value={activity.country}
+                    onChange={handleChange}
+                     />
                 </div>
-                <label className='label'>Invités</label>
-                <div className='control'>
-                    <input 
-                    className='input' 
-                    type='text'
-                    />
-                </div>
-        </div>*/}
+            </div>
+           
             <div className='field'>
                 <label className='label'>Date</label>
                 {/*Find a calendar module */}
@@ -248,35 +253,8 @@ function CreateActivity({
                     />
                 </div>
             </div>
-            {/*<div className='field'>
-                <label className='label'>Niveau</label>
-                <div className='control'>
-                    <input 
-                    className='input' 
-                    type='text' 
-                    name='level'
-                    value={activity.level}
-                    onChange={handleChange} 
-                    />
-                </div>
-            </div>*/}
-            <div className='field'>
-                <label className='label'>Niveau</label>
-                <div className='select'>
-                    <select 
-                    className='input' 
-                    type='text' 
-                    placeholder='intitulé'
-                    name='id_level' 
-                    value={activity.id_level} 
-                    onChange={handleChange}
-                    >
-                    {levels.map(level => (
-                        <option value={level.id} key={level.id}>{level.name}</option>             
-                        ))}
-                    </select>
-                </div>
-            </div>
+            
+            
             <div className='field'>
                 <label className='label'>Description</label>
                 <div className='control'>
