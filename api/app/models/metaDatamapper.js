@@ -1,4 +1,4 @@
-const client = require('./client');
+const client = require('../config/client');
 
 const metaDatamapper = {
     async getByUser(id) {
@@ -30,7 +30,6 @@ const metaDatamapper = {
         const result = await client.query(query);
         return result.rows[0];
     },
-
 };
 
 module.exports = metaDatamapper;

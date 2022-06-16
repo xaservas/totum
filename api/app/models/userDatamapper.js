@@ -1,4 +1,4 @@
-const client = require('./client');
+const client = require('../config/client');
 
 const user = {
     async getAll() {
@@ -130,10 +130,7 @@ const user = {
             WHERE id = $2
             RETURNING *
             `,
-                values: [
-                    response2.rows[0].id,
-                    response.rows[0].id,
-                ],
+                values: [response2.rows[0].id, response.rows[0].id],
             };
             const response3 = await client.query(query3);
             return response3.rows[0];
@@ -256,7 +253,6 @@ const user = {
         const result = await client.query(query);
         return result.rows;
     },
-
 };
 
 module.exports = user;

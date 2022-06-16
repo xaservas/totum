@@ -1,4 +1,4 @@
-const client = require('./client');
+const client = require('../config/client');
 
 const levelDataMapper = {
     async getAll() {

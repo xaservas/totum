@@ -1,7 +1,6 @@
-const client = require('./client');
+const client = require('../config/client');
 
 const categoryDatamapper = {
-
     async getAll() {
         const query = {
             text: 'SELECT * FROM category',
@@ -30,12 +29,7 @@ const categoryDatamapper = {
                 VALUES ($1, $2, $3)
                 RETURNING *
                 `,
-            values: [
-                data.name,
-                data.picto,
-                data.id_user,
-            ],
-
+            values: [data.name, data.picto, data.id_user],
         };
         const result = await client.query(query);
         return result.rows[0];
@@ -69,11 +63,7 @@ const categoryDatamapper = {
             WHERE id = $3
             RETURNING *
             `,
-            values: [
-                data.name,
-                data.picto,
-                id,
-            ],
+            values: [data.name, data.picto, id],
         };
         const result = await client.query(query);
         if (!result.rows[0]) {
@@ -93,7 +83,6 @@ const categoryDatamapper = {
         }
         return result.rows[0];
     },
-
 };
 
 module.exports = categoryDatamapper;
