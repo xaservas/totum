@@ -1,8 +1,9 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import './activity.scss';
 import { useParams } from 'react-router-dom'
 import { findActivityById } from '../../utils/dataTools';
+import axios from '../../utils/axiosPool';
 /**Xavier/10/06/2022:
  * 
  * this component could be a modal that could be used in lists and map
@@ -17,14 +18,33 @@ import { findActivityById } from '../../utils/dataTools';
  * 
  */
 function Activity({
-    activities,
+    
     ...rest}) {
         //console.log(activities)
         const { id } = useParams();
         console.log(id);
+        const [activities, setActivities] = useState([]);
+        const currentActivity = '';
 
-        const currentActivity = findActivityById(activities, id);
-        console.log(currentActivity);
+        const ActivitiesDataRequest = async () => {
+            try {
+                const result= await axios({
+                    method:'get',
+                    url: '/activities'
+                })
+                console.log(result.data); 
+                setActivities(result.data) ;
+            } catch (error) {
+                console.log(error)
+            }
+        };
+        useEffect(() => {
+            ActivitiesDataRequest()
+            const currentActivity = findActivityById(activities, id);
+            console.log(currentActivity);
+        },[]);
+
+        
 
    return (
        <article
