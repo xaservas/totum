@@ -1,7 +1,6 @@
 const categoryDataMapper = require('../../models/categoryDatamapper');
 
 const categoryController = {
-
     async getAll(_, res) {
         const categories = await categoryDataMapper.getAll();
         if (categories.length > 0) {
@@ -19,7 +18,9 @@ const categoryController = {
     },
 
     async getOneCategory(req, res) {
-        const categories = await categoryDataMapper.getOneCategory(req.params.id);
+        const categories = await categoryDataMapper.getOneCategory(
+            req.params.id
+        );
         if (!categories) {
             res.status(404).json({
                 message: 'Category not found',
@@ -29,15 +30,19 @@ const categoryController = {
     },
 
     async updateCategory(req, res) {
-        const categories = await categoryDataMapper.updateCategory(req.params.id, req.body);
+        const categories = await categoryDataMapper.updateCategory(
+            req.params.id,
+            req.body
+        );
         res.status(200).json(categories);
     },
 
     async removeCategory(req, res) {
-        const activities = await categoryDataMapper.removeCategory(req.params.id);
+        const activities = await categoryDataMapper.removeCategory(
+            req.params.id
+        );
         res.json(activities);
     },
-
 };
 
 module.exports = categoryController;

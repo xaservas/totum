@@ -1,27 +1,23 @@
-
-import React from 'react';
-import './createProfile.scss';
+import React from 'react'
+import './createProfile.scss'
 import axios from 'axios'
 
+import OptionLogin from '../Login/OptionLogin/OptionLogin'
 
+function CreateProfile({ newValue, newValueB }) {
+  const [firstname, setFirstname] = React.useState('')
+  const [lastname, setLastname] = React.useState('')
+  const [email, setEmail] = React.useState('')
+  const [password, setPassword] = React.useState('')
 
-function CreateProfile({newValue, newValueB}){
-
-
-    const [firstname, setFirstname] = React.useState("");
-    const [lastname, setLastname] = React.useState("");
-    const [email, setEmail] = React.useState("");
-    const [password, setPassword] = React.useState("");
-
-    const [passwordConfirmation, setPasswordConfirmation] = React.useState("");
-    const [address, setAddress] = React.useState("");
-    const [zip_code, setZip_code] = React.useState("");
-    const [city, setCity] = React.useState("");
-    const [country, setCountry] = React.useState("");
-    const [about, setAbout] = React.useState("");
-    const [cookieValue, setCookieValue] = React.useState("");
-    const [landmarkValue, setLandmarkValue] = React.useState("");
-
+  const [passwordConfirmation, setPasswordConfirmation] = React.useState('')
+  const [address, setAddress] = React.useState('')
+  const [zip_code, setZip_code] = React.useState('')
+  const [city, setCity] = React.useState('')
+  const [country, setCountry] = React.useState('')
+  const [about, setAbout] = React.useState('')
+  
+  
     const landmarkClick = () => {
         const newValue = !landmarkValue;
         setLandmarkValue(newValue);
@@ -35,39 +31,34 @@ function CreateProfile({newValue, newValueB}){
         console.log(newValueB)
     }
 
+  const handleSubmit = (event) => {
+    axios({
+      method: 'post',
+      url: 'https://api.totum.ovh/v1/user/createNew',
+      data: {
+        firstname: `${firstname}`,
+        lastname: `${lastname}`,
+        email: `${email}`,
+        password: `${password}`,
+        passwordConfirmation: `${passwordConfirmation}`,
+        address: `${address}`,
+        zip_code: `${zip_code}`,
+        city: `${city}`,
+        country: `${country}`,
+        about: `${about}`,
+      },
+    })
+      .then(function (response) {
+        console.log(response)
 
-    const handleSubmit = (event) => {
-        axios({
-            method: 'post',
-            url: 'https://api.totum.ovh/v1/user/createNew',
-            data: {
-                firstname: `${firstname}`,
-                lastname: `${lastname}`,
-                email : `${email}`,
-                password: `${password}`,
-                passwordConfirmation: `${passwordConfirmation}`,
-                address: `${address}`,
-                zip_code: `${zip_code}`,
-                city: `${city}`,
-                country: `${country}`,
-                about: `${about}`,
-                cookie:`${cookieValue}`,
-                landmark: `${landmarkValue}`
+        console.log(response.data)
+      })
+      .catch(function (error) {
+        console.log(error)
+      })
 
-            }
-        })
-        .then(function (response) {
+    console.log(`
 
-            console.log(response);
-
-            console.log(response.data);
-
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
-
-        console.log (`
         Prénom : ${firstname}
         Nom : ${lastname}
         Email : ${email}
@@ -80,10 +71,12 @@ function CreateProfile({newValue, newValueB}){
         cookie:${cookieValue}
         landmark: ${landmarkValue}
         `)
-        event.preventDefault ();
-    }
-
     
+
+    event.preventDefault()
+  }
+
+
 
 
         return (
@@ -204,3 +197,4 @@ function CreateProfile({newValue, newValueB}){
 };
 
 export default CreateProfile;
+

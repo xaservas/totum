@@ -1,16 +1,16 @@
 const express = require('express');
 const controlle = require('../controllers/website/homepageController');
 
-const routerUser = require('./api/user');
-const routerActivities = require('./api/activities');
-const routerActivity = require('./api/activity');
-const routerCategory = require('./api/category');
-const routerComment = require('./api/comment');
-const routerRegister = require('./api/register');
-const routerMeta = require('./api/meta');
-const routerLevel = require('./api/level');
 
-// const routerHome = require('./web/homepage');
+const routerUser = require('./user');
+const routerActivities = require('./activities');
+const routerActivity = require('./activity');
+const routerCategory = require('./category');
+const routerComment = require('./comment');
+const routerRegister = require('./register');
+const routerMeta = require('./meta');
+const routerLevel = require('./level');
+
 
 const router = express.Router();
 
