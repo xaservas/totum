@@ -53,13 +53,14 @@ function LoginForm() {
       .then((response) => {
         localStorage.setItem('token', response.data.token);
         saveUser(response.data.user);
-        navigate('/activities', { replace: true });
+        navigate('/map', { replace: true });
         /*
            si on reçoit le token
            on est redirigé vers la liste des activités
            sinon on reste sur place */
       })
       .catch((error) => {
+        alert('tu tes tromper connard');
         console.log(error);
       });
 
