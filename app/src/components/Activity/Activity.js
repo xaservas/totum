@@ -1,12 +1,11 @@
-
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import './activity.scss';
-import { useParams } from 'react-router-dom'
-//import { findActivityById } from '../../utils/dataTools';
+import { useParams } from 'react-router-dom';
+// import { findActivityById } from '../../utils/dataTools';
 import axios from '../../utils/axiosPool';
 
-/**Xavier/10/06/2022:
+/** Xavier/10/06/2022:
  *
  * this component could be a modal that could be used in lists and map
  * when it's not active it looks like a buton with contextual informations
@@ -21,50 +20,49 @@ import axios from '../../utils/axiosPool';
  */
 
 function Activity({ activities, ...rest }) {
-  //console.log(activities)
-  const { id } = useParams()
-  console.log(id)
+  // console.log(activities)
+  const { id } = useParams();
+  console.log(id);
 
-  const currentActivity = findActivityById(activities, id)
-  console.log(currentActivity)
+  const currentActivity = findActivityById(activities, id);
+  console.log(currentActivity);
 
   return (
     <article className={'activity card'} {...rest}>
-      <header className="card-header">
-        <p className="activity__name card-header-title">
+      <header className='card-header'>
+        <p className='activity__name card-header-title'>
           {currentActivity.name}
         </p>
-        <figure className="image is-48x48">
+        <figure className='image is-48x48'>
           <img
-            className="activity__owner is-rounded"
+            className='activity__owner is-rounded'
             src={currentActivity.owner_picture}
             alt={currentActivity.owner}
           />
         </figure>
-        <p className="activity-level">{currentActivity.level}</p>
-        <button className="modal-close is-large" aria-label="close"></button>
+        <p className='activity-level'>{currentActivity.level}</p>
+        <button className='modal-close is-large' aria-label='close'></button>
       </header>
-      <body className="card-content">
+      <body className='card-content'>
         <progress
-          className="activity__takeholders progress"
-          value="15"
-          max="100"
-        >
+          className='activity__takeholders progress'
+          value='15'
+          max='100'>
           15%
         </progress>
-        <p className="activity__adress">
+        <p className='activity__adress'>
           {currentActivity.address}, {currentActivity.city},{' '}
           {currentActivity.zip_code}, {currentActivity.country}
         </p>
-        <p className="activity__description">{currentActivity.description}</p>
+        <p className='activity__description'>{currentActivity.description}</p>
       </body>
-      <footer className="card-footer">
-        <a href="/" className="card-footer-item">
+      <footer className='card-footer'>
+        <a href='/' className='card-footer-item'>
           Participer
         </a>
       </footer>
     </article>
-  )
+  );
 }
 
 Activity.propTypes = {
@@ -80,13 +78,12 @@ Activity.propTypes = {
       zip_code: PropTypes.string.isRequired,
       city: PropTypes.string.isRequired,
       country: PropTypes.string.isRequired,
-    }).isRequired,
+    }).isRequired
   ).isRequired,
-}
+};
 Activity.defaultProps = {
   className: '',
   descritpion: 'activité sans description',
   level: 'activité sans niveau',
-}
-export default Activity
-
+};
+export default Activity;
