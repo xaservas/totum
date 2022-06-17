@@ -20,6 +20,28 @@ function Header({ ...rest }) {
     navigate('/', { replace: true });
   };
 
+  const onClickLogout = async (event) => {
+    event.preventDefault();
+    localStorage.removeItem('token');
+    navigate('/login', { replace: true });
+  };
+
+  const profil = async (event) => {
+    event.preventDefault();
+    navigate('/profile', { replace: true });
+  };
+
+  const setup = async (event) => {
+    event.preventDefault();
+    navigate('/profil/params', { replace: true });
+  };
+
+  const showMenu = (event) => {
+    event.preventDefault();
+    const menu = document.getElementById('navbar-menu');
+    menu.classList.toggle('showMenu');
+  };
+
   return (
     <header>
       <nav className='navbar' role='navigation' aria-label='main navigation'>
@@ -28,12 +50,21 @@ function Header({ ...rest }) {
             <div className='totumtitle'>
               <span onClick={onClick}>TOTUM</span>
             </div>
-            <div className='icon'>
+            <div onClick={showMenu} className='icon' id='menu'>
               <FontAwesomeIcon icon={faUser} className='navbar-item ' />
             </div>
           </div>
         </div>
       </nav>
+      <div className='navbar-menu' id='navbar-menu'>
+        <div className='navbar-start'>
+          <ul>
+            <li onClick={profil}>Profile</li>
+            <li onClick={setup}>Parametrès</li>
+            <li onClick={onClickLogout}>Déconnexion</li>
+          </ul>
+        </div>
+      </div>
     </header>
   );
 }

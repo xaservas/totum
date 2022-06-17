@@ -14,7 +14,7 @@ function Footer({ ...rest }) {
   };
 
   return (
-    <div className='iconbar'>
+    <footer id='footer' className='iconbar'>
       {/* <FontAwesomeIcon icon="fa-regular fa-circle-plus" /> */}
       <button className='icon_create' onClick={onClick}>
         <FontAwesomeIcon
@@ -22,7 +22,7 @@ function Footer({ ...rest }) {
           className='navbar-item icon is-large'
         />
       </button>
-    </div>
+    </footer>
   );
 }
 
