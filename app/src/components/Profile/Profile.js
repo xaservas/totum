@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import axios from '../../utils/axiosPool'
+import axios from '../../utils/axiosPool';
 import data from '../../data/activities';
 import './profile.scss';
 import ListActivities from '../ListActivities/ListActivities';
@@ -11,12 +11,15 @@ function Profile({ ...rest }) {
   const [activities, setActivities] = React.useState([]);
 
   const getUserById = async (id) => {
+    console.log(id);
     try {
       const response = await axios({
         method: 'get',
         url: `/user/${id}/manage`,
       });
-      return (response.data);
+      console.log('getUserById');
+      setUser(response.data);
+      return response.data;
     } catch (error) {
       console.log(error);
     }
@@ -28,17 +31,18 @@ function Profile({ ...rest }) {
         method: 'get',
         url: `/user/${id}/activity`,
       });
-      return (response.data);
+      return response.data;
     } catch (error) {
       console.log(error);
     }
   };
 
   useEffect(() => {
-    setUser(getUserById(userId));
-    setActivities(getUserActivities(userId));
-    console.log(user);
-    console.log(activities);
+    console.log('useEffect');
+    // const currentUser = getUserById(userId);
+    console.log(getUserById(userId));
+    // setActivities(getUserActivities(userId));
+    //console.log(user);
   }, []);
 
   return (
