@@ -3,37 +3,35 @@ import './loginForm.scss';
 import { useNavigate } from 'react-router-dom';
 
 import axios from '../../../utils/axiosPool';
-// import { saveAuthorization } from '../../../utils/axiosPool';
-// import PropTypes from 'prop-types';
-
-/* https://www.bezkoder.com/react-jwt-auth/  jwt without redux>>>>trop long, local storage??? */
-// https://www.digitalocean.com/community/tutorials/how-to-add-login-authentication-to-react-applications
 
 function LoginForm() {
   const navigate = useNavigate();
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
-  // const [user, setUser] = React.useState("");
-  // const [token, setToken] = React.useState("");
+  const [geoloc, setGeoloc] = React.useState([]);
+
+  const Geolocalisation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        setGeoloc([
+          (geoloc[0] = position.coords.latitude),
+          (geoloc[1] = position.coords.longitude),
+        ]);
+      });
+    }
+  };
+
+  localStorage.setItem('geoloc', JSON.stringify(geoloc));
+
   useEffect(() => {
     const loggedInUser = localStorage.getItem('token');
+    Geolocalisation();
     if (loggedInUser) {
       console.log('tu es logué');
     } else {
       console.log("tu n'es pas connecté");
     }
   }, []);
-
-  const handleLogout = async () => {
-    axios({
-      method: 'get',
-      url: '/user/logout',
-    });
-    setEmail('');
-    setPassword('');
-    localStorage.clear();
-    console.log('tu es déco');
-  };
 
   const saveUser = (data) => {
     Object.keys(data).forEach((key) => {
@@ -54,12 +52,9 @@ function LoginForm() {
         localStorage.setItem('token', response.data.token);
         saveUser(response.data.user);
         navigate('/map', { replace: true });
-        /*
-           si on reçoit le token
-           on est redirigé vers la liste des activités
-           sinon on reste sur place */
       })
       .catch((error) => {
+        // gerer l'erreur de login de maniere cosmetique
         alert('tu tes tromper connard');
         console.log(error);
       });
@@ -86,9 +81,6 @@ function LoginForm() {
         />
         <button className='button'>Login</button>
       </form>
-      <button className='button' onClick={handleLogout}>
-        Déco
-      </button>
     </div>
   );
 }
