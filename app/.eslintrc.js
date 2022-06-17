@@ -1,23 +1,25 @@
 module.exports = {
-
   env: {
-    commonjs: true,
-    es2021: true,
-    node: true,
+    browser: true,
+    es6: true,
     'jest/globals': true,
   },
   extends: ['airbnb-base'],
-  plugins: ['jest'],
+  plugins: ['jest', 'prettier', 'react'],
   parserOptions: {
     ecmaVersion: 'latest',
+    ecmaFeatures: {
+      jsx: true,
+    },
+    sourceType: 'module',
   },
   rules: {
-    indent: ['error', 4],
     'jest/no-disabled-tests': 'warn',
     'jest/no-focused-tests': 'error',
     'jest/no-identical-title': 'error',
     'jest/prefer-to-have-length': 'warn',
     'jest/valid-expect': 'error',
-    quotes: ['error', 'simple'],
+    indent: ['error', 2],
+    'react/jsx-uses-vars': 2,
   },
-
+};

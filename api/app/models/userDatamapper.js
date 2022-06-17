@@ -1,43 +1,43 @@
 const client = require('../config/client');
 
 const user = {
-    async getAll() {
-        const query = 'SELECT * FROM users';
-        const result = await client.query(query);
-        return result.rows;
-    },
+  async getAll() {
+    const query = 'SELECT * FROM users';
+    const result = await client.query(query);
+    return result.rows;
+  },
 
-    async login(email) {
-        const query = {
-            text: `
+  async login(email) {
+    const query = {
+      text: `
                     SELECT *
                     FROM users
                     WHERE email = $1
                 `,
-            values: [email],
-        };
-        const result = await client.query(query);
-        if (result.rows.length > 0) {
-            return result.rows[0];
-        }
-        return undefined;
-    },
+      values: [email],
+    };
+    const result = await client.query(query);
+    if (result.rows.length > 0) {
+      return result.rows[0];
+    }
+    return undefined;
+  },
 
-    async logout(token) {
-        const query = {
-            text: `
+  async logout(token) {
+    const query = {
+      text: `
                     INSERT INTO token_blacklist (token)
                     VALUES ($1)
                 `,
-            values: [token],
-        };
-        const result = await client.query(query);
-        return result.rows[0];
-    },
+      values: [token],
+    };
+    const result = await client.query(query);
+    return result.rows[0];
+  },
 
-    async updatePassword(id, password) {
-        const query = {
-            text: `
+  async updatePassword(id, password) {
+    const query = {
+      text: `
                     UPDATE users
                     SET
                     password = $2,
@@ -45,15 +45,15 @@ const user = {
                     WHERE id = $1
                     RETURNING *
                 `,
-            values: [id, password],
-        };
-        const result = await client.query(query);
-        return result.rows[0];
-    },
+      values: [id, password],
+    };
+    const result = await client.query(query);
+    return result.rows[0];
+  },
 
-    async updateEmail(id, email) {
-        const query = {
-            text: `
+  async updateEmail(id, email) {
+    const query = {
+      text: `
                     UPDATE users
                     SET
                     email = $2,
@@ -61,23 +61,27 @@ const user = {
                     WHERE id = $1
                     RETURNING *
                 `,
-            values: [id, email],
-        };
-        const result = await client.query(query);
-        return result.rows[0];
-    },
+      values: [id, email],
+    };
+    const result = await client.query(query);
+    return result.rows[0];
+  },
 
-    async createUser(data) {
-        const verification = {
-            text: `
+  async createUser(data) {
+    if (data.cookie === undefined || data.landmark === undefined) {
+      data.cookie = false;
+      data.landmark = false;
+    }
+    const verification = {
+      text: `
                     SELECT email FROM users WHERE email = $1
                 `,
-            values: [data.email],
-        };
-        const result = await client.query(verification);
-        if (result.rows.length === 0) {
-            const query = {
-                text: `
+      values: [data.email],
+    };
+    const result = await client.query(verification);
+    if (result.rows.length === 0) {
+      const query = {
+        text: `
                     INSERT INTO users
                     (
                         email,
@@ -93,23 +97,23 @@ const user = {
                     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
                     RETURNING *
                     `,
-                values: [
-                    data.email,
-                    data.password,
-                    data.firstname,
-                    data.lastname,
-                    data.picture,
-                    data.about,
-                    data.address,
-                    data.city,
-                    data.country,
-                    data.zip_code,
-                ],
-            };
-            const response = await client.query(query);
+        values: [
+          data.email,
+          data.password,
+          data.firstname,
+          data.lastname,
+          data.picture,
+          data.about,
+          data.address,
+          data.city,
+          data.country,
+          data.zip_code,
+        ],
+      };
+      const response = await client.query(query);
 
-            const query2 = {
-                text: `
+      const query2 = {
+        text: `
                     INSERT INTO meta
                         (
                         cookie,
@@ -119,41 +123,41 @@ const user = {
                     VALUES ($1, $2, $3)
                     RETURNING *
                     `,
-                values: [data.cookie, data.landmark, response.rows[0].id],
-            };
-            const response2 = await client.query(query2);
+        values: [data.cookie, data.landmark, response.rows[0].id],
+      };
+      const response2 = await client.query(query2);
 
-            const query3 = {
-                text: `
+      const query3 = {
+        text: `
             UPDATE users
             SET meta_id = $1
             WHERE id = $2
             RETURNING *
             `,
-                values: [response2.rows[0].id, response.rows[0].id],
-            };
-            const response3 = await client.query(query3);
-            return response3.rows[0];
-        }
-        throw new Error('Email already exists');
-    },
+        values: [response2.rows[0].id, response.rows[0].id],
+      };
+      const response3 = await client.query(query3);
+      return response3.rows[0];
+    }
+    throw new Error('Email already exists');
+  },
 
-    async getOneUser(id) {
-        const query = {
-            text: `
+  async getOneUser(id) {
+    const query = {
+      text: `
                     SELECT *
                     FROM users
                     WHERE id = $1
                 `,
-            values: [id],
-        };
-        const result = await client.query(query);
-        return result.rows[0];
-    },
+      values: [id],
+    };
+    const result = await client.query(query);
+    return result.rows[0];
+  },
 
-    async updateUser(id, data) {
-        const query = {
-            text: `
+  async updateUser(id, data) {
+    const query = {
+      text: `
                     UPDATE users SET
                     firstname = $1,
                     lastname = $2,
@@ -168,21 +172,21 @@ const user = {
                     RETURNING *
                 `,
 
-            values: [
-                data.firstname,
-                data.lastname,
-                data.picture,
-                data.about,
-                data.address,
-                data.city,
-                data.country,
-                data.zip_code,
-                id,
-            ],
-        };
-        const response = await client.query(query);
-        const queryMeta = {
-            text: `
+      values: [
+        data.firstname,
+        data.lastname,
+        data.picture,
+        data.about,
+        data.address,
+        data.city,
+        data.country,
+        data.zip_code,
+        id,
+      ],
+    };
+    const response = await client.query(query);
+    const queryMeta = {
+      text: `
                     UPDATE meta
                     SET
                     cookie = $1,
@@ -191,46 +195,46 @@ const user = {
                     WHERE id_user = $3
                     RETURNING *
                 `,
-            values: [data.cookie, data.landmark, id],
-        };
-        const meta = await client.query(queryMeta);
-        if (!response.rows[0]) {
-            return undefined;
-        }
-        return [response.rows[0], meta.rows[0]];
-    },
+      values: [data.cookie, data.landmark, id],
+    };
+    const meta = await client.query(queryMeta);
+    if (!response.rows[0]) {
+      return undefined;
+    }
+    return [response.rows[0], meta.rows[0]];
+  },
 
-    async removeUser(id) {
-        const query = {
-            text: `
+  async removeUser(id) {
+    const query = {
+      text: `
                     DELETE FROM users
                     WHERE id = $1
                     RETURNING *
                 `,
-            values: [id],
-        };
-        const response = await client.query(query);
-        const queryMeta = {
-            text: `
+      values: [id],
+    };
+    const response = await client.query(query);
+    const queryMeta = {
+      text: `
                     DELETE FROM meta
                     WHERE id_user = $1
                     RETURNING *
                 `,
-            values: [id],
-        };
-        const meta = await client.query(queryMeta);
-        if (!response.rows[0]) {
-            throw new Error('User not found');
-        }
-        return {
-            response: response.rows[0],
-            meta: meta.rows[0],
-        };
-    },
+      values: [id],
+    };
+    const meta = await client.query(queryMeta);
+    if (!response.rows[0]) {
+      throw new Error('User not found');
+    }
+    return {
+      response: response.rows[0],
+      meta: meta.rows[0],
+    };
+  },
 
-    async getUserActivity(id) {
-        const query = {
-            text: `
+  async getUserActivity(id) {
+    const query = {
+      text: `
                     SELECT
                         users.id AS user_id,
                         users.email AS user_email,
@@ -248,11 +252,11 @@ const user = {
                     JOIN level ON activity.level = level.id
                     WHERE users.id = $1
                 `,
-            values: [id],
-        };
-        const result = await client.query(query);
-        return result.rows;
-    },
+      values: [id],
+    };
+    const result = await client.query(query);
+    return result.rows;
+  },
 };
 
 module.exports = user;
