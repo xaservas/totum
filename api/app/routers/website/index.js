@@ -14,22 +14,9 @@ const homepageController = require('../../controllers/website/homepageController
 router
   .route('/')
 
-  /**
-   * GET /
-   * @summary Show homepage
-   * @tags homepage
-   * @return {object} 200 - Good
-   * @return {object}  500 - Error
-   * @example response - 200 - success response example
-   * [
-   *C'est tout bon
-   * ]
-   *  @example response - 500 - error response example
-   * {
-   * "error": "Une erreur est survenue, veuillez réessayer plus tard…"
-   * }
-   */
   .get(controllerHandler(homepageController.homePage));
+
+  router.use(homepageController.error404);
 
 router.use(webErrorController.error404);
 router.use(errorHandler);
