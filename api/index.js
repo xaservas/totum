@@ -4,7 +4,7 @@ const cors = require('cors');
 const expressJSDocSwagger = require('express-jsdoc-swagger');
 const logger = require('./app/helpers/logger');
 
-const router = require('./app/routers');
+const router = require('./app/routers/index');
 
 const port = process.env.PORT || 3000;
 
@@ -14,25 +14,24 @@ app.set('view engine', 'ejs');
 app.set('views', './app/views');
 
 const options = {
-    info: {
-        version: '1.0.0',
-        title: 'Totum',
-        description: 'Totum API',
-    },
-    baseDir: __dirname,
-    filesPattern: './**/*.js',
-    swaggerUIPath: '/api-docs',
-    exposeSwaggerUI: true,
-    notRequiredAsNullable: false,
-    swaggerUiOptions: {},
+  info: {
+    version: '1.0.0',
+    title: 'Totum',
+    description: 'Totum API',
+  },
+  baseDir: __dirname,
+  filesPattern: './**/*.js',
+  swaggerUIPath: '/api-docs',
+  exposeSwaggerUI: true,
+  notRequiredAsNullable: false,
+  swaggerUiOptions: {},
 
-    security: {
-        BearerAuth: {
-            type: 'http',
-            scheme: 'bearer',
-        },
+  security: {
+    BearerAuth: {
+      type: 'http',
+      scheme: 'bearer',
     },
-
+  },
 };
 
 expressJSDocSwagger(app)(options);
@@ -42,12 +41,14 @@ app.use(express.json());
 // On peut si on veut le permettre, ajouter l'interpretation de données sous forme urlencoded
 app.use(express.urlencoded({ extended: true }));
 
-app.use(cors({
+app.use(
+  cors({
     origin: '*',
-}));
+  })
+);
 
 app.use(router);
 
 app.listen(port, () => {
-    logger.info(`http://localhost:${port}`);
+  logger.info(`http://localhost:${port}`);
 });
