@@ -31,6 +31,8 @@ router
    */
   .get(controllerHandler(homepageController.homePage));
 
+  router.use(homepageController.error404);
+
 router.use(webErrorController.error404);
 router.use(errorHandler);
 
