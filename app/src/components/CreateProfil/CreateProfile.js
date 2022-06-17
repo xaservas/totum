@@ -1,6 +1,8 @@
+/* eslint-disable no-console */
 import React from 'react';
 import './createProfile.scss';
 import axios from 'axios';
+// import PlacesAutocomplete from 'react-places-autocomplete';
 
 function CreateProfile() {
   const [firstname, setFirstname] = React.useState('');
@@ -152,8 +154,8 @@ function CreateProfile() {
       <input
         name='about'
         type='text'
-        className='input'
-        placeholder='Présentation'
+        className='textarea'
+        placeholder='Présente toi en quelques ligne'
         onChange={(e) => setAbout(e.target.value)}
       />
       <div className='OptionLogin'>
