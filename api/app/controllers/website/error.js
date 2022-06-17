@@ -1,5 +1,5 @@
 module.exports = {
   error404(_, res) {
-    res.render('error404');
+    res.render('404');
   },
 };
