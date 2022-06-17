@@ -1,10 +1,40 @@
-import { Marker, Popup } from 'leaflet';
-import { MapContainer, TileLayer, useMap } from 'react-leaflet';
+import { useEffect, useState } from 'react';
+import L from 'leaflet';
+import {
+  MapContainer,
+  TileLayer,
+  // useMap,
+  Marker,
+  Popup,
+} from 'react-leaflet';
+import Axios from '../../utils/axiosPool';
 import './map.scss';
 
 function Map() {
+  const [activities, setActivities] = useState([]);
+  const geoloc = JSON.parse(localStorage.getItem('geoloc'));
+
+  const ActivitiesDataRequest = async () => {
+    try {
+      const response = await Axios.get('/activities');
+      setActivities(response.data);
+    } catch (error) {
+      throw new Error(error);
+    }
+  };
+
+  useEffect(() => {
+    ActivitiesDataRequest();
+  }, []);
+
+  const iconTest = new L.Icon({
+    iconUrl: 'https://i.picsum.photos/id/279/200/300.jpg?hmac=fYDbVmnm7vDGt7SA51v-qMUKHIn7HKCp5v9d8Wx_SVM',
+    iconSize: [50, 50],
+    iconAnchor: [25, 25],
+  });
+
   return (
-    <div className='Map'>
+    <div id='map' className='map'>
       <link
         rel='stylesheet'
         href='https://unpkg.com/leaflet@1.8.0/dist/leaflet.css'
@@ -18,19 +48,35 @@ function Map() {
       />
 
       <MapContainer
-        center={[42.6886591, 2.8948332]}
+        center={geoloc}
         zoom={13}
-        scrollWheelZoom={false}>
+        // change this option to active zoom on scroll
+        scrollWheelZoom={true}>
         <TileLayer
           attribution='OpenStreetMap'
           url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
         />
 
-        {/* <Marker position={[42.6886591, 2.8948332]}>
-          <Popup>
-            <span>Totum #13</span>
-          </Popup>
-        </Marker> */}
+        { activities.map((activity) => {
+          if (activity.landmark) {
+            const tmp = JSON.parse(activity.landmark);
+            const x = tmp[0];
+            const y = tmp[1];
+
+            return (
+              <Marker key={activity.id} position={[x, y]} icon={iconTest}>
+                <Popup>
+                  <div>
+                    <h3>{activity.name}</h3>
+                    <p>{activity.description}</p>
+                  </div>
+                </Popup>
+              </Marker>
+            );
+          }
+          return null;
+        })}
+
       </MapContainer>
     </div>
   );
