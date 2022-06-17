@@ -1,10 +1,46 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
+import axios from '../../utils/axiosPool'
 import data from '../../data/activities';
 import './profile.scss';
 import ListActivities from '../ListActivities/ListActivities';
 
 function Profile({ ...rest }) {
+  const userId = localStorage.getItem('id');
+  const [user, setUser] = React.useState([]);
+  const [activities, setActivities] = React.useState([]);
+
+  const getUserById = async (id) => {
+    try {
+      const response = await axios({
+        method: 'get',
+        url: `/user/${id}/manage`,
+      });
+      return (response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getUserActivities = async (id) => {
+    try {
+      const response = await axios({
+        method: 'get',
+        url: `/user/${id}/activity`,
+      });
+      return (response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    setUser(getUserById(userId));
+    setActivities(getUserActivities(userId));
+    console.log(user);
+    console.log(activities);
+  }, []);
+
   return (
     <section className={'profile card'} {...rest}>
       <div className='card-content'>
