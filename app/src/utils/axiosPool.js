@@ -10,6 +10,4 @@ const instance = axios.create({
   },
 });
 
-console.log(localStorage.getItem('token'));
-
 export default instance;
