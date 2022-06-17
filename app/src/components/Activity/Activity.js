@@ -25,9 +25,10 @@ function Activity({ ...rest }) {
   // console.log(activities)
   const { id } = useParams();
   const [activity, setActivity] = useState([]);
-  console.log(id);
+  const [levels, setLevels] = React.useState([]);
+  const [currentLevel, setCurrentLevel] = React.useState('');
 
-  const activityRequest = async (idElem) => {
+  const getActivity = async (idElem) => {
     try {
       const result = await axios({
         method: 'get',
@@ -39,21 +40,43 @@ function Activity({ ...rest }) {
       console.log(error);
     }
   };
+
+  //  const isCurrentLevel = () => (levels.id === activity.level);
+
+  /* const findCurrentLevel = () => {
+    levels.find(levels.id === activity.level);
+  }; */
+
+  const getLevels = async (levelId) => {
+    try {
+      const response = await axios({
+        method: 'get',
+        url: '/level/getAll',
+      });
+      // console.log(response.data);
+      setLevels(response.data);
+      console.log(currentLevel);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
-    activityRequest(id);
+    getActivity(id);
+    getLevels();
   }, []);
 
   return (
     <article className={'activity card'} {...rest}>
       <header className='card-header'>
         <p className='activity__name card-header-title'>{activity.name}</p>
-        {/*<figure className='image is-48x48'>
+        {/* <figure className='image is-48x48'>
           <img
             className='activity__owner is-rounded'
             src={activity.owner_picture}
             alt={activity.owner}
           />
-        </figure>*/}
+        </figure> */}
         <p className='activity-level'>{activity.level}</p>
         <button className='modal-close is-large' aria-label='close'></button>
       </header>

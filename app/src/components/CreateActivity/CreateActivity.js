@@ -11,16 +11,16 @@ function CreateActivity({ ...rest }) {
   const [categories, setCategories] = React.useState([]);
   const [levels, setLevels] = React.useState([]);
   const [activity, setActivity] = React.useState({
-    name: 'escalade', // name n'apparait pas dans la requete
-    description: 'apéro',
-    max_participants: 5,
-    date: 'demain',
+    name: '', // name n'apparait pas dans la requete
+    description: '',
+    max_participants: 1,
+    date: '',
     level: 1,
-    address: 'outuveux',
-    zip_code: '93000',
-    city: 'Montreuil',
-    country: 'France',
-    landmark: 'landmarkFake',
+    address: '',
+    zip_code: '',
+    city: '',
+    country: '',
+    landmark: '',
     id_user: userId,
     id_category: 3,
     // affichage de toute la liste

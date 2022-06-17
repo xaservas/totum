@@ -10,7 +10,7 @@ function ListActivities({
 }) {
   const [activities, setActivities] = useState([]);
 
-  const ActivitiesDataRequest = async () => {
+  const activitiesDataRequest = async () => {
     try {
       const result = await axios({
         method: 'get',
@@ -24,7 +24,7 @@ function ListActivities({
   };
 
   useEffect(() => {
-    ActivitiesDataRequest();
+    activitiesDataRequest();
   }, []);
 
   return (
