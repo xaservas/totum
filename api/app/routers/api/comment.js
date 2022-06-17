@@ -19,7 +19,8 @@ const errorHandler = require('../../helpers/errorHandler');
 // Require services token
 const jwt = require('../../services/token');
 
-router.route('/:id/user')
+router
+    .route('/:id/user')
     /**
      * GET /v1/comment/{id}/user
      * @summary Get all comments of a user
@@ -48,10 +49,11 @@ router.route('/:id/user')
      */
     .get(
         validator('params', commentGetSchema),
-        controllerHandler(commentController.getByUser),
+        controllerHandler(commentController.getByUser)
     );
 
-router.route('/:id/activity')
+router
+    .route('/:id/activity')
     /**
      * GET /v1/comment/{id}/activity
      * @summary Get all comments of an activity
@@ -80,10 +82,11 @@ router.route('/:id/activity')
      */
     .get(
         validator('params', commentGetSchema),
-        controllerHandler(commentController.getByActivity),
+        controllerHandler(commentController.getByActivity)
     );
 
-router.route('/createNew')
+router
+    .route('/createNew')
     /**
      * POST /v1/comment/createNew
      * @summary Create a new comment
@@ -117,10 +120,11 @@ router.route('/createNew')
     .post(
         controllerHandler(jwt.verifyToken),
         validator('body', commentPostSchema),
-        controllerHandler(commentController.createComment),
+        controllerHandler(commentController.createComment)
     );
 
-router.route('/:id/manage')
+router
+    .route('/:id/manage')
     /**
      * GET /v1/comment/{id}/manage
      * @summary Get a comment by id
@@ -145,7 +149,7 @@ router.route('/:id/manage')
      */
     .get(
         validator('params', commentGetSchema),
-        controllerHandler(commentController.getOneComment),
+        controllerHandler(commentController.getOneComment)
     )
 
     /**
@@ -181,7 +185,7 @@ router.route('/:id/manage')
         controllerHandler(jwt.verifyToken),
         validator('params', commentGetSchema),
         validator('body', commentManageSchema),
-        controllerHandler(commentController.updateComment),
+        controllerHandler(commentController.updateComment)
     )
 
     /**
@@ -210,7 +214,7 @@ router.route('/:id/manage')
     .delete(
         controllerHandler(jwt.verifyToken),
         validator('params', commentGetSchema),
-        controllerHandler(commentController.removeComment),
+        controllerHandler(commentController.removeComment)
     );
 
 router.use(apiErrorController.error404);

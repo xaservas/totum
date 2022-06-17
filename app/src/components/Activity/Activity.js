@@ -1,8 +1,11 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import './activity.scss'
+
+import React, {useState, useEffect} from 'react';
+import PropTypes from 'prop-types';
+import './activity.scss';
 import { useParams } from 'react-router-dom'
-import { findActivityById } from '../../utils/dataTools'
+//import { findActivityById } from '../../utils/dataTools';
+import axios from '../../utils/axiosPool';
+
 /**Xavier/10/06/2022:
  *
  * this component could be a modal that could be used in lists and map
@@ -16,6 +19,7 @@ import { findActivityById } from '../../utils/dataTools'
  *
  *
  */
+
 function Activity({ activities, ...rest }) {
   //console.log(activities)
   const { id } = useParams()
@@ -85,3 +89,4 @@ Activity.defaultProps = {
   level: 'activité sans niveau',
 }
 export default Activity
+

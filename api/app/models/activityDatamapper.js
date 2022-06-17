@@ -1,7 +1,6 @@
-const client = require('./client');
+const client = require('../config/client');
 
 const activityDataMapper = {
-
     async getAll() {
         const query = {
             text: 'SELECT * FROM activity',
@@ -87,7 +86,6 @@ const activityDataMapper = {
                 data.id_user,
                 data.id_category,
             ],
-
         };
         const result = await client.query(query);
         return result.rows[0];
@@ -174,7 +172,6 @@ const activityDataMapper = {
         }
         return result.rows;
     },
-
 };
 
 module.exports = activityDataMapper;

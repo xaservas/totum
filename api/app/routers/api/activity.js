@@ -14,7 +14,8 @@ const controllerHandler = require('../../helpers/controllerHandler');
 const errorHandler = require('../../helpers/errorHandler');
 const jwt = require('../../services/token');
 
-router.route('/createNew')
+router
+    .route('/createNew')
     /**
      * POST /v1/activity/createNew
      * @summary Create a new activity
@@ -64,12 +65,13 @@ router.route('/createNew')
     .post(
         controllerHandler(jwt.verifyToken),
         validator('body', activityPostSchema),
-        controllerHandler(activityController.createActivity),
+        controllerHandler(activityController.createActivity)
     );
 
-router.route('/:id/manage')
+router
+    .route('/:id/manage')
 
-/**
+    /**
      * GET /v1/activity/{id}/manage
      * @summary Get an activity by id
      * @tags Activity
@@ -101,10 +103,10 @@ router.route('/:id/manage')
      */
     .get(
         validator('params', activityGetSchema),
-        controllerHandler(activityController.getOneActivity),
+        controllerHandler(activityController.getOneActivity)
     )
 
-/**
+    /**
      * PATCH /v1/activity/{id}/manage
      * @summary Update an activity by id
      * @tags Activity
@@ -154,10 +156,10 @@ router.route('/:id/manage')
     .patch(
         controllerHandler(jwt.verifyToken),
         validator('body', activityManageSchema),
-        controllerHandler(activityController.updateActivity),
+        controllerHandler(activityController.updateActivity)
     )
 
-/**
+    /**
      * DELETE /v1/activity/{id}/manage
      * @summary Delete an activity by id
      * @tags Activity
@@ -191,11 +193,12 @@ router.route('/:id/manage')
     .delete(
         controllerHandler(jwt.verifyToken),
         validator('query', activityManageSchema),
-        controllerHandler(activityController.removeActivity),
+        controllerHandler(activityController.removeActivity)
     );
 
-router.route('/:id/user')
-/**
+router
+    .route('/:id/user')
+    /**
      * GET /v1/activity/{id}/user
      * @summary Get all users of an activity
      * @tags Activity
@@ -224,7 +227,7 @@ router.route('/:id/user')
      */
     .get(
         validator('params', activityGetSchema),
-        controllerHandler(activityController.getUser),
+        controllerHandler(activityController.getUser)
     );
 
 router.use(apiErrorController.error404);

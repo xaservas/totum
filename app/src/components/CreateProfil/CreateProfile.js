@@ -1,6 +1,7 @@
 import React from 'react'
 import './createProfile.scss'
 import axios from 'axios'
+
 import OptionLogin from '../Login/OptionLogin/OptionLogin'
 
 function CreateProfile({ newValue, newValueB }) {
@@ -15,6 +16,20 @@ function CreateProfile({ newValue, newValueB }) {
   const [city, setCity] = React.useState('')
   const [country, setCountry] = React.useState('')
   const [about, setAbout] = React.useState('')
+  
+  
+    const landmarkClick = () => {
+        const newValue = !landmarkValue;
+        setLandmarkValue(newValue);
+        console.log(newValue)
+    }
+
+
+    const cookieClick = () => {
+        const newValueB = !cookieValue;
+        setCookieValue(newValueB);
+        console.log(newValueB)
+    }
 
   const handleSubmit = (event) => {
     axios({
@@ -43,6 +58,7 @@ function CreateProfile({ newValue, newValueB }) {
       })
 
     console.log(`
+
         Prénom : ${firstname}
         Nom : ${lastname}
         Email : ${email}
@@ -52,109 +68,133 @@ function CreateProfile({ newValue, newValueB }) {
         Ville : ${city}
         Pays: ${country}
         Présentation : ${about}
-
+        cookie:${cookieValue}
+        landmark: ${landmarkValue}
         `)
+    
+
     event.preventDefault()
   }
 
-  return (
-    <form onSubmit={handleSubmit} className="createProfile">
-      <input
-        name="firstname"
-        type="text"
-        className="input"
-        placeholder="Prénom"
-        onChange={(e) => setFirstname(e.target.value)}
-      />
 
-      <input
-        name="lastname"
-        type="text"
-        className="input"
-        placeholder="Nom"
-        onChange={(e) => setLastname(e.target.value)}
-      />
 
-      <input
-        name="email"
-        type="email"
-        className="input"
-        placeholder="Mail"
-        onChange={(e) => setEmail(e.target.value)}
-      />
 
-      <div className="password">
-        <input
-          name="password"
-          type="password"
-          className="input"
-          placeholder="Mot de passe"
-          onChange={(e) => setPassword(e.target.value)}
-        />
+        return (
+                <form onSubmit={handleSubmit} className='createProfile'>
 
-        <input
-          name="passwordConfirmation"
-          type="password"
-          className="input"
-          placeholder="Confirmation de Mot de passe"
-          onChange={(e) => setPasswordConfirmation(e.target.value)}
-        />
-      </div>
+            <input
+            name="firstname"
+            type="text"
+            className="input"
+             placeholder="Prénom"
+             onChange={e => setFirstname (e.target.value)}
+             />
 
-      <input
-        name="address"
-        type="text"
-        className="input"
-        placeholder="Adresse"
-        onChange={(e) => setAddress(e.target.value)}
-      />
+            <input
+            name="lastname"
+            type="text"
+            className="input"
+             placeholder="Nom"
+             onChange={e => setLastname (e.target.value)}
+             />
 
-      <div className="zipCity">
-        <input
-          name="zip_code"
-          type="text"
-          className="input"
-          placeholder="Code Postal"
-          onChange={(e) => setZip_code(e.target.value)}
-        />
+            <input
+            name="email"
+            type="email"
+            className="input"
+             placeholder="Mail"
+             onChange={e => setEmail (e.target.value)}
+             />
 
-        <input
-          name="city"
-          type="text"
-          className="input"
-          placeholder="Ville"
-          onChange={(e) => setCity(e.target.value)}
-        />
-      </div>
+            <div className="password">
+            <input
+            name="password"
+            type="password"
+            className="input"
+            placeholder="Mot de passe"
+            onChange={e => setPassword (e.target.value)}
+            />
 
-      <input
-        name="country"
-        type="text"
-        className="input"
-        placeholder="Pays"
-        onChange={(e) => setCountry(e.target.value)}
-      />
+            <input
+            name="passwordConfirmation"
+            type="password"
+            className="input"
+            placeholder="Confirmation de Mot de passe"
+            onChange={e => setPasswordConfirmation (e.target.value)}
+            />
+            </div>
 
-      <input
-        name="zip_code"
-        type="text"
-        className="input"
-        placeholder="Code Postal"
-        onChange={(e) => setZip_code(e.target.value)}
-      />
+            <input
+            name="address"
+            type="text"
+            className="input"
+            placeholder="Adresse"
+            onChange={e => setAddress (e.target.value)}
+            />
 
-      <input
-        name="about"
-        type="text"
-        className="input"
-        placeholder="Présentation"
-        onChange={(e) => setAbout(e.target.value)}
-      />
-      <OptionLogin />
+           <div className="zipCity">
+           <input
+            name="zip_code"
+            type="text"
+            className="input"
+            placeholder="Code Postal"
+            onChange={e => setZip_code (e.target.value)}
+            />
 
-      <button className="button">Valider</button>
-    </form>
-  )
-}
+            <input
+            name="city"
+            type="text"
+            className="input"
+            placeholder="Ville"
+            onChange={e => setCity (e.target.value)}
+            />
+           </div>
 
-export default CreateProfile
+            <input
+            name="country"
+            type="text"
+            className="input"
+            placeholder="Pays"
+            onChange={e => setCountry (e.target.value)}
+            />
+
+<input
+            name="zip_code"
+            type="text"
+            className="input"
+            placeholder="Code Postal"
+            onChange={e => setZip_code (e.target.value)}
+            />
+
+            <input
+            name="about"
+            type="text"
+            className="input"
+            placeholder="Présentation"
+            onChange={e => setAbout (e.target.value)}
+            />
+
+            <div className="OptionLogin">
+            <label className="checkbox">
+                <input name="landmark" type="checkbox" onClick={landmarkClick} />
+                <span className="slider round"></span>
+                <p>Géolocalisation</p>
+            </label>
+            <label className="checkbox">
+                <input name="cookie" type="checkbox"  onClick={cookieClick}/>
+                <span className="slider round"></span>
+                <p>Coockies</p>
+            </label>
+            
+        </div>
+
+
+
+            <button className="button">Valider</button>
+                </form>
+             
+        );
+};
+
+export default CreateProfile;
+

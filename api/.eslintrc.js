@@ -1,4 +1,5 @@
 module.exports = {
+
   env: {
     commonjs: true,
     es2021: true,
@@ -19,4 +20,4 @@ module.exports = {
     'jest/valid-expect': 'error',
     quotes: ['error', 'simple'],
   },
-};
+

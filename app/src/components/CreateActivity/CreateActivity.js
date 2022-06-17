@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import './createActivity.scss';
 import axios from '../../utils/axiosPool';
 
+
 function CreateActivity({ ...rest }) {
   const [categories, setCategories] = React.useState([]);
   const userId = localStorage.getItem('id');
@@ -42,6 +43,86 @@ function CreateActivity({ ...rest }) {
       // return response.data;
     } catch (error) {
       console.log(error);
+
+    
+    const sortObjectsByProp = (objectsArr, prop, ascending = true) => {
+        let objectsHaveProp = objectsArr.every(object => object.hasOwnProperty(prop));
+        if(objectsHaveProp)    {
+            let newObjectsArr = objectsArr.slice();
+            newObjectsArr.sort((a, b) => {
+                if(isNaN(Number(a[prop])))  {
+                    let textA = a[prop].toUpperCase(),
+                        textB = b[prop].toUpperCase();
+                    if(ascending)   {
+                        return textA < textB ? -1 : textA > textB ? 1 : 0;
+                    } else {
+                        return textB < textA ? -1 : textB > textA ? 1 : 0;
+                    }
+                } else {
+                    return ascending ? a[prop] - b[prop] : b[prop] - a[prop];
+                }
+            });
+            return newObjectsArr;
+        }
+        return objectsArr;
+    }
+   
+
+    const getCategories = async () => {
+        try {
+            const response = await axios({
+                method:'get',
+                url:'/category/categories'
+            })
+            const sortedCategories = sortObjectsByProp(response.data, "name") ;
+            setCategories(sortedCategories);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const getLevels = async () =>{
+        try {
+            const response = await axios({
+                method:'get',
+                url:'/level/getAll'
+            })
+           // console.log(response.data);
+            setLevels(response.data);
+
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    
+
+    const handleChange = e =>{
+        const { name, value } = e.target;
+        setActivity(previousActivity => ({
+            ...previousActivity,
+            [name]: value
+        }));
+        //console.log(activity);
+    };
+
+    const handleSubmit = async (event) =>{
+        event.preventDefault();
+        console.log(activity)
+        try {
+            const response = await axios({
+                method:'post',
+                url:'/activity/createNew',
+                data:{
+                    ...activity
+                }
+            })
+            console.log(response);
+        } catch (error) {
+            console.log(error);
+        }
+        //console.log(activity)
+
     }
   };
 
@@ -75,6 +156,7 @@ function CreateActivity({ ...rest }) {
         })
     }
 */
+
   return (
     <form className='createActivity' {...rest} onSubmit={handleSubmit}>
       {/**

@@ -1,3 +1,4 @@
+
 import React from 'react'
 // import PropTypes from 'prop-types';
 
@@ -37,9 +38,10 @@ function OptionLogin() {
   )
 }
 
-// OptionLogin.propTypes= {
-//     newValue : PropTypes.bool.isRequired,
-//     newValueB: PropTypes.bool.isRequired
-// }
+
+OptionLogin.propTypes= {
+    newValue : PropTypes.bool.isRequired,
+    newValueB: PropTypes.bool.isRequired
+}
 
 export default OptionLogin
