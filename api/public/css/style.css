@@ -1,0 +1,14 @@
+body {
+  background: linear-gradient(45deg, rgb(24, 147, 236), blue);
+  height: 100vh;
+  font-family: 'Raleway', sans-serif;
+  color: white;
+}
+
+h1 {
+
+  text-align: center;
+  color: white;
+}
+
+
