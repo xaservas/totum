@@ -3,7 +3,7 @@ import L from 'leaflet';
 import {
   MapContainer,
   TileLayer,
-  useMap,
+  // useMap,
   Marker,
   Popup,
 } from 'react-leaflet';
@@ -12,36 +12,19 @@ import './map.scss';
 
 function Map() {
   const [activities, setActivities] = useState([]);
+  const geoloc = JSON.parse(localStorage.getItem('geoloc'));
 
   const ActivitiesDataRequest = async () => {
     try {
       const response = await Axios.get('/activities');
       setActivities(response.data);
     } catch (error) {
-      console.log(error);
+      throw new Error(error);
     }
   };
 
-  // const [geoloc, setGeoloc] = useState([]);
-
-  // const Geolocalisation = () => {
-  //   if (navigator.geolocation) {
-  //     navigator.geolocation.getCurrentPosition(
-  //       (position) => {
-  //         setGeoloc([
-  //           position.coords.latitude,
-  //           position.coords.longitude,
-  //         ]);
-  //       },
-  //     );
-  //   }
-  // };
-
-  // console.log(geoloc);
-
   useEffect(() => {
     ActivitiesDataRequest();
-    // Geolocalisation();
   }, []);
 
   const iconTest = new L.Icon({
@@ -65,10 +48,10 @@ function Map() {
       />
 
       <MapContainer
-        center={[0, 0]}
+        center={geoloc}
         zoom={13}
         // change this option to active zoom on scroll
-        scrollWheelZoom={false}>
+        scrollWheelZoom={true}>
         <TileLayer
           attribution='OpenStreetMap'
           url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
