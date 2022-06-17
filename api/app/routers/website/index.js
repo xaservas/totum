@@ -11,12 +11,7 @@ const errorHandler = require('../../helpers/errorHandler');
 
 const homepageController = require('../../controllers/website/homepageController');
 
-router
-  .route('/')
-
-  .get(controllerHandler(homepageController.homePage));
-
-  router.use(homepageController.error404);
+router.route('/').get(controllerHandler(homepageController.homePage));
 
 router.use(webErrorController.error404);
 router.use(errorHandler);
