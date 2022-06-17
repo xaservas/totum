@@ -1,7 +1,6 @@
 const levelDataMapper = require('../../models/levelDatamapper');
 
 const levelController = {
-
     async getAll(_, res) {
         const levels = await levelDataMapper.getAll();
         if (levels.length === 0) {
@@ -9,7 +8,6 @@ const levelController = {
         }
         res.status(200).json(levels);
     },
-
 };
 
 module.exports = levelController;

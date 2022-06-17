@@ -5,9 +5,7 @@ module.exports = {
         node: true,
         'jest/globals': true,
     },
-    extends: [
-        'airbnb-base',
-    ],
+    extends: ['airbnb-base'],
     plugins: ['jest'],
     parserOptions: {
         ecmaVersion: 'latest',
@@ -19,5 +17,6 @@ module.exports = {
         'jest/no-identical-title': 'error',
         'jest/prefer-to-have-length': 'warn',
         'jest/valid-expect': 'error',
+        quotes: ['error', 'simple'],
     },
 };
