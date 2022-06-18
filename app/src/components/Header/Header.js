@@ -21,12 +21,20 @@ function Header() {
 
   const logout = async (event) => {
     event.preventDefault();
-    localStorage.clear();
     try {
-      await Axios.get('/user/logout');
+      await Axios.get('/user/logout', {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
     } catch (error) {
-      console.log(error);
+      throw new Error(error);
     }
+    localStorage.clear();
+    navigate('/login', { replace: true });
+  };
+
+  const login = async () => {
     navigate('/login', { replace: true });
   };
 
@@ -59,7 +67,12 @@ function Header() {
           <ul>
             <li onClick={profil}>Profile</li>
             <li onClick={setup}>Parametrès</li>
-            <li onClick={logout}>Déconnexion</li>
+
+            {localStorage.getItem('id') ? (
+              <li onClick={logout}>Déconnexion</li>
+            ) : (
+              <li onClick={login}>Connexion</li>
+            )}
           </ul>
         </div>
       </div>
