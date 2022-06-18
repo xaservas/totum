@@ -1,18 +1,14 @@
 import { useEffect, useState } from 'react';
 import L from 'leaflet';
 import {
-  MapContainer,
-  TileLayer,
-  // useMap,
-  Marker,
-  Popup,
+  MapContainer, TileLayer, Marker, Popup,
 } from 'react-leaflet';
 import Axios from '../../utils/axiosPool';
 import './map.scss';
 
 function Map() {
   const [activities, setActivities] = useState([]);
-  const geoloc = JSON.parse(localStorage.getItem('geoloc'));
+  const position = JSON.parse(localStorage.getItem('coordinate'));
 
   const ActivitiesDataRequest = async () => {
     try {
@@ -28,7 +24,8 @@ function Map() {
   }, []);
 
   const iconTest = new L.Icon({
-    iconUrl: 'https://i.picsum.photos/id/279/200/300.jpg?hmac=fYDbVmnm7vDGt7SA51v-qMUKHIn7HKCp5v9d8Wx_SVM',
+    iconUrl:
+      'https://i.picsum.photos/id/279/200/300.jpg?hmac=fYDbVmnm7vDGt7SA51v-qMUKHIn7HKCp5v9d8Wx_SVM',
     iconSize: [50, 50],
     iconAnchor: [25, 25],
   });
@@ -48,7 +45,7 @@ function Map() {
       />
 
       <MapContainer
-        center={geoloc}
+        center={position}
         zoom={13}
         // change this option to active zoom on scroll
         scrollWheelZoom={true}>
@@ -57,7 +54,7 @@ function Map() {
           url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
         />
 
-        { activities.map((activity) => {
+        {activities.map((activity) => {
           if (activity.landmark) {
             const tmp = JSON.parse(activity.landmark);
             const x = tmp[0];
@@ -76,7 +73,6 @@ function Map() {
           }
           return null;
         })}
-
       </MapContainer>
     </div>
   );
