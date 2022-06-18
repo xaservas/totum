@@ -35,7 +35,6 @@ router
    * "zip_code": "String",
    * "city": "String",
    * "country": "String",
-   * "landmark": "[42.0, 42.0]",
    * "id_user": "Number Integer",
    * "id_category": "Number Integer"
    * }
@@ -126,7 +125,6 @@ router
    * "zip_code": "String",
    * "city": "String",
    * "country": "String",
-   * "landmark": "[42.0, 42.0]",
    * "id_user": "Number Integer",
    * "id_category": "Number Integer"
    * }
