@@ -1,26 +1,33 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import './createProfile.scss';
-import axios from 'axios';
+import axios from '../../utils/axiosPool';
 
 function CreateProfile() {
+  const navigate = useNavigate();
   const [firstname, setFirstname] = React.useState('');
   const [lastname, setLastname] = React.useState('');
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
-
   const [passwordConfirmation, setPasswordConfirmation] = React.useState('');
   const [address, setAddress] = React.useState('');
   const [zipCode, setZipcode] = React.useState('');
   const [city, setCity] = React.useState('');
   const [country, setCountry] = React.useState('');
   const [about, setAbout] = React.useState('');
-  const [cookieValue, setCookieValue] = React.useState('');
-  const [landmarkValue, setLandmarkValue] = React.useState('');
+  const [coordinate, setCoordinate] = React.useState([]);
+  const [cookieValue, setCookieValue] = React.useState(false);
+  const [landmarkValue, setLandmarkValue] = React.useState(false);
 
-  const landmarkClick = () => {
-    const newValue = !landmarkValue;
-    setLandmarkValue(newValue);
-  };
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition((position) => {
+      setLandmarkValue(true);
+      setCoordinate([
+        (coordinate[0] = position.coords.latitude),
+        (coordinate[1] = position.coords.longitude),
+      ]);
+    });
+  }
 
   const cookieClick = () => {
     const newValueB = !cookieValue;
@@ -30,7 +37,7 @@ function CreateProfile() {
   const handleSubmit = (event) => {
     axios({
       method: 'post',
-      url: 'https://api.totum.ovh/v1/user/createNew',
+      url: '/user/createNew',
       data: {
         firstname: `${firstname}`,
         lastname: `${lastname}`,
@@ -42,34 +49,18 @@ function CreateProfile() {
         city: `${city}`,
         country: `${country}`,
         about: `${about}`,
+        coordinate: JSON.stringify(coordinate),
         cookie: `${cookieValue}`,
         landmark: `${landmarkValue}`,
       },
     })
-      .then((response) => {
-        console.log(response);
-
-        console.log(response.data);
+      .then(() => {
+        navigate('/login', { replace: true });
       })
       .catch((error) => {
-        console.log(error);
+        // ajouter un message d'information si sa marche pas
+        throw new Error(error);
       });
-
-    console.log(`
-
-        Prénom : ${firstname}
-        Nom : ${lastname}
-        Email : ${email}
-        Mot de passe : ${password}
-        Adresse: ${address}
-        Code Postal: ${zipCode}
-        Ville : ${city}
-        Pays: ${country}
-        Présentation : ${about}
-        cookie:${cookieValue}
-        landmark: ${landmarkValue}
-        `);
-
     event.preventDefault();
   };
 
@@ -143,13 +134,6 @@ function CreateProfile() {
         onChange={(e) => setCountry(e.target.value)}
       />
       <input
-        name='zip_code'
-        type='text'
-        className='input'
-        placeholder='Code Postal'
-        onChange={(e) => setZipcode(e.target.value)}
-      />
-      <input
         name='about'
         type='text'
         className='input'
@@ -158,12 +142,8 @@ function CreateProfile() {
       />
       <div className='OptionLogin'>
         <label className='checkbox'>
-          <input name='landmark' type='checkbox' onClick={landmarkClick} />{' '}
-          <span className='slider round'> </span> <p> Géolocalisation </p>{' '}
-        </label>{' '}
-        <label className='checkbox'>
           <input name='cookie' type='checkbox' onClick={cookieClick} />{' '}
-          <span className='slider round'> </span> <p> Coockies </p>{' '}
+          <span className='slider round'> </span> <p> cookies </p>{' '}
         </label>
       </div>
       <button className='button'> Valider </button>{' '}
