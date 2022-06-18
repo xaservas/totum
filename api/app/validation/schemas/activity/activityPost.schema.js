@@ -13,7 +13,7 @@ module.exports = Joi.object({
   zip_code: textRule,
   city: textRule,
   country: textRule,
-  landmark: textRule,
+  landmark: Joi.string().empty(''),
   id_user: numberRule,
   id_category: numberRule,
 });

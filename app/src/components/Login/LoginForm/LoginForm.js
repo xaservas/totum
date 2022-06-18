@@ -1,40 +1,16 @@
 import React, { useEffect } from 'react';
 import './loginForm.scss';
 import { useNavigate } from 'react-router-dom';
-
 import axios from '../../../utils/axiosPool';
-// import { saveAuthorization } from '../../../utils/axiosPool';
-// import PropTypes from 'prop-types';
-
-/* https://www.bezkoder.com/react-jwt-auth/  jwt without redux>>>>trop long, local storage??? */
-// https://www.digitalocean.com/community/tutorials/how-to-add-login-authentication-to-react-applications
 
 function LoginForm() {
   const navigate = useNavigate();
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
-  // const [user, setUser] = React.useState("");
-  // const [token, setToken] = React.useState("");
-  useEffect(() => {
-    const loggedInUser = localStorage.getItem('token');
-    if (loggedInUser) {
-      console.log('tu es logué');
-    } else {
-      console.log("tu n'es pas connecté");
-    }
-  }, []);
 
-  const handleLogout = async () => {
-    axios({
-      method: 'get',
-      url: '/user/logout',
-    });
-    setEmail('');
-    setPassword('');
-    localStorage.clear();
-    console.log('tu es déco');
-  };
+  useEffect(() => {}, []);
 
+  // save object user in localStorage
   const saveUser = (data) => {
     Object.keys(data).forEach((key) => {
       localStorage.setItem(key, data[key]);
@@ -53,13 +29,11 @@ function LoginForm() {
       .then((response) => {
         localStorage.setItem('token', response.data.token);
         saveUser(response.data.user);
-        navigate('/activities', { replace: true });
-        /*
-           si on reçoit le token
-           on est redirigé vers la liste des activités
-           sinon on reste sur place */
+        navigate('/map', { replace: true });
       })
       .catch((error) => {
+        // gerer l'erreur de login de maniere cosmetique
+        alert('tu tes tromper connard');
         console.log(error);
       });
 
@@ -85,15 +59,8 @@ function LoginForm() {
         />
         <button className='button'>Login</button>
       </form>
-      <button className='button' onClick={handleLogout}>
-        Déco
-      </button>
     </div>
   );
 }
-
-// LoginForm.propTypes = {
-//     setToken: PropTypes.func.isRequired
-// };
 
 export default LoginForm;

@@ -93,8 +93,10 @@ const user = {
                         address,
                         city,
                         country,
-                        zip_code)
-                    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+                        zip_code,
+                        coordinate
+                        )
+                    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
                     RETURNING *
                     `,
         values: [
@@ -108,6 +110,7 @@ const user = {
           data.city,
           data.country,
           data.zip_code,
+          data.coordinate,
         ],
       };
       const response = await client.query(query);
