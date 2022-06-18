@@ -52,7 +52,7 @@ CREATE TABLE activity (
     city TEXT NOT NULL,
     country TEXT NOT NULL,
     landmark TEXT,
-    id_user INT NOT NULL REFERENCES users(id) CASCADE,
+    id_user INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
     id_category INT NOT NULL REFERENCES category(id),
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     updated_at TIMESTAMPTZ
