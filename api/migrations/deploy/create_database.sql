@@ -19,6 +19,7 @@ CREATE TABLE users (
     zip_code zip_code NOT NULL,
     city TEXT NOT NULL,
     country TEXT NOT NULL,
+    coordinate TEXT,
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     updated_at TIMESTAMPTZ
 );
