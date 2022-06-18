@@ -1,38 +1,16 @@
 import React, { useEffect } from 'react';
 import './loginForm.scss';
 import { useNavigate } from 'react-router-dom';
-
 import axios from '../../../utils/axiosPool';
 
 function LoginForm() {
   const navigate = useNavigate();
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
-  const [geoloc, setGeoloc] = React.useState([]);
 
-  const Geolocalisation = () => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        setGeoloc([
-          (geoloc[0] = position.coords.latitude),
-          (geoloc[1] = position.coords.longitude),
-        ]);
-      });
-    }
-  };
+  useEffect(() => {}, []);
 
-  localStorage.setItem('geoloc', JSON.stringify(geoloc));
-
-  useEffect(() => {
-    const loggedInUser = localStorage.getItem('token');
-    Geolocalisation();
-    if (loggedInUser) {
-      console.log('tu es logué');
-    } else {
-      console.log("tu n'es pas connecté");
-    }
-  }, []);
-
+  // save object user in localStorage
   const saveUser = (data) => {
     Object.keys(data).forEach((key) => {
       localStorage.setItem(key, data[key]);
@@ -84,9 +62,5 @@ function LoginForm() {
     </div>
   );
 }
-
-// LoginForm.propTypes = {
-//     setToken: PropTypes.func.isRequired
-// };
 
 export default LoginForm;
