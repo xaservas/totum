@@ -1,15 +1,14 @@
 /* eslint-disable no-console */
 import React from 'react';
 
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import './createProfile.scss';
 
 import axios from 'axios';
 // import PlacesAutocomplete from 'react-places-autocomplete';
 
-
 function CreateProfile() {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const [firstname, setFirstname] = React.useState('');
   const [lastname, setLastname] = React.useState('');
@@ -36,13 +35,17 @@ function CreateProfile() {
     });
   }
 
+  const landmarkClick = () => {
+    const newValue = !landmarkValue;
+    setLandmarkValue(newValue);
+    console.log(newValue);
+  };
 
   const cookieClick = () => {
     const newValueB = !cookieValue;
     setCookieValue(newValueB);
 
     console.log(newValueB);
-
   };
 
   const handleSubmit = (event) => {
@@ -65,13 +68,12 @@ function CreateProfile() {
         landmark: `${landmarkValue}`,
       },
     })
-
-      .then(function (response) {
+      .then((response) => {
         console.log(response);
 
         console.log(response.data);
       })
-      .catch(function (error) {
+      .catch((error) => {
         console.log(error);
       });
 
@@ -82,14 +84,13 @@ function CreateProfile() {
         Email : ${email}
         Mot de passe : ${password}
         Adresse: ${address}
-        Code Postal: ${zip_code}
+        Code Postal: ${zipCode}
         Ville : ${city}
         Pays: ${country}
         Présentation : ${about}
         cookie:${cookieValue}
         landmark: ${landmarkValue}
         `);
-
 
     event.preventDefault();
   };
@@ -135,10 +136,8 @@ function CreateProfile() {
           className='input'
           placeholder='Confirmation de Mot de passe'
           onChange={(e) => setPasswordConfirmation(e.target.value)}
-
         />
       </div>
-
 
       <input
         name='address'
@@ -148,14 +147,13 @@ function CreateProfile() {
         onChange={(e) => setAddress(e.target.value)}
       />
 
-
       <div className='zipCity'>
         <input
           name='zip_code'
           type='text'
           className='input'
           placeholder='Code Postal'
-          onChange={(e) => setZip_code(e.target.value)}
+          onChange={(e) => setZipcode(e.target.value)}
         />
 
         <input
@@ -164,10 +162,8 @@ function CreateProfile() {
           className='input'
           placeholder='Ville'
           onChange={(e) => setCity(e.target.value)}
-
         />
       </div>
-
 
       <input
         name='country'
@@ -185,7 +181,6 @@ function CreateProfile() {
         onChange={(e) => setAbout(e.target.value)}
       />
 
-
       <div className='OptionLogin'>
         <label className='checkbox'>
           <input name='landmark' type='checkbox' onClick={landmarkClick} />
@@ -200,7 +195,6 @@ function CreateProfile() {
       </div>
 
       <button className='button'>Valider</button>
-
     </form>
   );
 }
