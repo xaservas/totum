@@ -8,13 +8,17 @@ import Login from '../Login/Login';
 
 
 import activities from '../../data/activities';
-
 import CreateActivity from '../CreateActivity/CreateActivity';
 import CreateProfile from '../CreateProfil/CreateProfile';
 import Map from '../Map/Map';
-
+import Settings from '../Settings/Settings';
 import Search from '../Search/Search';
 import Footer from '../Footer/Footer';
+import Usersettings from '../Settings/Usersettings/Usersettings';
+import Notification from '../Settings/Notification/Notification';
+import LegalMention from '../Settings/LegalMention/LegalMention';
+import Help from '../Settings/Help/Help';
+
 
 function App() {
   return (
@@ -44,6 +48,12 @@ function App() {
         <Route path='*' element={<Navigate to='/' />} />
         <Route path='/profile/create' element={<CreateProfile />} />
         <Route path='/search' element={<Search />} />
+
+        <Route path='/settings' element={<Settings />} />
+        <Route path='/settings/user' element={<Usersettings />} />
+        <Route path='/settings/notifications' element={<Notification />} />
+        <Route path='/settings/legalMention' element={<LegalMention />} />
+        <Route path='/settings/help' element={<Help />} />
 
         <Route path='/map' element={<Map />} />
       </Routes>

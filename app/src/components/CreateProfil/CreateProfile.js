@@ -1,8 +1,12 @@
+/* eslint-disable no-console */
 import React from 'react';
 
 import { useNavigate } from 'react-router-dom';
 import './createProfile.scss';
-import axios from '../../utils/axiosPool';
+
+import axios from 'axios';
+// import PlacesAutocomplete from 'react-places-autocomplete';
+
 
 function CreateProfile() {
   const navigate = useNavigate();
@@ -176,8 +180,8 @@ function CreateProfile() {
       <input
         name='about'
         type='text'
-        className='input'
-        placeholder='Présentation'
+        className='textarea'
+        placeholder='Présente toi en quelques ligne'
         onChange={(e) => setAbout(e.target.value)}
       />
 
