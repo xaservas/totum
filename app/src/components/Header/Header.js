@@ -1,8 +1,10 @@
+
 import PropTypes from 'prop-types';
 import './header.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
+
 import Axios from '../../utils/axiosPool';
 
 function Header() {
@@ -48,15 +50,18 @@ function Header() {
     navigate('/profil/params', { replace: true });
   };
 
+
   return (
     <header>
       <nav className='navbar' role='navigation' aria-label='main navigation'>
         <div className='navbar-brand title is large'>
           <div className='barre'>
             <div className='totumtitle'>
+
               <span onClick={backToHome}>TOTUM</span>
             </div>
             <div onClick={showMenu} className='icon' id='menu'>
+
               <FontAwesomeIcon icon={faUser} className='navbar-item ' />
             </div>
           </div>

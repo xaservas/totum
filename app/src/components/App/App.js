@@ -6,6 +6,9 @@ import ListActivities from '../ListActivities/ListActivities';
 
 import Login from '../Login/Login';
 
+
+import activities from '../../data/activities';
+
 import CreateActivity from '../CreateActivity/CreateActivity';
 import CreateProfile from '../CreateProfil/CreateProfile';
 import Map from '../Map/Map';
@@ -22,6 +25,12 @@ function App() {
 
         <Route path='/activity/:id' element={<Activity />} />
         <Route
+
+          path='/activity/:id'
+          element={<Activity activities={activities} />}
+        />
+        <Route
+
           path='/profile'
           element={<Profile /* activities={activities} */ />}
         />
