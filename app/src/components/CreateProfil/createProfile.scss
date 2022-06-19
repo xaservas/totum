@@ -1,18 +1,22 @@
-.createProfile{
-    margin:2em 1em;
+.createProfile {
+  padding: 30% 1rem;
 }
+
 
 input{
     margin-bottom: 0.5em;
+
 }
 
 .password {
-    display: flex;
+  display: flex;
 }
 
 .zipCity {
-    display: flex;
+  display: flex;
 }
+
+
 
 
 
@@ -89,3 +93,4 @@ input{
   .slider.round:before {
     border-radius: 50%;
   }
+

@@ -6,6 +6,7 @@ import ListActivities from '../ListActivities/ListActivities';
 
 import Login from '../Login/Login';
 
+
 import activities from '../../data/activities';
 import CreateActivity from '../CreateActivity/CreateActivity';
 import CreateProfile from '../CreateProfil/CreateProfile';
@@ -18,6 +19,7 @@ import Notification from '../Settings/Notification/Notification';
 import LegalMention from '../Settings/LegalMention/LegalMention';
 import Help from '../Settings/Help/Help';
 
+
 function App() {
   return (
     <div className='App'>
@@ -25,11 +27,14 @@ function App() {
       <Routes>
         <Route path='/' element={<Login />} />
 
+        <Route path='/activity/:id' element={<Activity />} />
         <Route
+
           path='/activity/:id'
           element={<Activity activities={activities} />}
         />
         <Route
+
           path='/profile'
           element={<Profile /* activities={activities} */ />}
         />
@@ -43,11 +48,13 @@ function App() {
         <Route path='*' element={<Navigate to='/' />} />
         <Route path='/profile/create' element={<CreateProfile />} />
         <Route path='/search' element={<Search />} />
+
         <Route path='/settings' element={<Settings />} />
         <Route path='/settings/user' element={<Usersettings />} />
         <Route path='/settings/notifications' element={<Notification />} />
         <Route path='/settings/legalMention' element={<LegalMention />} />
         <Route path='/settings/help' element={<Help />} />
+
         <Route path='/map' element={<Map />} />
       </Routes>
       <Footer />

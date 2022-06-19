@@ -1,4 +1,8 @@
+
+/* eslint-disable no-else-return */
 /* eslint-disable no-nested-ternary */
+/* eslint-disable no-prototype-builtins */
+
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import './createActivity.scss';
@@ -9,16 +13,17 @@ function CreateActivity({ ...rest }) {
   const [categories, setCategories] = React.useState([]);
   const [levels, setLevels] = React.useState([]);
   const [activity, setActivity] = React.useState({
-    name: 'escalade', // name n'apparait pas dans la requete
-    description: 'apéro',
-    max_participants: 5,
-    date: 'demain',
+
+    name: '', // name n'apparait pas dans la requete
+    description: '',
+    max_participants: 1,
+    date: '',
     level: 1,
-    address: 'outuveux',
-    zip_code: '93000',
-    city: 'Montreuil',
-    country: 'France',
-    landmark: 'landmarkFake',
+    address: '',
+    zip_code: '',
+    city: '',
+    country: '',
+    landmark: '',
     id_user: userId,
     id_category: 3,
     // affichage de toute la liste
@@ -26,26 +31,27 @@ function CreateActivity({ ...rest }) {
   });
 
   const sortObjectsByProp = (objectsArr, prop, ascending = true) => {
-    const objectsHaveProp = objectsArr.every((object) =>
-      object.hasOwnProperty(prop)
-    );
+    const objectsHaveProp = objectsArr.every((object) => object.hasOwnProperty(prop));
     if (objectsHaveProp) {
       const newObjectsArr = objectsArr.slice();
       newObjectsArr.sort((a, b) => {
-        if (isNaN(Number(a[prop]))) {
+        if (Number.isNaN(Number(a[prop]))) {
           const textA = a[prop].toUpperCase();
           const textB = b[prop].toUpperCase();
           if (ascending) {
             return textA < textB ? -1 : textA > textB ? 1 : 0;
+          } else {
+            return textB < textA ? -1 : textB > textA ? 1 : 0;
           }
-          return textB < textA ? -1 : textB > textA ? 1 : 0;
+        } else {
+          return ascending ? a[prop] - b[prop] : b[prop] - a[prop];
         }
-        return ascending ? a[prop] - b[prop] : b[prop] - a[prop];
       });
       return newObjectsArr;
     }
     return objectsArr;
   };
+
 
   const getCategories = async () => {
     try {
@@ -73,24 +79,22 @@ function CreateActivity({ ...rest }) {
     }
   };
 
-  useEffect(() => {
-    getCategories();
-    getLevels();
-
-    // categories.forEach(category => console.log(category.name))
-
-    // const sortedCategories = sortObjectsByProp(categories, "name") ;
-    // console.log(categories);
-  }, []);
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setActivity((previousActivity) => ({
       ...previousActivity,
       [name]: value,
     }));
+
     // console.log(activity);
+
   };
+
+
+  
+  });
+
+ 
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -107,7 +111,9 @@ function CreateActivity({ ...rest }) {
     } catch (error) {
       console.log(error);
     }
+
     // console.log(activity)
+
   };
   /*
     const categoriesNames = (myCategories) => {
@@ -116,6 +122,13 @@ function CreateActivity({ ...rest }) {
         })
     }
 */
+
+  useEffect(() => {
+    getCategories();
+    getLevels();
+  }, []);
+
+
   return (
     <form className={'createActivity'} {...rest} onSubmit={handleSubmit}>
       <div className='field'>
@@ -145,6 +158,7 @@ function CreateActivity({ ...rest }) {
               <option value={category.id} key={category.id}>
                 {category.name}
               </option>
+
             ))}
           </select>
         </div>
@@ -168,6 +182,7 @@ function CreateActivity({ ...rest }) {
         </div>
       </div>
       <div className='field'>
+
         <label className='label'>Nombre maximum de participants</label>
         <div className='control'>
           <input
@@ -232,7 +247,9 @@ function CreateActivity({ ...rest }) {
 
       <div className='field'>
         <label className='label'>Date</label>
+
         {/* Find a calendar module */}
+
         <div className='control'>
           <input
             className='input'
@@ -259,13 +276,17 @@ function CreateActivity({ ...rest }) {
       </div>
       <div className='field is-grouped'>
         <p className='control'>
-          {/* redirect to the activity page */}
+
+          {/*redirect to the activity page */}
+
           <button className='button is-primary' type='submit'>
             Submit
           </button>
         </p>
         <p className='control'>
-          {/* redirect to root */}
+
+          {/*redirect to root */}
+
           <button className='button is-light'>Cancel</button>
         </p>
       </div>

@@ -1,16 +1,21 @@
-import React, { useEffect, useState } from 'react';
+
+import { useEffect, useState } from 'react';
+
 import PropTypes from 'prop-types';
 import './listActivities.scss';
 import axios from '../../utils/axiosPool';
 
 function ListActivities({
-  listType,
-  /* activities, */
+
+  list_type,
+  /*activities, */
+
+
   ...rest
 }) {
   const [activities, setActivities] = useState([]);
 
-  const ActivitiesDataRequest = async () => {
+  const activitiesDataRequest = async () => {
     try {
       const result = await axios({
         method: 'get',
@@ -24,12 +29,17 @@ function ListActivities({
   };
 
   useEffect(() => {
+
     ActivitiesDataRequest();
+
   }, []);
 
   return (
     <article className={'listActivities panel'} {...rest}>
+
+
       <p className='activities-title panel-heading'>{list_type}</p>
+
       <ul className='activities'>
         {activities.map((activity) => (
           <li key={activity.id} className='activity panel-block'>
@@ -47,12 +57,16 @@ ListActivities.propTypes = {
   className: PropTypes.string,
   list_type: PropTypes.string,
 
-  /* activities: PropTypes.arrayOf(PropTypes.shape({
+
+  /*activities: PropTypes.arrayOf(PropTypes.shape({
+
         id: PropTypes.number.isRequired,
         name: PropTypes.string.isRequired,
         level: PropTypes.string.isRequired,
         tag: PropTypes.string.isRequired,
-    }).isRequired).isRequired, */
+
+    }).isRequired).isRequired,*/
+
 };
 
 ListActivities.defaultProps = {

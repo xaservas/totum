@@ -1,5 +1,5 @@
 module.exports = {
-  error404(_, response) {
-    resizeBy.render('error404');
+  error404(_, res) {
+    res.render('404');
   },
 };
