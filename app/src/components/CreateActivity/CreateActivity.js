@@ -21,7 +21,6 @@ function CreateActivity({ ...rest }) {
     zip_code: '',
     city: '',
     country: '',
-    landmark: '',
     id_user: userId,
     id_category: 3,
     // affichage de toute la liste
@@ -29,9 +28,7 @@ function CreateActivity({ ...rest }) {
   });
 
   const sortObjectsByProp = (objectsArr, prop, ascending = true) => {
-    const objectsHaveProp = objectsArr.every((object) =>
-      object.hasOwnProperty(prop)
-    );
+    const objectsHaveProp = objectsArr.every((object) => object.hasOwnProperty(prop));
     if (objectsHaveProp) {
       const newObjectsArr = objectsArr.slice();
       newObjectsArr.sort((a, b) => {
