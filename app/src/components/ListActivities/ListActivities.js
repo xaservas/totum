@@ -4,8 +4,10 @@ import './listActivities.scss';
 import axios from '../../utils/axiosPool';
 
 function ListActivities({
-  listType,
-  /* activities, */
+
+  list_type,
+  /*activities, */
+
   ...rest
 }) {
   const [activities, setActivities] = useState([]);
@@ -29,7 +31,9 @@ function ListActivities({
 
   return (
     <article className={'listActivities panel'} {...rest}>
-      <p className='activities-title panel-heading'>{listType}</p>
+
+      <p className='activities-title panel-heading'>{list_type}</p>
+
       <ul className='activities'>
         {activities.map((activity) => (
           <li key={activity.id} className='activity panel-block'>
@@ -47,7 +51,9 @@ ListActivities.propTypes = {
   className: PropTypes.string,
   list_type: PropTypes.string,
 
-  /* activities: PropTypes.arrayOf(PropTypes.shape({
+
+  /*activities: PropTypes.arrayOf(PropTypes.shape({
+
         id: PropTypes.number.isRequired,
         name: PropTypes.string.isRequired,
         level: PropTypes.string.isRequired,

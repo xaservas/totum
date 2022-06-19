@@ -1,4 +1,6 @@
+
 /* eslint-disable no-nested-ternary */
+
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import './createActivity.scss';
@@ -9,7 +11,9 @@ function CreateActivity({ ...rest }) {
   const [categories, setCategories] = React.useState([]);
   const [levels, setLevels] = React.useState([]);
   const [activity, setActivity] = React.useState({
-    name: 'escalade', // name n'apparait pas dans la requete
+
+    name: 'escalade', //name n'apparait pas dans la requete
+
     description: 'apéro',
     max_participants: 5,
     date: 'demain',
@@ -18,26 +22,42 @@ function CreateActivity({ ...rest }) {
     zip_code: '93000',
     city: 'Montreuil',
     country: 'France',
+
+    landmark: 'landmarkFake',
     id_user: userId,
     id_category: 3,
-    // affichage de toute la liste
-    // utiliser find pour améliorer la sélection
+    //affichage de toute la liste
+    //utiliser find pour améliorer la sélection
   });
 
+  useEffect(() => {
+    getCategories();
+    getLevels();
+
+    //categories.forEach(category => console.log(category.name))
+
+    //const sortedCategories = sortObjectsByProp(categories, "name") ;
+    //console.log(categories);
+  }, []);
+
   const sortObjectsByProp = (objectsArr, prop, ascending = true) => {
-    const objectsHaveProp = objectsArr.every((object) => object.hasOwnProperty(prop));
+    let objectsHaveProp = objectsArr.every((object) =>
+      object.hasOwnProperty(prop)
+    );
     if (objectsHaveProp) {
-      const newObjectsArr = objectsArr.slice();
+      let newObjectsArr = objectsArr.slice();
       newObjectsArr.sort((a, b) => {
         if (isNaN(Number(a[prop]))) {
-          const textA = a[prop].toUpperCase();
-          const textB = b[prop].toUpperCase();
+          let textA = a[prop].toUpperCase(),
+            textB = b[prop].toUpperCase();
           if (ascending) {
             return textA < textB ? -1 : textA > textB ? 1 : 0;
+          } else {
+            return textB < textA ? -1 : textB > textA ? 1 : 0;
           }
-          return textB < textA ? -1 : textB > textA ? 1 : 0;
+        } else {
+          return ascending ? a[prop] - b[prop] : b[prop] - a[prop];
         }
-        return ascending ? a[prop] - b[prop] : b[prop] - a[prop];
       });
       return newObjectsArr;
     }
@@ -70,24 +90,20 @@ function CreateActivity({ ...rest }) {
     }
   };
 
-  useEffect(() => {
-    getCategories();
-    getLevels();
-
-    // categories.forEach(category => console.log(category.name))
-
-    // const sortedCategories = sortObjectsByProp(categories, "name") ;
-    // console.log(categories);
-  }, []);
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setActivity((previousActivity) => ({
       ...previousActivity,
       [name]: value,
     }));
-    // console.log(activity);
+    //console.log(activity);
   };
+
+
+  
+  });
+
+ 
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -104,7 +120,8 @@ function CreateActivity({ ...rest }) {
     } catch (error) {
       console.log(error);
     }
-    // console.log(activity)
+    //console.log(activity)
+
   };
   /*
     const categoriesNames = (myCategories) => {
@@ -229,7 +246,9 @@ function CreateActivity({ ...rest }) {
 
       <div className='field'>
         <label className='label'>Date</label>
-        {/* Find a calendar module */}
+
+        {/*Find a calendar module */}
+
         <div className='control'>
           <input
             className='input'
@@ -256,13 +275,17 @@ function CreateActivity({ ...rest }) {
       </div>
       <div className='field is-grouped'>
         <p className='control'>
-          {/* redirect to the activity page */}
+
+          {/*redirect to the activity page */}
+
           <button className='button is-primary' type='submit'>
             Submit
           </button>
         </p>
         <p className='control'>
-          {/* redirect to root */}
+
+          {/*redirect to root */}
+
           <button className='button is-light'>Cancel</button>
         </p>
       </div>
