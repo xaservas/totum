@@ -1,4 +1,3 @@
-
 /* eslint-disable no-else-return */
 /* eslint-disable no-nested-ternary */
 /* eslint-disable no-prototype-builtins */
@@ -13,7 +12,6 @@ function CreateActivity({ ...rest }) {
   const [categories, setCategories] = React.useState([]);
   const [levels, setLevels] = React.useState([]);
   const [activity, setActivity] = React.useState({
-
     name: '', // name n'apparait pas dans la requete
     description: '',
     max_participants: 1,
@@ -31,7 +29,9 @@ function CreateActivity({ ...rest }) {
   });
 
   const sortObjectsByProp = (objectsArr, prop, ascending = true) => {
-    const objectsHaveProp = objectsArr.every((object) => object.hasOwnProperty(prop));
+    const objectsHaveProp = objectsArr.every((object) =>
+      object.hasOwnProperty(prop)
+    );
     if (objectsHaveProp) {
       const newObjectsArr = objectsArr.slice();
       newObjectsArr.sort((a, b) => {
@@ -51,7 +51,6 @@ function CreateActivity({ ...rest }) {
     }
     return objectsArr;
   };
-
 
   const getCategories = async () => {
     try {
@@ -87,14 +86,7 @@ function CreateActivity({ ...rest }) {
     }));
 
     // console.log(activity);
-
   };
-
-
-  
-  });
-
- 
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -113,7 +105,6 @@ function CreateActivity({ ...rest }) {
     }
 
     // console.log(activity)
-
   };
   /*
     const categoriesNames = (myCategories) => {
@@ -127,7 +118,6 @@ function CreateActivity({ ...rest }) {
     getCategories();
     getLevels();
   }, []);
-
 
   return (
     <form className={'createActivity'} {...rest} onSubmit={handleSubmit}>
@@ -158,7 +148,6 @@ function CreateActivity({ ...rest }) {
               <option value={category.id} key={category.id}>
                 {category.name}
               </option>
-
             ))}
           </select>
         </div>
@@ -182,7 +171,6 @@ function CreateActivity({ ...rest }) {
         </div>
       </div>
       <div className='field'>
-
         <label className='label'>Nombre maximum de participants</label>
         <div className='control'>
           <input
@@ -276,16 +264,14 @@ function CreateActivity({ ...rest }) {
       </div>
       <div className='field is-grouped'>
         <p className='control'>
-
-          {/*redirect to the activity page */}
+          {/* redirect to the activity page */}
 
           <button className='button is-primary' type='submit'>
             Submit
           </button>
         </p>
         <p className='control'>
-
-          {/*redirect to root */}
+          {/* redirect to root */}
 
           <button className='button is-light'>Cancel</button>
         </p>
