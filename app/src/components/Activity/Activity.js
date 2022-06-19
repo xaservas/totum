@@ -1,6 +1,8 @@
+
 /* eslint-disable max-len */
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
+
 import PropTypes from 'prop-types';
 import './activity.scss';
 import { useParams } from 'react-router-dom';
@@ -20,6 +22,7 @@ import axios from '../../utils/axiosPool';
  *
  *
  */
+
 
 function Activity({ ...rest }) {
   // console.log(activities)
@@ -139,6 +142,7 @@ function Activity({ ...rest }) {
       
       <footer className='card-footer buttons has-addons box'>
         <a href='/' className='card-footer-item button is-success is-focused'>
+
           Participer
         </a>
         <a href='/' className='card-footer-item button is-light'>
@@ -149,10 +153,24 @@ function Activity({ ...rest }) {
   );
 }
 
-Activity.propTypes = {
-  className: PropTypes.string,
-};
+
+
 Activity.defaultProps = {
   className: '',
+
+  activities: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired,
+      description: PropTypes.string,
+      date: PropTypes.string.isRequired,
+      level: PropTypes.string,
+      address: PropTypes.string.isRequired,
+      zip_code: PropTypes.string.isRequired,
+      city: PropTypes.string.isRequired,
+      country: PropTypes.string.isRequired,
+    }).isRequired
+  ).isRequired,
 };
+
 export default Activity;

@@ -1,35 +1,37 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import './Footer.scss'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCirclePlus } from '@fortawesome/free-solid-svg-icons'
-import { useNavigate } from 'react-router-dom'
+import PropTypes from 'prop-types';
+import './Footer.scss';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCirclePlus } from '@fortawesome/free-solid-svg-icons';
+import { useNavigate } from 'react-router-dom';
 
-function Footer({ ...rest }) {
-  let navigate = useNavigate()
+function Footer() {
+  const navigate = useNavigate();
 
-  const onClick = async (event) => {
-    event.preventDefault()
-    navigate('/activity/create', { replace: true })
-  }
+  const createActivity = async (event) => {
+    event.preventDefault();
+    if (localStorage.getItem('id')) {
+      navigate('/activity/create', { replace: true });
+    } else {
+      navigate('/login', { replace: true });
+    }
+  };
 
   return (
-    <div className="iconbar">
-      {/* <FontAwesomeIcon icon="fa-regular fa-circle-plus" /> */}
-      <button className="icon_create" onClick={onClick}>
+    <footer id='footer' className='iconbar'>
+      <button className='icon_create' onClick={createActivity}>
         <FontAwesomeIcon
           icon={faCirclePlus}
-          className="navbar-item icon is-large"
+          className='navbar-item icon is-large'
         />
       </button>
-    </div>
-  )
+    </footer>
+  );
 }
 
 Footer.propTypes = {
   className: PropTypes.string,
-}
+};
 Footer.defaultProps = {
   className: '',
-}
-export default Footer
+};
+export default Footer;

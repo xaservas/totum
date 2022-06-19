@@ -24,6 +24,7 @@ function OptionLogin() {
   return (
     <div className='OptionLogin'>
       <label className='checkbox'>
+
         <input name='landmark' type='checkbox' onClick={landmarkClick} />
         <span className='slider round'></span>
         <p>Géolocalisation</p>
@@ -33,6 +34,7 @@ function OptionLogin() {
         <span className='slider round'></span>
         <p>Coockies</p>
       </label>
+
     </div>
   );
 }

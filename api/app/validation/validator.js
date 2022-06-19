@@ -7,20 +7,20 @@ const UserInputError = require('../errors/userInputError');
  */
 
 function validator(sourceData, schema) {
-    // validator n'est pas un middleware mais une factory de middleware, c'est une fonction qui va
-    // renvoyer une autre function qui elle sera une fonction de middleware
-    return async (req, res, next) => {
-        try {
-            // request.query ou request.body ou request.params
-            await schema.validateAsync(req[sourceData]);
-            next();
-        } catch (err) {
-            const userInputError = new UserInputError(err.details[0].message, {
-                statusCode: 400,
-            });
-            next(userInputError);
-        }
-    };
+  // validator n'est pas un middleware mais une factory de middleware, c'est une fonction qui va
+  // renvoyer une autre function qui elle sera une fonction de middleware
+  return async (req, res, next) => {
+    try {
+      // request.query ou request.body ou request.params
+      await schema.validateAsync(req[sourceData]);
+      next();
+    } catch (err) {
+      const userInputError = new UserInputError(err.details[0].message, {
+        statusCode: 400,
+      });
+      next(userInputError);
+    }
+  };
 }
 
 module.exports = validator;

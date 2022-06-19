@@ -1,10 +1,12 @@
 import React from 'react';
+
+import { useNavigate } from 'react-router-dom';
 import './createProfile.scss';
-import axios from 'axios';
+import axios from '../../utils/axiosPool';
 
-import OptionLogin from '../Login/OptionLogin/OptionLogin';
+function CreateProfile() {
+  const navigate = useNavigate();
 
-function CreateProfile({ newValue, newValueB }) {
   const [firstname, setFirstname] = React.useState('');
   const [lastname, setLastname] = React.useState('');
   const [email, setEmail] = React.useState('');
@@ -12,27 +14,37 @@ function CreateProfile({ newValue, newValueB }) {
 
   const [passwordConfirmation, setPasswordConfirmation] = React.useState('');
   const [address, setAddress] = React.useState('');
-  const [zip_code, setZip_code] = React.useState('');
+  const [zipCode, setZipcode] = React.useState('');
   const [city, setCity] = React.useState('');
   const [country, setCountry] = React.useState('');
   const [about, setAbout] = React.useState('');
+  const [coordinate, setCoordinate] = React.useState([]);
+  const [cookieValue, setCookieValue] = React.useState(false);
+  const [landmarkValue, setLandmarkValue] = React.useState(false);
 
-  const landmarkClick = () => {
-    const newValue = !landmarkValue;
-    setLandmarkValue(newValue);
-    console.log(newValue);
-  };
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition((position) => {
+      setLandmarkValue(true);
+      setCoordinate([
+        (coordinate[0] = position.coords.latitude),
+        (coordinate[1] = position.coords.longitude),
+      ]);
+    });
+  }
+
 
   const cookieClick = () => {
     const newValueB = !cookieValue;
     setCookieValue(newValueB);
+
     console.log(newValueB);
+
   };
 
   const handleSubmit = (event) => {
     axios({
       method: 'post',
-      url: 'https://api.totum.ovh/v1/user/createNew',
+      url: '/user/createNew',
       data: {
         firstname: `${firstname}`,
         lastname: `${lastname}`,
@@ -40,12 +52,16 @@ function CreateProfile({ newValue, newValueB }) {
         password: `${password}`,
         passwordConfirmation: `${passwordConfirmation}`,
         address: `${address}`,
-        zip_code: `${zip_code}`,
+        zip_code: `${zipCode}`,
         city: `${city}`,
         country: `${country}`,
         about: `${about}`,
+        coordinate: JSON.stringify(coordinate),
+        cookie: `${cookieValue}`,
+        landmark: `${landmarkValue}`,
       },
     })
+
       .then(function (response) {
         console.log(response);
 
@@ -69,6 +85,7 @@ function CreateProfile({ newValue, newValueB }) {
         cookie:${cookieValue}
         landmark: ${landmarkValue}
         `);
+
 
     event.preventDefault();
   };
@@ -114,8 +131,10 @@ function CreateProfile({ newValue, newValueB }) {
           className='input'
           placeholder='Confirmation de Mot de passe'
           onChange={(e) => setPasswordConfirmation(e.target.value)}
+
         />
       </div>
+
 
       <input
         name='address'
@@ -124,6 +143,7 @@ function CreateProfile({ newValue, newValueB }) {
         placeholder='Adresse'
         onChange={(e) => setAddress(e.target.value)}
       />
+
 
       <div className='zipCity'>
         <input
@@ -140,8 +160,10 @@ function CreateProfile({ newValue, newValueB }) {
           className='input'
           placeholder='Ville'
           onChange={(e) => setCity(e.target.value)}
+
         />
       </div>
+
 
       <input
         name='country'
@@ -152,20 +174,13 @@ function CreateProfile({ newValue, newValueB }) {
       />
 
       <input
-        name='zip_code'
-        type='text'
-        className='input'
-        placeholder='Code Postal'
-        onChange={(e) => setZip_code(e.target.value)}
-      />
-
-      <input
         name='about'
         type='text'
         className='input'
         placeholder='Présentation'
         onChange={(e) => setAbout(e.target.value)}
       />
+
 
       <div className='OptionLogin'>
         <label className='checkbox'>
@@ -181,6 +196,7 @@ function CreateProfile({ newValue, newValueB }) {
       </div>
 
       <button className='button'>Valider</button>
+
     </form>
   );
 }
