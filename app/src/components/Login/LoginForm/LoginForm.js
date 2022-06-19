@@ -1,111 +1,66 @@
-
-import React,{useEffect} from 'react';
+import React, { useEffect } from 'react';
 import './loginForm.scss';
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
+import axios from '../../../utils/axiosPool';
 
-import axios from '../../../utils/axiosPool'
-//import { saveAuthorization } from '../../../utils/axiosPool';
-// import PropTypes from 'prop-types';
+function LoginForm() {
+  const navigate = useNavigate();
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
 
+  useEffect(() => {}, []);
 
+  // save object user in localStorage
+  const saveUser = (data) => {
+    Object.keys(data).forEach((key) => {
+      localStorage.setItem(key, data[key]);
+    });
+  };
 
-/* https://www.bezkoder.com/react-jwt-auth/  jwt without redux>>>>trop long, local storage???*/
-// https://www.digitalocean.com/community/tutorials/how-to-add-login-authentication-to-react-applications
+  const handleSubmit = async (event) => {
+    axios({
+      method: 'post',
+      url: '/user/login',
+      data: {
+        email: `${email}`,
+        password: `${password}`,
+      },
+    })
+      .then((response) => {
+        localStorage.setItem('token', response.data.token);
+        saveUser(response.data.user);
+        navigate('/map', { replace: true });
+      })
+      .catch((error) => {
+        // gerer l'erreur de login de maniere cosmetique
+        alert('tu tes tromper connard');
+        console.log(error);
+      });
 
-function LoginForm({
-    setToken
-}){
-    let navigate = useNavigate();
-    const [email, setEmail] = React.useState("");
-    const [password, setPassword] = React.useState("");
-    // const [user, setUser] = React.useState("");
-    // const [token, setToken] = React.useState("");
-    useEffect(() => {
-        const loggedInUser = localStorage.getItem("token");
-        if (loggedInUser) {
-          console.log('tu es logué')
-        } else {
-            console.log("tu n'es pas connecté")
-        }
-      }, []);
+    event.preventDefault();
+  };
 
-      const handleLogout = async (event) => {
-          axios({
-              method: 'get',
-              url: '/user/logout',
-          })
-          setEmail("");
-          setPassword("");
-          localStorage.clear();
-          console.log('tu es déco')
-      }
-
-      const saveUser = (data) => {
-        Object.keys(data).forEach(key => {
-            localStorage.setItem(key, data[key])
-        });
-      };
-
-
-
-    const handleSubmit = async (event) => {
-        axios({
-            method: 'post',
-            url: '/user/login',
-            data: {
-                email : `${email}`,
-                password: `${password}`
-            },
-        })
-        .then(function (response) {
-            console.log(response.data)
-            localStorage.setItem('token', response.data.token);
-            saveUser(response.data.user)
-            navigate("/activities",{replace: true })
-           /*
-           si on reçoit le token
-           on est redirigé vers la liste des activités
-           sinon on reste sur place */
-            
-          })
-          .catch(function (error) {
-
-            console.log(error);
-          });
-         
-        
-        event.preventDefault ();
-    }
-
-        return (
-            <div>
-                <form onSubmit={handleSubmit} className="LoginForm">
-                       
-                       <input
-                       name="email"
-                       type="email"
-                       className="input"
-                        placeholder="Mail"
-                        onChange={e => setEmail (e.target.value)}                     
-                        />
-                       <input
-                       name="password"
-                       type="password"
-                       className="input"
-                       placeholder="Mot de passe"
-                       onChange={e => setPassword (e.target.value)}
-                       />
-                       <button className="button">Login</button>
-                       
-                   </form>
-                   <button className="button" onClick={handleLogout}>Déco</button>
-            </div>
-        );
-};
-
-
-// LoginForm.propTypes = {
-//     setToken: PropTypes.func.isRequired
-// };
+  return (
+    <div>
+      <form onSubmit={handleSubmit} className='LoginForm'>
+        <input
+          name='email'
+          type='email'
+          className='input'
+          placeholder='Mail'
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <input
+          name='password'
+          type='password'
+          className='input'
+          placeholder='Mot de passe'
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <button className='button'>Login</button>
+      </form>
+    </div>
+  );
+}
 
 export default LoginForm;

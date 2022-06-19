@@ -19,34 +19,35 @@ const errorHandler = require('../../helpers/errorHandler');
 // Require services token
 const jwt = require('../../services/token');
 
-router.route('/:id/manage')
+router
+    .route('/:id/manage')
 
-/**
- * GET /v1/meta/{id}/manage
- * @summary Get meta data for user
- * @tags meta
- * @security BearerAuth
- * @param {number} id.path.required - User id
- * @returns {object} 200 - Meta data
- * @returns {Error} 400 - Invalid request
- * @example response - 200 - success response example
- * {
- * "id": 1,
- * "cookie": "boolean",
- * "landmark": "boolean",
- * "id_user": 1,
- * "created_at": "2020-01-01T00:00:00.000Z",
- * "updated_at": "2020-01-01T00:00:00.000Z"
- * }
- * @example response - 400 - error response example
- * {
- * "error": "Invalid request"
- * }
- */
+    /**
+     * GET /v1/meta/{id}/manage
+     * @summary Get meta data for user
+     * @tags meta
+     * @security BearerAuth
+     * @param {number} id.path.required - User id
+     * @returns {object} 200 - Meta data
+     * @returns {object} 400 - Invalid request
+     * @example response - 200 - success response example
+     * {
+     * "id": 1,
+     * "cookie": "boolean",
+     * "landmark": "boolean",
+     * "id_user": 1,
+     * "created_at": "2020-01-01T00:00:00.000Z",
+     * "updated_at": "2020-01-01T00:00:00.000Z"
+     * }
+     * @example response - 400 - error response example
+     * {
+     * "error": "Invalid request"
+     * }
+     */
     .get(
         controllerHandler(jwt.verifyToken),
         validator('params', metaGetSchema),
-        controllerHandler(metaController.getByUser),
+        controllerHandler(metaController.getByUser)
     )
 
     /**
@@ -57,7 +58,7 @@ router.route('/:id/manage')
      * @param {number} id.path.required - User id
      * @param {object} request.body.required - Meta data
      * @returns {object} 200 - Meta data
-     * @returns {Error} 400 - Invalid request
+     * @returns {object} 400 - Invalid request
      * @example request - Meta data
      * {
      * "cookie": "boolean",
@@ -81,7 +82,7 @@ router.route('/:id/manage')
         controllerHandler(jwt.verifyToken),
         validator('params', metaGetSchema),
         validator('body', metaManageSchema),
-        controllerHandler(metaController.updateByUser),
+        controllerHandler(metaController.updateByUser)
     );
 
 router.use(apiErrorController.error404);

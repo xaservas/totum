@@ -1,20 +1,52 @@
 .icon {
-    margin: 10px;
-    display: flex;
-    
+  margin: 10px;
+  display: flex;
 }
 .totumtitle {
-    margin: 10px;
-    display: flex;
+  margin: 10px;
+  display: flex;
 }
-.barre{
+.barre {
+  background-color: rgb(218, 218, 216);
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  height: 4rem;
+}
 
-    background-color: rgb(218, 218, 216);
-    display: flex;
-    justify-content: space-between;
-    flex-direction: row;
-    align-items: center;
-    width: 100%;
-    height: 55px;
+header {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  z-index: 1000;
+  width: 100%;
+  height: 4rem;
+}
 
+// NAVBAR
+.navbar-menu {
+  height: 8rem;
+  width: 40%;
+  margin-left: auto;
+  background-color: rgb(218, 218, 216);
+  display: block;
+  border-radius: 0 0 0 10px;
+  transform: translateY(-100%);
+  transition: transform 1s;
+  li {
+    text-align: right;
+    padding-right: 1rem;
+    font-size: 1.3rem;
+    font-weight: 500;
+  }
+  li:hover {
+    color: #ffc107;
+    cursor: pointer;
+  }
+}
+
+.showMenu {
+  transform: translateY(0);
 }

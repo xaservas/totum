@@ -1,6 +1,6 @@
 /* eslint-disable prefer-destructuring */
 const jwt = require('jsonwebtoken');
-const client = require('../models/client');
+const client = require('../config/client');
 
 const tokenController = {
     generateToken(user) {
@@ -41,13 +41,17 @@ const tokenController = {
         if (await tokenController.blacklistToken(tokenToVerify)) {
             return res.status(401).json({ message: 'Token blacklisted' });
         }
-        return jwt.verify(tokenToVerify, process.env.TOKEN_SECRET, (err, decoded) => {
-            if (err) {
-                return res.status(401).json({ message: 'Invalid token' });
+        return jwt.verify(
+            tokenToVerify,
+            process.env.TOKEN_SECRET,
+            (err, decoded) => {
+                if (err) {
+                    return res.status(401).json({ message: 'Invalid token' });
+                }
+                req.user = decoded.user;
+                return next();
             }
-            req.user = decoded.user;
-            return next();
-        });
+        );
     },
 };
 

@@ -1,4 +1,4 @@
-const client = require('./client');
+const client = require('../config/client');
 
 const commentDatamapper = {
     async getByUser(idUser) {
@@ -93,11 +93,7 @@ const commentDatamapper = {
             updated_at = NOW()
             WHERE id = $3
             RETURNING *`,
-            values: [
-                data.content,
-                data.picture,
-                id,
-            ],
+            values: [data.content, data.picture, id],
         };
         const result = await client.query(query);
         if (!result.rows[0]) {
@@ -117,7 +113,6 @@ const commentDatamapper = {
         }
         return result.rows[0];
     },
-
 };
 
 module.exports = commentDatamapper;

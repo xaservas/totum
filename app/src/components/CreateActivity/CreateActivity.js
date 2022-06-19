@@ -1,3 +1,6 @@
+
+/* eslint-disable no-nested-ternary */
+
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import './createActivity.scss';
@@ -8,7 +11,9 @@ function CreateActivity({ ...rest }) {
   const [categories, setCategories] = React.useState([]);
   const [levels, setLevels] = React.useState([]);
   const [activity, setActivity] = React.useState({
+
     name: 'escalade', //name n'apparait pas dans la requete
+
     description: 'apéro',
     max_participants: 5,
     date: 'demain',
@@ -17,6 +22,7 @@ function CreateActivity({ ...rest }) {
     zip_code: '93000',
     city: 'Montreuil',
     country: 'France',
+
     landmark: 'landmarkFake',
     id_user: userId,
     id_category: 3,
@@ -93,6 +99,12 @@ function CreateActivity({ ...rest }) {
     //console.log(activity);
   };
 
+
+  
+  });
+
+ 
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log(activity);
@@ -109,6 +121,7 @@ function CreateActivity({ ...rest }) {
       console.log(error);
     }
     //console.log(activity)
+
   };
   /*
     const categoriesNames = (myCategories) => {
@@ -233,7 +246,9 @@ function CreateActivity({ ...rest }) {
 
       <div className='field'>
         <label className='label'>Date</label>
+
         {/*Find a calendar module */}
+
         <div className='control'>
           <input
             className='input'
@@ -260,13 +275,17 @@ function CreateActivity({ ...rest }) {
       </div>
       <div className='field is-grouped'>
         <p className='control'>
+
           {/*redirect to the activity page */}
+
           <button className='button is-primary' type='submit'>
             Submit
           </button>
         </p>
         <p className='control'>
+
           {/*redirect to root */}
+
           <button className='button is-light'>Cancel</button>
         </p>
       </div>
