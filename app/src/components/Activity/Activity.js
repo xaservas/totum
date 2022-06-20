@@ -8,6 +8,7 @@ import { useParams } from 'react-router-dom';
 // import { findActivityById } from '../../utils/dataTools';
 import axios from '../../utils/axiosPool';
 import CreateComment from '../CreateComment/CreateComment';
+import Comment from '../Comment/Comment';
 /** Xavier/10/06/2022:
  *
  * this component could be a modal that could be used in lists and map
@@ -140,12 +141,11 @@ function Activity({ ...rest }) {
 
         <section className='activity__comments box'>
           {comments.map((comment) => (
-            <article key={comment.id} className='comment message is-small'>
-              <div className='message-header'>
-                <p>{comment.user_firstname}</p>
-              </div>
-              <div className='comment message-body'>{comment.comment_content}</div>
-            </article>
+            <Comment
+              commentId={comment.id}
+              userFirstname={comment.user_firstname}
+              commentContent={comment.comment_content}
+              />
           ))}
         </section>
 
