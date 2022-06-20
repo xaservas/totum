@@ -1,0 +1,67 @@
+body::-webkit-scrollbar {
+  display: none; /* for Chrome, Safari, and Opera */
+}
+
+.App {
+  overflow: hidden;
+}
+
+.desktop {
+  //   height: calc(100vh - 14vh);
+  display: flex;
+  flex-wrap: wrap;
+  .left {
+    height: calc(100vh - 14vh);
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .mapComposant {
+    .leaflet-container {
+      width: 48vw;
+      height: 80vh;
+    }
+  }
+
+  .right {
+    height: calc(100vh - 14vh);
+    width: 50%;
+    .search {
+      height: 20%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .activitiesList {
+      height: 80%;
+      overflow: auto;
+    }
+  }
+}
+
+footer {
+  .icon_create {
+    display: none;
+  }
+}
+
+// modal
+
+.modal_activity {
+  display: none;
+  position: absolute;
+  height: calc(100vh - 14vh);
+  width: 100vw;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  background-color: green;
+
+  .card-content {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
