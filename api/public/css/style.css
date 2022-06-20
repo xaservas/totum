@@ -1,14 +1,53 @@
 body {
   background: linear-gradient(45deg, rgb(24, 147, 236), blue);
-  height: 100vh;
-  font-family: 'Raleway', sans-serif;
+  /* height: 100vh; */
+  font-family: 'Sen', sans-serif;
   color: white;
+  text-align: center;
 }
 
 h1 {
 
-  text-align: center;
   color: white;
+  font-size: 60px;
 }
 
+h2, h3 {
+
+
+  color: white;
+  font-size: 40px;
+}
+
+
+.link-div{
+  padding:20%;
+  padding-top:1%;
+  padding-bottom:1%;
+  /* text-align: center; */
+}
+
+.alink{
+  text-align: center;
+  margin-top: 1px;
+  padding: 20px 0;
+  max-width: 590px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  background-color:linear-gradient(45deg, rgb(24, 147, 236), blue);
+  border: 5px solid;
+  border-color: pink;
+  border-radius: 30px;
+  color:white;
+  text-decoration:none;
+
+}
+
+.alink:hover{
+  color:white;
+  background: linear-gradient(rgb(24, 147, 236), pink);
+  /* border: 2px solid;
+  border-color:blue; */
+}
 
