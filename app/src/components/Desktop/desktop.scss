@@ -1,0 +1,56 @@
+@media screen and (min-width: 500px) {
+  header {
+    .navbar-brand {
+      width: 100%;
+      .barre {
+      }
+    }
+  }
+
+  .desktop {
+    display: flex;
+    flex-wrap: wrap;
+    height: 100vh;
+    width: 100vw;
+  }
+
+  .left {
+    height: 100vh;
+    width: 50%;
+  }
+
+  .right {
+    height: 100vh;
+    width: 50%;
+
+    .search {
+      height: 30%;
+    }
+
+    .activitiesList {
+      height: 70%;
+
+      .activity {
+        height: 20%;
+        width: 50%;
+        display: flex;
+
+        .activity__image {
+          height: 100%;
+          width: 100%;
+        }
+
+        .activity__title {
+          height: 50%;
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  footer {
+    .icon_create {
+      display: none;
+    }
+  }
+}

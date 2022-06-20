@@ -5,6 +5,7 @@ import Activity from '../Activity/Activity';
 import ListActivities from '../ListActivities/ListActivities';
 
 import Login from '../Login/Login';
+import Desktop from '../Desktop/Desktop';
 
 import activities from '../../data/activities';
 import CreateActivity from '../CreateActivity/CreateActivity';
@@ -19,12 +20,17 @@ import LegalMention from '../Settings/LegalMention/LegalMention';
 import Help from '../Settings/Help/Help';
 
 function App() {
+  const windowWidth = window.innerWidth;
+
   return (
     <div className='App'>
       <Header />
       <Routes>
-        <Route path='/' element={<Login />} />
-
+        {windowWidth < 500 ? (
+          <Route path='/' element={<Login />} />
+        ) : (
+          <Route path='/' element={<Desktop />} />
+        )}
         <Route path='/activity/:id' element={<Activity />} />
         <Route
           path='/activity/:id'
