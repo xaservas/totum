@@ -24,7 +24,7 @@ import CreateComment from '../CreateComment/CreateComment';
 
 function Activity({ ...rest }) {
   // console.log(activities)
-  const { activityId } = useParams();
+  const { id } = useParams();
   const [activity, setActivity] = useState([]);
   const [levels, setLevels] = React.useState([]);
   const [currentLevel, setCurrentLevel] = React.useState('');
@@ -100,10 +100,11 @@ function Activity({ ...rest }) {
   };
 
   useEffect(() => {
-    getActivity(activityId);
-    getUsers(activityId);
+    console.log(id);
+    getActivity(id);
+    getUsers(id);
     getLevels();
-    getComments(activityId);
+    getComments(id);
   }, []);
 
   return (
@@ -135,17 +136,19 @@ function Activity({ ...rest }) {
           {activity.country}
         </p>
         <p className='activity__description'>{activity.description}</p>
-        <CreateComment activityId={activityId} />
+        <CreateComment activityId={id} />
+
         <section className='activity__comments box'>
           {comments.map((comment) => (
-            <article className='comment message is-small'>
+            <article key={comment.id} className='comment message is-small'>
               <div className='message-header'>
-                <p>{comment.id_user}</p>
+                <p>{comment.user_firstname}</p>
               </div>
-              <div className='comment message-body'>{comment.content}</div>
+              <div className='comment message-body'>{comment.comment_content}</div>
             </article>
           ))}
         </section>
+
       </body>
 
       <footer className='card-footer buttons has-addons box'>
