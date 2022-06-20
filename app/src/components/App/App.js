@@ -1,3 +1,6 @@
+import '../../../public/css/reset.css';
+import './app.scss';
+
 import { Route, Routes, Navigate } from 'react-router-dom';
 import Header from '../Header/Header';
 import Profile from '../Profile/Profile';
@@ -12,7 +15,7 @@ import CreateActivity from '../CreateActivity/CreateActivity';
 import CreateProfile from '../CreateProfil/CreateProfile';
 import Map from '../Map/Map';
 import Settings from '../Settings/Settings';
-import Search from '../Search/Search';
+// import Search from '../Search/Search';
 import Footer from '../Footer/Footer';
 import Usersettings from '../Settings/Usersettings/Usersettings';
 import Notification from '../Settings/Notification/Notification';
@@ -49,7 +52,7 @@ function App() {
         <Route path='/createProfil' element={<CreateProfile />} />
         <Route path='*' element={<Navigate to='/' />} />
         <Route path='/profile/create' element={<CreateProfile />} />
-        <Route path='/search' element={<Search />} />
+        {/* <Route path='/search' element={<Search />} /> */}
 
         <Route path='/settings' element={<Settings />} />
         <Route path='/settings/user' element={<Usersettings />} />
