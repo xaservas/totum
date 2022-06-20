@@ -55,11 +55,11 @@ function CreateComment({ activityId, ...rest }) {
           />
         </div>
       </div>
-      <div class='file'>
-        <label class='file-label'>
-          <input class='file-input' type='file' name='resume' />
-          <span class='file-cta'>
-            <span class='file-label'>joindre une photo</span>{' '}
+      <div className='file'>
+        <label className='file-label'>
+          <input className='file-input' type='file' name='resume' />
+          <span className='file-cta'>
+            <span className='file-label'>joindre une photo</span>{' '}
             {/* à voir la façon la plus pertinente de joindre une photo à un com */}
           </span>
         </label>

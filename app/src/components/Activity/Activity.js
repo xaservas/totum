@@ -8,6 +8,7 @@ import { useParams } from 'react-router-dom';
 // import { findActivityById } from '../../utils/dataTools';
 import axios from '../../utils/axiosPool';
 import CreateComment from '../CreateComment/CreateComment';
+import Comment from '../Comment/Comment';
 /** Xavier/10/06/2022:
  *
  * this component could be a modal that could be used in lists and map
@@ -24,7 +25,7 @@ import CreateComment from '../CreateComment/CreateComment';
 
 function Activity({ ...rest }) {
   // console.log(activities)
-  const { activityId } = useParams();
+  const { id } = useParams();
   const [activity, setActivity] = useState([]);
   const [levels, setLevels] = React.useState([]);
   const [currentLevel, setCurrentLevel] = React.useState('');
@@ -100,10 +101,11 @@ function Activity({ ...rest }) {
   };
 
   useEffect(() => {
-    getActivity(activityId);
-    getUsers(activityId);
+    console.log(id);
+    getActivity(id);
+    getUsers(id);
     getLevels();
-    getComments(activityId);
+    getComments(id);
   }, []);
 
   return (
@@ -135,17 +137,18 @@ function Activity({ ...rest }) {
           {activity.country}
         </p>
         <p className='activity__description'>{activity.description}</p>
-        <CreateComment activityId={activityId} />
+        <CreateComment activityId={id} />
+
         <section className='activity__comments box'>
           {comments.map((comment) => (
-            <article className='comment message is-small'>
-              <div className='message-header'>
-                <p>{comment.id_user}</p>
-              </div>
-              <div className='comment message-body'>{comment.content}</div>
-            </article>
+            <Comment
+              commentId={comment.id}
+              userFirstname={comment.user_firstname}
+              commentContent={comment.comment_content}
+              />
           ))}
         </section>
+
       </body>
 
       <footer className='card-footer buttons has-addons box'>
