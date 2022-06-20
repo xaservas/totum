@@ -1,8 +1,8 @@
 const Joi = require('joi');
 
-const numberRule = Joi.number().min(0);
+const numberRule = Joi.number().min(0).required();
 
 module.exports = Joi.object().keys({
-    id_user: numberRule.required(),
-    id_activity: numberRule.required(),
+  id_user: numberRule,
+  id_activity: numberRule,
 });

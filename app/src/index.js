@@ -1,4 +1,5 @@
 import ReactDOM from 'react-dom/client';
+// import '../public/css/reset.css';
 import './index.scss';
 import 'bulma/css/bulma.min.css';
 import { BrowserRouter } from 'react-router-dom';

@@ -21,6 +21,7 @@ jobs:
         ENV_DB_HOST: ${{ secrets.DB_HOST }}
         ENV_DB_PORT: ${{ secrets.DB_PORT }}
         ENV_TOKEN_SECRET: ${{ secrets.TOKEN_SECRET }}
+        ENV_API_GEO: ${{ secrets.API_GEO }}
 
     - uses: kenny-caldieraro/github-action-ssh-docker-compose@master
       name: Docker-Compose Remote Deployment

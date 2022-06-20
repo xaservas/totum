@@ -1,4 +1,5 @@
 const activityDataMapper = require('../../models/activityDatamapper');
+const geoloc = require('../../config/revertGeo');
 
 const activityController = {
   async getAll(_, res) {
@@ -35,6 +36,14 @@ const activityController = {
     res.status(200).json(activities);
   },
 
+  async getByAdvanceSearch(req, res) {
+    const activities = await activityDataMapper.getByAdvanceSearch(req.body);
+    if (activities.length === 0) {
+      return res.status(404).json({ message: 'No activities found' });
+    }
+    res.status(200).json(activities);
+  },
+
   async getOneActivity(req, res) {
     const activities = await activityDataMapper.getOneActivity(req.params.id);
     if (!activities) {
@@ -45,7 +54,11 @@ const activityController = {
   },
 
   async createActivity(req, res) {
-    const activities = await activityDataMapper.createActivity(req.body);
+    const data = req.body;
+    const query = `${data.address} ${data.zip_code} ${data.city} ${data.country}`;
+    const geo = await geoloc.revertGeo(query);
+    data.landmark = JSON.stringify(geo);
+    const activities = await activityDataMapper.createActivity(data);
     if (!activities) {
       res.status(500).json({ message: 'server error' });
     } else {

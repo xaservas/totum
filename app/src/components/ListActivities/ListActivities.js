@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import './listActivities.scss';
 import axios from '../../utils/axiosPool';
@@ -29,7 +29,7 @@ function ListActivities({
 
   return (
     <article className={'listActivities panel'} {...rest}>
-      <p className='activities-title panel-heading'>{list_type}</p>
+      <p className='activities-title panel-heading'>{listType}</p>
       <ul className='activities'>
         {activities.map((activity) => (
           <li key={activity.id} className='activity panel-block'>
