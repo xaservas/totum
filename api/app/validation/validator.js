@@ -11,6 +11,7 @@ function validator(sourceData, schema) {
   // renvoyer une autre function qui elle sera une fonction de middleware
   return async (req, res, next) => {
     try {
+      console.log(req[sourceData]);
       // request.query ou request.body ou request.params
       await schema.validateAsync(req[sourceData]);
       next();

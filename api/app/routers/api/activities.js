@@ -9,6 +9,7 @@ const validator = require('../../validation/validator');
 const activityGeoSchema = require('../../validation/schemas/activity/activityGeo.schema');
 const activitySearchSchema = require('../../validation/schemas/activity/activitySearch.schema');
 const activityCategorySchema = require('../../validation/schemas/activity/activityCategory.schema');
+const activityAdvanceSchema = require('../../validation/schemas/activity/activityAdvanceSearch.shema');
 
 const controllerHandler = require('../../helpers/controllerHandler');
 const errorHandler = require('../../helpers/errorHandler');
@@ -187,7 +188,49 @@ router
 
 router
   .route('/advancedSearch')
-  .post(controllerHandler(activityController.getByAdvanceSearch));
+
+  /**
+   * POST /v1/activities/advancedSearch
+   * @summary Advance search activities
+   * @tags Activities
+   * @param {object} request.body.required - Advanced search object
+   * @return {object} 200 - Advanced search object
+   * @return {object}  500 - Error
+   * @example request - Advanced search object
+   * {
+   * "id_category": "id || all",
+   * "level": "id || all",
+   * "city": "city || all"
+   * }
+   * @example response - 200 - success response example
+   * [
+   * {
+   *  "id": 1,
+   * "name": "name",
+   * "description": "description",
+   * "max_participants": 1,
+   * "date": "2020-05-05T14:00:00.000Z",
+   * "level": 1,
+   * "address": "address",
+   * "zip_code": "zip_code",
+   * "city": "city",
+   * "country": "country",
+   * "landmark": "[42.0, 42.0]",
+   * "id_user": 1,
+   * "id_category": 1,
+   * "created_at": "2020-05-05T14:00:00.000Z",
+   * "updated_at": "2020-05-05T14:00:00.000Z"
+   * }
+   * ]
+   * @example response - 500 - error response example
+   * {
+   * "error": "Une erreur est survenue, veuillez réessayer plus tard…"
+   * }
+   */
+  .post(
+    validator('body', activityAdvanceSchema),
+    controllerHandler(activityController.getByAdvanceSearch)
+  );
 
 router.use(apiErrorController.error404);
 router.use(errorHandler);
