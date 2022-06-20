@@ -185,6 +185,10 @@ router
     controllerHandler(activityController.getBySearch)
   );
 
+router
+  .route('/advancedSearch')
+  .post(controllerHandler(activityController.getByAdvanceSearch));
+
 router.use(apiErrorController.error404);
 router.use(errorHandler);
 
