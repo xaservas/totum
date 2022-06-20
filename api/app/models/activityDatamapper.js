@@ -31,9 +31,9 @@ const activityDataMapper = {
   async getBySearch(idKeyWord) {
     const query = {
       text: `
-                    SELECT *
-                    FROM activity
-                    WHERE name ILIKE '%' || $1 || '%' OR description ILIKE '%' || $1 || '%'
+            SELECT *
+            FROM activity
+            WHERE name ILIKE '%' || $1 || '%' OR description ILIKE '%' || $1 || '%'
             `,
       values: [idKeyWord],
     };
@@ -42,14 +42,30 @@ const activityDataMapper = {
   },
 
   async getByAdvanceSearch(data) {
+    const column = [];
+    const value = [];
+    const placeholder = [];
+    for (let key in data) {
+      if (data[key] !== 'all') {
+        column.push(key);
+        value.push(data[key]);
+        placeholder.push('$' + (placeholder.length + 1));
+      }
+    }
+    const prepare = [].concat(
+      'SELECT * FROM activity WHERE ',
+      column.map((e, i) => `${e} = ${placeholder[i]}`).join(' AND ')
+    );
+
     const query = {
-      text: `
-        SELECT *
-        FROM activity
-        WHERE id_category = $1 AND city = $2 AND level = $3
-      `,
-      values: [data.categories, data.city, data.level],
+      text: prepare[0] + prepare[1],
+      values: value,
     };
+
+    if (column.length === 0) {
+      return this.getAll();
+    }
+
     const result = await client.query(query);
     return result.rows;
   },

@@ -7,7 +7,7 @@ function SearchSimple() {
   const [categories, setCategories] = useState([]);
   const [levels, setLevels] = useState([]);
   const [search, setSearch] = useState({
-    categories: 'all',
+    id_category: 'all',
     level: 'all',
     city: 'all',
   });
@@ -70,8 +70,8 @@ function SearchSimple() {
   return (
     <form onSubmit={handleSubmit}>
       <div className='selector'>
-        <label htmlFor='categories'>Categories</label>
-        <select name='categories' onChange={handleChange}>
+        <label htmlFor='id_category'>Categories</label>
+        <select name='id_category' onChange={handleChange}>
           <option value='all'>Tous</option>
           {categories.map((category) => (
             <option key={category.id} value={category.id}>

@@ -37,9 +37,9 @@ const activityController = {
   },
 
   async getByAdvanceSearch(req, res) {
-    const activities = await activityDataMapper.getByAdvanceSeatvh(req.body);
+    const activities = await activityDataMapper.getByAdvanceSearch(req.body);
     if (activities.length === 0) {
-      res.status(404).json({ message: 'No activities found' });
+      return res.status(404).json({ message: 'No activities found' });
     }
     res.status(200).json(activities);
   },
