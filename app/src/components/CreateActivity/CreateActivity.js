@@ -84,8 +84,6 @@ function CreateActivity({ ...rest }) {
       ...previousActivity,
       [name]: value,
     }));
-
-    // console.log(activity);
   };
 
   const handleSubmit = async (event) => {
@@ -279,7 +277,9 @@ function CreateActivity({ ...rest }) {
         <p className='control'>
           {/* redirect to root */}
 
-          <button className='button is-light'>Cancel</button>
+          <button className='button is-light'>
+            Cancel
+          </button>
         </p>
       </div>
     </form>
