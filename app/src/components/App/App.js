@@ -1,6 +1,7 @@
 //import '../../../public/css/reset.scss';
 import './app.scss';
 
+import { useEffect, useState } from 'react';
 import { Route, Routes, Navigate } from 'react-router-dom';
 import Header from '../Header/Header';
 import Profile from '../Profile/Profile';
@@ -10,7 +11,7 @@ import ListActivities from '../ListActivities/ListActivities';
 import Login from '../Login/Login';
 import Desktop from '../Desktop/Desktop';
 
-import activities from '../../data/activities';
+// import activities from '../../data/activities';
 import CreateActivity from '../CreateActivity/CreateActivity';
 import CreateProfile from '../CreateProfil/CreateProfile';
 import Map from '../Map/Map';
@@ -21,9 +22,26 @@ import Usersettings from '../Settings/Usersettings/Usersettings';
 import Notification from '../Settings/Notification/Notification';
 import LegalMention from '../Settings/LegalMention/LegalMention';
 import Help from '../Settings/Help/Help';
+import { getAllActivities } from '../../utils/axiosPool';
 
 function App() {
   const windowWidth = window.innerWidth;
+  const [displayedActivities, setDisplayedActivities] = useState([]);
+
+  const loadDefaultActivities = async () => {
+    console.log('im in loaddefaultactivities');
+    try {
+      const result = await getAllActivities();
+      if (result) {
+        setDisplayedActivities(result);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    loadDefaultActivities();
+  }, []);
 
   return (
     <div className='App'>
@@ -37,7 +55,7 @@ function App() {
         <Route path='/activity/:id' element={<Activity />} />
         <Route
           path='/activity/:id'
-          element={<Activity activities={activities} />}
+          element={<Activity /* activities={activities} */ />}
         />
         <Route
           path='/profile'
@@ -45,7 +63,7 @@ function App() {
         />
         <Route
           path='/activities'
-          element={<ListActivities /* activities={activities} */ />}
+          element={<ListActivities activities={displayedActivities} />}
         />
         <Route path='/activity/create' element={<CreateActivity />} />
 

@@ -1,8 +1,11 @@
 import { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import Axios from '../../utils/axiosPool';
 import './search.scss';
 
-function SearchSimple() {
+function SearchSimple(
+  //onSubmit
+  ) {
   const [search, setSearch] = useState('');
   const [results, setResults] = useState([]);
 
@@ -17,7 +20,15 @@ function SearchSimple() {
         method: 'get',
         url: `/activities/${search}/search`,
       });
-      setResults(response.data);
+      if (response.data) {
+        setResults(response.data);
+        onSubmit(results);
+      }
+
+      /*
+      redirect sur list activities
+      alimenter list activities avec les résults en props
+       */
     } catch (error) {
       throw new Error(error);
     }
@@ -41,4 +52,7 @@ function SearchSimple() {
   );
 }
 
+SearchSimple.propTypes = {
+  //onSubmit: PropTypes.func.isRequired,
+};
 export default SearchSimple;
