@@ -6,6 +6,8 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import './createActivity.scss';
 import axios from '../../utils/axiosPool';
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
 
 function CreateActivity({ ...rest }) {
   const userId = localStorage.getItem('id');
@@ -256,13 +258,18 @@ function CreateActivity({ ...rest }) {
         {/* Find a calendar module */}
 
         <div className='control'>
-          <input
+        <Calendar 
+            
+            name='date'
+            value={activity.date}
+            onChange={handleChange} />
+          {/*<input
             className='input'
             type='text'
             name='date'
             value={activity.date}
             onChange={handleChange}
-          />
+          />*/}
         </div>
       </div>
 
