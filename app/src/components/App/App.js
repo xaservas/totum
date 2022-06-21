@@ -7,7 +7,7 @@ import Header from '../Header/Header';
 import Profile from '../Profile/Profile';
 import Activity from '../Activity/Activity';
 import ListActivities from '../ListActivities/ListActivities';
-import Spinner from '../Spinner/Spinner';
+// import Spinner from '../Spinner/Spinner';
 
 import Login from '../Login/Login';
 import Desktop from '../Desktop/Desktop';
@@ -28,13 +28,13 @@ import { getAllActivities } from '../../utils/axiosPool';
 function App() {
   const windowWidth = window.innerWidth;
   const [displayedActivities, setDisplayedActivities] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  //  const [isLoading, setIsLoading] = useState(false);
 
   const loadData = async () => {
     try {
       const result = await getAllActivities();
       console.log(result);
-      setDisplayedActivities(result);
+      setDisplayedActivities([...displayedActivities, result]);
       /* setDisplayedActivities((previousActivities) => ({
         ...previousActivities, result,
       })); */
@@ -47,7 +47,6 @@ function App() {
 
   useEffect(() => {
     loadData();
-    console.log(displayedActivities);
   }, []);
 
   return (
