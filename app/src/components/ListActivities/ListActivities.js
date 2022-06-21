@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import './listActivities.scss';
 import { getAllActivities } from '../../utils/axiosPool';
 
-function ListActivities({ /* activities, */ listType, ...rest }) {
+function ListActivities({ propActivities, listType, ...rest }) {
   const [activities, setActivities] = useState([]);
 
   /*
@@ -55,7 +55,7 @@ function ListActivities({ /* activities, */ listType, ...rest }) {
 ListActivities.propTypes = {
   className: PropTypes.string,
   list_type: PropTypes.string,
-  /* activities: PropTypes.arrayOf(
+  propActivities: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
       name: PropTypes.string.isRequired,
@@ -63,7 +63,7 @@ ListActivities.propTypes = {
       city: PropTypes.string.isRequired,
     }).isRequired,
   ).isRequired,
-  */
+
 };
 
 ListActivities.defaultProps = {
