@@ -1,12 +1,11 @@
-.search {
-  form {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: end;
-    height: 4rem;
-    button {
-      height: 2rem;
-    }
+.advanceSearch {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  height: 4rem;
+  padding: 0;
+  button {
+    height: 2rem;
   }
 }
 

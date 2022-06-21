@@ -56,6 +56,7 @@ function Header() {
           <h1 onClick={backToHome}>TOTUM</h1>
         </div>
         <SearchSimple />
+        <a className='addActivity'>Proposer une activité</a>
         <div onClick={showMenu} className='icon' id='menu'>
           <FontAwesomeIcon icon={faUser} className='navbar-item ' />
         </div>

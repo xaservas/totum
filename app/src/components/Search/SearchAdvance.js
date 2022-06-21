@@ -68,7 +68,7 @@ function SearchSimple() {
   }, []);
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className='advanceSearch' onSubmit={handleSubmit}>
       <div className='selector'>
         <label htmlFor='id_category'>Categories</label>
         <select name='id_category' onChange={handleChange}>
