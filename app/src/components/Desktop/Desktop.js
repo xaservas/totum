@@ -1,4 +1,7 @@
 import { useEffect } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCirclePlus } from '@fortawesome/free-solid-svg-icons';
+import { useNavigate } from 'react-router-dom';
 import SearchAdvance from '../Search/SearchAdvance';
 import './desktop.scss';
 
@@ -7,14 +10,23 @@ import Activities from '../ListActivities/ListActivities';
 import Activity from '../Activity/Activity';
 
 function Desktop() {
-  useEffect(() => {
+  const navigate = useNavigate();
 
-  }, []);
+  const createActivity = async (event) => {
+    event.preventDefault();
+    if (localStorage.getItem('id')) {
+      navigate('/activity/create', { replace: true });
+    } else {
+      navigate('/login', { replace: true });
+    }
+  };
+
+  useEffect(() => {}, []);
 
   return (
     <div className='desktop'>
       <div className='left'>
-        <div className="mapComposant">
+        <div className='mapComposant'>
           <Map />
         </div>
       </div>
@@ -29,10 +41,15 @@ function Desktop() {
 
       {/* zone modal */}
 
-      <div className="modal_activity">
+      <div className='modal_activity'>
         <Activity />
       </div>
 
+      <FontAwesomeIcon
+        className='icon_create'
+        onClick={createActivity}
+        icon={faCirclePlus}
+      />
     </div>
   );
 }
