@@ -1,7 +1,9 @@
-import React from 'react';
+/* eslint-disable no-unused-expressions */
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './createProfile.scss';
 import axios from '../../utils/axiosPool';
+import mapbox from '../../utils/mapbox';
 
 function CreateProfile() {
   const navigate = useNavigate();
@@ -19,6 +21,20 @@ function CreateProfile() {
   const [cookieValue, setCookieValue] = React.useState(false);
   const [landmarkValue, setLandmarkValue] = React.useState(false);
 
+  const [autocompleteAddress, setAutocompleteAddress] = useState([]);
+  const [autocompleteErr, setAutocompleteErr] = useState('');
+
+  const handleAddressChange = async (e) => {
+    setAddress(e.target.value);
+    if (!address) return;
+
+    const res = await mapbox(address);
+    !autocompleteAddress.includes(e.target.value)
+      && res.features
+      && setAutocompleteAddress(res.features.map((place) => place.place_name));
+    res.error ? setAutocompleteErr(res.error) : setAutocompleteErr('');
+  };
+
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition((position) => {
       setLandmarkValue(true);
@@ -28,6 +44,30 @@ function CreateProfile() {
       ]);
     });
   }
+
+  const splitAdress = () => {
+    const countryType = document.getElementById('country');
+    const zipcodeType = document.getElementById('zipCode');
+    const cityType = document.getElementById('city');
+    const addressType = document.getElementById('address');
+
+    const fullAddress = address.split(',');
+
+    const testPays = fullAddress[2];
+    countryType.value = testPays;
+
+    const vildep = fullAddress[1].split(' ');
+
+    const testZipcode = vildep[1];
+    zipcodeType.value = testZipcode;
+
+    const testCity = vildep[2];
+    cityType.value = testCity;
+
+    const testAddress = fullAddress[0];
+    addressType.value = testAddress;
+    console.log(typeof zipCode);
+  };
 
   const cookieClick = () => {
     const newValueB = !cookieValue;
@@ -104,14 +144,37 @@ function CreateProfile() {
         />{' '}
       </div>
       <input
+        id='searchAddress'
+        list='places'
+        name='searchAddress'
+        type='text'
+        className='input'
+        placeholder='searchAddress'
+        onChange={handleAddressChange}
+        pattern={autocompleteAddress.join('|')}
+        autoComplete='off'
+        onClick={splitAdress}
+
+      />
+      <input
+        id='address'
         name='address'
         type='text'
         className='input'
         placeholder='Adresse'
         onChange={(e) => setAddress(e.target.value)}
       />
+
+      <datalist id='places' >
+        {autocompleteAddress.map((addresses, i) => (
+          <option key={i} id={`connard${i}`} >{addresses}</option>
+
+        ))}
+      </datalist>
+      {autocompleteErr && <span className='inputError'>{autocompleteErr}</span>}
       <div className='zipCity'>
         <input
+          id='zipCode'
           name='zipCode'
           type='text'
           className='input'
@@ -119,14 +182,16 @@ function CreateProfile() {
           onChange={(e) => setZipcode(e.target.value)}
         />
         <input
+          id='city'
           name='city'
           type='text'
           className='input'
           placeholder='Ville'
           onChange={(e) => setCity(e.target.value)}
-        />{' '}
+        />
       </div>
       <input
+        id='country'
         name='country'
         type='text'
         className='input'
