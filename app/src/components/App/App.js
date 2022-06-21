@@ -1,4 +1,3 @@
-import '../../../public/css/reset.css';
 import './app.scss';
 
 import { Route, Routes, Navigate } from 'react-router-dom';
@@ -23,17 +22,12 @@ import LegalMention from '../Settings/LegalMention/LegalMention';
 import Help from '../Settings/Help/Help';
 
 function App() {
-  const windowWidth = window.innerWidth;
-
   return (
     <div className='App'>
       <Header />
       <Routes>
-        {windowWidth < 500 ? (
-          <Route path='/' element={<Login />} />
-        ) : (
-          <Route path='/' element={<Desktop />} />
-        )}
+        <Route path='/' element={<Desktop />} />
+
         <Route path='/activity/:id' element={<Activity />} />
         <Route
           path='/activity/:id'
