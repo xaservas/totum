@@ -1,6 +1,6 @@
 body {
   background: linear-gradient(45deg, rgb(24, 147, 236), blue);
-  /* height: 100vh; */
+  /* height: 100%; */
   font-family: 'Sen', sans-serif;
   color: white;
   text-align: center;
@@ -19,13 +19,12 @@ h2, h3 {
   font-size: 40px;
 }
 
+
+
 .text404 {
   color:rgb(212, 56, 184);
   height: 100vh;
   font-size: 100px;
-  
-
-
 
 }
 
