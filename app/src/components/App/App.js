@@ -1,4 +1,4 @@
-//import '../../../public/css/reset.scss';
+// import '../../../public/css/reset.scss';
 import './app.scss';
 
 import { useEffect, useState } from 'react';
@@ -7,6 +7,7 @@ import Header from '../Header/Header';
 import Profile from '../Profile/Profile';
 import Activity from '../Activity/Activity';
 import ListActivities from '../ListActivities/ListActivities';
+import Spinner from '../Spinner/Spinner';
 
 import Login from '../Login/Login';
 import Desktop from '../Desktop/Desktop';
@@ -27,25 +28,32 @@ import { getAllActivities } from '../../utils/axiosPool';
 function App() {
   const windowWidth = window.innerWidth;
   const [displayedActivities, setDisplayedActivities] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const loadDefaultActivities = async () => {
-    console.log('im in loaddefaultactivities');
+  const loadData = async () => {
     try {
       const result = await getAllActivities();
-      if (result) {
-        setDisplayedActivities(result);
-      }
+      console.log(result);
+      setDisplayedActivities(result);
+      /* setDisplayedActivities((previousActivities) => ({
+        ...previousActivities, result,
+      })); */
     } catch (error) {
       console.log(error);
+    } finally {
+      console.log(displayedActivities);
     }
   };
+
   useEffect(() => {
-    loadDefaultActivities();
+    loadData();
+    console.log(displayedActivities);
   }, []);
 
   return (
     <div className='App'>
       <Header />
+
       <Routes>
         {windowWidth < 500 ? (
           <Route path='/' element={<Login />} />
@@ -63,7 +71,7 @@ function App() {
         />
         <Route
           path='/activities'
-          element={<ListActivities activities={displayedActivities} />}
+          element={<ListActivities /* activities={displayedActivities} */ />}
         />
         <Route path='/activity/create' element={<CreateActivity />} />
 
@@ -80,6 +88,7 @@ function App() {
 
         <Route path='/map' element={<Map />} />
       </Routes>
+
       <Footer />
     </div>
   );

@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
-import PropTypes, { arrayOf, checkPropTypes } from 'prop-types';
+import PropTypes from 'prop-types';
 import './listActivities.scss';
 import { getAllActivities } from '../../utils/axiosPool';
 
-function ListActivities({ activities, listType, ...rest }) {
-  // const [activities, setActivities] = useState([]);
+function ListActivities({ /* activities, */ listType, ...rest }) {
+  const [activities, setActivities] = useState([]);
 
   /*
   const ActivitiesDataRequest = async () => {
@@ -20,7 +20,7 @@ function ListActivities({ activities, listType, ...rest }) {
     }
   };
 */
-  /*
+
   const loadDefaultData = async () => {
     try {
       const result = await getAllActivities();
@@ -35,7 +35,7 @@ function ListActivities({ activities, listType, ...rest }) {
   useEffect(() => {
     loadDefaultData();
   }, []);
-*/
+
   return (
     <article className={'listActivities panel'} {...rest}>
       <p className='activities-title panel-heading'>{listType}</p>
@@ -44,7 +44,7 @@ function ListActivities({ activities, listType, ...rest }) {
           <li key={activity.id} className='activity panel-block'>
             <div className='column activity-name'>{activity.name}</div>
             <div className='column activity-date'>{activity.date}</div>
-            <div className='column activity-status'>{activity.city}</div>
+            <div className='column activity-city'>{activity.city}</div>
           </li>
         ))}
       </ul>
@@ -55,7 +55,7 @@ function ListActivities({ activities, listType, ...rest }) {
 ListActivities.propTypes = {
   className: PropTypes.string,
   list_type: PropTypes.string,
-  activities: PropTypes.arrayOf(
+  /* activities: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
       name: PropTypes.string.isRequired,
@@ -63,12 +63,7 @@ ListActivities.propTypes = {
       city: PropTypes.string.isRequired,
     }).isRequired,
   ).isRequired,
-  /* activities: PropTypes.arrayOf(PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        name: PropTypes.string.isRequired,
-        level: PropTypes.string.isRequired,
-        tag: PropTypes.string.isRequired,
-    }).isRequired).isRequired, */
+  */
 };
 
 ListActivities.defaultProps = {
