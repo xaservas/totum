@@ -39,7 +39,7 @@ function ListActivities({
           </li>
         ))}
       </ul>
-    </article>
+    </article> 
   );
 }
 
