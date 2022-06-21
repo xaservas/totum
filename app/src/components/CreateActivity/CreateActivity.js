@@ -5,8 +5,8 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import './createActivity.scss';
-import axios from '../../utils/axiosPool';
 import Calendar from 'react-calendar';
+import axios from '../../utils/axiosPool';
 
 function CreateActivity({ ...rest }) {
   const userId = localStorage.getItem('id');
@@ -29,9 +29,7 @@ function CreateActivity({ ...rest }) {
   });
 
   const sortObjectsByProp = (objectsArr, prop, ascending = true) => {
-    const objectsHaveProp = objectsArr.every((object) =>
-      object.hasOwnProperty(prop)
-    );
+    const objectsHaveProp = objectsArr.every((object) => object.hasOwnProperty(prop));
     if (objectsHaveProp) {
       const newObjectsArr = objectsArr.slice();
       newObjectsArr.sort((a, b) => {
@@ -279,9 +277,7 @@ function CreateActivity({ ...rest }) {
         <p className='control'>
           {/* redirect to root */}
 
-          <button className='button is-light'>
-            Cancel
-          </button>
+          <button className='button is-light'>Cancel</button>
         </p>
       </div>
     </form>
