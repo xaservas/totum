@@ -1,3 +1,4 @@
+/* eslint-disable implicit-arrow-linebreak */
 /* eslint-disable no-else-return */
 /* eslint-disable no-nested-ternary */
 /* eslint-disable no-prototype-builtins */
@@ -7,6 +8,7 @@ import PropTypes from 'prop-types';
 import './createActivity.scss';
 import Calendar from 'react-calendar';
 import axios from '../../utils/axiosPool';
+import 'react-calendar/dist/Calendar.css';
 
 function CreateActivity({ ...rest }) {
   const userId = localStorage.getItem('id');
@@ -29,7 +31,8 @@ function CreateActivity({ ...rest }) {
   });
 
   const sortObjectsByProp = (objectsArr, prop, ascending = true) => {
-    const objectsHaveProp = objectsArr.every((object) => object.hasOwnProperty(prop));
+    const objectsHaveProp = objectsArr.every((object) =>
+      object.hasOwnProperty(prop));
     if (objectsHaveProp) {
       const newObjectsArr = objectsArr.slice();
       newObjectsArr.sort((a, b) => {
@@ -59,7 +62,7 @@ function CreateActivity({ ...rest }) {
       const sortedCategories = sortObjectsByProp(response.data, 'name');
       setCategories(sortedCategories);
     } catch (error) {
-      console.log(error);
+      throw new Error(error);
     }
   };
 
@@ -71,9 +74,8 @@ function CreateActivity({ ...rest }) {
       });
       // console.log(response.data);
       setLevels(response.data);
-      console.log(response.data);
     } catch (error) {
-      console.log(error);
+      throw new Error(error);
     }
   };
 
@@ -87,7 +89,6 @@ function CreateActivity({ ...rest }) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(activity);
     try {
       const response = await axios({
         method: 'post',
@@ -96,9 +97,9 @@ function CreateActivity({ ...rest }) {
           ...activity,
         },
       });
-      console.log(response);
+      return response.data;
     } catch (error) {
-      console.log(error);
+      throw new Error(error);
     }
 
     // console.log(activity)
@@ -255,14 +256,17 @@ function CreateActivity({ ...rest }) {
         {/* Find a calendar module */}
 
         <div className='control'>
-          <Calendar onChange={handleChange} value={activity.date} />
-          <input
+          <Calendar name='date' value={activity.date} onChange={handleChange} />
+          {/* <input
+
             className='input'
             type='text'
             name='date'
             value={activity.date}
             onChange={handleChange}
-          />
+
+          /> */ }
+
         </div>
       </div>
 

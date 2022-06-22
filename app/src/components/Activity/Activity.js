@@ -53,10 +53,9 @@ function Activity({ ...rest }) {
         method: 'get',
         url: `/activity/${idElem}/manage`,
       });
-      console.log(result.data);
       setActivity(result.data);
     } catch (error) {
-      console.log(error);
+      throw new Error(error);
     }
   };
 
@@ -67,9 +66,8 @@ function Activity({ ...rest }) {
         url: `/activity/${idElem}/user`,
       });
       setParticipants(result.data);
-      console.log(participants);
     } catch (error) {
-      console.log(error);
+      throw new Error(error);
     }
   };
 
@@ -82,11 +80,11 @@ function Activity({ ...rest }) {
       // console.log(response.data);
       setComments(response.data);
     } catch (error) {
-      console.log(error);
+      throw new Error(error);
     }
-  }
+  };
 
-  const getLevels = async (levelId) => {
+  const getLevels = async () => {
     try {
       const response = await axios({
         method: 'get',
@@ -94,14 +92,12 @@ function Activity({ ...rest }) {
       });
       // console.log(response.data);
       setLevels(response.data);
-      console.log(currentLevel);
     } catch (error) {
-      console.log(error);
+      throw new Error(error);
     }
   };
 
   useEffect(() => {
-    console.log(id);
     getActivity(id);
     getUsers(id);
     getLevels();
@@ -145,7 +141,7 @@ function Activity({ ...rest }) {
               commentId={comment.id}
               userFirstname={comment.user_firstname}
               commentContent={comment.comment_content}
-              />
+            />
           ))}
         </section>
 

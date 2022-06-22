@@ -1,15 +1,12 @@
 import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import './listActivities.scss';
-import axios from '../../utils/axiosPool';
+import { getAllActivities } from '../../utils/axiosPool';
 
-function ListActivities({
-  listType,
-  /* activities, */
-  ...rest
-}) {
+function ListActivities({ propActivities, listType, ...rest }) {
   const [activities, setActivities] = useState([]);
 
+  /*
   const ActivitiesDataRequest = async () => {
     try {
       const result = await axios({
@@ -22,41 +19,59 @@ function ListActivities({
       console.log(error);
     }
   };
+*/
+
+  const loadDefaultData = async () => {
+    try {
+      const result = await getAllActivities();
+      if (result) {
+        setActivities(result);
+      }
+    } catch (error) {
+      throw new Error(error);
+    }
+  };
 
   useEffect(() => {
-    ActivitiesDataRequest();
+    loadDefaultData();
   }, []);
 
   return (
     <article className={'listActivities panel'} {...rest}>
       <p className='activities-title panel-heading'>{listType}</p>
-      <ul className='activities'>
+      <ul className='activities-list'>
         {activities.map((activity) => (
           <li key={activity.id} className='activity panel-block'>
             <div className='column activity-name'>{activity.name}</div>
             <div className='column activity-date'>{activity.date}</div>
-            <div className='column activity-status'>{activity.tag}</div>
+            <div className='column activity-city'>{activity.city}</div>
           </li>
         ))}
       </ul>
-    </article> 
+    </article>
   );
 }
 
 ListActivities.propTypes = {
   className: PropTypes.string,
   list_type: PropTypes.string,
+  propActivities: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number,
+      name: PropTypes.string,
+      date: PropTypes.string,
+      city: PropTypes.string,
+    }),
+  ),
 
-  /* activities: PropTypes.arrayOf(PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        name: PropTypes.string.isRequired,
-        level: PropTypes.string.isRequired,
-        tag: PropTypes.string.isRequired,
-    }).isRequired).isRequired, */
 };
 
 ListActivities.defaultProps = {
   className: '',
   list_type: 'Toutes les activités',
+  id: '',
+  name: '',
+  date: '',
+  city: '',
 };
 export default ListActivities;
