@@ -5,6 +5,7 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import './createActivity.scss';
+import Calendar from 'react-calendar';
 import axios from '../../utils/axiosPool';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
@@ -30,9 +31,7 @@ function CreateActivity({ ...rest }) {
   });
 
   const sortObjectsByProp = (objectsArr, prop, ascending = true) => {
-    const objectsHaveProp = objectsArr.every((object) =>
-      object.hasOwnProperty(prop)
-    );
+    const objectsHaveProp = objectsArr.every((object) => object.hasOwnProperty(prop));
     if (objectsHaveProp) {
       const newObjectsArr = objectsArr.slice();
       newObjectsArr.sort((a, b) => {
@@ -258,12 +257,14 @@ function CreateActivity({ ...rest }) {
         {/* Find a calendar module */}
 
         <div className='control'>
+
         <Calendar 
             
             name='date'
             value={activity.date}
             onChange={handleChange} />
           {/*<input
+
             className='input'
             type='text'
             name='date'
@@ -284,9 +285,7 @@ function CreateActivity({ ...rest }) {
         <p className='control'>
           {/* redirect to root */}
 
-          <button className='button is-light'>
-            Cancel
-          </button>
+          <button className='button is-light'>Cancel</button>
         </p>
       </div>
     </form>

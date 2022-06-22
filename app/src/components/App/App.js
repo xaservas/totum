@@ -1,4 +1,6 @@
+
 // import '../../../public/css/reset.scss';
+
 import './app.scss';
 
 import { useCallback, useEffect, useState } from 'react';
@@ -81,6 +83,7 @@ function App() {
           <Route path='*' element={<Navigate to='/' />} />
           <Route path='/profile/create' element={<CreateProfile />} />
           {/* <Route path='/search' element={<Search />} /> */}
+
 
           <Route path='/settings' element={<Settings />} />
           <Route path='/settings/user' element={<Usersettings />} />

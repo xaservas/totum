@@ -48,7 +48,7 @@ function ListActivities({ propActivities, listType, ...rest }) {
           </li>
         ))}
       </ul>
-    </article>
+    </article> 
   );
 }
 
