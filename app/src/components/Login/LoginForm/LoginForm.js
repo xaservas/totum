@@ -1,14 +1,28 @@
-import React, { useEffect } from 'react';
-import './loginForm.scss';
-import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 import axios from '../../../utils/axiosPool';
+import './loginForm.scss';
 
-function LoginForm() {
-  const navigate = useNavigate();
-  const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
+function LoginForm({ funct }) {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
 
-  useEffect(() => {}, []);
+  const errorMessage = (data) => {
+    switch (data) {
+    case 401:
+      setError('Email ou mot de passe incorrect');
+      break;
+    case 404:
+      setError("L'utilisateur n'existe pas");
+      break;
+    case 400:
+      setError('Erreur inconnue');
+      break;
+    default:
+      setError('');
+      break;
+    }
+  };
 
   // save object user in localStorage
   const saveUser = (data) => {
@@ -18,6 +32,7 @@ function LoginForm() {
   };
 
   const handleSubmit = async (event) => {
+    event.preventDefault();
     axios({
       method: 'post',
       url: '/user/login',
@@ -29,20 +44,18 @@ function LoginForm() {
       .then((response) => {
         localStorage.setItem('token', response.data.token);
         saveUser(response.data.user);
-        navigate('/map', { replace: true });
+        funct.checkUser();
       })
-      .catch((error) => {
-        // gerer l'erreur de login de maniere cosmetique
-        alert('tu tes tromper connard');
-        console.log(error);
+      .catch((err) => {
+        errorMessage(err.response.status);
       });
-
-    event.preventDefault();
   };
 
   return (
     <div>
       <form onSubmit={handleSubmit} className='LoginForm'>
+        <p className='errorMessage'>{error}</p>
+
         <input
           name='email'
           type='email'

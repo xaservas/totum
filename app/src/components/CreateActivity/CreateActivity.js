@@ -1,3 +1,4 @@
+/* eslint-disable implicit-arrow-linebreak */
 /* eslint-disable no-else-return */
 /* eslint-disable no-nested-ternary */
 /* eslint-disable no-prototype-builtins */
@@ -5,7 +6,9 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import './createActivity.scss';
+import Calendar from 'react-calendar';
 import axios from '../../utils/axiosPool';
+import 'react-calendar/dist/Calendar.css';
 
 function CreateActivity({ ...rest }) {
   const userId = localStorage.getItem('id');
@@ -29,8 +32,7 @@ function CreateActivity({ ...rest }) {
 
   const sortObjectsByProp = (objectsArr, prop, ascending = true) => {
     const objectsHaveProp = objectsArr.every((object) =>
-      object.hasOwnProperty(prop)
-    );
+      object.hasOwnProperty(prop));
     if (objectsHaveProp) {
       const newObjectsArr = objectsArr.slice();
       newObjectsArr.sort((a, b) => {
@@ -60,7 +62,7 @@ function CreateActivity({ ...rest }) {
       const sortedCategories = sortObjectsByProp(response.data, 'name');
       setCategories(sortedCategories);
     } catch (error) {
-      console.log(error);
+      throw new Error(error);
     }
   };
 
@@ -73,7 +75,7 @@ function CreateActivity({ ...rest }) {
       // console.log(response.data);
       setLevels(response.data);
     } catch (error) {
-      console.log(error);
+      throw new Error(error);
     }
   };
 
@@ -83,13 +85,10 @@ function CreateActivity({ ...rest }) {
       ...previousActivity,
       [name]: value,
     }));
-
-    // console.log(activity);
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(activity);
     try {
       const response = await axios({
         method: 'post',
@@ -98,9 +97,9 @@ function CreateActivity({ ...rest }) {
           ...activity,
         },
       });
-      console.log(response);
+      return response.data;
     } catch (error) {
-      console.log(error);
+      throw new Error(error);
     }
 
     // console.log(activity)
@@ -119,20 +118,39 @@ function CreateActivity({ ...rest }) {
   }, []);
 
   return (
-    <form className={'createActivity'} {...rest} onSubmit={handleSubmit}>
-      <div className='field'>
-        <label className='label'>Activité</label>
-        <div className='control'>
-          <input
-            className='input'
-            type='text'
-            placeholder='intitulé'
-            name='name'
-            value={activity.name}
-            onChange={handleChange}
-          />
+    <form
+      className={'createActivity is-flex-wrap-wrap is-small'}
+      {...rest}
+      onSubmit={handleSubmit}>
+      <div className='columns name-participants is-flex is-align-items-flex-end'>
+        <div className='field column is-three-quarters name'>
+          <label className='label'>Activité</label>
+          <div className='control'>
+            <input
+              className='input'
+              type='text'
+              placeholder='intitulé'
+              name='name'
+              value={activity.name}
+              onChange={handleChange}
+            />
+          </div>
+        </div>
+        <div className='field column participants'>
+          <label className='label'>Nombre de participants</label>
+          <div className='control'>
+            <input
+              className='input'
+              type='text'
+              placeholder='nombre max de participants'
+              name='max_participants'
+              value={activity.max_participants}
+              onChange={handleChange}
+            />
+          </div>
         </div>
       </div>
+
       <div className='field'>
         <label className='label'>Catégorie</label>
         <div className='select'>
@@ -157,9 +175,8 @@ function CreateActivity({ ...rest }) {
           <select
             className='input'
             type='text'
-            placeholder='intitulé'
-            name='id_level'
-            value={activity.id_level}
+            name='level'
+            value={activity.level}
             onChange={handleChange}>
             {levels.map((level) => (
               <option value={level.id} key={level.id}>
@@ -169,15 +186,16 @@ function CreateActivity({ ...rest }) {
           </select>
         </div>
       </div>
+
       <div className='field'>
-        <label className='label'>Nombre maximum de participants</label>
+        <label className='label'>Description</label>
         <div className='control'>
-          <input
-            className='input'
+          <textarea
+            className='textarea'
             type='text'
-            placeholder='nombre max de participants'
-            name='max_participants'
-            value={activity.max_participants}
+            name='description'
+            placeholder='Description'
+            value={activity.description}
             onChange={handleChange}
           />
         </div>
@@ -238,29 +256,20 @@ function CreateActivity({ ...rest }) {
         {/* Find a calendar module */}
 
         <div className='control'>
-          <input
+          <Calendar name='date' value={activity.date} onChange={handleChange} />
+          {/* <input
+
             className='input'
             type='text'
             name='date'
             value={activity.date}
             onChange={handleChange}
-          />
+
+          /> */ }
+
         </div>
       </div>
 
-      <div className='field'>
-        <label className='label'>Description</label>
-        <div className='control'>
-          <textarea
-            className='textarea'
-            type='text'
-            name='description'
-            placeholder='Description'
-            value={activity.description}
-            onChange={handleChange}
-          />
-        </div>
-      </div>
       <div className='field is-grouped'>
         <p className='control'>
           {/* redirect to the activity page */}

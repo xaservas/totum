@@ -11,17 +11,15 @@ function Profile({ ...rest }) {
   const [activities, setActivities] = React.useState([]);
 
   const getUserById = async (id) => {
-    console.log(id);
     try {
       const response = await axios({
         method: 'get',
         url: `/user/${id}/manage`,
       });
-      console.log('getUserById');
       setUser(response.data);
       return response.data;
     } catch (error) {
-      console.log(error);
+      throw new Error(error);
     }
   };
 
@@ -31,18 +29,20 @@ function Profile({ ...rest }) {
         method: 'get',
         url: `/user/${id}/activity`,
       });
+      setActivities(response.data);
       return response.data;
     } catch (error) {
-      console.log(error);
+      throw new Error(error);
     }
   };
 
   useEffect(() => {
-    console.log('useEffect');
-    // const currentUser = getUserById(userId);
-    console.log(getUserById(userId));
+    getUserById(userId);
+    console.log(user);
+    getUserActivities(userId);
+    console.log(activities);
     // setActivities(getUserActivities(userId));
-    //console.log(user);
+    // console.log(user);
   }, []);
 
   return (

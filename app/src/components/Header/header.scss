@@ -1,41 +1,58 @@
-.icon {
-  margin: 10px;
-  display: flex;
-}
-.totumtitle {
-  margin: 10px;
-  display: flex;
-}
-.barre {
-  background-color: rgb(218, 218, 216);
-  display: flex;
-  justify-content: space-between;
-  flex-direction: row;
-  align-items: center;
-  width: 100%;
-  height: 4rem;
-}
+
 
 header {
-  display: flex;
-  flex-direction: column;
-  position: fixed;
-  z-index: 1000;
+  display: none;
   width: 100%;
-  height: 4rem;
-  top: 0;
+  height: 7vh;
+  display: none;
+  .navbar {
+    background: url('../../images/banner_hero.jpeg') center center / cover;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    height: auto;
+    .totumtitle {
+      padding-left: 1rem;
+    }
+    .icon {
+      padding-right: 2rem;
+      svg {
+        color: whitesmoke;
+      }
+    }
+    .totumtitle,
+    .icon {
+      font-size: 2rem;
+    }
+    h1 {
+      font-weight: 600;
+      margin: 0;
+    }
+    .simpleSearch {
+      padding: 0;
+    }
+    .addActivity {
+      text-decoration: none;
+      color: whitesmoke;
+      margin: 0;
+      font-size: 1.5rem;
+    }
+  }
 }
 
 // NAVBAR
 .navbar-menu {
-  height: 8rem;
-  width: 40%;
+  width: 15%;
   margin-left: auto;
-  background-color: rgb(218, 218, 216);
+  background-color: lightgrey;
   display: block;
   border-radius: 0 0 0 10px;
-  transform: translateY(-100%);
+  transform: translateY(-150%);
   transition: transform 1s;
+  .navbar-start {
+    justify-content: right;
+    padding-top: 1rem;
+  }
   li {
     text-align: right;
     padding-right: 1rem;
@@ -50,4 +67,54 @@ header {
 
 .showMenu {
   transform: translateY(0);
+}
+
+@media screen and (max-width: 1030px) {
+  header {
+    .navbar {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      h1 {
+        font-size: 1.8rem;
+      }
+    }
+    .navbar-menu {
+      width: 20%;
+      z-index: 2;
+      position: relative;
+    }
+  }
+}
+
+@media screen and (max-width: 780px) {
+  header {
+    .navbar-menu {
+      width: 25%;
+    }
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .desktop {
+    .right {
+      z-index: 1;
+    }
+  }
+  header {
+    // position: fixed;
+    .navbar {
+      .simpleSearch {
+        order: 2;
+        margin: 0 auto;
+        display: none;
+      }
+    }
+    .addActivity {
+      display: none;
+    }
+    .navbar-menu {
+      width: 40%;
+    }
+  }
 }

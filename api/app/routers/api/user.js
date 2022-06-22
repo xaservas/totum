@@ -125,7 +125,8 @@ router
    * "country": "country",
    * "created_at": "2020-05-05T14:00:00.000Z",
    * "updated_at": "2020-05-05T14:00:00.000Z",
-   * "meta_id": 1
+   * "meta_id": 1,
+   * "coordinate": "[42, 2]"
    * }
    *  @example response - 500 - error response example
    * {

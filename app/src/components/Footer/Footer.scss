@@ -1,9 +1,41 @@
-.iconbar {
-  background-color: rgb(197, 197, 197);
+
+
+footer {
+  display: none;
   width: 100%;
+
   bottom: 0;
   height: 6.5%;
   display: none;
+
+  height: 7vh;
+
+  display: flex;
+  align-items: center;
+  .copyright {
+    position: absolute;
+  }
+  .footerNav {
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    li a {
+      text-decoration: none;
+      color: #4a4a4a;
+    }
+  }
+  .footerNav li:nth-child(2) {
+    border-left: 2px solid gray;
+    border-right: 2px solid gray;
+    margin: 0 1rem;
+    padding: 0 1rem;
+  }
+
+}
+
+.iconbar {
+  background-color: #faebd7;
+
 }
 
 .icon_create {
@@ -13,9 +45,8 @@
   border: none;
 }
 
-#footer {
-  position: fixed;
-  width: 100%;
-  height: 5rem;
-  z-index: 1000;
+@media screen and (max-width: 550px) {
+  footer {
+    display: none;
+  }
 }

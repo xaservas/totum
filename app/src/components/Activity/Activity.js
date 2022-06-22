@@ -7,7 +7,8 @@ import './activity.scss';
 import { useParams } from 'react-router-dom';
 // import { findActivityById } from '../../utils/dataTools';
 import axios from '../../utils/axiosPool';
-
+import CreateComment from '../CreateComment/CreateComment';
+import Comment from '../Comment/Comment';
 /** Xavier/10/06/2022:
  *
  * this component could be a modal that could be used in lists and map
@@ -52,10 +53,9 @@ function Activity({ ...rest }) {
         method: 'get',
         url: `/activity/${idElem}/manage`,
       });
-      console.log(result.data);
       setActivity(result.data);
     } catch (error) {
-      console.log(error);
+      throw new Error(error);
     }
   };
 
@@ -66,19 +66,25 @@ function Activity({ ...rest }) {
         url: `/activity/${idElem}/user`,
       });
       setParticipants(result.data);
-      console.log(participants);
     } catch (error) {
-      console.log(error);
+      throw new Error(error);
     }
   };
 
-  //  const isCurrentLevel = () => (levels.id === activity.level);
+  const getComments = async (idElem) => {
+    try {
+      const response = await axios({
+        method: 'get',
+        url: `comment/${idElem}/activity`,
+      });
+      // console.log(response.data);
+      setComments(response.data);
+    } catch (error) {
+      throw new Error(error);
+    }
+  };
 
-  /* const findCurrentLevel = () => {
-    levels.find(levels.id === activity.level);
-  }; */
-
-  const getLevels = async (levelId) => {
+  const getLevels = async () => {
     try {
       const response = await axios({
         method: 'get',
@@ -86,9 +92,8 @@ function Activity({ ...rest }) {
       });
       // console.log(response.data);
       setLevels(response.data);
-      console.log(currentLevel);
     } catch (error) {
-      console.log(error);
+      throw new Error(error);
     }
   };
 
@@ -96,9 +101,11 @@ function Activity({ ...rest }) {
     getActivity(id);
     getUsers(id);
     getLevels();
+    getComments(id);
   }, []);
 
   return (
+
     <div className='container_activity'>
       <div className='left'>
         <header className='card-header has-text-centered'>
@@ -107,6 +114,7 @@ function Activity({ ...rest }) {
           <button className='modal-close is-large' aria-label='close'></button>
         </header>
 
+
         <figure className='image box'>
           <img
             className='activity__picture'
@@ -114,6 +122,16 @@ function Activity({ ...rest }) {
             alt={activity.name}
           />
         </figure>
+
+        <p className='activity__participants'>
+          {participants.length}/{activity.max_participants} participants pour le
+          moment
+        </p>
+        <progress
+          className='activity__takeholders progress box is-success'
+          value={participants.length}
+          max={activity.max_participants}></progress>
+
         <p className='activity__adress'>
           {activity.address}, {activity.city}, {activity.zip_code},{' '}
           {activity.country}
@@ -131,49 +149,39 @@ function Activity({ ...rest }) {
           max={activity.max_participants}></progress>
 
         <p className='activity__description'>{activity.description}</p>
+        <CreateComment activityId={id} />
+
         <section className='activity__comments box'>
           {comments.map((comment) => (
-            <article className='comment message is-small'>
-              <div className='message-header'>
-                <p>{comment.id_user}</p>
-              </div>
-              <div className='comment message-body'>{comment.content}</div>
-            </article>
+            <Comment
+              commentId={comment.id}
+              userFirstname={comment.user_firstname}
+              commentContent={comment.comment_content}
+            />
           ))}
         </section>
 
-        <footer className='card-footer buttons has-addons box'>
-          <a href='/' className='card-footer-item button is-success is-focused'>
-            Participer
-          </a>
-          <a href='/' className='card-footer-item button is-light'>
-            Commenter
-          </a>
-        </footer>
+      </body>
 
-      </div>
-
-    </div>
-
+      <footer className='card-footer buttons has-addons box'>
+        <a href='/' className='card-footer-item button is-success is-focused'>
+          Participer
+        </a>
+        <a href='/' className='card-footer-item button is-light'>
+          Commenter
+        </a>
+      </footer>
+    </article>
   );
 }
+
+CreateComment.propTypes = {
+  className: PropTypes.string,
+};
 
 Activity.defaultProps = {
   className: '',
 
-  activities: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired,
-      description: PropTypes.string,
-      date: PropTypes.string.isRequired,
-      level: PropTypes.string,
-      address: PropTypes.string.isRequired,
-      zip_code: PropTypes.string.isRequired,
-      city: PropTypes.string.isRequired,
-      country: PropTypes.string.isRequired,
-    }).isRequired,
-  ).isRequired,
 };
 
 export default Activity;
