@@ -1,6 +1,8 @@
 import { useEffect } from 'react';
+
+// fontawesome
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCirclePlus } from '@fortawesome/free-solid-svg-icons';
+import { faCirclePlus, faXmark } from '@fortawesome/free-solid-svg-icons';
 import SearchAdvance from '../Search/SearchAdvance';
 
 // base page
@@ -46,30 +48,65 @@ function Desktop({ props, funct }) {
       {/* zone modal */}
 
       <div id='modalActivity' className={activity}>
+        <FontAwesomeIcon
+          icon={faXmark}
+          className='icon_close'
+          onClick={() => funct.closeAllModal()}
+        />
         <Activity />
       </div>
 
       <div id='modalCreateActivity' className={addActivity}>
-        <CreateActivity />
+        <FontAwesomeIcon
+          icon={faXmark}
+          className='icon_close'
+          onClick={() => funct.closeAllModal()}
+        />
+        <CreateActivity props={props} funct={funct} />
       </div>
 
       <div id='modalLogin' className={user}>
+        <FontAwesomeIcon
+          icon={faXmark}
+          className='icon_close'
+          onClick={() => funct.closeAllModal()}
+        />
         <Login funct={funct} props={props} />
       </div>
 
       <div id='modalProfil' className={profile}>
+        <FontAwesomeIcon
+          icon={faXmark}
+          className='icon_close'
+          onClick={() => funct.closeAllModal()}
+        />
         <Profil />
       </div>
 
       <div id='modalSettings' className={parameters}>
+        <FontAwesomeIcon
+          icon={faXmark}
+          className='icon_close'
+          onClick={() => funct.closeAllModal()}
+        />
         <Settings />
       </div>
 
       <div id='modalCreateProfil' className={createUser}>
+        <FontAwesomeIcon
+          icon={faXmark}
+          className='icon_close'
+          onClick={() => funct.closeAllModal()}
+        />
         <CreateProfil />
       </div>
 
       <div id='modalListActivities' className={listActivities}>
+        <FontAwesomeIcon
+          icon={faXmark}
+          className='icon_close'
+          onClick={() => funct.closeAllModal()}
+        />
         <Activities props={props} />
       </div>
 
