@@ -117,7 +117,7 @@ function CreateActivity({ ...rest }) {
   }, []);
 
   return (
-    <form className={'createActivity'} {...rest} onSubmit={handleSubmit}>
+    <form className='createActivity' onSubmit={handleSubmit}>
       <div className='field'>
         <label className='label'>Activité</label>
         <div className='control'>
