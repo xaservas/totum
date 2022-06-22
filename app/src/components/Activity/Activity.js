@@ -105,14 +105,16 @@ function Activity({ ...rest }) {
   }, []);
 
   return (
-    <article className={'activity card'} {...rest}>
-      <header className='card-header has-text-centered'>
-        <p className='activity__name card-header-title'>{activity.name}</p>
-        {/* <p className='activity-level'>{activity.level}</p> */}
-        <button className='modal-close is-large' aria-label='close'></button>
-      </header>
 
-      <body className='card-content box'>
+    <div className='container_activity'>
+      <div className='left'>
+        <header className='card-header has-text-centered'>
+          <p className='activity__name card-header-title'>{activity.name}</p>
+          {/* <p className='activity-level'>{activity.level}</p> */}
+          <button className='modal-close is-large' aria-label='close'></button>
+        </header>
+
+
         <figure className='image box'>
           <img
             className='activity__picture'
@@ -120,6 +122,7 @@ function Activity({ ...rest }) {
             alt={activity.name}
           />
         </figure>
+
         <p className='activity__participants'>
           {participants.length}/{activity.max_participants} participants pour le
           moment
@@ -128,10 +131,23 @@ function Activity({ ...rest }) {
           className='activity__takeholders progress box is-success'
           value={participants.length}
           max={activity.max_participants}></progress>
+
         <p className='activity__adress'>
           {activity.address}, {activity.city}, {activity.zip_code},{' '}
           {activity.country}
         </p>
+
+      </div>
+      <div className='right'>
+        <p className='activity__participants'>
+          {participants.length}/{activity.max_participants} participants pour le
+            moment
+        </p>
+        <progress
+          className='activity__takeholders progress box is-success'
+          value={participants.length}
+          max={activity.max_participants}></progress>
+
         <p className='activity__description'>{activity.description}</p>
         <CreateComment activityId={id} />
 
