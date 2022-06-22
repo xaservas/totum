@@ -21,5 +21,6 @@ module.exports = {
     'jest/valid-expect': 'error',
     indent: ['error', 2],
     'react/jsx-uses-vars': 2,
+    'linebreak-style': 0,
   },
 };

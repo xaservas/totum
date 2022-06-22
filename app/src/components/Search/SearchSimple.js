@@ -1,11 +1,9 @@
 import { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 import Axios from '../../utils/axiosPool';
 import './search.scss';
 
-function SearchSimple(
-  //onSubmit
-  ) {
+function SearchSimple() {
+// onSubmit
   const [search, setSearch] = useState('');
   const [results, setResults] = useState([]);
 

@@ -28,7 +28,7 @@ function ListActivities({ propActivities, listType, ...rest }) {
         setActivities(result);
       }
     } catch (error) {
-      console.log(error);
+      throw new Error(error);
     }
   };
 
@@ -48,7 +48,7 @@ function ListActivities({ propActivities, listType, ...rest }) {
           </li>
         ))}
       </ul>
-    </article> 
+    </article>
   );
 }
 
