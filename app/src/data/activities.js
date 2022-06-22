@@ -48,4 +48,4 @@ export default [
     description:
       'Jésus de plâtre de cibolac d enfant d chienne de gériboire de saint-ciarge de boswell de colon de saint-sacrament de calvinouche.',
   },
-]
+];

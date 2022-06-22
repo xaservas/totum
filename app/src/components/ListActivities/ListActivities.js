@@ -69,5 +69,9 @@ ListActivities.propTypes = {
 ListActivities.defaultProps = {
   className: '',
   list_type: 'Toutes les activités',
+  id: '',
+  name: '',
+  date: '',
+  city: '',
 };
 export default ListActivities;

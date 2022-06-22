@@ -97,6 +97,7 @@ function CreateActivity({ ...rest }) {
           ...activity,
         },
       });
+      return response.data;
     } catch (error) {
       throw new Error(error);
     }
