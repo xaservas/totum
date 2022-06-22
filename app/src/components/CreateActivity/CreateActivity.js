@@ -28,7 +28,9 @@ function CreateActivity({ ...rest }) {
   });
 
   const sortObjectsByProp = (objectsArr, prop, ascending = true) => {
-    const objectsHaveProp = objectsArr.every((object) => object.hasOwnProperty(prop));
+    const objectsHaveProp = objectsArr.every((object) =>
+      object.hasOwnProperty(prop)
+    );
     if (objectsHaveProp) {
       const newObjectsArr = objectsArr.slice();
       newObjectsArr.sort((a, b) => {
