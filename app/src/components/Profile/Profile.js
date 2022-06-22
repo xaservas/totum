@@ -42,7 +42,7 @@ function Profile({ ...rest }) {
     // const currentUser = getUserById(userId);
     console.log(getUserById(userId));
     // setActivities(getUserActivities(userId));
-    //console.log(user);
+    // console.log(user);
   }, []);
 
   return (

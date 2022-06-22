@@ -55,17 +55,21 @@ function CreateProfile() {
 
     const testPays = fullAddress[2];
     countryType.value = testPays;
+    setCountry(testPays);
 
     const vildep = fullAddress[1].split(' ');
 
     const testZipcode = vildep[1];
     zipcodeType.value = testZipcode;
+    setZipcode(testZipcode);
 
     const testCity = vildep[2];
     cityType.value = testCity;
+    setCity(testCity);
 
     const testAddress = fullAddress[0];
     addressType.value = testAddress;
+    setAddress(testAddress);
     console.log(typeof zipCode);
   };
 
@@ -153,7 +157,7 @@ function CreateProfile() {
         onChange={handleAddressChange}
         pattern={autocompleteAddress.join('|')}
         autoComplete='off'
-        onClick={splitAdress}
+        onBlur={splitAdress}
 
       />
       <input
