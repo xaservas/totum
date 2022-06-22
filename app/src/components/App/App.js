@@ -1,101 +1,140 @@
+import { Route, Routes } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import Axios from '../../utils/axiosPool';
 
+// base page
 import './app.scss';
-
-import { useEffect, useState } from 'react';
-import { Route, Routes, Navigate } from 'react-router-dom';
 import Header from '../Header/Header';
-import Profile from '../Profile/Profile';
-import Activity from '../Activity/Activity';
-import ListActivities from '../ListActivities/ListActivities';
-import Spinner from '../Spinner/Spinner';
-
-import Login from '../Login/Login';
-import Desktop from '../Desktop/Desktop';
-
-// import activities from '../../data/activities';
-import CreateActivity from '../CreateActivity/CreateActivity';
-import CreateProfile from '../CreateProfil/CreateProfile';
-import Map from '../Map/Map';
-import Settings from '../Settings/Settings';
-// import Search from '../Search/Search';
+import Main from '../Main/Main';
 import Footer from '../Footer/Footer';
-import Usersettings from '../Settings/Usersettings/Usersettings';
-import Notification from '../Settings/Notification/Notification';
-import LegalMention from '../Settings/LegalMention/LegalMention';
-import Help from '../Settings/Help/Help';
-import { getAllActivities } from '../../utils/axiosPool';
 
 function App() {
-  const windowWidth = window.innerWidth;
-  const [displayedActivities, setDisplayedActivities] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [addActivity, setAddActivity] = useState(false);
+  const [profile, setProfile] = useState(false);
+  const [parameters, setParameters] = useState(false);
+  const [user, setUser] = useState(false);
+  const [createProfile, setCreateProfile] = useState(false);
+  const [isLogged, setIsLogged] = useState(false);
+  const [showMenu, setShowMenu] = useState(false);
+  const [activity, setActivity] = useState(false);
+  const [searchResult, setSearchResult] = useState([]);
 
-  const loadData = async () => {
-    setIsLoading(true);
-    try {
-      const result = await getAllActivities();
-      console.log(result);
-      setDisplayedActivities(result);
-      //  console.log(displayedActivities);
-    } catch (error) {
-      throw new Error(error);
-    } finally {
-      setIsLoading(false);
+  const checkUser = () => {
+    if (localStorage.getItem('id')) {
+      setUser(true);
+      setIsLogged(true);
     }
   };
 
-  useEffect(() => {
-    loadData();
-  }, []);
+  const closeAllModal = () => {
+    setAddActivity(false);
+    setProfile(false);
+    setParameters(false);
+    setCreateProfile(false);
+    setUser(true);
+    setShowMenu(false);
+    setActivity(false);
+  };
+
+  const handleMenu = () => {
+    setShowMenu(!showMenu);
+  };
+
+  const handleCreateActivity = () => {
+    closeAllModal();
+    setAddActivity(!addActivity);
+  };
+
+  const handleProfile = () => {
+    closeAllModal();
+    setProfile(!profile);
+  };
+
+  const handleParameters = () => {
+    closeAllModal();
+    setParameters(!parameters);
+  };
+
+  const handleLogin = () => {
+    closeAllModal();
+    setUser(false);
+  };
+
+  const handleCreateProfile = () => {
+    closeAllModal();
+    setCreateProfile(!createProfile);
+  };
+
+  const handleIsLogged = () => {
+    setIsLogged(!isLogged);
+  };
+
+  const handleActivity = () => {
+  };
+
+  const handleActivities = () => {
+  };
+
+  const handleLogout = async () => {
+    closeAllModal();
+    try {
+      await Axios.get('/user/logout', {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
+    } catch (error) {
+      throw new Error(error);
+    }
+    localStorage.clear();
+    setUser(false);
+  };
 
   useEffect(() => {
-    console.log(displayedActivities);
-  }, [displayedActivities]);
+    checkUser();
+  }, [user]);
+
+  const props = {
+    addActivity,
+    profile,
+    parameters,
+    user,
+    createProfile,
+    isLogged,
+    showMenu,
+    activity,
+    searchResult,
+  };
+
+  const funct = {
+    handleCreateActivity,
+    handleProfile,
+    handleParameters,
+    handleLogin,
+    handleLogout,
+    checkUser,
+    handleCreateProfile,
+    closeAllModal,
+    handleIsLogged,
+    handleMenu,
+    handleActivity,
+  };
 
   return (
     <div className='App'>
-      <Header />
-      {isLoading ? (
-        <Spinner />
-      ) : (
-        <Routes>
-          {windowWidth < 500 ? (
-            <Route path='/' element={<Login />} />
-          ) : (
-            <Route path='/' element={<Desktop />} />
-          )}
-          <Route path='/activity/:id' element={<Activity />} />
-          <Route
-            path='/activity/:id'
-            element={<Activity /* activities={activities} */ />}
-          />
-          <Route
-            path='/profile'
-            element={<Profile /* activities={activities} */ />}
-          />
-          <Route
-            path='/activities'
-            element={
-              <ListActivities /* propActivities={displayedActivities} */ />
-            }
-          />
-          <Route path='/activity/create' element={<CreateActivity />} />
+      <Header
+        props={props}
+        funct={funct}
+      />
+      <Routes>
+        <Route path='/'
+          element={
+            <Main
+              props={props}
+              funct={funct}
 
-          <Route path='/createProfil' element={<CreateProfile />} />
-          <Route path='*' element={<Navigate to='/' />} />
-          <Route path='/profile/create' element={<CreateProfile />} />
-          {/* <Route path='/search' element={<Search />} /> */}
-
-          <Route path='/settings' element={<Settings />} />
-          <Route path='/settings/user' element={<Usersettings />} />
-          <Route path='/settings/notifications' element={<Notification />} />
-          <Route path='/settings/legalMention' element={<LegalMention />} />
-          <Route path='/settings/help' element={<Help />} />
-
-          <Route path='/map' element={<Map />} />
-        </Routes>
-      )}
-
+            />} />
+      </Routes>
       <Footer />
     </div>
   );

@@ -1,12 +1,11 @@
-.LoginForm{
-    margin:3em 1em;
-}
+.LoginForm {
+  margin: 3em 1em;
 
-input{
+  .input {
     margin-bottom: 1em;
+  }
+
+  .errorMessage {
+    color: red;
+  }
 }
-
-// .zipCity {
-//     display: flex;
-// }
-
