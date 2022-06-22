@@ -1,8 +1,7 @@
-// import '../../../public/css/reset.scss';
 
 import './app.scss';
 
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Route, Routes, Navigate } from 'react-router-dom';
 import Header from '../Header/Header';
 import Profile from '../Profile/Profile';
@@ -31,24 +30,27 @@ function App() {
   const [displayedActivities, setDisplayedActivities] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  const loadData = useCallback(async () => {
+  const loadData = async () => {
     setIsLoading(true);
     try {
       const result = await getAllActivities();
       console.log(result);
-      setDisplayedActivities([...displayedActivities, result]);
-      /*  */
+      setDisplayedActivities(result);
+      //  console.log(displayedActivities);
     } catch (error) {
-      console.log(error);
+      throw new Error(error);
     } finally {
       setIsLoading(false);
     }
-  }, []);
+  };
 
   useEffect(() => {
     loadData();
-    console.log(`useeffect${displayedActivities}`);
   }, []);
+
+  useEffect(() => {
+    console.log(displayedActivities);
+  }, [displayedActivities]);
 
   return (
     <div className='App'>
@@ -73,7 +75,9 @@ function App() {
           />
           <Route
             path='/activities'
-            element={<ListActivities propActivities={displayedActivities} />}
+            element={
+              <ListActivities /* propActivities={displayedActivities} */ />
+            }
           />
           <Route path='/activity/create' element={<CreateActivity />} />
 

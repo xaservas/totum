@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import './createComment.scss';
 import axios from '../../utils/axiosPool';
 
-function CreateComment({ activityId, ...rest }) {
+function CreateComment({ activityId }) {
   const userId = localStorage.getItem('id');
   const [comment, setComment] = React.useState({
     content: 'string',

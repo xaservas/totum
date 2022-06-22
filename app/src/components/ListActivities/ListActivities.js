@@ -28,7 +28,7 @@ function ListActivities({ propActivities, listType, ...rest }) {
         setActivities(result);
       }
     } catch (error) {
-      console.log(error);
+      throw new Error(error);
     }
   };
 
@@ -48,7 +48,7 @@ function ListActivities({ propActivities, listType, ...rest }) {
           </li>
         ))}
       </ul>
-    </article> 
+    </article>
   );
 }
 
@@ -57,17 +57,21 @@ ListActivities.propTypes = {
   list_type: PropTypes.string,
   propActivities: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired,
-      date: PropTypes.string.isRequired,
-      city: PropTypes.string.isRequired,
-    }).isRequired,
-  ).isRequired,
+      id: PropTypes.number,
+      name: PropTypes.string,
+      date: PropTypes.string,
+      city: PropTypes.string,
+    }),
+  ),
 
 };
 
 ListActivities.defaultProps = {
   className: '',
   list_type: 'Toutes les activités',
+  id: '',
+  name: '',
+  date: '',
+  city: '',
 };
 export default ListActivities;

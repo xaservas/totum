@@ -4,7 +4,7 @@ import './Footer.scss';
 function Footer() {
   return (
     <footer id='footer' className='iconbar'>
-      <p class='copyright'>&copy;{new Date().getFullYear()} totum.ovh</p>
+      <p className='copyright'>&copy;{new Date().getFullYear()} totum.ovh</p>
       <ul className='footerNav'>
         <li>
           <a href='#'>Conditions générales</a>

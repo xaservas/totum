@@ -20,11 +20,14 @@ function Comment({
 
 Comment.propTypes = {
   className: PropTypes.string,
-  commentId: PropTypes.number.isRequired,
-  userFirstname: PropTypes.string.isRequired,
-  commentContent: PropTypes.string.isRequired,
+  commentId: PropTypes.number,
+  userFirstname: PropTypes.string,
+  commentContent: PropTypes.string,
 };
 Comment.defaultProps = {
   className: '',
+  commentId: '',
+  userFirstname: '',
+  commentContent: '',
 };
 export default Comment;

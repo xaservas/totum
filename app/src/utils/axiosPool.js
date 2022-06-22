@@ -12,7 +12,6 @@ const instance = axios.create({
 });
 
 export async function getAllActivities() {
-  console.log('getAllActivities');
   try {
     const result = await instance({
       method: 'get',
@@ -20,12 +19,11 @@ export async function getAllActivities() {
     });
     return result.data;
   } catch (error) {
-    console.log(error);
+    throw new Error(error);
   }
 }
 
 export async function getActivityById(activityId) {
-  console.log('getActivityById');
   try {
     const result = await instance({
       method: 'get',
@@ -33,12 +31,11 @@ export async function getActivityById(activityId) {
     });
     return result.data;
   } catch (error) {
-    console.log(error);
+    throw new Error(error);
   }
 }
 
 export async function getActivitiesByUserId(userId) {
-  console.log('getActivitiesByUserId');
   try {
     const result = await axios({
       method: 'get',
@@ -46,12 +43,11 @@ export async function getActivitiesByUserId(userId) {
     });
     return result.data;
   } catch (error) {
-    console.log(error);
+    throw new Error(error);
   }
 }
 
 export async function getParticipantByActivityId(activityId) {
-  console.log('getParticipantByActivityId');
   try {
     const result = await instance({
       method: 'get',
@@ -59,12 +55,11 @@ export async function getParticipantByActivityId(activityId) {
     });
     return result.data;
   } catch (error) {
-    console.log(error);
+    throw new Error(error);
   }
 }
 
 export async function getCommentsByActivityId(activityId) {
-  console.log('getCommentsByActivityId');
   try {
     const result = await instance({
       method: 'get',
@@ -72,12 +67,11 @@ export async function getCommentsByActivityId(activityId) {
     });
     return result.data;
   } catch (error) {
-    console.log(error);
+    throw new Error(error);
   }
 }
 
 export async function getAllLevels() {
-  console.log('getAllLevels');
   try {
     const result = await instance({
       method: 'get',
@@ -85,12 +79,11 @@ export async function getAllLevels() {
     });
     return result.data;
   } catch (error) {
-    console.log(error);
+    throw new Error(error);
   }
 }
 
 export async function getUserById(userId) {
-  console.log('getUserById');
   try {
     const result = await instance({
       method: 'get',
@@ -98,12 +91,11 @@ export async function getUserById(userId) {
     });
     return result.data;
   } catch (error) {
-    console.log(error);
+    throw new Error(error);
   }
 }
 
 export async function getAllCategories() {
-  console.log('getAllCategories');
   try {
     const result = await instance({
       method: 'get',
@@ -111,12 +103,11 @@ export async function getAllCategories() {
     });
     return result.data;
   } catch (error) {
-    console.log(error);
+    throw new Error(error);
   }
 }
 
 export async function getAllActivitiesBySearchName(searchName) {
-  console.log('getAllActivitiesBySearchName');
   try {
     const result = await instance({
       method: 'get',
@@ -124,7 +115,7 @@ export async function getAllActivitiesBySearchName(searchName) {
     });
     return result.data;
   } catch (error) {
-    console.log(error);
+    throw new Error(error);
   }
 }
 export default instance;
