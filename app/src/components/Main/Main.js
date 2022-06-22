@@ -66,7 +66,7 @@ function Desktop({ props, funct }) {
       </div>
 
       <div id='modalCreateProfil' className={createUser}>
-        <CreateProfil />
+        <CreateProfil funct={funct} props={props} />
       </div>
 
       <div id='modalListActivities' className={listActivities}>
