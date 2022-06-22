@@ -258,12 +258,15 @@ function CreateActivity({ ...rest }) {
         <div className='control'>
           <Calendar name='date' value={activity.date} onChange={handleChange} />
           {/* <input
+
             className='input'
             type='text'
             name='date'
             value={activity.date}
             onChange={handleChange}
+
           /> */ }
+
         </div>
       </div>
 

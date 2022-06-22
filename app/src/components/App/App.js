@@ -1,3 +1,4 @@
+
 import './app.scss';
 
 import { useEffect, useState } from 'react';
@@ -84,6 +85,7 @@ function App() {
           <Route path='*' element={<Navigate to='/' />} />
           <Route path='/profile/create' element={<CreateProfile />} />
           {/* <Route path='/search' element={<Search />} /> */}
+
           <Route path='/settings' element={<Settings />} />
           <Route path='/settings/user' element={<Usersettings />} />
           <Route path='/settings/notifications' element={<Notification />} />
