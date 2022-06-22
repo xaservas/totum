@@ -38,15 +38,11 @@ function Profile({ ...rest }) {
 
   useEffect(() => {
     getUserById(userId);
-    console.log(user);
     getUserActivities(userId);
-    console.log(activities);
-    // setActivities(getUserActivities(userId));
-    // console.log(user);
   }, []);
 
   return (
-    <section className={'profile card'} {...rest}>
+    <section className='profil_card'>
       <div className='card-content'>
         <div className='media'>
           <div className='media-left'>
