@@ -1,10 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Axios from '../../utils/axiosPool';
 import './search.scss';
 
-function SearchSimple() {
+function SearchSimple({ funct }) {
   const [search, setSearch] = useState('');
-  const [results, setResults] = useState([]);
 
   const handleChange = (e) => {
     setSearch(e.target.value);
@@ -17,13 +16,11 @@ function SearchSimple() {
         method: 'get',
         url: `/activities/${search}/search`,
       });
-      setResults(response.data);
+      funct.handleActivity(response.data);
     } catch (error) {
       throw new Error(error);
     }
   };
-
-  useEffect(() => {}, []);
 
   return (
     <form className='simpleSearch' onSubmit={handleSubmit}>
