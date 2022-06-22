@@ -57,12 +57,12 @@ ListActivities.propTypes = {
   list_type: PropTypes.string,
   propActivities: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired,
-      date: PropTypes.string.isRequired,
-      city: PropTypes.string.isRequired,
-    }).isRequired,
-  ).isRequired,
+      id: PropTypes.number,
+      name: PropTypes.string,
+      date: PropTypes.string,
+      city: PropTypes.string,
+    }),
+  ),
 
 };
 
