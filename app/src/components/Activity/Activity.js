@@ -86,7 +86,7 @@ function Activity({ ...rest }) {
     }
   }
 
-  const getLevels = async (levelId) => {
+  const getLevels = async () => {
     try {
       const response = await axios({
         method: 'get',
