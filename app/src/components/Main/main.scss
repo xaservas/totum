@@ -3,7 +3,7 @@
   display: flex;
   flex-wrap: wrap;
   .left {
-    height: calc(100vh - 14vh);
+    // height: calc(100vh - 14vh);
     width: 50%;
     display: flex;
     justify-content: center;
@@ -43,7 +43,7 @@ footer {
   }
 }
 
-// modal
+// modal --------------------------------------------------
 
 #modalActivity,
 #modalCreateActivity,
@@ -52,32 +52,70 @@ footer {
 #modalSettings,
 #modalCreateProfil,
 #modalListActivities {
+  // overflow: auto;
   display: none;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  z-index: 2000;
+  background-image: radial-gradient(
+    circle,
+    #000000,
+    rgba(0, 0, 0, 0.835171568627451)
+  );
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  // animation
+  -webkit-animation-name: fadeInOpacity;
+  animation-name: fadeInOpacity;
+  -webkit-animation-iteration-count: 1;
+  animation-iteration-count: 1;
+  -webkit-animation-timing-function: ease-in;
+  animation-timing-function: ease-in;
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
 }
 
 .isActive {
-  display: block !important;
-  position: absolute;
-  top: 0;
-  z-index: 1000;
-  background-color: black;
+  display: flex !important;
 }
 
-// .modal_activity {
-//   display: none;
-//   position: absolute;
-//   height: calc(100vh - 14vh);
-//   width: 100vw;
-//   top: 50%;
-//   left: 50%;
-//   transform: translate(-50%, -50%);
-//   z-index: 1000;
+.icon_close {
+  font-size: 2rem;
+  position: absolute;
+  // right: 13rem;
+  // top: 13rem;
+  top: 13px;
+  right: 13px;
 
-//   .card-content {
-//     display: flex;
-//     flex-wrap: wrap;
-//   }
-// }
+  &:hover {
+    cursor: pointer;
+    color: white;
+  }
+}
+
+@-webkit-keyframes fadeInOpacity {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInOpacity {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+// ------------------------------------------------------------
 
 @media screen and (max-width: 765px) {
   .desktop {
@@ -94,11 +132,22 @@ footer {
         height: 80vh;
       }
     }
+
+    .isActive {
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+    }
   }
 }
 
+// -------------------------------------------------------------
+
 @media screen and (max-width: 550px) {
   .desktop {
+    .icon_close {
+      z-index: 2;
+    }
     .right {
       height: auto;
       position: absolute;

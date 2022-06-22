@@ -1,10 +1,14 @@
-// body::-webkit-scrollbar {
-//   display: none; /* for Chrome, Safari, and Opera */
-// }
+body::-webkit-scrollbar {
+  display: none; /* for Chrome, Safari, and Opera */
+}
 
-// .App {
-//   overflow: hidden;
-// }
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+.App {
+  overflow: hidden;
+}
 
 .App {
   height: 100vh;
