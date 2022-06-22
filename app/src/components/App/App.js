@@ -1,4 +1,4 @@
-import '../../../public/css/reset.css';
+// import '../../../public/css/reset.css';
 import './app.scss';
 
 import { Route, Routes, Navigate } from 'react-router-dom';

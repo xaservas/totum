@@ -84,7 +84,7 @@ function Activity({ ...rest }) {
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   const getLevels = async (levelId) => {
     try {
@@ -109,15 +109,15 @@ function Activity({ ...rest }) {
   }, []);
 
   return (
-    <article className={'activity card'} {...rest}>
+    <article className={'activity_card'} {...rest}>
       <header className='card-header has-text-centered'>
         <p className='activity__name card-header-title'>{activity.name}</p>
         {/* <p className='activity-level'>{activity.level}</p> */}
         <button className='modal-close is-large' aria-label='close'></button>
       </header>
 
-      <body className='card-content box'>
-        <figure className='image box'>
+      <body className='card-content_box'>
+        <figure className='image_box'>
           <img
             className='activity__picture'
             src='https://picsum.photos/100'
@@ -145,20 +145,18 @@ function Activity({ ...rest }) {
               commentId={comment.id}
               userFirstname={comment.user_firstname}
               commentContent={comment.comment_content}
-              />
+            />
           ))}
         </section>
-
+        <footer className='card-footer buttons has-addons box'>
+          <a href='/' className='card-footer-item button is-success is-focused'>
+            Participer
+          </a>
+          <a href='/' className='card-footer-item button is-light'>
+            Commenter
+          </a>
+        </footer>
       </body>
-
-      <footer className='card-footer buttons has-addons box'>
-        <a href='/' className='card-footer-item button is-success is-focused'>
-          Participer
-        </a>
-        <a href='/' className='card-footer-item button is-light'>
-          Commenter
-        </a>
-      </footer>
     </article>
   );
 }
@@ -169,7 +167,6 @@ CreateComment.propTypes = {
 
 Activity.defaultProps = {
   className: '',
-
 };
 
 export default Activity;
