@@ -19,7 +19,7 @@ function Activity({ props }) {
       const response = await Axios.get(`/activity/${props.idActivity}/user`);
       setParticipants(response.data);
     } catch (error) {
-      throw new Error(error);
+      setParticipants([]);
     }
   };
 
@@ -46,12 +46,11 @@ function Activity({ props }) {
           id_activity: props.idActivity,
         },
       });
-      console.log(response.data);
       setIsRegistered(true);
       setRegisterId(response.data.id);
     } catch (error) {
-      console.log(error);
       setIsRegistered(false);
+      throw new Error(error);
     }
   };
 
@@ -59,9 +58,6 @@ function Activity({ props }) {
     try {
       const response = await Axios.get(`/activity/${props.idActivity}/manage`);
       setActivity(response.data);
-      getParticipants();
-      getComments();
-      getRegister();
     } catch (error) {
       throw new Error(error);
     }
@@ -79,14 +75,15 @@ function Activity({ props }) {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
       });
+      getRegister();
       setIsRegistered(true);
+      getParticipants();
     } catch (error) {
       throw new Error(error);
     }
   };
 
   const unregisterToActivity = async () => {
-    console.log(registerId);
     try {
       await Axios({
         method: 'delete',
@@ -97,15 +94,25 @@ function Activity({ props }) {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
       });
+      getRegister();
       setIsRegistered(false);
+      getParticipants();
     } catch (error) {
-      console.log(error);
       throw new Error(error);
     }
   };
 
   useEffect(() => {
-    getActivity();
+    if (props.idActivity !== 0) {
+      getActivity();
+      getParticipants();
+      getComments();
+      getRegister();
+      setRegister({
+        id_user: JSON.parse(localStorage.getItem('id')),
+        id_activity: props.idActivity,
+      });
+    }
   }, [props.idActivity]);
 
   return (
@@ -159,7 +166,7 @@ function Activity({ props }) {
         <section className='activity__comments box'>
           {comments &&
             comments.map((comment) => (
-              <Comment key={comment.comment_id} comment={comment} />
+              <Comment key={comment.comment_id || 0} comment={comment} />
             ))}
         </section>
       </div>
