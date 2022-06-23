@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import Axios from '../../utils/axiosPool';
 import './search.scss';
 
-function SearchSimple() {
+function SearchSimple({ funct }) {
   const [activities, setActivities] = useState([]);
   const [categories, setCategories] = useState([]);
   const [levels, setLevels] = useState([]);
@@ -11,7 +11,6 @@ function SearchSimple() {
     level: 'all',
     city: 'all',
   });
-  const [result, setResult] = useState([]);
 
   const ActivitiesDataRequest = async () => {
     try {
@@ -45,8 +44,7 @@ function SearchSimple() {
     setSearch({ ...search, [name]: value });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
     try {
       const response = await Axios({
         method: 'post',
@@ -55,8 +53,13 @@ function SearchSimple() {
           ...search,
         },
       });
-      setResult(response.data);
+      funct.handleActivitiesList(response.data);
     } catch (error) {
+      if (error.response.status === 404) {
+        funct.handleActivitiesList([
+          { name: "Désolé il n'y à pas d'activités pour le moment" },
+        ]);
+      }
       throw new Error(error);
     }
   };
@@ -67,8 +70,12 @@ function SearchSimple() {
     LevelsDataRequest();
   }, []);
 
+  useEffect(() => {
+    handleSubmit();
+  }, [search]);
+
   return (
-    <form className='advanceSearch' onSubmit={handleSubmit}>
+    <form className='advanceSearch'>
       <div className='selector'>
         <label htmlFor='id_category'>Categories</label>
         <select name='id_category' onChange={handleChange}>
@@ -102,7 +109,6 @@ function SearchSimple() {
           ))}
         </select>
       </div>
-      <button type='submit'>Rechercher</button>
     </form>
   );
 }
