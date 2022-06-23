@@ -1,47 +1,42 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import { useState } from 'react';
 import './createComment.scss';
-import axios from '../../utils/axiosPool';
+import Axios from '../../utils/axiosPool';
 
-function CreateComment({ activityId }) {
-  const userId = localStorage.getItem('id');
-  const [comment, setComment] = React.useState({
-    content: 'string',
-    picture: 'string',
-    id_user: userId,
-    id_activity: activityId,
-  });
+function CreateComment({ closeModal, comments, activityId }) {
+  const [contentComment, setContentComment] = useState('');
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setComment((previousComment) => ({
-      ...previousComment,
-      [name]: value,
-    }));
-    console.log(comment);
-  };
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    console.log(comment);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     try {
-      const response = await axios({
+      Axios({
         method: 'post',
         url: '/comment/createNew',
         data: {
-          ...comment,
+          content: contentComment,
+          picture: 'picture',
+          id_user: JSON.parse(localStorage.getItem('id')),
+          id_activity: activityId,
+        },
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
       });
-      console.log(response);
+      comments();
+      setContentComment('');
     } catch (error) {
-      console.log(error);
+      throw new Error(error);
     }
+  };
 
-    // console.log(activity)
+  const resetButton = () => {
+    setContentComment('');
+    closeModal();
   };
 
   return (
-    <form className={'createComment'} onSubmit={handleSubmit}>
+    <form className={'createComment'} onSubmit>
       <h2>laissez un comentaire</h2>
       <div className='field'>
         <div className='control'>
@@ -50,43 +45,31 @@ function CreateComment({ activityId }) {
             type='text'
             name='content'
             placeholder='Description'
-            value={comment.content}
-            onChange={handleChange}
+            value={contentComment}
+            onChange={(e) => setContentComment(e.target.value)}
           />
         </div>
       </div>
-      <div className='file'>
-        <label className='file-label'>
-          <input className='file-input' type='file' name='resume' />
-          <span className='file-cta'>
-            <span className='file-label'>joindre une photo</span>{' '}
-            {/* à voir la façon la plus pertinente de joindre une photo à un com */}
-          </span>
-        </label>
-      </div>
       <div className='field is-grouped'>
         <p className='control'>
-          {/* redirect to the activity page */}
-
-          <button className='button is-primary' type='submit'>
+          <button
+            className='button is-primary'
+            type='submit'
+            onClick={handleSubmit}>
             Submit
           </button>
         </p>
         <p className='control'>
-          {/* redirect to root */}
-
-          <button className='button is-light'>Cancel</button>
+          <button
+            className='button is-light'
+            type='reset'
+            onClick={() => resetButton()}>
+            Cancel
+          </button>
         </p>
       </div>
     </form>
   );
 }
 
-CreateComment.propTypes = {
-  className: PropTypes.string,
-  activityId: PropTypes.number.isRequired,
-};
-CreateComment.defaultProps = {
-  className: '',
-};
 export default CreateComment;
