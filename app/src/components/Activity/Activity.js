@@ -13,6 +13,9 @@ function Activity({ props }) {
   const [register, setRegister] = useState({});
   const [isRegistered, setIsRegistered] = useState(false);
   const [registerId, setRegisterId] = useState(0);
+  const [modalCreateComment, setModalCreateComment] = useState(false);
+
+  const createComment = modalCreateComment ? 'isActive' : '';
 
   const getParticipants = async () => {
     try {
@@ -102,6 +105,10 @@ function Activity({ props }) {
     }
   };
 
+  const handleModalCreateComment = () => {
+    setModalCreateComment(!modalCreateComment);
+  };
+
   useEffect(() => {
     if (props.idActivity !== 0) {
       getActivity();
@@ -161,13 +168,20 @@ function Activity({ props }) {
               Je veux participer
             </button>
           )}
-          <button className='button is-primary'>Commenter</button>
+          <button
+            className='button is-primary'
+            onClick={handleModalCreateComment}>
+            Commenter
+          </button>
         </aside>
         <section className='activity__comments box'>
           {comments &&
             comments.map((comment) => (
               <Comment key={comment.comment_id || 0} comment={comment} />
             ))}
+        </section>
+        <section className={`${createComment} activity__create-comment`}>
+          <CreateComment />
         </section>
       </div>
     </article>
