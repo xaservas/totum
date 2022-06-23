@@ -1,8 +1,6 @@
 import { useEffect, useState } from 'react';
 import L from 'leaflet';
-import {
-  MapContainer, TileLayer, Marker, Popup,
-} from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import Axios from '../../utils/axiosPool';
 import './map.scss';
 
@@ -61,7 +59,7 @@ function Map() {
             const y = tmp[1];
 
             return (
-              <Marker key={activity.id} position={[x, y]} icon={iconTest}>
+              <Marker key={activity.id} position={[x, y]}>
                 <Popup>
                   <div>
                     <h3>{activity.name}</h3>
@@ -79,3 +77,7 @@ function Map() {
 }
 
 export default Map;
+{
+  /* <FontAwesomeIcon icon="fa-solid fa-person-running" />
+<FontAwesomeIcon icon="fa-solid fa-card-club" /> */
+}

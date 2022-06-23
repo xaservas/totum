@@ -66,8 +66,8 @@ function Profile({ ...rest }) {
       </div>
 
       <div className='profile-activities'>
-        <ListActivities activities={data} list_type={'Activités prévues'} />
-        <ListActivities activities={data} list_type={'Activités passées'} />
+        {/* <ListActivities activities={data} list_type={'Activités prévues'} />
+        <ListActivities activities={data} list_type={'Activités passées'} /> */}
       </div>
     </section>
   );
