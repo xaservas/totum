@@ -17,6 +17,8 @@ import Login from '../Login/Login';
 import Profil from '../Profile/Profile';
 import Settings from '../Settings/Settings';
 import CreateProfil from '../CreateProfil/CreateProfile';
+import Help from '../Settings/Help/Help';
+import LegalMention from '../Settings/LegalMention/LegalMention';
 
 function Desktop({ props, funct }) {
   const addActivity = props.addActivity ? 'isActive' : '';
@@ -26,6 +28,8 @@ function Desktop({ props, funct }) {
   const createUser = props.createProfile ? 'isActive' : '';
   const activity = props.activity ? 'isActive' : '';
   const listActivities = props.listActivities ? 'isActive' : '';
+  const help = props.help ? 'isActive' : '';
+  const legalMention = props.legalMention ? 'isActive' : '';
 
   useEffect(() => {}, []);
 
@@ -46,6 +50,24 @@ function Desktop({ props, funct }) {
       </div>
 
       {/* zone modal */}
+
+      <div id='modalLegalmention' className={legalMention}>
+        <FontAwesomeIcon
+          icon={faXmark}
+          className='icon_close'
+          onClick={() => funct.closeAllModal()}
+        />
+        <LegalMention props={props} funct={funct} />
+      </div>
+
+      <div id='modalHelp' className={help}>
+        <FontAwesomeIcon
+          icon={faXmark}
+          className='icon_close'
+          onClick={() => funct.closeAllModal()}
+        />
+        <Help props={props} funct={funct} />
+      </div>
 
       <div id='modalActivity' className={activity}>
         <FontAwesomeIcon

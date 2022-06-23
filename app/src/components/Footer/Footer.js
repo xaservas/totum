@@ -1,16 +1,21 @@
-import PropTypes from 'prop-types';
 import './Footer.scss';
 
-function Footer() {
+function Footer({ funct }) {
   return (
     <footer id='footer' className='iconbar'>
       <p className='copyright'>&copy;{new Date().getFullYear()} totum.ovh</p>
       <ul className='footerNav'>
         <li>
-          <a href='#'>Conditions générales</a>
+          <a
+            className='legalMention'
+            onClick={() => funct.handleLegalmention()}>
+            Conditions générales
+          </a>
         </li>
         <li>
-          <a href='#'>Plan du site</a>
+          <a className='askHelp' onClick={() => funct.handleHelp()}>
+            Nous contacter
+          </a>
         </li>
         <li>
           <a href='#'>Confidentialité</a>
@@ -20,10 +25,4 @@ function Footer() {
   );
 }
 
-Footer.propTypes = {
-  className: PropTypes.string,
-};
-Footer.defaultProps = {
-  className: '',
-};
 export default Footer;

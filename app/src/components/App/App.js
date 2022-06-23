@@ -17,6 +17,8 @@ function App() {
   const [isLogged, setIsLogged] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
   const [activity, setActivity] = useState(false);
+  const [help, setHelp] = useState(false);
+  const [legalMention, setLegalmention] = useState(false);
   const [searchResult, setSearchResult] = useState([]);
 
   const checkUser = () => {
@@ -34,6 +36,8 @@ function App() {
     setUser(true);
     setShowMenu(false);
     setActivity(false);
+    setHelp(false);
+    setLegalmention(false);
   };
 
   const handleMenu = () => {
@@ -55,6 +59,16 @@ function App() {
     setParameters(!parameters);
   };
 
+  const handleHelp = () => {
+    closeAllModal();
+    setHelp(!help);
+  };
+
+  const handleLegalmention = () => {
+    closeAllModal();
+    setLegalmention(!legalMention);
+  };
+
   const handleLogin = () => {
     closeAllModal();
     setUser(false);
@@ -69,11 +83,9 @@ function App() {
     setIsLogged(!isLogged);
   };
 
-  const handleActivity = () => {
-  };
+  const handleActivity = () => {};
 
-  const handleActivities = () => {
-  };
+  const handleActivities = () => {};
 
   const handleLogout = async () => {
     closeAllModal();
@@ -104,6 +116,8 @@ function App() {
     showMenu,
     activity,
     searchResult,
+    help,
+    legalMention,
   };
 
   const funct = {
@@ -118,24 +132,17 @@ function App() {
     handleIsLogged,
     handleMenu,
     handleActivity,
+    handleHelp,
+    handleLegalmention,
   };
 
   return (
     <div className='App'>
-      <Header
-        props={props}
-        funct={funct}
-      />
+      <Header props={props} funct={funct} />
       <Routes>
-        <Route path='/'
-          element={
-            <Main
-              props={props}
-              funct={funct}
-
-            />} />
+        <Route path='/' element={<Main props={props} funct={funct} />} />
       </Routes>
-      <Footer />
+      <Footer funct={funct} />
     </div>
   );
 }
