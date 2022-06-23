@@ -30,6 +30,7 @@ const activityDataMapper = {
 
   async getBySearch(idKeyWord) {
     console.log(idKeyWord.length);
+    console.log(typeof idKeyWord);
     if (idKeyWord.length === 0) {
       return this.getAll();
     }
