@@ -14,6 +14,7 @@ function Activity({ props }) {
   const [isRegistered, setIsRegistered] = useState(false);
   const [registerId, setRegisterId] = useState(0);
   const [modalCreateComment, setModalCreateComment] = useState(false);
+  const [checkNewComment, setCheckNewComment] = useState(false);
 
   const createComment = modalCreateComment ? 'isActive' : '';
 
@@ -109,6 +110,10 @@ function Activity({ props }) {
     setModalCreateComment(!modalCreateComment);
   };
 
+  const handleCheckNewComment = () => {
+    setCheckNewComment(!checkNewComment);
+  };
+
   useEffect(() => {
     if (props.idActivity !== 0) {
       getActivity();
@@ -121,6 +126,10 @@ function Activity({ props }) {
       });
     }
   }, [props.idActivity]);
+
+  useEffect(() => {
+    getComments();
+  }, [checkNewComment]);
 
   return (
     <article className='container_activity'>
@@ -181,7 +190,11 @@ function Activity({ props }) {
             ))}
         </section>
         <section className={`${createComment} activity__create-comment`}>
-          <CreateComment />
+          <CreateComment
+            closeModal={handleModalCreateComment}
+            comments={handleCheckNewComment}
+            activityId={props.idActivity}
+          />
         </section>
       </div>
     </article>

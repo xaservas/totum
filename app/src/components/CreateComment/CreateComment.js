@@ -1,9 +1,40 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import { useState } from 'react';
 import './createComment.scss';
-import axios from '../../utils/axiosPool';
+import Axios from '../../utils/axiosPool';
 
-function CreateComment() {
+function CreateComment({ closeModal, comments, activityId }) {
+  const [contentComment, setContentComment] = useState('');
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      Axios({
+        method: 'post',
+        url: '/comment/createNew',
+        data: {
+          content: contentComment,
+          picture: 'picture',
+          id_user: JSON.parse(localStorage.getItem('id')),
+          id_activity: activityId,
+        },
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
+      comments();
+      setContentComment('');
+    } catch (error) {
+      throw new Error(error);
+    }
+  };
+
+  const resetButton = () => {
+    setContentComment('');
+    closeModal();
+  };
+
   return (
     <form className={'createComment'} onSubmit>
       <h2>laissez un comentaire</h2>
@@ -14,23 +45,27 @@ function CreateComment() {
             type='text'
             name='content'
             placeholder='Description'
-            value
-            onChange
+            value={contentComment}
+            onChange={(e) => setContentComment(e.target.value)}
           />
         </div>
       </div>
       <div className='field is-grouped'>
         <p className='control'>
-          {/* redirect to the activity page */}
-
-          <button className='button is-primary' type='submit'>
+          <button
+            className='button is-primary'
+            type='submit'
+            onClick={handleSubmit}>
             Submit
           </button>
         </p>
         <p className='control'>
-          {/* redirect to root */}
-
-          <button className='button is-light'>Cancel</button>
+          <button
+            className='button is-light'
+            type='reset'
+            onClick={() => resetButton()}>
+            Cancel
+          </button>
         </p>
       </div>
     </form>
