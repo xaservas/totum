@@ -29,6 +29,10 @@ const activityDataMapper = {
   },
 
   async getBySearch(idKeyWord) {
+    if (idKeyWord === 'kouech') {
+      return this.getAll();
+    }
+
     const query = {
       text: `
             SELECT *

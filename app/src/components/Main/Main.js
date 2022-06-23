@@ -33,15 +33,15 @@ function Desktop({ props, funct }) {
     <div className='desktop'>
       <div className='left'>
         <div className='mapComposant'>
-          <Map />
+          <Map props={props} />
         </div>
       </div>
       <div className='right'>
         <div className='search'>
-          <SearchAdvance />
+          <SearchAdvance props={props} funct={funct} />
         </div>
         <div className='activitiesList'>
-          <Activities />
+          <Activities props={props} funct={funct} />
         </div>
       </div>
 
@@ -53,7 +53,7 @@ function Desktop({ props, funct }) {
           className='icon_close'
           onClick={() => funct.closeAllModal()}
         />
-        <Activity />
+        <Activity props={props} funct={funct} />
       </div>
 
       <div id='modalCreateActivity' className={addActivity}>

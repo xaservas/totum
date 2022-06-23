@@ -1,8 +1,6 @@
 const Joi = require('joi');
 
-const textRule = Joi.string()
-  .pattern(/^[a-zA-ZÀ-ÿ0-9 ']+$/)
-  .required();
+const textRule = Joi.string().required();
 
 module.exports = Joi.object({
   id_category: textRule,
