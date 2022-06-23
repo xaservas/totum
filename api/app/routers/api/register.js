@@ -8,6 +8,7 @@ const apiErrorController = require('../../controllers/api/error');
 const validator = require('../../validation/validator');
 const registerGetSchema = require('../../validation/schemas/register/registerGet.schema');
 const registerPostSchema = require('../../validation/schemas/register/registerManage.schema');
+const registerManageSchema = require('../../validation/schemas/register/registerManage.schema');
 
 // Require controllers try catch
 const controllerHandler = require('../../helpers/controllerHandler');
@@ -142,10 +143,37 @@ router
   );
 
 router
+
+  /**
+   * POST /v1/register/getForUser
+   * @summary Get register with user an activity id
+   * @tags Register user to activity
+   * @security BearerAuth
+   * @param {object} request.body.required - User id && Activity id
+   * @return {object} 200 - Register object
+   * @return {object}  404 - Error
+   * @example request - User data
+   * {
+   * "id_user": "Number Integer",
+   * "id_activity": "Number Integer"
+   * }
+   * @example response - 200 - success response example
+   * {
+   * "id": 1,
+   * "id_user": 1,
+   * "id_activity": 1,
+   * "createdAt": "2020-01-01T00:00:00.000Z",
+   * "updatedAt": "2020-01-01T00:00:00.000Z"
+   * }
+   * @example response - 404 - error response example
+   * {
+   * "message": "No register found"
+   * }
+   */
   .route('/getForUser')
   .post(
     controllerHandler(jwt.verifyToken),
-    validator('body', registerGetSchema),
+    validator('body', registerPostSchema),
     controllerHandler(registerController.getForUser)
   );
 
