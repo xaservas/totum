@@ -18,6 +18,8 @@ function App() {
   const [showMenu, setShowMenu] = useState(false);
   const [activity, setActivity] = useState(false);
   const [searchResult, setSearchResult] = useState([]);
+  const [resetSearch, setResetSearch] = useState(false);
+  const [idActivity, setIdActivity] = useState(0);
 
   const checkUser = () => {
     if (localStorage.getItem('id')) {
@@ -69,9 +71,18 @@ function App() {
     setIsLogged(!isLogged);
   };
 
-  const handleActivity = () => {};
+  const handleActivitiesList = (data) => {
+    setSearchResult(data);
+  };
 
-  const handleActivities = () => {};
+  const resetActivitiesList = () => {
+    setResetSearch(!resetSearch);
+  };
+
+  const handleActivity = (id) => {
+    setIdActivity(id);
+    setActivity(!activity);
+  };
 
   const handleLogout = async () => {
     closeAllModal();
@@ -102,6 +113,8 @@ function App() {
     showMenu,
     activity,
     searchResult,
+    resetSearch,
+    idActivity,
   };
 
   const funct = {
@@ -115,6 +128,8 @@ function App() {
     closeAllModal,
     handleIsLogged,
     handleMenu,
+    handleActivitiesList,
+    resetActivitiesList,
     handleActivity,
   };
 

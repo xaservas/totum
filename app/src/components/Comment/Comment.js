@@ -1,33 +1,16 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import './comment.scss';
 
-function Comment({
-  commentId,
-  userFirstname,
-  commentContent,
-  ...rest
-}) {
+function Comment({ comment }) {
   return (
-    <article key ={commentId} className={'comment message is-small'} {...rest}>
+    <article key={comment.comment_id} className='comment message is-small'>
       <div className='message-header'>
-        <p>{userFirstname}</p>
+        <p>{comment.user_firstname}</p>
       </div>
-      <div className='comment message-body'>{commentContent}</div>
+      <div className='comment message'>
+        <p className='comment-message-body'>{comment.comment_content}</p>
+      </div>
     </article>
   );
 }
 
-Comment.propTypes = {
-  className: PropTypes.string,
-  commentId: PropTypes.number,
-  userFirstname: PropTypes.string,
-  commentContent: PropTypes.string,
-};
-Comment.defaultProps = {
-  className: '',
-  commentId: '',
-  userFirstname: '',
-  commentContent: '',
-};
 export default Comment;
