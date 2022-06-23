@@ -38,13 +38,19 @@ function Activity({ props }) {
 
   const getRegister = async () => {
     try {
-      const response = await Axios.get(`/activity/${props.idActivity}/user`);
-      response.data.forEach((user) => {
-        if (user.participant_email === localStorage.getItem('email')) {
-          setIsRegistered(true);
-        }
+      const response = await Axios({
+        method: 'post',
+        url: '/register/getForUser',
+        data: {
+          id_user: JSON.parse(localStorage.getItem('id')),
+          id_activity: props.idActivity,
+        },
       });
+      console.log(response.data);
+      setIsRegistered(true);
+      setRegisterId(response.data.id);
     } catch (error) {
+      console.log(error);
       setIsRegistered(false);
     }
   };
@@ -100,11 +106,8 @@ function Activity({ props }) {
 
   useEffect(() => {
     getActivity();
-    setRegister({
-      id_user: localStorage.getItem('id'),
-      id_activity: props.idActivity,
-    });
   }, [props.idActivity]);
+
   return (
     <article className='container_activity'>
       <div className='left'>
