@@ -116,7 +116,7 @@ function Activity({ ...rest }) {
               aria-label='close'></button>
           </header>
 
-          <figure className='image box'>
+          <figure className='image_box'>
             <img
               className='activity__picture'
               src='https://picsum.photos/100'
@@ -139,38 +139,40 @@ function Activity({ ...rest }) {
           </p>
         </div>
         <div className='right'>
-          <p className='activity__participants'>
-            {participants.length}/{activity.max_participants} participants pour
-            le moment
-          </p>
-          <progress
-            className='activity__takeholders progress box is-success'
-            value={participants.length}
-            max={activity.max_participants}></progress>
+          <div className='right_container'>
+            <p className='activity__participants'>
+              {participants.length}/{activity.max_participants} participants pour
+              le moment
+            </p>
+            <progress
+              className='activity__takeholders progress box is-success'
+              value={participants.length}
+              max={activity.max_participants}></progress>
 
-          <p className='activity__description'>{activity.description}</p>
-          <CreateComment activityId={id} />
+            <p className='activity__description'>{activity.description}</p>
+            <CreateComment activityId={id} />
 
-          <section className='activity__comments box'>
-            {comments.map((comment) => (
-              <Comment
-                commentId={comment.id}
-                userFirstname={comment.user_firstname}
-                commentContent={comment.comment_content}
-              />
-            ))}
-          </section>
+            <section className='activity__comments box'>
+              {comments.map((comment) => (
+                <Comment
+                  commentId={comment.id}
+                  userFirstname={comment.user_firstname}
+                  commentContent={comment.comment_content}
+                />
+              ))}
+            </section>
 
-          <footer className='card-footer buttons has-addons box'>
-            <a
-              href='/'
-              className='card-footer-item button is-success is-focused'>
-              Participer
-            </a>
-            <a href='/' className='card-footer-item button is-light'>
-              Commenter
-            </a>
-          </footer>
+            <footer className='card-footer buttons has-addons box'>
+              <a
+                href='/'
+                className='card-footer-item button is-success is-focused'>
+                Participer
+              </a>
+              <a href='/' className='card-footer-item button is-light'>
+                Commenter
+              </a>
+            </footer>
+          </div>
         </div>
       </div>
     </article>

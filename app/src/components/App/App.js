@@ -69,11 +69,9 @@ function App() {
     setIsLogged(!isLogged);
   };
 
-  const handleActivity = () => {
-  };
+  const handleActivity = () => {};
 
-  const handleActivities = () => {
-  };
+  const handleActivities = () => {};
 
   const handleLogout = async () => {
     closeAllModal();
@@ -122,18 +120,9 @@ function App() {
 
   return (
     <div className='App'>
-      <Header
-        props={props}
-        funct={funct}
-      />
+      <Header props={props} funct={funct} />
       <Routes>
-        <Route path='/'
-          element={
-            <Main
-              props={props}
-              funct={funct}
-
-            />} />
+        <Route path='/' element={<Main props={props} funct={funct} />} />
       </Routes>
       <Footer />
     </div>
