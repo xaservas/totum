@@ -7,9 +7,9 @@ const userController = {
   async getAll(_, res) {
     const users = await userDatamapper.getAll();
     if (users.length > 0) {
-      res.status(200).json(users);
+      return res.status(200).json(users);
     } else {
-      res.status(404).json({ message: 'No users found' });
+      return res.status(404).json({ message: 'No users found' });
     }
   },
 
@@ -20,15 +20,15 @@ const userController = {
       const isValid = await bcrypt.compare(password, user.password);
       if (isValid) {
         const token = jwt.generateToken(user.email);
-        res.status(200).json({
+        return res.status(200).json({
           user,
           token,
         });
       } else {
-        res.status(401).json({ message: 'Invalid password' });
+        return res.status(401).json({ message: 'Invalid password' });
       }
     } else {
-      res.status(404).json({ message: 'User not found' });
+      return res.status(404).json({ message: 'User not found' });
     }
   },
 
@@ -36,7 +36,7 @@ const userController = {
     const token = req.headers.authorization;
     console.log(token);
     await userDatamapper.logout(token);
-    res.status(200).json('User logged out');
+    return res.status(200).json('User logged out');
   },
 
   async updatePassword(req, res) {
@@ -46,12 +46,12 @@ const userController = {
       const hash = await bcrypt.hash(password);
       const user = await userDatamapper.updatePassword(id, hash);
       if (user) {
-        res.status(200).json({ message: 'Password updated' });
+        return res.status(200).json({ message: 'Password updated' });
       } else {
-        res.status(401).json({ message: 'Invalid credentials' });
+        return res.status(401).json({ message: 'Invalid credentials' });
       }
     } else {
-      res.status(401).json({ message: 'Passwords do not match' });
+      return res.status(401).json({ message: 'Passwords do not match' });
     }
   },
 
@@ -59,17 +59,17 @@ const userController = {
     const { email, emailNew, emailConfirmation } = req.body;
     const { id } = req.params;
     if (email === emailNew) {
-      res.status(401).json({ message: 'Email is the same' });
+      return res.status(401).json({ message: 'Email is the same' });
     }
     if (emailNew === emailConfirmation) {
       const user = await userDatamapper.updateEmail(id, emailNew);
       if (user) {
-        res.status(200).json({ message: 'Email updated' });
+        return res.status(200).json({ message: 'Email updated' });
       } else {
-        res.status(401).json({ message: 'Invalid credentials' });
+        return res.status(401).json({ message: 'Invalid credentials' });
       }
     } else {
-      res.status(401).json({ message: 'Emails do not match' });
+      return res.status(401).json({ message: 'Emails do not match' });
     }
   },
 
@@ -87,9 +87,9 @@ const userController = {
       }
       // finally create user
       const user = await userDatamapper.createUser(data);
-      res.json(user);
+      return res.status(200).json(user);
     } else {
-      res.status(401).json({ message: 'Passwords do not match' });
+      return res.status(401).json({ message: 'Passwords do not match' });
     }
   },
 
@@ -97,7 +97,7 @@ const userController = {
     const { id } = req.params;
     const user = await userDatamapper.getOneUser(id);
     if (!user) {
-      res.status(404).json({ message: 'User not found' });
+      return res.status(404).json({ message: 'User not found' });
     }
     res.status(200).json(user);
   },
@@ -115,16 +115,16 @@ const userController = {
   async removeUser(req, res) {
     const { id } = req.params;
     const user = await userDatamapper.removeUser(id);
-    res.json(user);
+    return res.status(200).json(user);
   },
 
   async getActivity(req, res) {
     const { id } = req.params;
     const user = await userDatamapper.getUserActivity(id);
     if (user.length > 0) {
-      res.status(200).json(user);
+      return res.status(200).json(user);
     }
-    res.status(404).json({ message: 'No activity found' });
+    return res.status(404).json({ message: 'No activity found' });
   },
 };
 

@@ -1,0 +1,27 @@
+.container_activity {
+  background-color: rebeccapurple;
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+
+  .left {
+    background-color: red;
+    width: 50%;
+    height: 100%;
+    align-items: center;
+
+    .activity__adress {
+      text-align: center;
+    }
+  }
+  .right {
+    background-color: green;
+    width: 50vw;
+    align-items: center;
+    height: 100%;
+
+    .activity__description {
+      text-align: center;
+    }
+  }
+}

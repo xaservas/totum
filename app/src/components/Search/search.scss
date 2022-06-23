@@ -1,0 +1,33 @@
+.advanceSearch {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  height: 4rem;
+  padding: 0;
+  button {
+    height: 2rem;
+  }
+}
+
+.selector {
+  display: flex;
+  flex-direction: column;
+  width: 25%;
+  label {
+    text-align: center;
+  }
+  select {
+    height: 2rem;
+  }
+}
+
+.simpleSearch {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .input_simpleSearch,
+  .button_button {
+    height: 2rem;
+    margin: 0;
+  }
+}

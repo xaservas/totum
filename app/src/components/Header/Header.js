@@ -1,82 +1,55 @@
-
-import PropTypes from 'prop-types';
-import './header.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
-import { useNavigate } from 'react-router-dom';
 
-import Axios from '../../utils/axiosPool';
+// base page
+import './header.scss';
+import SearchSimple from '../Search/SearchSimple';
 
-function Header() {
-  const navigate = useNavigate();
-
-  const showMenu = (event) => {
-    event.preventDefault();
-    const menu = document.getElementById('navbar-menu');
-    menu.classList.toggle('showMenu');
-  };
-
-  const backToHome = async (event) => {
-    event.preventDefault();
-    navigate('/', { replace: true });
-  };
-
-  const logout = async (event) => {
-    event.preventDefault();
-    try {
-      await Axios.get('/user/logout', {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
-        },
-      });
-    } catch (error) {
-      throw new Error(error);
-    }
-    localStorage.clear();
-    navigate('/login', { replace: true });
-  };
-
-  const login = async () => {
-    navigate('/login', { replace: true });
-  };
-
-  const profil = async (event) => {
-    event.preventDefault();
-    navigate('/profile', { replace: true });
-  };
-
-  const setup = async (event) => {
-    event.preventDefault();
-    navigate('/profil/params', { replace: true });
-  };
-
+function Header({ props, funct }) {
+  const showMenu = props.showMenu ? 'showMenu' : '';
 
   return (
     <header>
       <nav className='navbar' role='navigation' aria-label='main navigation'>
-        <div className='navbar-brand title is large'>
-          <div className='barre'>
-            <div className='totumtitle'>
-
-              <span onClick={backToHome}>TOTUM</span>
-            </div>
-            <div onClick={showMenu} className='icon' id='menu'>
-
-              <FontAwesomeIcon icon={faUser} className='navbar-item ' />
-            </div>
-          </div>
+        <div className='totumtitle'>
+          <h1>TOTUM</h1>
+        </div>
+        <SearchSimple props={props} funct={funct} />
+        <a
+          className='addActivity'
+          onClick={
+            props.isLogged ? funct.handleCreateActivity : funct.handleLogin
+          }>
+          Proposer une activité
+        </a>
+        <div className='icon' id='menu'>
+          <FontAwesomeIcon
+            icon={faUser}
+            className='navbar-item'
+            onClick={() => funct.handleMenu()}
+          />
         </div>
       </nav>
-      <div className='navbar-menu' id='navbar-menu'>
+      <div className={`navbar-menu ${showMenu}`} id='navbar-menu'>
         <div className='navbar-start'>
           <ul>
-            <li onClick={profil}>Profile</li>
-            <li onClick={setup}>Parametrès</li>
+            <li
+              onClick={
+                props.isLogged ? funct.handleProfile : funct.handleLogin
+              }>
+              Profile
+            </li>
+            <li
+              onClick={
+                props.isLogged ? funct.handleParameters : funct.handleLogin
+              }>
+              Parametrès
+            </li>
 
-            {localStorage.getItem('id') ? (
-              <li onClick={logout}>Déconnexion</li>
+            {props.isLogged ? (
+              <li onClick={() => funct.handleLogout()}>Déconnexion</li>
             ) : (
-              <li onClick={login}>Connexion</li>
+              <li onClick={() => funct.handleLogin()}>Connexion</li>
             )}
           </ul>
         </div>
@@ -85,10 +58,4 @@ function Header() {
   );
 }
 
-Header.propTypes = {
-  className: PropTypes.string,
-};
-Header.defaultProps = {
-  className: '',
-};
 export default Header;

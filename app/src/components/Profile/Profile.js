@@ -11,17 +11,15 @@ function Profile({ ...rest }) {
   const [activities, setActivities] = React.useState([]);
 
   const getUserById = async (id) => {
-    console.log(id);
     try {
       const response = await axios({
         method: 'get',
         url: `/user/${id}/manage`,
       });
-      console.log('getUserById');
       setUser(response.data);
       return response.data;
     } catch (error) {
-      console.log(error);
+      throw new Error(error);
     }
   };
 
@@ -31,22 +29,20 @@ function Profile({ ...rest }) {
         method: 'get',
         url: `/user/${id}/activity`,
       });
+      setActivities(response.data);
       return response.data;
     } catch (error) {
-      console.log(error);
+      throw new Error(error);
     }
   };
 
   useEffect(() => {
-    console.log('useEffect');
-    // const currentUser = getUserById(userId);
-    console.log(getUserById(userId));
-    // setActivities(getUserActivities(userId));
-    //console.log(user);
+    getUserById(userId);
+    getUserActivities(userId);
   }, []);
 
   return (
-    <section className={'profile card'} {...rest}>
+    <section className='profil_card'>
       <div className='card-content'>
         <div className='media'>
           <div className='media-left'>
