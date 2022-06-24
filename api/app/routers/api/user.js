@@ -290,6 +290,7 @@ router
    * "user_email": "test@test.com",
    * "user_firstname": "firstname",
    * "user_lastname": "lastname",
+   * "user_picture": "asset link to picture",
    * "activity_id": 1,
    * "creator_id": 1,
    * "activity_name": "activity name",
