@@ -243,6 +243,7 @@ const user = {
                         users.email AS user_email,
                         users.firstname AS user_firstname,
                         users.lastname AS user_lastname,
+                        users.picture AS user_picture,
                         activity.id AS activity_id,
                         activity.id_user AS creator_id,
                         activity.name AS activity_name,
