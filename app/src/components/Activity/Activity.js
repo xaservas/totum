@@ -223,8 +223,8 @@ function Activity({ props, funct }) {
         })()}
 
         <section className='activity__comments box'>
-          {comments &&
-            comments.map((comment) => (
+          {comments
+            && comments.map((comment) => (
               <Comment key={comment.comment_id || 0} comment={comment} />
             ))}
         </section>

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import L from 'leaflet';
+// import L from 'leaflet';
 import { MapContainer, TileLayer, Marker } from 'react-leaflet';
 import './map.scss';
 
@@ -11,12 +11,12 @@ function Map({ props, funct }) {
     setActivities(props.searchResult);
   }, [props.searchResult]);
 
-  const iconTest = new L.Icon({
-    iconUrl:
-      'https://i.picsum.photos/id/279/200/300.jpg?hmac=fYDbVmnm7vDGt7SA51v-qMUKHIn7HKCp5v9d8Wx_SVM',
-    iconSize: [50, 50],
-    iconAnchor: [25, 25],
-  });
+  // const iconTest = new L.Icon({
+  //   iconUrl:
+  //     'https://i.picsum.photos/id/279/200/300.jpg?hmac=fYDbVmnm7vDGt7SA51v-qMUKHIn7HKCp5v9d8Wx_SVM',
+  //   iconSize: [50, 50],
+  //   iconAnchor: [25, 25],
+  // });
 
   return (
     <div id='map' className='map'>

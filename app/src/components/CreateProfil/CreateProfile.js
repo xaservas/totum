@@ -29,9 +29,9 @@ function CreateProfile() {
     if (!address) return;
 
     const res = await mapbox(address);
-    !autocompleteAddress.includes(e.target.value)
-      && res.features
-      && setAutocompleteAddress(res.features.map((place) => place.place_name));
+    !autocompleteAddress.includes(e.target.value) &&
+      res.features &&
+      setAutocompleteAddress(res.features.map((place) => place.place_name));
     res.error ? setAutocompleteErr(res.error) : setAutocompleteErr('');
   };
 
@@ -70,7 +70,6 @@ function CreateProfile() {
     const testAddress = fullAddress[0];
     addressType.value = testAddress;
     setAddress(testAddress);
-    console.log(typeof zipCode);
   };
 
   const cookieClick = () => {
@@ -158,7 +157,6 @@ function CreateProfile() {
         pattern={autocompleteAddress.join('|')}
         autoComplete='off'
         onBlur={splitAdress}
-
       />
       <input
         id='address'
@@ -168,11 +166,11 @@ function CreateProfile() {
         placeholder='Adresse'
         onChange={(e) => setAddress(e.target.value)}
       />
-
-      <datalist id='places' >
+      <datalist id='places'>
         {autocompleteAddress.map((addresses, i) => (
-          <option key={i} id={`connard${i}`} >{addresses}</option>
-
+          <option key={i} id={`connard${i}`}>
+            {addresses}
+          </option>
         ))}
       </datalist>
       {autocompleteErr && <span className='inputError'>{autocompleteErr}</span>}
