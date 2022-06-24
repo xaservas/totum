@@ -1,17 +1,15 @@
-.checkbox{
-    display: flex;
-    flex-direction: column;
-    margin:6em;
-    
+@import '../../vars';
+
+.checkbox {
+  display: flex;
+  flex-direction: column;
+  margin: 6em;
 }
 
 .checkbox input {
-    margin:1em;
+  margin: 1em;
 }
 
-p{
-    padding: 1px;
+p {
+  padding: 1px;
 }
-
-
-

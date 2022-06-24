@@ -9,7 +9,7 @@ function Header({ props, funct }) {
   const showMenu = props.showMenu ? 'showMenu' : '';
 
   return (
-    <header>
+    <header className='header'>
       <nav className='navbar' role='navigation' aria-label='main navigation'>
         <div className='totumtitle'>
           <h1>TOTUM</h1>
