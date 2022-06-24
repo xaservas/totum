@@ -12,7 +12,7 @@ import './profile.scss';
 function Profile({ props }) {
   const userId = localStorage.getItem('id');
   const [user, setUser] = useState([]);
-  const [activitiesPicture, setActivitiesPicture] = useState([]);
+  const [activities, setActivities] = useState([]);
   const nowISO = props.timeNow;
 
   const checkDate = (date) => {
@@ -36,17 +36,10 @@ function Profile({ props }) {
 
   const getUserActivities = async (id) => {
     try {
-      const construct = [];
       const response = await axios.get(`/user/${id}/activity`);
-      construct.push(...response.data);
-      construct.forEach((activity, i) => {
-        axios.get(`/user/${activity.creator_id}/manage`).then((response2) => {
-          construct[i].picture = response2.data.picture;
-        });
-      });
-      setActivitiesPicture(construct);
+      setActivities(response.data);
     } catch (error) {
-      setActivitiesPicture([
+      setActivities([
         {
           id: 404,
           name: 'Aucune activité',
@@ -66,8 +59,9 @@ function Profile({ props }) {
   const ListActivities = () => (
     <article className='listActivities_panel'>
       <ul className='activities-list'>
-        {activitiesPicture.map((activity) => {
+        {activities.map((activity) => {
           if (activity.id !== 404) {
+            console.log(activity);
             return (
               <li
                 key={activity.activity_id}
@@ -75,9 +69,7 @@ function Profile({ props }) {
                   activity.activity_date,
                 )}`}>
                 <div className='column profil-picture'>
-                  {console.log(activity.picture)}
-                  {console.log(activity.activity_id)}
-                  {activity.picture ? 'yep' : 'nope'}
+                  {activity.user_picture}
                 </div>
 
                 <div className='column activity-name'>
