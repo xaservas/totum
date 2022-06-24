@@ -295,6 +295,7 @@ router
    * "activity_name": "activity name",
    * "activity_description": "activity description",
    * "activity_date": "2020-05-05T14:00:00.000Z",
+   * "activity_city": "city",
    * "category_name": "category name",
    * "level_name": "level name"
    * }
