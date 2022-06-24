@@ -32,7 +32,7 @@ const registerController = {
   async getForUser(req, res) {
     const data = req.body;
     const register = await registerDatamapper.getUserRegisterForActivity(data);
-    if (register.length === 0) {
+    if (!register) {
       return res.status(404).json({ message: 'Register not found' });
     }
     return res.status(200).json(register);
