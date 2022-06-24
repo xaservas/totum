@@ -128,7 +128,9 @@ function Activity({ props }) {
   }, [props.idActivity]);
 
   useEffect(() => {
-    getComments();
+    if (props.idActivity !== 0) {
+      getComments();
+    }
   }, [checkNewComment]);
 
   return (
