@@ -57,7 +57,10 @@ function SearchSimple({ funct }) {
     } catch (error) {
       if (error.response.status === 404) {
         funct.handleActivitiesList([
-          { name: "Désolé il n'y à pas d'activités pour le moment" },
+          {
+            id: 404,
+            name: "Désolé il n'y à pas d'activités pour le moment",
+          },
         ]);
       }
       throw new Error(error);
