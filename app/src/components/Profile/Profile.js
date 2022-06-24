@@ -1,4 +1,7 @@
+/* eslint-disable indent */
+/* eslint-disable import/no-extraneous-dependencies */
 import { useState, useEffect } from 'react';
+import dayjs from 'dayjs';
 import axios from '../../utils/axiosPool';
 
 // base page
@@ -8,7 +11,8 @@ function Profile({ props, funct }) {
   const userId = localStorage.getItem('id');
   const [user, setUser] = useState([]);
   const [activities, setActivities] = useState([]);
-  const [categories, setCategories] = useState([]);
+  const [allActivities, setAllActivities] = useState([]);
+  const [creator, setCreator] = useState([]);
   const nowISO = props.timeNow;
 
   const checkDate = (date) => {
@@ -25,7 +29,6 @@ function Profile({ props, funct }) {
         url: `/user/${id}/manage`,
       });
       setUser(response.data);
-      return response.data;
     } catch (error) {
       throw new Error(error);
     }
@@ -48,10 +51,23 @@ function Profile({ props, funct }) {
     }
   };
 
-  const getCategories = async () => {
+  const getActivities = async () => {
     try {
-      const response = await axios.get('/category/categories');
-      setCategories(response.data);
+      const response = await axios.get('/activities');
+      setAllActivities(response.data);
+    } catch (error) {
+      throw new Error(error);
+    }
+  };
+
+  const getCreators = () => {
+    const creators = [];
+    try {
+      allActivities.map(async (activity) => {
+        const response = await axios.get(`user/${activity.id_user}/manage`);
+        creators.push(response.data);
+      });
+      setCreator(creators);
     } catch (error) {
       throw new Error(error);
     }
@@ -59,28 +75,35 @@ function Profile({ props, funct }) {
 
   useEffect(() => {
     getUserById(userId);
-    getCategories();
   }, []);
 
   useEffect(() => {
     getUserActivities(userId);
+    getActivities();
+    getCreators();
   }, [props.profile]);
 
   const ListActivities = () => (
     <article className='listActivities_panel'>
       <ul className='activities-list'>
-        {activities.map((activity, i) => {
+        {activities.map((activity) => {
           if (activity.id !== 404) {
-            console.log(activity);
             return (
               <li
-                key={i}
+                key={activity.activity_id}
                 className={`activity panel-block ${checkDate(
                   activity.activity_date,
-                )}`}
-                onClick={() => funct.handleActivity(activity.id)}>
+                )}`}>
                 <div className='column profil-picture'>
-                  {/* phto de profil */}
+                  {console.log(activity.activity_id)}
+                  {creator.map((userCreator) => {
+                    if (userCreator.id === activity.activity_id) {
+                      console.log('yep');
+                      return 'gnangnaed';
+                    }
+                    console.log('nope');
+                    return null;
+                  })}
                 </div>
 
                 <div className='column activity-name'>
@@ -92,11 +115,23 @@ function Profile({ props, funct }) {
                 </div>
 
                 <div className='column activity-city'>
-                  {/* ville activité */}
+                  {allActivities.map((activityDetail) => {
+                    if (activityDetail.id === activity.activity_id) {
+                      return activityDetail.city;
+                    }
+                    return null;
+                  })}
                 </div>
 
                 <div className='column activity-date'>
-                  {/* date activité std fr */}
+                  {allActivities.map((activityDetail) => {
+                    if (activityDetail.id === activity.activity_id) {
+                      return `le ${dayjs(activityDetail.date).format(
+                        'DD/MM/YYYY',
+                      )}`;
+                    }
+                    return null;
+                  })}
                 </div>
 
                 <div className='column activity-level'>
