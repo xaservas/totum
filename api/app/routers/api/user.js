@@ -290,6 +290,8 @@ router
    * "user_email": "test@test.com",
    * "user_firstname": "firstname",
    * "user_lastname": "lastname",
+   * "activity_id": 1,
+   * "creator_id": 1,
    * "activity_name": "activity name",
    * "activity_description": "activity description",
    * "activity_date": "2020-05-05T14:00:00.000Z",
