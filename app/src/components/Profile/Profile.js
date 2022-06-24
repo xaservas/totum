@@ -3,12 +3,20 @@ import axios from '../../utils/axiosPool';
 
 // base page
 import './profile.scss';
-import ListActivities from '../ListActivities/ListActivities';
 
 function Profile({ props, funct }) {
   const userId = localStorage.getItem('id');
   const [user, setUser] = useState([]);
   const [activities, setActivities] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const nowISO = props.timeNow;
+
+  const checkDate = (date) => {
+    if (date < nowISO) {
+      return 'past';
+    }
+    return 'future';
+  };
 
   const getUserById = async (id) => {
     try {
@@ -30,7 +38,20 @@ function Profile({ props, funct }) {
         url: `/user/${id}/activity`,
       });
       setActivities(response.data);
-      return response.data;
+    } catch (error) {
+      setActivities([
+        {
+          id: 404,
+          name: 'Aucune activité',
+        },
+      ]);
+    }
+  };
+
+  const getCategories = async () => {
+    try {
+      const response = await axios.get('/category/categories');
+      setCategories(response.data);
     } catch (error) {
       throw new Error(error);
     }
@@ -38,8 +59,61 @@ function Profile({ props, funct }) {
 
   useEffect(() => {
     getUserById(userId);
-    getUserActivities(userId);
+    getCategories();
   }, []);
+
+  useEffect(() => {
+    getUserActivities(userId);
+  }, [props.profile]);
+
+  const ListActivities = () => (
+    <article className='listActivities_panel'>
+      <ul className='activities-list'>
+        {activities.map((activity, i) => {
+          if (activity.id !== 404) {
+            console.log(activity);
+            return (
+              <li
+                key={i}
+                className={`activity panel-block ${checkDate(
+                  activity.activity_date,
+                )}`}
+                onClick={() => funct.handleActivity(activity.id)}>
+                <div className='column profil-picture'>
+                  {/* phto de profil */}
+                </div>
+
+                <div className='column activity-name'>
+                  {activity.activity_name}
+                </div>
+
+                <div className='column activity-category'>
+                  {activity.category_name}
+                </div>
+
+                <div className='column activity-city'>
+                  {/* ville activité */}
+                </div>
+
+                <div className='column activity-date'>
+                  {/* date activité std fr */}
+                </div>
+
+                <div className='column activity-level'>
+                  {activity.level_name}
+                </div>
+              </li>
+            );
+          }
+          return (
+            <li key={activity.id} className='activity panel-block'>
+              <div className='column activity-name'>{activity.name}</div>
+            </li>
+          );
+        })}
+      </ul>
+    </article>
+  );
 
   return (
     <section className='profil_card'>
@@ -49,25 +123,24 @@ function Profile({ props, funct }) {
             <figure className='avatar image is-128x128'>
               <img
                 className='is-rounded'
-                src='https://dodoodad.com/wp-content/uploads/2021/01/Untitled-2-57.jpg'
+                src='https://i.picsum.photos/id/779/200/200.jpg?hmac=qClHBmnKwT7Xt6flSVOh5Ax0tWLRo_gLVmwd4dkSVAo'
                 alt='profile'
               />
             </figure>
           </div>
           <div className='media-content'>
-            <p className='profile-name title is-4'>John Doe</p>
+            <p className='profile-name title is-4'>
+              {user.firstname} {user.lastname}
+            </p>
             <p className='profile-presentation content'>
-              {' '}
-              Bâtard de torvisse de colon de cossin de gériboire de cochonnerie
-              de christie de saint-sacrament de Jésus Marie Joseph.
+              {user.about === '' ? 'Aucune présentation' : user.about}
             </p>
           </div>
         </div>
       </div>
 
       <div className='profile-activities'>
-        {/* <ListActivities activities={data} list_type={'Activités prévues'} />
-        <ListActivities activities={data} list_type={'Activités passées'} /> */}
+        <ListActivities />
       </div>
     </section>
   );

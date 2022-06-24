@@ -9,4 +9,13 @@
   .profile-activities {
     color: white;
   }
+
+  // tableau d'activités
+  .listActivities_panel {
+    .activities-list {
+      display: flex;
+      // regle pour ordonner du plus récent au plus ancien
+      flex-direction: column-reverse;
+    }
+  }
 }
