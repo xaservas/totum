@@ -1,5 +1,3 @@
-import { useEffect } from 'react';
-
 // fontawesome
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCirclePlus, faXmark } from '@fortawesome/free-solid-svg-icons';
@@ -26,8 +24,6 @@ function Desktop({ props, funct }) {
   const createUser = props.createProfile ? 'isActive' : '';
   const activity = props.activity ? 'isActive' : '';
   const listActivities = props.listActivities ? 'isActive' : '';
-
-  useEffect(() => {}, []);
 
   return (
     <div className='desktop'>
