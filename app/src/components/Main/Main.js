@@ -29,7 +29,7 @@ function Desktop({ props, funct }) {
     <div className='desktop'>
       <div className='left'>
         <div className='mapComposant'>
-          <Map props={props} />
+          <Map props={props} funct={funct} />
         </div>
       </div>
       <div className='right'>
