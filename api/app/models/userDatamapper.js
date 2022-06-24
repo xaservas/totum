@@ -248,6 +248,7 @@ const user = {
                         activity.name AS activity_name,
                         activity.description AS activity_description,
                         activity.date AS activity_date,
+                        activity.city AS activity_city,
                         category.name AS category_name,
                         level.name AS level_name
                     FROM users
