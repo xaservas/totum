@@ -1,5 +1,7 @@
 /* eslint-disable indent */
 /* eslint-disable import/no-extraneous-dependencies */
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPencil } from '@fortawesome/free-solid-svg-icons';
 import { useState, useEffect } from 'react';
 import dayjs from 'dayjs';
 import axios from '../../utils/axiosPool';
@@ -10,8 +12,7 @@ import './profile.scss';
 function Profile({ props }) {
   const userId = localStorage.getItem('id');
   const [user, setUser] = useState([]);
-  const [activities, setActivities] = useState([]);
-  const [creator, setCreator] = useState([]);
+  const [activitiesPicture, setActivitiesPicture] = useState([]);
   const nowISO = props.timeNow;
 
   const checkDate = (date) => {
@@ -35,31 +36,22 @@ function Profile({ props }) {
 
   const getUserActivities = async (id) => {
     try {
-      const response = await axios({
-        method: 'get',
-        url: `/user/${id}/activity`,
+      const construct = [];
+      const response = await axios.get(`/user/${id}/activity`);
+      construct.push(...response.data);
+      construct.forEach((activity, i) => {
+        axios.get(`/user/${activity.creator_id}/manage`).then((response2) => {
+          construct[i].picture = response2.data.picture;
+        });
       });
-      setActivities(response.data);
+      setActivitiesPicture(construct);
     } catch (error) {
-      setActivities([
+      setActivitiesPicture([
         {
           id: 404,
           name: 'Aucune activité',
         },
       ]);
-    }
-  };
-
-  const getCreatorById = async () => {
-    try {
-      const creators = [];
-      activities.map(async (activity) => {
-        const response = await axios.get(`/user/${activity.creator_id}/manage`);
-        creators.push(response.data);
-      });
-      setCreator(creators);
-    } catch (error) {
-      throw new Error(error);
     }
   };
 
@@ -71,14 +63,10 @@ function Profile({ props }) {
     getUserActivities(userId);
   }, [props.profile]);
 
-  useEffect(() => {
-    getCreatorById();
-  }, [activities]);
-
   const ListActivities = () => (
     <article className='listActivities_panel'>
       <ul className='activities-list'>
-        {activities.map((activity) => {
+        {activitiesPicture.map((activity) => {
           if (activity.id !== 404) {
             return (
               <li
@@ -86,7 +74,11 @@ function Profile({ props }) {
                 className={`activity panel-block ${checkDate(
                   activity.activity_date,
                 )}`}>
-                <div className='column profil-picture'></div>
+                <div className='column profil-picture'>
+                  {console.log(activity.picture)}
+                  {console.log(activity.activity_id)}
+                  {activity.picture ? 'yep' : 'nope'}
+                </div>
 
                 <div className='column activity-name'>
                   {activity.activity_name}
@@ -141,6 +133,11 @@ function Profile({ props }) {
               {user.about === '' ? 'Aucune présentation' : user.about}
             </p>
           </div>
+          <FontAwesomeIcon
+            icon={faPencil}
+            className='icon_edit'
+            onClick={() => alert('liens a faire')}
+          />
         </div>
       </div>
 

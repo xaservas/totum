@@ -21,12 +21,9 @@ function Activity({ props, funct }) {
 
   const getParticipants = async () => {
     try {
-      console.log(props.idActivity);
       const response = await Axios.get(`/activity/${props.idActivity}/user`);
       setParticipants(response.data);
-      console.log(response.data);
     } catch (error) {
-      console.log(error);
       setParticipants([]);
     }
   };
