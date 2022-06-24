@@ -1,25 +1,15 @@
 import { useEffect, useState } from 'react';
 import L from 'leaflet';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-import Axios from '../../utils/axiosPool';
 import './map.scss';
 
-function Map() {
+function Map({ props }) {
   const [activities, setActivities] = useState([]);
   const position = JSON.parse(localStorage.getItem('coordinate'));
 
-  const ActivitiesDataRequest = async () => {
-    try {
-      const response = await Axios.get('/activities');
-      setActivities(response.data);
-    } catch (error) {
-      throw new Error(error);
-    }
-  };
-
   useEffect(() => {
-    ActivitiesDataRequest();
-  }, []);
+    setActivities(props.searchResult);
+  }, [props.searchResult]);
 
   const iconTest = new L.Icon({
     iconUrl:
