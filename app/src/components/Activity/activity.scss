@@ -68,4 +68,11 @@
   .isActive {
     display: block;
   }
+
+  // zone commentaire
+  .activity__comments {
+    height: fit-content;
+    max-height: 80%;
+    overflow: auto;
+  }
 }
