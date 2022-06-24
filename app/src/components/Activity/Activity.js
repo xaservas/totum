@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import { useState, useEffect } from 'react';
 import Axios from '../../utils/axiosPool';
 
@@ -6,7 +7,7 @@ import './activity.scss';
 import CreateComment from '../CreateComment/CreateComment';
 import Comment from '../Comment/Comment';
 
-function Activity({ props }) {
+function Activity({ props, funct }) {
   const [activity, setActivity] = useState({});
   const [participants, setParticipants] = useState([]);
   const [comments, setComments] = useState();
@@ -133,6 +134,44 @@ function Activity({ props }) {
     }
   }, [checkNewComment]);
 
+  const ButtonComment = () => (
+    <button className='button is-primary' onClick={handleModalCreateComment}>
+      Commenter
+    </button>
+  );
+
+  const ButtonRegister = () => (
+    <aside className='content-button'>
+      <button
+        className='button is-primary'
+        onClick={() => registerToActivity()}>
+        Je veux participer
+      </button>
+      <ButtonComment />
+    </aside>
+  );
+
+  const ButtonUnregister = () => (
+    <aside className='content-button'>
+      <button
+        className='button is-primary is-link'
+        onClick={unregisterToActivity}>
+        Je ne veux plus participer
+      </button>
+      <ButtonComment />
+    </aside>
+  );
+
+  const ButtonLogin = () => (
+    <aside className='content-button'>
+      <button
+        className='button is-primary is-link'
+        onClick={() => funct.handleLogin()}>
+        Connexion
+      </button>
+    </aside>
+  );
+
   return (
     <article className='container_activity'>
       <div className='left'>
@@ -165,26 +204,24 @@ function Activity({ props }) {
       </div>
 
       <div className='right'>
-        <aside className='content-button'>
-          {isRegistered ? (
-            <button
-              className='button is-primary is-link'
-              onClick={unregisterToActivity}>
-              Je ne veux plus participer
-            </button>
-          ) : (
-            <button
-              className='button is-primary'
-              onClick={() => registerToActivity()}>
-              Je veux participer
-            </button>
-          )}
-          <button
-            className='button is-primary'
-            onClick={handleModalCreateComment}>
-            Commenter
-          </button>
-        </aside>
+        {(() => {
+          switch (props.isLogged) {
+            case true: {
+              if (isRegistered) {
+                return <ButtonUnregister />;
+              }
+              return <ButtonRegister />;
+            }
+
+            case false: {
+              return <ButtonLogin />;
+            }
+            default: {
+              return <ButtonLogin />;
+            }
+          }
+        })()}
+
         <section className='activity__comments box'>
           {comments &&
             comments.map((comment) => (
