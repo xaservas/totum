@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import L from 'leaflet';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker } from 'react-leaflet';
 import './map.scss';
 
-function Map({ props }) {
+function Map({ props, funct }) {
   const [activities, setActivities] = useState([]);
   const position = JSON.parse(localStorage.getItem('coordinate'));
 
@@ -49,14 +49,15 @@ function Map({ props }) {
             const y = tmp[1];
 
             return (
-              <Marker key={activity.id} position={[x, y]}>
-                <Popup>
-                  <div>
-                    <h3>{activity.name}</h3>
-                    <p>{activity.description}</p>
-                  </div>
-                </Popup>
-              </Marker>
+              <Marker
+                key={activity.id}
+                position={[x, y]}
+                eventHandlers={{
+                  click: () => {
+                    funct.handleActivity(activity.id);
+                  },
+                }}
+              />
             );
           }
           return null;
@@ -67,7 +68,8 @@ function Map({ props }) {
 }
 
 export default Map;
-{
-  /* <FontAwesomeIcon icon="fa-solid fa-person-running" />
-<FontAwesomeIcon icon="fa-solid fa-card-club" /> */
-}
+
+/*
+<FontAwesomeIcon icon="fa-solid fa-person-running" />
+<FontAwesomeIcon icon="fa-solid fa-card-club" />
+*/
