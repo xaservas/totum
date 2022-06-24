@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-expressions */
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './createProfile.scss';
 import axios from '../../utils/axiosPool';
@@ -7,19 +7,19 @@ import mapbox from '../../utils/mapbox';
 
 function CreateProfile() {
   const navigate = useNavigate();
-  const [firstname, setFirstname] = React.useState('');
-  const [lastname, setLastname] = React.useState('');
-  const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
-  const [passwordConfirmation, setPasswordConfirmation] = React.useState('');
-  const [address, setAddress] = React.useState('');
-  const [zipCode, setZipcode] = React.useState('');
-  const [city, setCity] = React.useState('');
-  const [country, setCountry] = React.useState('');
-  const [about, setAbout] = React.useState('');
-  const [coordinate, setCoordinate] = React.useState([]);
-  const [cookieValue, setCookieValue] = React.useState(false);
-  const [landmarkValue, setLandmarkValue] = React.useState(false);
+  const [firstname, setFirstname] = useState('');
+  const [lastname, setLastname] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [passwordConfirmation, setPasswordConfirmation] = useState('');
+  const [address, setAddress] = useState('');
+  const [zipCode, setZipcode] = useState('');
+  const [city, setCity] = useState('');
+  const [country, setCountry] = useState('');
+  const [about, setAbout] = useState('');
+  const [coordinate, setCoordinate] = useState([]);
+  const [cookieValue, setCookieValue] = useState(false);
+  const [landmarkValue, setLandmarkValue] = useState(false);
 
   const [autocompleteAddress, setAutocompleteAddress] = useState([]);
   const [autocompleteErr, setAutocompleteErr] = useState('');

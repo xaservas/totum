@@ -1,14 +1,14 @@
-import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
+import { useState, useEffect } from 'react';
 import axios from '../../utils/axiosPool';
-import data from '../../data/activities';
+
+// base page
 import './profile.scss';
 import ListActivities from '../ListActivities/ListActivities';
 
-function Profile({ ...rest }) {
+function Profile({ props, funct }) {
   const userId = localStorage.getItem('id');
-  const [user, setUser] = React.useState([]);
-  const [activities, setActivities] = React.useState([]);
+  const [user, setUser] = useState([]);
+  const [activities, setActivities] = useState([]);
 
   const getUserById = async (id) => {
     try {
@@ -73,10 +73,4 @@ function Profile({ ...rest }) {
   );
 }
 
-Profile.propTypes = {
-  className: PropTypes.string,
-};
-Profile.defaultProps = {
-  className: '',
-};
 export default Profile;
