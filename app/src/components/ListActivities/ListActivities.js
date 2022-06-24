@@ -39,27 +39,40 @@ function Activities({ props, funct }) {
     <article className='listActivities panel'>
       <p className='activities-title panel-heading'></p>
       <ul className='activities-list'>
-        {activities.map((activity) => (
-          <li key={activity.id} className='activity panel-block'
-            onClick={() => funct.handleActivity(activity.id)}>
-
-            <div className='column activity-category'>
-              {categories.map((category) => {
-                if (category.id === activity.id_category) {
-                  return (
-                    <span key={category.id} className='activity-category-name'>
-                      {category.name}
-                    </span>
-                  );
-                } return null;
-              })}
-            </div>
-            <div className='column activity-name'>{activity.name}</div>
-            <div className='column activity-description'>
-              {activity.description}
-            </div>
-          </li>
-        ))}
+        {activities.map((activity) => {
+          if (activity.id !== 404) {
+            return (
+              <li
+                key={activity.id}
+                className='activity panel-block'
+                onClick={() => funct.handleActivity(activity.id)}>
+                <div className='column activity-category'>
+                  {categories.map((category) => {
+                    if (category.id === activity.id_category) {
+                      return (
+                        <span
+                          key={category.id}
+                          className='activity-category-name'>
+                          {category.name}
+                        </span>
+                      );
+                    }
+                    return null;
+                  })}
+                </div>
+                <div className='column activity-name'>{activity.name}</div>
+                <div className='column activity-description'>
+                  {activity.description}
+                </div>
+              </li>
+            );
+          }
+          return (
+            <li key={activity.id} className='activity panel-block'>
+              <div className='column activity-name'>{activity.name}</div>
+            </li>
+          );
+        })}
       </ul>
     </article>
   );

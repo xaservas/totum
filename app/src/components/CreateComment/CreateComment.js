@@ -1,9 +1,12 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './createComment.scss';
 import Axios from '../../utils/axiosPool';
 
 function CreateComment({ closeModal, comments, activityId }) {
   const [contentComment, setContentComment] = useState('');
+  const [sendComment, setSendComment] = useState(false);
+
+  const showButton = sendComment ? 'isActive' : '';
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -25,46 +28,42 @@ function CreateComment({ closeModal, comments, activityId }) {
       });
       comments();
       setContentComment('');
+      setSendComment(false);
+      closeModal();
     } catch (error) {
       throw new Error(error);
     }
   };
 
-  const resetButton = () => {
-    setContentComment('');
-    closeModal();
-  };
+  useEffect(() => {
+    if (contentComment.length > 0) {
+      setSendComment(true);
+    } else {
+      setSendComment(false);
+    }
+  }, [contentComment]);
 
   return (
     <form className={'createComment'} onSubmit>
-      <h2>laissez un comentaire</h2>
       <div className='field'>
-        <div className='control'>
+        <div className='content-comment'>
           <textarea
             className='textarea'
             type='text'
             name='content'
-            placeholder='Description'
+            placeholder='laissez un comentaire'
             value={contentComment}
             onChange={(e) => setContentComment(e.target.value)}
           />
         </div>
       </div>
       <div className='field is-grouped'>
-        <p className='control'>
+        <p className={`${showButton} control`}>
           <button
             className='button is-primary'
             type='submit'
             onClick={handleSubmit}>
             Submit
-          </button>
-        </p>
-        <p className='control'>
-          <button
-            className='button is-light'
-            type='reset'
-            onClick={() => resetButton()}>
-            Cancel
           </button>
         </p>
       </div>

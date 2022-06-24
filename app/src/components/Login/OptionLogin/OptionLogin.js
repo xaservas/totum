@@ -20,19 +20,15 @@ function OptionLogin() {
   return (
     <div className='OptionLogin'>
       <label className='checkbox'>
-
-
         <input name='landmark' type='checkbox' onClick={landmarkClick} />
         <span className='slider round'></span>
         <p>Géolocalisation</p>
-
       </label>
       <label className='checkbox'>
         <input name='cookie' type='checkbox' onClick={cookieClick} />
         <span className='slider round'></span>
         <p>Coockies</p>
       </label>
-
     </div>
   );
 }

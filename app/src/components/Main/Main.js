@@ -1,5 +1,3 @@
-import { useEffect } from 'react';
-
 // fontawesome
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCirclePlus, faXmark } from '@fortawesome/free-solid-svg-icons';
@@ -27,13 +25,11 @@ function Desktop({ props, funct }) {
   const activity = props.activity ? 'isActive' : '';
   const listActivities = props.listActivities ? 'isActive' : '';
 
-  useEffect(() => {}, []);
-
   return (
     <div className='desktop'>
       <div className='left'>
         <div className='mapComposant'>
-          <Map props={props} />
+          <Map props={props} funct={funct} />
         </div>
       </div>
       <div className='right'>
@@ -98,7 +94,7 @@ function Desktop({ props, funct }) {
           className='icon_close'
           onClick={() => funct.closeAllModal()}
         />
-        <CreateProfil />
+        <CreateProfil funct={funct} props={props} />
       </div>
 
       <div id='modalListActivities' className={listActivities}>

@@ -1,9 +1,12 @@
+@import '../../vars';
+
 .container_activity {
   // background-color: rebeccapurple;
   display: flex;
   width: 100vw;
   height: 100vh;
   flex-wrap: wrap;
+  background-color: $clear;
 
   .left {
     // background-color: red;
@@ -64,5 +67,12 @@
 
   .isActive {
     display: block;
+  }
+
+  // zone commentaire
+  .activity__comments {
+    height: fit-content;
+    max-height: 80%;
+    overflow: auto;
   }
 }
