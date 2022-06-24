@@ -134,6 +134,13 @@ function Activity({ props, funct }) {
     }
   }, [checkNewComment]);
 
+  useEffect(() => {
+    setRegister({
+      id_user: JSON.parse(localStorage.getItem('id')),
+      id_activity: props.idActivity,
+    });
+  }, [props.isLogged]);
+
   const ButtonComment = () => (
     <button className='button is-primary' onClick={handleModalCreateComment}>
       Commenter
@@ -223,8 +230,8 @@ function Activity({ props, funct }) {
         })()}
 
         <section className='activity__comments box'>
-          {comments
-            && comments.map((comment) => (
+          {comments &&
+            comments.map((comment) => (
               <Comment key={comment.comment_id || 0} comment={comment} />
             ))}
         </section>

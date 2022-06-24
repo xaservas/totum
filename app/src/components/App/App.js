@@ -97,11 +97,16 @@ function App() {
     }
     localStorage.clear();
     setUser(false);
+    setIsLogged(false);
   };
 
   useEffect(() => {
     checkUser();
   }, [user]);
+
+  useEffect(() => {
+    checkUser();
+  }, []);
 
   const props = {
     addActivity,
