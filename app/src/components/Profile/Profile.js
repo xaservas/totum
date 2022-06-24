@@ -7,11 +7,10 @@ import axios from '../../utils/axiosPool';
 // base page
 import './profile.scss';
 
-function Profile({ props, funct }) {
+function Profile({ props }) {
   const userId = localStorage.getItem('id');
   const [user, setUser] = useState([]);
   const [activities, setActivities] = useState([]);
-  const [allActivities, setAllActivities] = useState([]);
   const [creator, setCreator] = useState([]);
   const nowISO = props.timeNow;
 
@@ -51,23 +50,10 @@ function Profile({ props, funct }) {
     }
   };
 
-  const getActivities = async () => {
+  const getCreatorById = async (id) => {
     try {
-      const response = await axios.get('/activities');
-      setAllActivities(response.data);
-    } catch (error) {
-      throw new Error(error);
-    }
-  };
-
-  const getCreators = () => {
-    const creators = [];
-    try {
-      allActivities.map(async (activity) => {
-        const response = await axios.get(`user/${activity.id_user}/manage`);
-        creators.push(response.data);
-      });
-      setCreator(creators);
+      const response = await axios.get(`/user/${id}/manage`);
+      setCreator(response.data);
     } catch (error) {
       throw new Error(error);
     }
@@ -79,8 +65,6 @@ function Profile({ props, funct }) {
 
   useEffect(() => {
     getUserActivities(userId);
-    getActivities();
-    getCreators();
   }, [props.profile]);
 
   const ListActivities = () => (
@@ -95,9 +79,10 @@ function Profile({ props, funct }) {
                   activity.activity_date,
                 )}`}>
                 <div className='column profil-picture'>
-                  {console.log(activity.activity_id)}
+                  {console.log(creator)}
                   {creator.map((userCreator) => {
-                    if (userCreator.id === activity.activity_id) {
+                    console.log(userCreator);
+                    if (userCreator.id === activity.creator_id) {
                       console.log('yep');
                       return 'gnangnaed';
                     }
