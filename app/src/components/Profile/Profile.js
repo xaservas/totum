@@ -50,10 +50,14 @@ function Profile({ props }) {
     }
   };
 
-  const getCreatorById = async (id) => {
+  const getCreatorById = async () => {
     try {
-      const response = await axios.get(`/user/${id}/manage`);
-      setCreator(response.data);
+      const creators = [];
+      activities.map(async (activity) => {
+        const response = await axios.get(`/user/${activity.creator_id}/manage`);
+        creators.push(response.data);
+      });
+      setCreator(creators);
     } catch (error) {
       throw new Error(error);
     }
@@ -67,6 +71,10 @@ function Profile({ props }) {
     getUserActivities(userId);
   }, [props.profile]);
 
+  useEffect(() => {
+    getCreatorById();
+  }, [activities]);
+
   const ListActivities = () => (
     <article className='listActivities_panel'>
       <ul className='activities-list'>
@@ -78,18 +86,7 @@ function Profile({ props }) {
                 className={`activity panel-block ${checkDate(
                   activity.activity_date,
                 )}`}>
-                <div className='column profil-picture'>
-                  {console.log(creator)}
-                  {creator.map((userCreator) => {
-                    console.log(userCreator);
-                    if (userCreator.id === activity.creator_id) {
-                      console.log('yep');
-                      return 'gnangnaed';
-                    }
-                    console.log('nope');
-                    return null;
-                  })}
-                </div>
+                <div className='column profil-picture'></div>
 
                 <div className='column activity-name'>
                   {activity.activity_name}
@@ -100,23 +97,11 @@ function Profile({ props }) {
                 </div>
 
                 <div className='column activity-city'>
-                  {allActivities.map((activityDetail) => {
-                    if (activityDetail.id === activity.activity_id) {
-                      return activityDetail.city;
-                    }
-                    return null;
-                  })}
+                  {activity.activity_city}
                 </div>
 
                 <div className='column activity-date'>
-                  {allActivities.map((activityDetail) => {
-                    if (activityDetail.id === activity.activity_id) {
-                      return `le ${dayjs(activityDetail.date).format(
-                        'DD/MM/YYYY',
-                      )}`;
-                    }
-                    return null;
-                  })}
+                  {dayjs(activity.activity_date).format('DD/MM/YYYY')}
                 </div>
 
                 <div className='column activity-level'>
