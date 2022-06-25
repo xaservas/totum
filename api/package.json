@@ -29,6 +29,7 @@
     "joi": "^17.6.0",
     "jsonwebtoken": "^8.5.1",
     "node-fetch": "^2.6.7",
+    "nodemailer": "^6.7.5",
     "pg": "^8.7.3",
     "unique-names-generator": "^4.7.1"
   },

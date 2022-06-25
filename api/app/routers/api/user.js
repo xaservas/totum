@@ -12,6 +12,8 @@ const userGetSchema = require('../../validation/schemas/user/userGet.schema');
 const userPostSchema = require('../../validation/schemas/user/userPost.schema');
 const userLoginSchema = require('../../validation/schemas/user/userLogin.schema');
 const userManageSchema = require('../../validation/schemas/user/userManage.schema');
+const userSendMailSchema = require('../../validation/schemas/user/userSendMail.schema');
+const userResetPasswordSchema = require('../../validation/schemas/user/userResetPassword.shema');
 
 // Require controllers try catch
 const controllerHandler = require('../../helpers/controllerHandler');
@@ -387,6 +389,64 @@ router
     validator('params', userGetSchema),
     validator('body', userManageSchema),
     controllerHandler(userController.updateEmail)
+  );
+
+router
+  .route('/sendMail')
+
+  /**
+   * POST /v1/user/sendMail
+   * @summary Send contact email
+   * @tags Manage user
+   * @param {object} request.body.required - Email data
+   * @return {object} 200 - Email object
+   * @return {object}  500 - Error
+   * @example request - Email data
+   * {
+   * "email": "test@test.fr",
+   * "message": "message",
+   * "api_key": "api_key"
+   * }
+   * @example response - 200 - success response example
+   * {
+   * "message": "Email sent"
+   * }
+   * @example response - 500 - error response example
+   * {
+   * "error": "Une erreur est survenue, veuillez réessayer plus tard…"
+   * }
+   */
+  .post(
+    validator('body', userSendMailSchema),
+    controllerHandler(userController.sendMail)
+  );
+
+router
+  .route('/resetPassword')
+
+  /**
+   * POST /v1/user/resetPassword
+   * @summary Send reset password email
+   * @tags Manage user
+   * @param {object} request.body.required - Email data
+   * @return {object} 200 - Email object
+   * @return {object}  500 - Error
+   * @example request - Email data
+   * {
+   * "email": "test@test.fr"
+   * }
+   * @example response - 200 - success response example
+   * {
+   * "message": "Email sent"
+   * }
+   * @example response - 500 - error response example
+   * {
+   * "error": "Une erreur est survenue, veuillez réessayer plus tard…"
+   * }
+   */
+  .post(
+    validator('body', userResetPasswordSchema),
+    controllerHandler(userController.resetPassword)
   );
 
 router.use(apiErrorController.error404);

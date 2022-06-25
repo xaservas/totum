@@ -2,6 +2,8 @@ const userDatamapper = require('../../models/userDatamapper');
 const geoloc = require('../../config/revertGeo');
 const bcrypt = require('../../services/bcrypt');
 const jwt = require('../../services/token');
+const nodemailer = require('../../config/nodemailer');
+const fetch = require('node-fetch');
 
 const userController = {
   async getAll(_, res) {
@@ -126,6 +128,23 @@ const userController = {
     }
     return res.status(404).json({ message: 'No activity found' });
   },
+
+  async sendMail(req, res) {
+    const data = req.body;
+    const url = `${process.env.API_CAPTCHA}${process.env.BACK_CAPTCHA}&response=${data.token}`;
+
+    const response = await fetch(url);
+    const json = await response.json();
+    if (json.success) {
+      const transporter = nodemailer.sendMail(data);
+      if (transporter) {
+        return res.status(200).json({ message: 'Mail sent' });
+      }
+    }
+    return res.status(401).json({ message: 'Invalid token' });
+  },
+
+  async resetPassword(req, res) {},
 };
 
 module.exports = userController;
