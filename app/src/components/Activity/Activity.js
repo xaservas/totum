@@ -1,3 +1,4 @@
+/* eslint-disable operator-linebreak */
 /* eslint-disable indent */
 import { useState, useEffect } from 'react';
 import Axios from '../../utils/axiosPool';
