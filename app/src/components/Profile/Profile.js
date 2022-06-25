@@ -61,7 +61,6 @@ function Profile({ props }) {
       <ul className='activities-list'>
         {activities.map((activity) => {
           if (activity.id !== 404) {
-            console.log(activity);
             return (
               <li
                 key={activity.activity_id}
@@ -69,7 +68,7 @@ function Profile({ props }) {
                   activity.activity_date,
                 )}`}>
                 <div className='column profil-picture'>
-                  {activity.user_picture}
+                  {activity.creator_picture}
                 </div>
 
                 <div className='column activity-name'>
