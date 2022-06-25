@@ -9,7 +9,7 @@ import axios from '../../utils/axiosPool';
 // base page
 import './profile.scss';
 
-function Profile({ props }) {
+function Profile({ props, funct }) {
   const userId = localStorage.getItem('id');
   const [user, setUser] = useState([]);
   const [activities, setActivities] = useState([]);
@@ -127,7 +127,7 @@ function Profile({ props }) {
           <FontAwesomeIcon
             icon={faPencil}
             className='icon_edit'
-            onClick={() => alert('liens a faire')}
+            onClick={() => funct.handleParameters()}
           />
         </div>
       </div>

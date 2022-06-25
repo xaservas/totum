@@ -1,3 +1,4 @@
+// base page
 import './usersettings.scss';
 
 function Usersettings() {
