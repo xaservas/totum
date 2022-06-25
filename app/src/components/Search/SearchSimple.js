@@ -41,7 +41,7 @@ function SearchSimple({ funct }) {
   }, [search]);
 
   return (
-    <form className='simpleSearch'>
+    <div className='simpleSearch'>
       <input
         className='input_simpleSearch'
         type='text'
@@ -49,7 +49,7 @@ function SearchSimple({ funct }) {
         placeholder='recherche'
         onChange={(e) => handleChange(e)}
       />
-    </form>
+    </div>
   );
 }
 
