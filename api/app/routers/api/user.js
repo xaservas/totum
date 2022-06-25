@@ -293,6 +293,7 @@ router
    * "user_picture": "asset link to picture",
    * "activity_id": 1,
    * "creator_id": 1,
+   * "creator_picture": "asset link to picture",
    * "activity_name": "activity name",
    * "activity_description": "activity description",
    * "activity_date": "2020-05-05T14:00:00.000Z",
