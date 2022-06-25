@@ -135,6 +135,7 @@ function Activity({ props, funct }) {
   }, [checkNewComment]);
 
   useEffect(() => {
+    getRegister();
     setRegister({
       id_user: JSON.parse(localStorage.getItem('id')),
       id_activity: props.idActivity,
