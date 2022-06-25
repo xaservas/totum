@@ -18,6 +18,8 @@ function App() {
   const [isLogged, setIsLogged] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
   const [activity, setActivity] = useState(false);
+  const [help, setHelp] = useState(false);
+  const [legalMention, setLegalmention] = useState(false);
   const [searchResult, setSearchResult] = useState([]);
   const [resetSearch, setResetSearch] = useState(false);
   const [idActivity, setIdActivity] = useState(0);
@@ -38,6 +40,8 @@ function App() {
     setUser(true);
     setShowMenu(false);
     setActivity(false);
+    setHelp(false);
+    setLegalmention(false);
   };
 
   const handleMenu = () => {
@@ -57,6 +61,16 @@ function App() {
   const handleParameters = () => {
     closeAllModal();
     setParameters(!parameters);
+  };
+
+  const handleHelp = () => {
+    closeAllModal();
+    setHelp(!help);
+  };
+
+  const handleLegalmention = () => {
+    closeAllModal();
+    setLegalmention(!legalMention);
   };
 
   const handleLogin = () => {
@@ -120,6 +134,8 @@ function App() {
     showMenu,
     activity,
     searchResult,
+    help,
+    legalMention,
     resetSearch,
     idActivity,
     timeNow,
@@ -139,6 +155,8 @@ function App() {
     handleActivitiesList,
     resetActivitiesList,
     handleActivity,
+    handleHelp,
+    handleLegalmention,
   };
 
   return (
@@ -147,7 +165,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Main props={props} funct={funct} />} />
       </Routes>
-      <Footer />
+      <Footer funct={funct} />
     </div>
   );
 }
