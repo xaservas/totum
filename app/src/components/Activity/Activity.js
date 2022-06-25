@@ -1,3 +1,4 @@
+/* eslint-disable operator-linebreak */
 /* eslint-disable indent */
 import { useState, useEffect } from 'react';
 import Axios from '../../utils/axiosPool';
@@ -135,6 +136,7 @@ function Activity({ props, funct }) {
   }, [checkNewComment]);
 
   useEffect(() => {
+    getRegister();
     setRegister({
       id_user: JSON.parse(localStorage.getItem('id')),
       id_activity: props.idActivity,

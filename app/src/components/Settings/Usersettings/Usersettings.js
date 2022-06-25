@@ -1,3 +1,4 @@
+// base page
 import './usersettings.scss';
 
 function Usersettings() {
@@ -57,10 +58,24 @@ function Usersettings() {
         <label className='checkbox'>
           <input name='landmark' type='checkbox' />{' '}
           <span className='slider round'> </span> <p> Géolocalisation </p>{' '}
-        </label>{' '}
+        </label>
         <label className='checkbox'>
           <input name='cookie' type='checkbox' />{' '}
           <span className='slider round'> </span> <p> Coockies </p>{' '}
+        </label>
+        <label className='checkbox'>
+          <input name='notification' type='checkbox' />
+          <span className='slider round'> </span> <p> Notification </p>
+        </label>
+
+        <label className='checkbox'>
+          <input name='email' type='checkbox' />
+          <span className='slider round'> </span> <p> E-mails </p>
+        </label>
+
+        <label className='checkbox'>
+          <input name='sms' type='checkbox' />
+          <span className='slider round'> </span> <p> SMS </p>
         </label>
       </div>
       <button className='button'> Valider </button>{' '}

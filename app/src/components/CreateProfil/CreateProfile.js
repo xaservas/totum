@@ -1,12 +1,10 @@
 /* eslint-disable no-unused-expressions */
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import './createProfile.scss';
 import axios from '../../utils/axiosPool';
 import mapbox from '../../utils/mapbox';
 
-function CreateProfile() {
-  const navigate = useNavigate();
+function CreateProfile({ funct }) {
   const [firstname, setFirstname] = useState('');
   const [lastname, setLastname] = useState('');
   const [email, setEmail] = useState('');
@@ -23,6 +21,21 @@ function CreateProfile() {
 
   const [autocompleteAddress, setAutocompleteAddress] = useState([]);
   const [autocompleteErr, setAutocompleteErr] = useState('');
+  const [error, setError] = useState('');
+  // gestion des erreurs--------------
+  const errorMessage = (data) => {
+    switch (data) {
+    case 401:
+      setError('Les mots de passe de sont pas identique');
+      break;
+    case 400:
+      setError('Erreur inconnue');
+      break;
+    default:
+      setError('');
+      break;
+    }
+  };
 
   const handleAddressChange = async (e) => {
     setAddress(e.target.value);
@@ -98,18 +111,20 @@ function CreateProfile() {
       },
     })
       .then(() => {
-        navigate('/login', { replace: true });
+        funct.closeAllModal();
       })
-      .catch((error) => {
+      .catch((err) => {
         // ajouter un message d'information si sa marche pas
-        throw new Error(error);
+        errorMessage(err.response.status);
       });
     event.preventDefault();
   };
 
   return (
     <form onSubmit={handleSubmit} className='createProfile'>
+      <p className='errorMessage'>{error}</p>
       <input
+        required
         name='firstname'
         type='text'
         className='input'
@@ -117,6 +132,7 @@ function CreateProfile() {
         onChange={(e) => setFirstname(e.target.value)}
       />
       <input
+        required
         name='lastname'
         type='text'
         className='input'
@@ -124,6 +140,7 @@ function CreateProfile() {
         onChange={(e) => setLastname(e.target.value)}
       />
       <input
+        required
         name='email'
         type='email'
         className='input'
@@ -131,7 +148,9 @@ function CreateProfile() {
         onChange={(e) => setEmail(e.target.value)}
       />
       <div className='password'>
+
         <input
+          required
           name='password'
           type='password'
           className='input'
@@ -139,6 +158,7 @@ function CreateProfile() {
           onChange={(e) => setPassword(e.target.value)}
         />
         <input
+          required
           name='passwordConfirmation'
           type='password'
           className='input'
@@ -159,6 +179,7 @@ function CreateProfile() {
         onBlur={splitAdress}
       />
       <input
+        required
         id='address'
         name='address'
         type='text'
@@ -168,14 +189,13 @@ function CreateProfile() {
       />
       <datalist id='places'>
         {autocompleteAddress.map((addresses, i) => (
-          <option key={i} id={`connard${i}`}>
-            {addresses}
-          </option>
+          <option key={i} >{addresses}</option>
         ))}
       </datalist>
       {autocompleteErr && <span className='inputError'>{autocompleteErr}</span>}
       <div className='zipCity'>
         <input
+          required
           id='zipCode'
           name='zipCode'
           type='text'
@@ -184,6 +204,7 @@ function CreateProfile() {
           onChange={(e) => setZipcode(e.target.value)}
         />
         <input
+          required
           id='city'
           name='city'
           type='text'
@@ -193,6 +214,7 @@ function CreateProfile() {
         />
       </div>
       <input
+        required
         id='country'
         name='country'
         type='text'

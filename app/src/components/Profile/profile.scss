@@ -9,4 +9,16 @@
   .profile-activities {
     color: white;
   }
+
+  // tableau d'activités
+  .listActivities_panel {
+    min-height: max-content;
+    max-height: 80%;
+    overflow: auto;
+    .activities-list {
+      display: flex;
+      // regle pour ordonner du plus récent au plus ancien
+      flex-direction: column-reverse;
+    }
+  }
 }
