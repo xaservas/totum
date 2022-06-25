@@ -22,6 +22,9 @@ jobs:
         ENV_DB_PORT: ${{ secrets.DB_PORT }}
         ENV_TOKEN_SECRET: ${{ secrets.TOKEN_SECRET }}
         ENV_API_GEO: ${{ secrets.API_GEO }}
+        BACK_CAPTCHA: ${{ secrets.BACK_CAPTCHA }}
+        CLIENT_CAPTCHA: ${{ secrets.CLIENT_CAPTCHA }}
+        API_CAPTCHA: ${{ secrets.API_CAPTCHA }}
 
     - uses: kenny-caldieraro/github-action-ssh-docker-compose@master
       name: Docker-Compose Remote Deployment
