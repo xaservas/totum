@@ -37,6 +37,24 @@
   .icon_create {
     display: none;
   }
+
+  .isActive {
+    display: flex !important;
+
+    .icon_close {
+      font-size: 2rem;
+      position: absolute;
+      // right: 13rem;
+      // top: 13rem;
+      top: 13px;
+      right: 13px;
+
+      &:hover {
+        cursor: pointer;
+        color: white;
+      }
+    }
+  }
 }
 
 footer {
@@ -79,24 +97,6 @@ footer {
   animation-timing-function: ease-in;
   -webkit-animation-duration: 1s;
   animation-duration: 1s;
-}
-
-.isActive {
-  display: flex !important;
-}
-
-.icon_close {
-  font-size: 2rem;
-  position: absolute;
-  // right: 13rem;
-  // top: 13rem;
-  top: 13px;
-  right: 13px;
-
-  &:hover {
-    cursor: pointer;
-    color: white;
-  }
 }
 
 @-webkit-keyframes fadeInOpacity {

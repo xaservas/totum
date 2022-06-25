@@ -1,7 +1,8 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import { Route, Routes } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import dayjs from 'dayjs';
 import Axios from '../../utils/axiosPool';
-
 // base page
 import './app.scss';
 import Header from '../Header/Header';
@@ -20,6 +21,7 @@ function App() {
   const [searchResult, setSearchResult] = useState([]);
   const [resetSearch, setResetSearch] = useState(false);
   const [idActivity, setIdActivity] = useState(0);
+  const timeNow = dayjs(Date.now()).toISOString();
 
   const checkUser = () => {
     if (localStorage.getItem('id')) {
@@ -120,6 +122,7 @@ function App() {
     searchResult,
     resetSearch,
     idActivity,
+    timeNow,
   };
 
   const funct = {
