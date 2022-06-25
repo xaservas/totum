@@ -28,6 +28,15 @@ const registerController = {
     const register = await registerDatamapper.removeRegister(id);
     return res.status(200).json(register);
   },
+
+  async getForUser(req, res) {
+    const data = req.body;
+    const register = await registerDatamapper.getUserRegisterForActivity(data);
+    if (!register) {
+      return res.status(404).json({ message: 'Register not found' });
+    }
+    return res.status(200).json(register);
+  },
 };
 
 module.exports = registerController;

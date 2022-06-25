@@ -1,5 +1,3 @@
-import { useEffect } from 'react';
-
 // fontawesome
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCirclePlus, faXmark } from '@fortawesome/free-solid-svg-icons';
@@ -31,21 +29,19 @@ function Desktop({ props, funct }) {
   const help = props.help ? 'isActive' : '';
   const legalMention = props.legalMention ? 'isActive' : '';
 
-  useEffect(() => {}, []);
-
   return (
     <div className='desktop'>
       <div className='left'>
         <div className='mapComposant'>
-          <Map />
+          <Map props={props} funct={funct} />
         </div>
       </div>
       <div className='right'>
         <div className='search'>
-          <SearchAdvance />
+          <SearchAdvance props={props} funct={funct} />
         </div>
         <div className='activitiesList'>
-          <Activities />
+          <Activities props={props} funct={funct} />
         </div>
       </div>
 
@@ -75,7 +71,7 @@ function Desktop({ props, funct }) {
           className='icon_close'
           onClick={() => funct.closeAllModal()}
         />
-        <Activity />
+        <Activity props={props} funct={funct} />
       </div>
 
       <div id='modalCreateActivity' className={addActivity}>
@@ -102,7 +98,7 @@ function Desktop({ props, funct }) {
           className='icon_close'
           onClick={() => funct.closeAllModal()}
         />
-        <Profil />
+        <Profil props={props} funct={funct} />
       </div>
 
       <div id='modalSettings' className={parameters}>

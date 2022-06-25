@@ -1,7 +1,8 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import { Route, Routes } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import dayjs from 'dayjs';
 import Axios from '../../utils/axiosPool';
-
 // base page
 import './app.scss';
 import Header from '../Header/Header';
@@ -20,6 +21,9 @@ function App() {
   const [help, setHelp] = useState(false);
   const [legalMention, setLegalmention] = useState(false);
   const [searchResult, setSearchResult] = useState([]);
+  const [resetSearch, setResetSearch] = useState(false);
+  const [idActivity, setIdActivity] = useState(0);
+  const timeNow = dayjs(Date.now()).toISOString();
 
   const checkUser = () => {
     if (localStorage.getItem('id')) {
@@ -83,9 +87,18 @@ function App() {
     setIsLogged(!isLogged);
   };
 
-  const handleActivity = () => {};
+  const handleActivitiesList = (data) => {
+    setSearchResult(data);
+  };
 
-  const handleActivities = () => {};
+  const resetActivitiesList = () => {
+    setResetSearch(!resetSearch);
+  };
+
+  const handleActivity = (id) => {
+    setIdActivity(id);
+    setActivity(!activity);
+  };
 
   const handleLogout = async () => {
     closeAllModal();
@@ -100,11 +113,16 @@ function App() {
     }
     localStorage.clear();
     setUser(false);
+    setIsLogged(false);
   };
 
   useEffect(() => {
     checkUser();
   }, [user]);
+
+  useEffect(() => {
+    checkUser();
+  }, []);
 
   const props = {
     addActivity,
@@ -118,6 +136,9 @@ function App() {
     searchResult,
     help,
     legalMention,
+    resetSearch,
+    idActivity,
+    timeNow,
   };
 
   const funct = {
@@ -131,6 +152,8 @@ function App() {
     closeAllModal,
     handleIsLogged,
     handleMenu,
+    handleActivitiesList,
+    resetActivitiesList,
     handleActivity,
     handleHelp,
     handleLegalmention,

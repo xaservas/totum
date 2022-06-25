@@ -29,6 +29,10 @@ const activityDataMapper = {
   },
 
   async getBySearch(idKeyWord) {
+    if (idKeyWord === 'kouech') {
+      return this.getAll();
+    }
+
     const query = {
       text: `
             SELECT *
@@ -179,6 +183,7 @@ const activityDataMapper = {
                 activity.id,
                 activity.name AS activity_name,
                 activity.description AS activity_description,
+                activity.id_user AS creeator_id,
                 activity.date AS activity_date,
                 category.name AS category_name,
                 level.name AS level_name,

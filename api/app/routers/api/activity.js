@@ -206,9 +206,10 @@ router
    * @example response - 200 - success response example
    * [
    * {
-   * "id": 1,
+   * "activity_id": 1,
    * "activity_name": "String",
    * "activity_description": "String",
+   * "creator_id": 1,
    * "activity_date": "2020-05-05T14:00:00.000Z",
    * "category_name": "String",
    * "level_name": "String",

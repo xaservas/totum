@@ -1,77 +1,81 @@
 import { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
+import Axios from '../../utils/axiosPool';
+
+// base page
 import './listActivities.scss';
-import { getAllActivities } from '../../utils/axiosPool';
 
-function ListActivities({ propActivities, listType, ...rest }) {
+function Activities({ props, funct }) {
   const [activities, setActivities] = useState([]);
+  const [categories, setCategories] = useState([]);
 
-  /*
-  const ActivitiesDataRequest = async () => {
+  const getCategories = async () => {
     try {
-      const result = await axios({
-        method: 'get',
-        url: '/activities',
-      });
-      console.log(result.data);
-      setActivities(result.data);
+      const response = await Axios.get('/category/categories');
+      setCategories(response.data);
     } catch (error) {
-      console.log(error);
+      throw new Error(error);
     }
   };
-*/
 
-  const loadDefaultData = async () => {
+  const ActivitiesDataRequest = async () => {
     try {
-      const result = await getAllActivities();
-      if (result) {
-        setActivities(result);
-      }
+      const response = await Axios.get('/activities');
+      setActivities(response.data);
     } catch (error) {
       throw new Error(error);
     }
   };
 
   useEffect(() => {
-    loadDefaultData();
-  }, []);
+    ActivitiesDataRequest();
+    getCategories();
+  }, [props.resetSearch]);
+
+  useEffect(() => {
+    setActivities(props.searchResult);
+  }, [props.searchResult]);
 
   return (
-    <article className={'listActivities panel'} {...rest}>
-      <p className='activities-title panel-heading'>{listType}</p>
+    <article className='listActivities panel'>
+      <p className='activities-title panel-heading'></p>
       <ul className='activities-list'>
-        {activities.map((activity) => (
-          <li key={activity.id} className='activity panel-block'>
-            <div className='column activity-name'>{activity.name}</div>
-            <div className='column activity-date'>{activity.date}</div>
-            <div className='column activity-city'>{activity.city}</div>
-          </li>
-        ))}
+        {activities.map((activity) => {
+          if (activity.id !== 404) {
+            return (
+              <li
+                key={activity.id}
+                className='activity panel-block'
+                onClick={() => funct.handleActivity(activity.id)}>
+                <div className='column activity-category'>
+                  {categories.map((category) => {
+                    if (category.id === activity.id_category) {
+                      return (
+                        <span
+                          key={category.id}
+                          className='activity-category-name'>
+                          {category.name}
+                        </span>
+                      );
+                    }
+                    return null;
+                  })}
+                </div>
+                <div className='column activity-name'>{activity.name}</div>
+                <div className='column activity-description'>
+                  {activity.description}
+                </div>
+              </li>
+            );
+          }
+          return (
+            <li key={activity.id} className='activity panel-block'>
+              <div className='column activity-name'>{activity.name}</div>
+            </li>
+          );
+        })}
       </ul>
     </article>
   );
 }
 
-ListActivities.propTypes = {
-  className: PropTypes.string,
-  list_type: PropTypes.string,
-  propActivities: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number,
-      name: PropTypes.string,
-      date: PropTypes.string,
-      city: PropTypes.string,
-    }),
-  ),
-
-};
-
-ListActivities.defaultProps = {
-  className: '',
-  list_type: 'Toutes les activités',
-  id: '',
-  name: '',
-  date: '',
-  city: '',
-};
-export default ListActivities;
+export default Activities;

@@ -243,16 +243,24 @@ const user = {
                         users.email AS user_email,
                         users.firstname AS user_firstname,
                         users.lastname AS user_lastname,
+                        users.picture AS user_picture,
+                        activity.id AS activity_id,
+                        activity.id_user AS creator_id,
+                        creator.picture AS creator_picture,
                         activity.name AS activity_name,
                         activity.description AS activity_description,
                         activity.date AS activity_date,
+                        activity.city AS activity_city,
                         category.name AS category_name,
                         level.name AS level_name
+
                     FROM users
                     JOIN user_activity ON users.id = user_activity.id_user
                     JOIN activity ON user_activity.id_activity = activity.id
                     JOIN category ON activity.id_category = category.id
                     JOIN level ON activity.level = level.id
+                    JOIN users AS creator ON activity.id_user = creator.id
+
                     WHERE users.id = $1
                 `,
       values: [id],

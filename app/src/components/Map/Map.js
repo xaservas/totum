@@ -1,34 +1,22 @@
 import { useEffect, useState } from 'react';
-import L from 'leaflet';
-import {
-  MapContainer, TileLayer, Marker, Popup,
-} from 'react-leaflet';
-import Axios from '../../utils/axiosPool';
+// import L from 'leaflet';
+import { MapContainer, TileLayer, Marker } from 'react-leaflet';
 import './map.scss';
 
-function Map() {
+function Map({ props, funct }) {
   const [activities, setActivities] = useState([]);
   const position = JSON.parse(localStorage.getItem('coordinate'));
 
-  const ActivitiesDataRequest = async () => {
-    try {
-      const response = await Axios.get('/activities');
-      setActivities(response.data);
-    } catch (error) {
-      throw new Error(error);
-    }
-  };
-
   useEffect(() => {
-    ActivitiesDataRequest();
-  }, []);
+    setActivities(props.searchResult);
+  }, [props.searchResult]);
 
-  const iconTest = new L.Icon({
-    iconUrl:
-      'https://i.picsum.photos/id/279/200/300.jpg?hmac=fYDbVmnm7vDGt7SA51v-qMUKHIn7HKCp5v9d8Wx_SVM',
-    iconSize: [50, 50],
-    iconAnchor: [25, 25],
-  });
+  // const iconTest = new L.Icon({
+  //   iconUrl:
+  //     'https://i.picsum.photos/id/279/200/300.jpg?hmac=fYDbVmnm7vDGt7SA51v-qMUKHIn7HKCp5v9d8Wx_SVM',
+  //   iconSize: [50, 50],
+  //   iconAnchor: [25, 25],
+  // });
 
   return (
     <div id='map' className='map'>
@@ -61,14 +49,15 @@ function Map() {
             const y = tmp[1];
 
             return (
-              <Marker key={activity.id} position={[x, y]} icon={iconTest}>
-                <Popup>
-                  <div>
-                    <h3>{activity.name}</h3>
-                    <p>{activity.description}</p>
-                  </div>
-                </Popup>
-              </Marker>
+              <Marker
+                key={activity.id}
+                position={[x, y]}
+                eventHandlers={{
+                  click: () => {
+                    funct.handleActivity(activity.id);
+                  },
+                }}
+              />
             );
           }
           return null;
@@ -79,3 +68,8 @@ function Map() {
 }
 
 export default Map;
+
+/*
+<FontAwesomeIcon icon="fa-solid fa-person-running" />
+<FontAwesomeIcon icon="fa-solid fa-card-club" />
+*/

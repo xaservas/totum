@@ -1,0 +1,13 @@
+@import '../../vars';
+
+.createComment {
+  width: 100%;
+
+  .control {
+    display: none;
+  }
+
+  .isActive {
+    display: flex;
+  }
+}

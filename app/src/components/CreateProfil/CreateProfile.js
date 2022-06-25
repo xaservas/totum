@@ -42,9 +42,9 @@ function CreateProfile({ funct }) {
     if (!address) return;
 
     const res = await mapbox(address);
-    !autocompleteAddress.includes(e.target.value)
-      && res.features
-      && setAutocompleteAddress(res.features.map((place) => place.place_name));
+    !autocompleteAddress.includes(e.target.value) &&
+      res.features &&
+      setAutocompleteAddress(res.features.map((place) => place.place_name));
     res.error ? setAutocompleteErr(res.error) : setAutocompleteErr('');
   };
 
@@ -177,7 +177,6 @@ function CreateProfile({ funct }) {
         pattern={autocompleteAddress.join('|')}
         autoComplete='off'
         onBlur={splitAdress}
-
       />
       <input
         required
@@ -188,11 +187,9 @@ function CreateProfile({ funct }) {
         placeholder='Adresse'
         onChange={(e) => setAddress(e.target.value)}
       />
-
-      <datalist id='places' >
+      <datalist id='places'>
         {autocompleteAddress.map((addresses, i) => (
           <option key={i} >{addresses}</option>
-
         ))}
       </datalist>
       {autocompleteErr && <span className='inputError'>{autocompleteErr}</span>}
