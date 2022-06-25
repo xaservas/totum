@@ -131,7 +131,7 @@ const userController = {
 
   async sendMail(req, res) {
     const data = req.body;
-    const url = `${process.env.API_CAPTCHA}${process.env.BACK_CAPTCHA}&response=${data.token}`;
+    const url = `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.API_CAPTCHA}&response=${data.token}`;
 
     const response = await fetch(url);
     const json = await response.json();
