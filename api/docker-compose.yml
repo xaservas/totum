@@ -15,6 +15,8 @@ services:
         ports: 5432
       labels:
         - traefik.enable=false
+      networks:
+        - web
 
     app:
       build:
@@ -34,12 +36,16 @@ services:
         - traefik.http.routers.totum.tls=true
         - traefik.http.routers.totum.tls.certresolver=lets-encrypt
         - traefik.port=80
+      networks:
+        - web
+        - smtp_mail
 
 volumes:
     database_totum:
         external: false
 
 networks:
-  default:
-    external:
-      name: web
+  smtp_mail:
+      external: true
+  web:
+    external: true
