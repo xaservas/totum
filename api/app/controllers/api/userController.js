@@ -135,12 +135,12 @@ const userController = {
 
     const response = await fetch(url);
     const json = await response.json();
-    if (json.success) {
-      const transporter = nodemailer.sendMail(data);
-      if (transporter) {
-        return res.status(200).json({ message: 'Mail sent' });
-      }
+    // if (json.success) {
+    const transporter = nodemailer.sendMail(data);
+    if (transporter) {
+      return res.status(200).json({ message: 'Mail sent' });
     }
+    // }
     return res.status(401).json({ message: 'Invalid token' });
   },
 
