@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+    app:
+      build:
+        context: .
+        dockerfile: ./Dockerfile
+      image: app_totum
+      stdin_open: true
+      tty: true
+      expose:
+        - 3000
+      labels:
+        - traefik.http.routers.totum_app.rule=Host(`totum.ovh`, `www.totum.ovh`)
+        - traefik.http.routers.totum_app.tls=true
+        - traefik.http.routers.totum_app.tls.certresolver=lets-encrypt
+        - traefik.port=80
+      networks:
+        - web
+
+networks:
+  web:
+    external: true
