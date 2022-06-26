@@ -3,10 +3,10 @@
 .container_activity {
   // background-color: rebeccapurple;
   display: flex;
+
   width: 100vw;
   height: 100vh;
   flex-wrap: wrap;
-  background-color: $clear;
 
   .left {
     // background-color: red;
@@ -14,8 +14,15 @@
     height: 100%;
     display: flex;
     flex-wrap: wrap;
-
+    flex-direction: column;
     justify-content: center;
+
+    .activity__name {
+      font-size: 6rem;
+      margin-bottom: 15rem;
+      color: rgb(243, 216, 63);
+    }
+
     .image_box {
       justify-content: center;
       .activity__picture {
@@ -26,6 +33,9 @@
     .activity__adress {
       text-align: center;
     }
+    .activity__takeholders {
+      margin-top: 3rem;
+    }
   }
   .right {
     // background-color: green;
@@ -33,30 +43,38 @@
     height: 100vh;
     display: flex;
     justify-content: center;
-
     flex-wrap: wrap;
-    .right_container {
-      .activity__participants {
-        width: 80%;
-        display: flex;
-        flex-wrap: wrap;
-      }
-      .activity__takeholders {
-        width: 80%;
-        display: flex;
-        flex-wrap: wrap;
-      }
 
-      .activity__description {
-        width: 80%;
-        display: flex;
-        flex-wrap: wrap;
-        text-align: center;
-      }
-      .activity__comments {
-        display: flex;
-        flex-wrap: wrap;
-      }
+    .activity__participants {
+      width: 80%;
+      display: flex;
+      flex-wrap: wrap;
+    }
+    .activity__takeholders {
+      width: 80%;
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .activity__description {
+      width: 80%;
+      display: flex;
+      flex-wrap: wrap;
+      text-align: center;
+    }
+    .activity__comments {
+      min-height: min-content;
+      max-height: 60%;
+
+      overflow: scroll;
+      margin-top: 5rem;
+    }
+    .content-button {
+      width: 50%;
+      margin-top: 10rem;
+      color: rgb(249, 87, 56);
+      display: flex;
+      justify-content: space-between;
     }
   }
 
@@ -76,3 +94,5 @@
     overflow: auto;
   }
 }
+// 13, 59, 102
+// 249, 87, 56
