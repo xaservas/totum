@@ -1,11 +1,11 @@
 version: '3.8'
 
 services:
-    app:
+    front:
       build:
         context: .
         dockerfile: ./Dockerfile
-      image: app_totum
+      image: front_totum
       stdin_open: true
       tty: true
       expose:
