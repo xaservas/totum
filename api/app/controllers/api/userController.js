@@ -161,8 +161,8 @@ const userController = {
       password,
     };
     if (userUpdate) {
+      console.log(prepareEmail);
       const transporter = await nodemailer.sendPassword(prepareEmail);
-      console.log(password);
       if (transporter) {
         return res.status(200).json({ message: 'Mail sent' });
       }
