@@ -25,6 +25,10 @@ jobs:
         username: kenny-caldieraro
         mail: kenny.caldieraro@gmail.com
 
+    steps:
+    - name: Checkout app
+      uses: actions/checkout@v2
+
     - name: Pushes app folder
       uses: andstor/copycat-action@v3
       with:
