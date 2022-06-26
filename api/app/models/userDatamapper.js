@@ -268,6 +268,25 @@ const user = {
     const result = await client.query(query);
     return result.rows;
   },
+
+  async getUserByEmail(email) {
+    const query = {
+      text: `
+                    SELECT *
+                    FROM users
+                    WHERE email = $1
+                `,
+      values: [email],
+    };
+    const result = await client.query(query);
+    if (result.rows.length === 0) {
+      return {
+        status: 404,
+        message: 'User not found',
+      };
+    }
+    return result.rows[0];
+  },
 };
 
 module.exports = user;
