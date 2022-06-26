@@ -11,11 +11,10 @@ const transporter = nodemailer.createTransport({
 
 const sendMail = {
   sendMail: async (data) => {
-    console.log('message' + data);
     try {
       (mailData = {
         from: 'totum.ovh',
-        to: 'contact@webplayground.fr',
+        to: 'contact@totum.ovh',
         subject: `Message de ${data.email}`,
         text: data.message,
       }),

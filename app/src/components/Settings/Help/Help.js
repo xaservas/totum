@@ -34,6 +34,8 @@ function Help({ funct }) {
     const result = await executeRecaptcha('contact');
     setToken(result);
     submit();
+    setEmail('');
+    setMessage('');
     funct.closeAllModal();
   };
 
