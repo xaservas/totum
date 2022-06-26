@@ -45,7 +45,7 @@ function Activities({ props, funct }) {
               <li
                 key={activity.id}
                 className='activity panel-block'
-                onClick={() => funct.handleActivity(activity.id)}>
+                onClick={() => funct.handleActivity(activity)}>
                 <div className='column activity-category'>
                   {categories.map((category) => {
                     if (category.id === activity.id_category) {

@@ -22,7 +22,9 @@ function Activity({ props, funct }) {
 
   const getParticipants = async () => {
     try {
-      const response = await Axios.get(`/activity/${props.idActivity}/user`);
+      const response = await Axios.get(
+        `/activity/${props.activityContent.id}/user`,
+      );
       setParticipants(response.data);
     } catch (error) {
       setParticipants([]);
@@ -31,7 +33,9 @@ function Activity({ props, funct }) {
 
   const getComments = async () => {
     try {
-      const response = await Axios.get(`/comment/${props.idActivity}/activity`);
+      const response = await Axios.get(
+        `/comment/${props.activityContent.id}/activity`,
+      );
       setComments(response.data);
     } catch (error) {
       setComments([
@@ -49,7 +53,7 @@ function Activity({ props, funct }) {
         url: '/register/getForUser',
         data: {
           id_user: JSON.parse(localStorage.getItem('id')),
-          id_activity: props.idActivity,
+          id_activity: props.activityContent.id,
         },
         headers: {
           'Content-Type': 'application/json',
@@ -61,15 +65,6 @@ function Activity({ props, funct }) {
       setRegisterId(response.data.id);
     } catch (error) {
       setIsRegistered(false);
-    }
-  };
-
-  const getActivity = async () => {
-    try {
-      const response = await Axios.get(`/activity/${props.idActivity}/manage`);
-      setActivity(response.data);
-    } catch (error) {
-      throw new Error(error);
     }
   };
 
@@ -121,30 +116,32 @@ function Activity({ props, funct }) {
   };
 
   useEffect(() => {
-    if (props.idActivity !== 0) {
-      getActivity();
+    if (Object.keys(props.activityContent).length !== 0) {
+      setActivity(props.activityContent);
       getParticipants();
       getComments();
       getRegister();
       setRegister({
         id_user: JSON.parse(localStorage.getItem('id')),
-        id_activity: props.idActivity,
+        id_activity: props.activityContent.id,
       });
     }
-  }, [props.idActivity]);
+  }, [props.activityContent]);
 
   useEffect(() => {
-    if (props.idActivity !== 0) {
+    if (Object.keys(props.activityContent).length !== 0) {
       getComments();
     }
   }, [checkNewComment]);
 
   useEffect(() => {
-    getRegister();
-    setRegister({
-      id_user: JSON.parse(localStorage.getItem('id')),
-      id_activity: props.idActivity,
-    });
+    if (Object.keys(props.activityContent).length !== 0) {
+      getRegister();
+      setRegister({
+        id_user: JSON.parse(localStorage.getItem('id')),
+        id_activity: props.activityContent.id,
+      });
+    }
   }, [props.isLogged]);
 
   const ButtonComment = () => (
@@ -182,6 +179,15 @@ function Activity({ props, funct }) {
         onClick={() => funct.handleLogin()}>
         Connexion
       </button>
+    </aside>
+  );
+
+  const ButtonActivityFull = () => (
+    <aside className='content-button'>
+      <button className='button is-primary is-warning'>
+        Activité complète
+      </button>
+      <ButtonComment />
     </aside>
   );
 
@@ -223,6 +229,9 @@ function Activity({ props, funct }) {
               if (isRegistered) {
                 return <ButtonUnregister />;
               }
+              if (participants.length >= activity.max_participants) {
+                return <ButtonActivityFull />;
+              }
               return <ButtonRegister />;
             }
 
@@ -245,7 +254,8 @@ function Activity({ props, funct }) {
           <CreateComment
             closeModal={handleModalCreateComment}
             comments={handleCheckNewComment}
-            activityId={props.idActivity}
+            updateComment={getComments}
+            activityContent={props.activityContent}
           />
         </section>
       </div>

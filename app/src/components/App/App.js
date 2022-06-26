@@ -22,7 +22,7 @@ function App() {
   const [legalMention, setLegalmention] = useState(false);
   const [searchResult, setSearchResult] = useState([]);
   const [resetSearch, setResetSearch] = useState(false);
-  const [idActivity, setIdActivity] = useState(0);
+  const [activityContent, setActivityContent] = useState({});
   const timeNow = dayjs(Date.now()).toISOString();
 
   const checkUser = () => {
@@ -95,8 +95,8 @@ function App() {
     setResetSearch(!resetSearch);
   };
 
-  const handleActivity = (id) => {
-    setIdActivity(id);
+  const handleActivity = (data) => {
+    setActivityContent(data);
     setActivity(!activity);
   };
 
@@ -137,7 +137,7 @@ function App() {
     help,
     legalMention,
     resetSearch,
-    idActivity,
+    activityContent,
     timeNow,
   };
 
