@@ -56,7 +56,6 @@ function Activity({ props, funct }) {
       setRegisterId(response.data.id);
     } catch (error) {
       setIsRegistered(false);
-      throw new Error(error);
     }
   };
 
