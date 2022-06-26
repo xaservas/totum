@@ -9,17 +9,11 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-const headersMail = {
-  'Content-Type': 'text/html',
-  'X-Mailer': 'Totum',
-  From: 'contact@totum.fr',
-};
-
 const sendMail = {
   sendMail: async (data) => {
     try {
       mailData = {
-        headersMail,
+        from: 'contact@totum.ovh',
         to: 'contact@totum.ovh',
         subject: `Message de ${data.email}`,
         text: data.message,
@@ -38,7 +32,7 @@ const sendMail = {
     console.log(data);
     try {
       mailData = {
-        headersMail,
+        from: 'contact@totum.ovh',
         to: data.email,
         subject: 'Réinitialisation de votre mot de passe',
         text: `Votre nouveau mot de passe est : ${data.password},
