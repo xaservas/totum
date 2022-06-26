@@ -14,7 +14,7 @@ const sendMail = {
     try {
       (mailData = {
         from: 'totum.ovh',
-        to: 'totum@webplayground.fr',
+        to: 'contact@totum.ovh',
         subject: `Message de ${data.email}`,
         text: data.message,
       }),
