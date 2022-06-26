@@ -318,7 +318,7 @@ router
 router
   .route('/:id/manage/passwordUpdate')
   /**
-   * POST /v1/user/{id}/manage/passwordUpdate
+   * PATCH /v1/user/{id}/manage/passwordUpdate
    * @summary Update user password by id
    * @tags Manage user
    * @security BearerAuth
@@ -345,7 +345,7 @@ router
    * "message": "Passwords do not match"
    * }
    */
-  .post(
+  .patch(
     controllerHandler(jwt.verifyToken),
     validator('params', userGetSchema),
     validator('body', userManageSchema),
@@ -355,7 +355,7 @@ router
 router
   .route('/:id/manage/emailUpdate')
   /**
-   * POST /v1/user/{id}/manage/emailUpdate
+   * PATCH /v1/user/{id}/manage/emailUpdate
    * @summary Update user email by id
    * @tags Manage user
    * @security BearerAuth
@@ -384,7 +384,7 @@ router
    * "message": "email is the same as the old one"
    * }
    */
-  .post(
+  .patch(
     controllerHandler(jwt.verifyToken),
     validator('params', userGetSchema),
     validator('body', userManageSchema),

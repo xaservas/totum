@@ -26,7 +26,9 @@ function CreateActivity({ props, funct }) {
   });
 
   const sortObjectsByProp = (objectsArr, prop, ascending = true) => {
-    const objectsHaveProp = objectsArr.every((object) => object.hasOwnProperty(prop));
+    const objectsHaveProp = objectsArr.every((object) =>
+      object.hasOwnProperty(prop),
+    );
     if (objectsHaveProp) {
       const newObjectsArr = objectsArr.slice();
       newObjectsArr.sort((a, b) => {
@@ -127,9 +129,9 @@ function CreateActivity({ props, funct }) {
         </div>
       </div>
 
-      <div class='in-container'>
-        <div class='left'>
-          <div class='userChoise'>
+      <div className='in-container'>
+        <div className='left'>
+          <div className='userChoise'>
             <div className='field column '>
               <label className='label'>Participants</label>
               <div className='control'>
@@ -193,7 +195,7 @@ function CreateActivity({ props, funct }) {
             </div>
           </div>
         </div>
-        <div class='center'>
+        <div className='center'>
           <label className='label'>Adresse</label>
           <div className='control'>
             <input
@@ -239,7 +241,7 @@ function CreateActivity({ props, funct }) {
             />
           </div>
         </div>
-        <div class='rigth'>
+        <div className='rigth'>
           <div className='field'>
             <label className='label'>Date</label>
             {/* Find a calendar module */}
