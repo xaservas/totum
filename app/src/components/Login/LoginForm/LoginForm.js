@@ -12,6 +12,7 @@ function LoginForm({ funct }) {
   const handleMode = (e) => {
     e.preventDefault();
     setFormMode(!formMode);
+    setError('');
   };
 
   const viewRestore = formMode ? 'showRestoreForm' : '';
@@ -37,11 +38,14 @@ function LoginForm({ funct }) {
 
     if (mode === 'restore') {
       switch (data) {
-        case 400:
-          setError('Erreur inconnue');
+        case 200:
+          setError('Email envoyé');
           break;
-        case 409:
-          setError('Email déjà utilisé');
+        case 404:
+          setError("L'utilisateur n'existe pas");
+          break;
+        case 401:
+          setError('Erreur inconnue merci de réessayer plus tard');
           break;
         default:
           setError('');
@@ -87,11 +91,13 @@ function LoginForm({ funct }) {
       },
     })
       .then((response) => {
-        console.log(response);
+        errorMessage(response.status, 'restore');
+        setTimeout(() => {
+          handleMode();
+        }, 1500);
       })
       .catch((err) => {
-        console.log(err);
-        // errorMessage(err.response.status, 'restore');
+        errorMessage(err.response.status, 'restore');
       });
   };
 
