@@ -1,41 +1,56 @@
-import {
-  GoogleReCaptchaProvider,
-  useGoogleReCaptcha,
-  GoogleReCaptcha,
-} from 'react-google-recaptcha-v3';
-import { useState } from 'react';
+import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
+import { useState, useEffect } from 'react';
 import Axios from '../../../utils/axiosPool';
 
+// base page
 import './help.scss';
 
-function Help() {
-  const ReComponent = () => {
-    const [token, setToken] = useState('');
-    const [email, setEmail] = useState('');
-    const [message, setMessage] = useState('');
-    const { executeRecaptcha } = useGoogleReCaptcha();
+function Help({ funct }) {
+  const { executeRecaptcha } = useGoogleReCaptcha();
+  const [token, setToken] = useState('');
+  const [email, setEmail] = useState('');
+  const [message, setMessage] = useState('');
 
-    const handleSubmit = async () => {
-      try {
-        const newToken = await executeRecaptcha('contact');
-        setToken(newToken);
-        Axios({
-          method: 'POST',
-          url: '/user/sendMail',
-          data: {
-            email,
-            message,
-            token,
-          },
-        });
-      } catch (err) {
-        throw new Error(err);
-      }
+  const submit = async () => {
+    try {
+      Axios({
+        method: 'POST',
+        url: '/user/sendMail',
+        data: {
+          email,
+          message,
+          token,
+        },
+      });
+    } catch (err) {
+      throw new Error(err);
+    }
+  };
+
+  const sendMail = async () => {
+    if (!executeRecaptcha) {
+      return;
+    }
+    const result = await executeRecaptcha('contact');
+    setToken(result);
+    submit();
+    funct.closeAllModal();
+  };
+
+  useEffect(() => {
+    if (!executeRecaptcha) {
+      return;
+    }
+    const handleReCaptchaVerify = async () => {
+      const token2 = await executeRecaptcha('contact');
+      setToken(token2);
     };
+    handleReCaptchaVerify();
+  }, [executeRecaptcha]);
 
-    return (
+  return (
+    <div className='help'>
       <div>
-        <GoogleReCaptcha onVerify={(t) => console.log(t)} />
         <h1>Aide</h1>
         <h2>Nous contacter</h2>
         <input
@@ -56,21 +71,11 @@ function Help() {
           required
           onChange={(e) => setMessage(e.target.value)}
         />
-        <button className='button' onClick={handleSubmit}>
+        <button className='button' onClick={sendMail}>
           Envoyer
         </button>
       </div>
-    );
-  };
-
-  return (
-    <GoogleReCaptchaProvider
-      language='fr'
-      reCaptchaKey='6LeeCZ0gAAAAAHk6N5QVHqr_lI7XpUOc98pSQnTG'>
-      <div className='help'>
-        <ReComponent />
-      </div>
-    </GoogleReCaptchaProvider>
+    </div>
   );
 }
 
