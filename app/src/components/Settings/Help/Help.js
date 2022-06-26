@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import { useState, useEffect } from 'react';
 import Axios from '../../../utils/axiosPool';
@@ -10,10 +11,25 @@ function Help({ funct }) {
   const [token, setToken] = useState('');
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
+  const [error, setError] = useState('');
+
+  const checkStatus = (response) => {
+    switch (response) {
+      case 200:
+        setError('Votre message a bien été envoyé');
+        break;
+      case 401:
+        setError("Votre message n'a pas été envoyé");
+        break;
+      default:
+        setError('Une erreur est survenue');
+        break;
+    }
+  };
 
   const submit = async () => {
     try {
-      Axios({
+      const postMail = await Axios({
         method: 'POST',
         url: '/user/sendMail',
         data: {
@@ -22,6 +38,13 @@ function Help({ funct }) {
           token,
         },
       });
+      checkStatus(postMail.status);
+      setTimeout(() => {
+        funct.closeAllModal();
+        setError('');
+        setEmail('');
+        setMessage('');
+      }, 2000);
     } catch (err) {
       throw new Error(err);
     }
@@ -34,9 +57,6 @@ function Help({ funct }) {
     const result = await executeRecaptcha('contact');
     setToken(result);
     submit();
-    setEmail('');
-    setMessage('');
-    funct.closeAllModal();
   };
 
   useEffect(() => {
@@ -55,6 +75,7 @@ function Help({ funct }) {
       <div>
         <h1>Aide</h1>
         <h2>Nous contacter</h2>
+        <p>{error}</p>
         <input
           required
           name='email'
