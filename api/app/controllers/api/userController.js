@@ -135,7 +135,7 @@ const userController = {
 
     const response = await fetch(url);
     const json = await response.json();
-
+    console.log(json);
     if (json.success) {
       const transporter = nodemailer.sendMail(data);
       if (transporter) {
