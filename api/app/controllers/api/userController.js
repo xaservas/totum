@@ -131,16 +131,18 @@ const userController = {
 
   async sendMail(req, res) {
     const data = req.body;
-    const url = `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.API_CAPTCHA}&response=${data.token}`;
+    const url = `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.BACK_CAPTCHA}&response=${data.token}`;
 
     const response = await fetch(url);
     const json = await response.json();
-    // if (json.success) {
-    const transporter = nodemailer.sendMail(data);
-    if (transporter) {
-      return res.status(200).json({ message: 'Mail sent' });
+
+    if (json.success) {
+      const transporter = nodemailer.sendMail(data);
+      if (transporter) {
+        return res.status(200).json({ message: 'Mail sent' });
+      }
+      return res.status(401).json({ message: 'Mail not sent' });
     }
-    // }
     return res.status(401).json({ message: 'Invalid token' });
   },
 
