@@ -51,6 +51,11 @@ function Activity({ props, funct }) {
           id_user: JSON.parse(localStorage.getItem('id')),
           id_activity: props.idActivity,
         },
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
       });
       setIsRegistered(true);
       setRegisterId(response.data.id);
