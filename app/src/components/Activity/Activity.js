@@ -198,11 +198,11 @@ function Activity({ props, funct }) {
           </div>
         </aside>
 
-        <aside class='content-info'>
+        <aside className='content-info'>
           <p className='content-description'>{activity.description}</p>
           <p className='activity__participants'>
-            <span class='participant'>participants</span> {participants.length}/
-            {activity.max_participants}
+            <span className='participant'>participants</span>{' '}
+            {participants.length}/{activity.max_participants}
           </p>
           <progress
             className='activity__takeholders progress box is-success'
