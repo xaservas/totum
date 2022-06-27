@@ -3,6 +3,8 @@
 /* ---https://webplayground.fr--- */
 /* ----------------------------- */
 
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+
 /* base font-size corresponds to 10px and is adapted to rem unit */
 html {
   font-size: 62.5%;
@@ -10,7 +12,7 @@ html {
 body {
   background-color: #fff;
   color: #000;
-  font-family: 'Century Gothic', helvetica, arial, sans-serif;
+  font-family: 'Lato', sans-serif, sans-serif;
   font-size: 1.4em; /* equiv 14px */
   line-height: 1.5; /* adapt to your design */
 }
