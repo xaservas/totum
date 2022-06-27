@@ -12,7 +12,7 @@ import Activities from '../ListActivities/ListActivities';
 import CreateActivity from '../CreateActivity/CreateActivity';
 import Login from '../Login/Login';
 import Profil from '../Profile/Profile';
-import Settings from '../Settings/Usersettings/Usersettings';
+import Settings from '../Settings/Settings';
 import CreateProfil from '../CreateProfil/CreateProfile';
 import Help from '../Settings/Help/Help';
 import LegalMention from '../Settings/LegalMention/LegalMention';
@@ -106,7 +106,7 @@ function Desktop({ props, funct }) {
           className='icon_close'
           onClick={() => funct.closeAllModal()}
         />
-        <Settings />
+        <Settings props={props} funct={funct} />
       </div>
 
       <div id='modalCreateProfil' className={createUser}>

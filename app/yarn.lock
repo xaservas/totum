@@ -3287,6 +3287,7 @@ cosmiconfig@^7.0.0:
   integrity sha512-a1YWNUV2HwGimB7dU2s1wUMurNKjpx60HxBB6xUM8Re+2s1g1IIfJvFR0/iCF+XHdE0GMTKTuLR32UQff4TEyQ==
   dependencies:
     "@types/parse-json" "^4.0.0"
+
     import-fresh "^3.2.1"
     parse-json "^5.0.0"
     path-type "^4.0.0"
@@ -3678,6 +3679,7 @@ dns-packet@^5.2.2:
   version "5.3.1"
   resolved "https://registry.npmjs.org/dns-packet/-/dns-packet-5.3.1.tgz"
   integrity sha512-spBwIj0TK0Ey3666GwIdWVfUpLyubpU53BTCu8iPn4r4oXd9O14Hjg3EHw3ts2oed77/SeckunUYCyRlSngqHw==
+
   dependencies:
     "@leichtgewicht/ip-codec" "^2.0.1"
 

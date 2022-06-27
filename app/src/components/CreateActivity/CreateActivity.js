@@ -27,7 +27,9 @@ function CreateActivity({ props, funct }) {
 
   const sortObjectsByProp = (objectsArr, prop, ascending = true) => {
     const objectsHaveProp = objectsArr.every((object) =>
-      object.hasOwnProperty(prop),
+
+      object.hasOwnProperty(prop)
+
     );
     if (objectsHaveProp) {
       const newObjectsArr = objectsArr.slice();
@@ -155,6 +157,7 @@ function CreateActivity({ props, funct }) {
           </select>
         </div>
       </div>
+
       <div className='field'>
         <label className='label'>Niveau</label>
         <div className='select-style'>
@@ -170,6 +173,7 @@ function CreateActivity({ props, funct }) {
               </option>
             ))}
           </select>
+
         </div>
       </div>
       <div className='field description'>

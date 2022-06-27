@@ -1,13 +1,17 @@
 /* eslint-disable no-unused-expressions */
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './settings.scss';
 import axios from '../../utils/axiosPool';
 import mapbox from '../../utils/mapbox';
 
-function Settings({ funct }) {
+function Settings({ props }) {
+  // const userData = localStorage.getItem('');
+  // console.log(userData);
   const [firstname, setFirstname] = useState('');
   const [lastname, setLastname] = useState('');
   const [email, setEmail] = useState('');
+  const [emailNew, setEmailNew] = useState('');
+  const [emailConfirmation, setEmailConfirmation] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
   const [address, setAddress] = useState('');
@@ -15,28 +19,28 @@ function Settings({ funct }) {
   const [city, setCity] = useState('');
   const [country, setCountry] = useState('');
   const [about, setAbout] = useState('');
-  const [coordinate, setCoordinate] = useState([]);
+  const [user, setUser] = useState('');
   const [cookieValue, setCookieValue] = useState(false);
-  const [landmarkValue, setLandmarkValue] = useState(false);
 
   const [autocompleteAddress, setAutocompleteAddress] = useState([]);
   const [autocompleteErr, setAutocompleteErr] = useState('');
-  const [error, setError] = useState('');
+  // const [error, setError] = useState('');
+  const userId = localStorage.getItem('id');
 
   // gestion des erreurs--------------
-  const errorMessage = (data) => {
-    switch (data) {
-    case 401:
-      setError('Les mots de passe de sont pas identique');
-      break;
-    case 400:
-      setError('Erreur inconnue');
-      break;
-    default:
-      setError('');
-      break;
-    }
-  };
+  // const errorMessage = (data) => {
+  //   switch (data) {
+  //   case 401:
+  //     setError('Les mots de passe de sont pas identique');
+  //     break;
+  //   case 400:
+  //     setError('Erreur inconnue');
+  //     break;
+  //   default:
+  //     setError('');
+  //     break;
+  //   }
+  // };
 
   const handleAddressChange = async (e) => {
     setAddress(e.target.value);
@@ -49,15 +53,7 @@ function Settings({ funct }) {
     res.error ? setAutocompleteErr(res.error) : setAutocompleteErr('');
   };
 
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition((position) => {
-      setLandmarkValue(true);
-      setCoordinate([
-        (coordinate[0] = position.coords.latitude),
-        (coordinate[1] = position.coords.longitude),
-      ]);
-    });
-  }
+  //  split de l'adresse dans les différents champs
 
   const splitAdress = () => {
     const countryType = document.getElementById('country2');
@@ -91,42 +87,118 @@ function Settings({ funct }) {
     setCookieValue(newValueB);
   };
 
-  const handleSubmit = (event) => {
-    document.getElementById('emailForm'.onSubmit());
-    document.getElementById('passwordForm'.onSubmit());
-    document.getElementById('infoForm'.onSubmit());
-    axios({
-      method: 'patch',
-      url: '/user/{id}/manage',
-      data: {
-        firstname: `${firstname}`,
-        lastname: `${lastname}`,
-        email: `${email}`,
-        password: `${password}`,
-        passwordConfirmation: `${passwordConfirmation}`,
-        address: `${address}`,
-        zip_code: `${zipCode}`,
-        city: `${city}`,
-        country: `${country}`,
-        about: `${about}`,
-        coordinate: JSON.stringify(coordinate),
-        cookie: `${cookieValue}`,
-        landmark: `${landmarkValue}`,
-      },
-    })
-      .then(() => {
-        funct.closeAllModal();
-      })
-      .catch((err) => {
-        // ajouter un message d'information si sa marche pas
-        errorMessage(err.response.status);
+  //  Appel datalist
+
+  const getUserById = async (id) => {
+    try {
+      const response = await axios({
+        method: 'get',
+        url: `/user/${id}/manage`,
       });
-    event.preventDefault();
+      setFirstname(response.data.firstname);
+      setLastname(response.data.lastname);
+      setAddress(response.data.address);
+      setEmail(response.data.email);
+      setZipcode(response.data.zip_code);
+      setCity(response.data.city);
+      setCountry(response.data.country);
+      setAbout(response.data.about);
+    } catch (err) {
+      throw new Error(err);
+    }
+  };
+
+  useEffect(() => {
+    getUserById(userId);
+  }, [props.parameters]);
+
+  const handleSubmit = () => {
+    if (password !== '' && passwordConfirmation !== '') {
+      if (password === passwordConfirmation) {
+        axios({
+          method: 'patch',
+          url: `/user/${userId}/manage/passwordUpdate`,
+          data: {
+            password: `${password}`,
+            passwordConfirmation: `${passwordConfirmation}`,
+
+          },
+
+        })
+          .then((res) => {
+            console.log(res);
+          // funct.closeAllModal();
+          })
+          .catch((err) => {
+          // ajouter un message d'information si sa marche pas
+          // errorMessage(err.response.status);
+            console.log(err);
+            console.log('erreur mot de passe');
+          });
+      }
+      // return 'les mots de passe ne corresponds pas';
+    }
+
+    if (email === localStorage.getItem('email') && emailNew !== '' && emailConfirmation !== '') {
+      if (emailNew === emailConfirmation) {
+        axios({
+          method: 'patch',
+          url: `/user/${userId}/manage/emailUpdate`,
+          data: {
+            email: `${email}`,
+            emailNew,
+            emailConfirmation,
+          },
+
+        })
+          .then((res) => {
+            console.log(res);
+          // funct.closeAllModal();
+          })
+          .catch((err) => {
+          // ajouter un message d'information si sa marche pas
+          // errorMessage(err.response.status);
+            console.log(err);
+            console.log('erreur mail');
+          });
+        // return 'les mails sont identiques';
+      }
+      // pas pareille les mails
+    }
+    if (
+      user !== localStorage.getItem('user')) {
+      axios({
+        method: 'patch',
+        url: `/user/${userId}/manage`,
+        data: {
+          firstname: `${firstname}`,
+          lastname: `${lastname}`,
+          address: `${address}`,
+          zip_code: `${zipCode}`,
+          city: `${city}`,
+          country: `${country}`,
+          about: `${about}`,
+          cookie: `${cookieValue}`,
+
+        },
+      })
+        .then((res) => {
+          console.log(res);
+          // funct.closeAllModal();
+        })
+        .catch((err) => {
+          // ajouter un message d'information si sa marche pas
+          // errorMessage(err.response.status);
+          console.log(err);
+          console.log('erreur data');
+          // return 'les mails sont identiques';
+        });
+    } return 'error';
   };
 
   return (
-    <div className="changeProfile">
 
+    <div className="changeProfile">
       <form id="emailForm">
         <input
           required
@@ -135,7 +207,26 @@ function Settings({ funct }) {
           type='email'
           className='input'
           placeholder='Mail'
+          value={email}
           onChange={(e) => setEmail(e.target.value)}
+        />
+        <input
+          required
+          id='emailNew'
+          name='emailNew'
+          type='email'
+          className='input'
+          placeholder='emailNew'
+          onChange={(e) => setEmailNew(e.target.value)}
+        />
+        <input
+          required
+          id='EmailConfirmation'
+          name='EmailConfirmation'
+          type='email'
+          className='input'
+          placeholder='EmailConfirmation'
+          onChange={(e) => setEmailConfirmation(e.target.value)}
         />
       </form>
       <form id="passwordForm" className='password'>
@@ -159,13 +250,14 @@ function Settings({ funct }) {
 
       </form>
       <form id="infoForm" >
-        <p className='errorMessage'>{error}</p>
+        <p className='errorMessage'>error</p>
         <input
           required
           name='firstname'
           type='text'
           className='input'
           placeholder='Prénom'
+          value={firstname}
           onChange={(e) => setFirstname(e.target.value)}
         />
         <input
@@ -174,6 +266,7 @@ function Settings({ funct }) {
           type='text'
           className='input'
           placeholder='Nom'
+          value={lastname}
           onChange={(e) => setLastname(e.target.value)}
         />
 
@@ -196,6 +289,7 @@ function Settings({ funct }) {
           type='text'
           className='input'
           placeholder='Adresse'
+          value={address}
           onChange={(e) => setAddress(e.target.value)}
         />
         <datalist id='places'>
@@ -212,6 +306,7 @@ function Settings({ funct }) {
             type='text'
             className='input'
             placeholder='Code Postal'
+            value={zipCode}
             onChange={(e) => setZipcode(e.target.value)}
           />
           <input
@@ -221,6 +316,7 @@ function Settings({ funct }) {
             type='text'
             className='input'
             placeholder='Ville'
+            value={city}
             onChange={(e) => setCity(e.target.value)}
           />
         </div>
@@ -231,6 +327,7 @@ function Settings({ funct }) {
           type='text'
           className='input'
           placeholder='Pays'
+          value={country}
           onChange={(e) => setCountry(e.target.value)}
         />
         <input
@@ -238,32 +335,20 @@ function Settings({ funct }) {
           type='text'
           className='input'
           placeholder='Présentation'
+          value={about}
           onChange={(e) => setAbout(e.target.value)}
         />
         <div className='OptionLogin'>
           <label className='checkbox'>
             <input name='cookie' type='checkbox' onClick={cookieClick} />{' '}
-            <span className='slider round'> </span> <p> cookies </p>{' '}
-          </label>
-          <label className='checkbox'>
-            <input name='notification' type='checkbox' />
-            <span className='slider round'> </span> <p> Notification </p>
+            <span className='slider round'> </span> <p> Cookies </p>
           </label>
 
-          <label className='checkbox'>
-            <input name='email' type='checkbox' />
-            <span className='slider round'> </span> <p> E-mails </p>
-          </label>
-
-          <label className='checkbox'>
-            <input name='sms' type='checkbox' />
-            <span className='slider round'> </span> <p> SMS </p>
-          </label>
         </div>
-        <button className='button' onSubmit={handleSubmit}> Valider </button>
       </form>
-
+      <button className='button' onClick={handleSubmit}> Valider </button>
     </div>
+
   );
 }
 
