@@ -1,8 +1,14 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
+import {
+  faUser,
+  faBars,
+  faMagnifyingGlass,
+  faCirclePlus,
+} from '@fortawesome/free-solid-svg-icons';
 
 // base page
 import './header.scss';
+import SearchAdvance from '../Search/SearchAdvance';
 import SearchSimple from '../Search/SearchSimple';
 
 function Header({ props, funct }) {
@@ -12,16 +18,17 @@ function Header({ props, funct }) {
     <header className='header'>
       <nav className='navbar' role='navigation' aria-label='main navigation'>
         <div className='totumtitle'>
-          <h1>TOTUM</h1>
+          <h1 className='title'>TOTUM</h1>
         </div>
+        <FontAwesomeIcon icon={faBars} className={'burgerMenu'} />
+        <SearchAdvance props={props} funct={funct} />
         <SearchSimple props={props} funct={funct} />
-        <a
-          className='addActivity'
-          onClick={
-            props.isLogged ? funct.handleCreateActivity : funct.handleLogin
-          }>
-          Proposer une activité
-        </a>
+        <div className='icon' id='search'>
+          <FontAwesomeIcon
+            icon={faMagnifyingGlass}
+            className='searchIndicator'
+          />
+        </div>
         <div className='icon' id='menu'>
           <FontAwesomeIcon
             icon={faUser}
@@ -54,6 +61,13 @@ function Header({ props, funct }) {
           </ul>
         </div>
       </div>
+      <FontAwesomeIcon
+        icon={faCirclePlus}
+        className='addActivity'
+        onClick={
+          props.isLogged ? funct.handleCreateActivity : funct.handleLogin
+        }
+      />
     </header>
   );
 }

@@ -5,8 +5,6 @@
   display: flex;
   flex-wrap: wrap;
   .left {
-    // height: calc(100vh - 14vh);
-    width: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -16,12 +14,13 @@
     -webkit-box-shadow: 0px 0px 21px 5px rgba(0, 0, 0, 0.72);
     box-shadow: 0px 0px 21px 5px rgba(0, 0, 0, 0.72);
     .leaflet-container {
-      width: 48vw;
-      height: 80vh;
+      width: 100vw;
+      height: 100vh;
     }
   }
 
   .right {
+    display: none;
     height: calc(100vh - 14vh);
     width: 50%;
     .search {
@@ -121,55 +120,9 @@ footer {
 // ------------------------------------------------------------
 
 @media screen and (max-width: 765px) {
-  .desktop {
-    flex-direction: column;
-    align-items: center;
-    .left,
-    .right {
-      width: 100%;
-      z-index: 1;
-    }
-    .left {
-      .leaflet-container {
-        width: 95vw;
-        height: 80vh;
-      }
-    }
-
-    .isActive {
-      top: 0;
-      left: 50%;
-      transform: translateX(-50%);
-    }
-  }
 }
 
 // -------------------------------------------------------------
 
 @media screen and (max-width: 550px) {
-  .desktop {
-    .icon_close {
-      z-index: 2;
-    }
-    .right {
-      height: auto;
-      position: absolute;
-      top: 5rem;
-      .activitiesList {
-        display: none;
-      }
-    }
-    .icon_create {
-      display: block;
-      font-size: 4rem;
-      background-color: #ffffff00;
-      color: lightgreen;
-      position: relative;
-      bottom: 2rem;
-      z-index: 1000;
-      border-radius: 90%;
-      -webkit-box-shadow: 0px 0px 21px 5px rgba(0, 0, 0, 0.72);
-      box-shadow: 0px 0px 21px 5px rgba(0, 0, 0, 0.72);
-    }
-  }
 }

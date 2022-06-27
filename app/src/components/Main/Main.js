@@ -1,7 +1,6 @@
 // fontawesome
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCirclePlus, faXmark } from '@fortawesome/free-solid-svg-icons';
-import SearchAdvance from '../Search/SearchAdvance';
 
 // base page
 import './main.scss';
@@ -36,14 +35,7 @@ function Desktop({ props, funct }) {
           <Map props={props} funct={funct} />
         </div>
       </div>
-      <div className='right'>
-        <div className='search'>
-          <SearchAdvance props={props} funct={funct} />
-        </div>
-        <div className='activitiesList'>
-          <Activities props={props} funct={funct} />
-        </div>
-      </div>
+      <div className='right'></div>
 
       {/* zone modal */}
 

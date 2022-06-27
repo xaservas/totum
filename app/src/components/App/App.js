@@ -165,7 +165,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Main props={props} funct={funct} />} />
       </Routes>
-      <Footer funct={funct} />
+      <Footer funct={funct} props={props} />
     </div>
   );
 }

@@ -46,7 +46,7 @@ function SearchSimple({ funct }) {
         className='input_simpleSearch'
         type='text'
         name='search'
-        placeholder='recherche'
+        placeholder='Champ de recherche'
         onChange={(e) => handleChange(e)}
       />
     </div>
