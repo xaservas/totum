@@ -200,98 +200,116 @@ function Settings({ props }) {
 
     <div className="changeProfile">
       <form id="emailForm">
-        <input
-          required
-          id='email'
-          name='email'
-          type='email'
-          className='input'
-          placeholder='Mail'
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <input
-          required
-          id='emailNew'
-          name='emailNew'
-          type='email'
-          className='input'
-          placeholder='emailNew'
-          onChange={(e) => setEmailNew(e.target.value)}
-        />
-        <input
-          required
-          id='EmailConfirmation'
-          name='EmailConfirmation'
-          type='email'
-          className='input'
-          placeholder='EmailConfirmation'
-          onChange={(e) => setEmailConfirmation(e.target.value)}
-        />
+        <div className="field">
+          <label className='label'>Email</label>
+          <input
+            required
+            id='email'
+            name='email'
+            type='email'
+            className='input'
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </div>
+        <div className="modifMail">
+          <div className='field'>
+            <label className='label'>Changement d'email</label>
+            <input
+              required
+              id='emailNew'
+              name='emailNew'
+              type='email'
+              className='input'
+              onChange={(e) => setEmailNew(e.target.value)}
+            />
+          </div>
+          <div className="field">
+            <label className='label'>Confirmation d'email</label>
+            <input
+              required
+              id='EmailConfirmation'
+              name='EmailConfirmation'
+              type='email'
+              className='input'
+              onChange={(e) => setEmailConfirmation(e.target.value)}
+            />
+          </div>
+        </div>
       </form>
       <form id="passwordForm" className='password'>
-
-        <input
-          required
-          name='password'
-          type='password'
-          className='input'
-          placeholder='Mot de passe'
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <input
-          required
-          name='passwordConfirmation'
-          type='password'
-          className='input'
-          placeholder='Confirmation de Mot de passe'
-          onChange={(e) => setPasswordConfirmation(e.target.value)}
-        />
+        <div className="field">
+          <label className='label'>Nouveau mot de passe</label>
+          <input
+            required
+            name='password'
+            type='password'
+            className='input'
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
+        <div className="field">
+          <label className='label'>Nouveau mot de passe</label>
+          <input
+            required
+            name='password'
+            type='password'
+            className='input'
+            onChange={(e) => setPasswordConfirmation(e.target.value)}
+          />
+        </div>
 
       </form>
       <form id="infoForm" >
-        <p className='errorMessage'>error</p>
-        <input
-          required
-          name='firstname'
-          type='text'
-          className='input'
-          placeholder='Prénom'
-          value={firstname}
-          onChange={(e) => setFirstname(e.target.value)}
-        />
-        <input
-          required
-          name='lastname'
-          type='text'
-          className='input'
-          placeholder='Nom'
-          value={lastname}
-          onChange={(e) => setLastname(e.target.value)}
-        />
 
-        <input
-          id='searchAddress2'
-          list='places'
-          name='searchAddress'
-          type='text'
-          className='input'
-          placeholder='searchAddress'
-          onChange={handleAddressChange}
-          pattern={autocompleteAddress.join('|')}
-          autoComplete='off'
-          onBlur={splitAdress}
-        />
-        <input
-          required
-          id='address2'
-          name='address'
-          type='text'
-          className='input'
-          placeholder='Adresse'
-          value={address}
-          onChange={(e) => setAddress(e.target.value)}
-        />
+        <div className="field">
+          <label className='label'>Prénom</label>
+          <input
+            required
+            name='firstname'
+            type='text'
+            className='input'
+            value={firstname}
+            onChange={(e) => setFirstname(e.target.value)}
+          />
+        </div>
+        <div className="field">
+          <label className='label'>Nom</label>
+          <input
+            required
+            name='lastname'
+            type='text'
+            className='input'
+            value={lastname}
+            onChange={(e) => setLastname(e.target.value)}
+          />
+        </div>
+        <div className="field">
+          <label className='label'>Recherche d'adresse</label>
+          <input
+            id='searchAddress2'
+            list='places'
+            name='searchAddress'
+            type='text'
+            className='input'
+            onChange={handleAddressChange}
+            pattern={autocompleteAddress.join('|')}
+            autoComplete='off'
+            onBlur={splitAdress}
+          />
+        </div>
+        <div className="field">
+          <label className='label'>Numéro + Rue</label>
+          <input
+            required
+            id='address2'
+            name='address'
+            type='text'
+            className='input'
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
+          />
+        </div>
         <datalist id='places'>
           {autocompleteAddress.map((addresses, i) => (
             <option key={i}>{addresses}</option>
@@ -299,45 +317,53 @@ function Settings({ props }) {
         </datalist>
         {autocompleteErr && <span className='inputError'>{autocompleteErr}</span>}
         <div className='zipCity2'>
+          <div className="field">
+            <label className='label'>Code Postal</label>
+            <input
+              required
+              id='zipCode2'
+              name='zipCode'
+              type='text'
+              className='input'
+              value={zipCode}
+              onChange={(e) => setZipcode(e.target.value)}
+            />
+          </div>
+          <div className="field">
+            <label className='label'>Ville</label>
+            <input
+              required
+              id='city2'
+              name='city'
+              type='text'
+              className='input'
+              value={city}
+              onChange={(e) => setCity(e.target.value)}
+            />
+          </div>
+        </div>
+        <div className="field">
+          <label className='label'>Pays</label>
           <input
             required
-            id='zipCode2'
-            name='zipCode'
+            id='country2'
+            name='country'
             type='text'
             className='input'
-            placeholder='Code Postal'
-            value={zipCode}
-            onChange={(e) => setZipcode(e.target.value)}
-          />
-          <input
-            required
-            id='city2'
-            name='city'
-            type='text'
-            className='input'
-            placeholder='Ville'
-            value={city}
-            onChange={(e) => setCity(e.target.value)}
+            value={country}
+            onChange={(e) => setCountry(e.target.value)}
           />
         </div>
-        <input
-          required
-          id='country2'
-          name='country'
-          type='text'
-          className='input'
-          placeholder='Pays'
-          value={country}
-          onChange={(e) => setCountry(e.target.value)}
-        />
-        <input
-          name='about'
-          type='text'
-          className='input'
-          placeholder='Présentation'
-          value={about}
-          onChange={(e) => setAbout(e.target.value)}
-        />
+        <div className="field">
+          <label className='label'>Présentation</label>
+          <input
+            name='about'
+            type='text'
+            className='input'
+            value={about}
+            onChange={(e) => setAbout(e.target.value)}
+          />
+        </div>
         <div className='OptionLogin'>
           <label className='checkbox'>
             <input name='cookie' type='checkbox' onClick={cookieClick} />{' '}
