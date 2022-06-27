@@ -22,7 +22,9 @@ function Activity({ props, funct }) {
 
   const getParticipants = async () => {
     try {
-      const response = await Axios.get(`/activity/${props.idActivity}/user`);
+      const response = await Axios.get(
+        `/activity/${props.activityContent.id}/user`,
+      );
       setParticipants(response.data);
     } catch (error) {
       setParticipants([]);
@@ -31,7 +33,9 @@ function Activity({ props, funct }) {
 
   const getComments = async () => {
     try {
-      const response = await Axios.get(`/comment/${props.idActivity}/activity`);
+      const response = await Axios.get(
+        `/comment/${props.activityContent.id}/activity`,
+      );
       setComments(response.data);
     } catch (error) {
       setComments([
@@ -49,23 +53,18 @@ function Activity({ props, funct }) {
         url: '/register/getForUser',
         data: {
           id_user: JSON.parse(localStorage.getItem('id')),
-          id_activity: props.idActivity,
+          id_activity: props.activityContent.id,
+        },
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
       });
       setIsRegistered(true);
       setRegisterId(response.data.id);
     } catch (error) {
       setIsRegistered(false);
-      throw new Error(error);
-    }
-  };
-
-  const getActivity = async () => {
-    try {
-      const response = await Axios.get(`/activity/${props.idActivity}/manage`);
-      setActivity(response.data);
-    } catch (error) {
-      throw new Error(error);
     }
   };
 
@@ -117,34 +116,37 @@ function Activity({ props, funct }) {
   };
 
   useEffect(() => {
-    if (props.idActivity !== 0) {
-      getActivity();
+    if (Object.keys(props.activityContent).length !== 0) {
+      setActivity(props.activityContent);
       getParticipants();
       getComments();
       getRegister();
       setRegister({
         id_user: JSON.parse(localStorage.getItem('id')),
-        id_activity: props.idActivity,
+        id_activity: props.activityContent.id,
       });
     }
-  }, [props.idActivity]);
+  }, [props.activityContent]);
 
   useEffect(() => {
-    if (props.idActivity !== 0) {
+    if (Object.keys(props.activityContent).length !== 0) {
       getComments();
     }
   }, [checkNewComment]);
 
   useEffect(() => {
-    getRegister();
-    setRegister({
-      id_user: JSON.parse(localStorage.getItem('id')),
-      id_activity: props.idActivity,
-    });
+    if (Object.keys(props.activityContent).length !== 0) {
+      getRegister();
+      setRegister({
+        id_user: JSON.parse(localStorage.getItem('id')),
+        id_activity: props.activityContent.id,
+      });
+    }
   }, [props.isLogged]);
 
   const ButtonComment = () => (
-    <button className='button is-primary' onClick={handleModalCreateComment}>
+    <button className='button-com is-primary' onClick={handleModalCreateComment}>
+
       Commenter
     </button>
   );
@@ -152,10 +154,12 @@ function Activity({ props, funct }) {
   const ButtonRegister = () => (
     <aside className='content-button'>
       <button
-        className='button is-primary'
+        className='button-par is-primary'
         onClick={() => registerToActivity()}>
+
         Je veux participer
       </button>
+      <div className='trait'></div>
       <ButtonComment />
     </aside>
   );
@@ -163,10 +167,12 @@ function Activity({ props, funct }) {
   const ButtonUnregister = () => (
     <aside className='content-button'>
       <button
-        className='button is-primary is-link'
+        className='button-cancel is-primary is-link'
         onClick={unregisterToActivity}>
+
         Je ne veux plus participer
       </button>
+      <div className='trait'></div>
       <ButtonComment />
     </aside>
   );
@@ -174,16 +180,28 @@ function Activity({ props, funct }) {
   const ButtonLogin = () => (
     <aside className='content-button'>
       <button
-        className='button is-primary is-link'
+        className='button-connexion is-primary is-link'
         onClick={() => funct.handleLogin()}>
         Connexion
       </button>
+
+    </aside>
+  );
+
+  const ButtonActivityFull = () => (
+    <aside className='content-button'>
+      <button className='button-full is-primary is-warning'>
+
+        Activité complète
+      </button>
+      <div className='trait'></div>
+      <ButtonComment />
     </aside>
   );
 
   return (
     <article className='container_activity'>
-      <div className='left'>
+
         <header className='card-header has-text-centered'>
           <p className='activity__name card-header-title'>{activity.name}</p>
           {/* <p className='activity-level'>{activity.level}</p> */}
@@ -198,26 +216,29 @@ function Activity({ props, funct }) {
             <p className='activity-address'>{activity.address}</p>
           </div>
         </aside>
+        <div className='trait'></div>
 
-        <aside class='content-info'>
+        <aside className='content-info'>
           <p className='content-description'>{activity.description}</p>
+          <div className='trait'></div>
           <p className='activity__participants'>
-            <span class='participant'>participants</span> {participants.length}/
-            {activity.max_participants}
+            <span className='participant'>participants</span>{' '}
+            {participants.length}/{activity.max_participants}
           </p>
           <progress
-            className='activity__takeholders progress box is-success'
+            className='progressbar progress box'
             value={participants.length}
             max={activity.max_participants}></progress>
         </aside>
-      </div>
 
-      <div className='right'>
         {(() => {
           switch (props.isLogged) {
             case true: {
               if (isRegistered) {
                 return <ButtonUnregister />;
+              }
+              if (participants.length >= activity.max_participants) {
+                return <ButtonActivityFull />;
               }
               return <ButtonRegister />;
             }
@@ -232,8 +253,8 @@ function Activity({ props, funct }) {
         })()}
 
         <section className='activity__comments box'>
-          {comments &&
-            comments.map((comment) => (
+          {comments
+            && comments.map((comment) => (
               <Comment key={comment.comment_id || 0} comment={comment} />
             ))}
         </section>
@@ -241,10 +262,11 @@ function Activity({ props, funct }) {
           <CreateComment
             closeModal={handleModalCreateComment}
             comments={handleCheckNewComment}
-            activityId={props.idActivity}
+            updateComment={getComments}
+            activityContent={props.activityContent}
           />
         </section>
-      </div>
+
     </article>
   );
 }

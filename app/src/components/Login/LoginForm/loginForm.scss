@@ -9,3 +9,18 @@
     color: red;
   }
 }
+.isHidden {
+  display: none;
+}
+
+.restoreForm {
+  display: none;
+  margin: 3em 1em;
+
+  .errorMessage {
+    color: red;
+  }
+}
+.showRestoreForm {
+  display: block;
+}

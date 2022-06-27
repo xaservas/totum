@@ -2,7 +2,9 @@ import './comment.scss';
 
 function Comment({ comment }) {
   return (
-    <article key={comment.comment_id} className='comment message is-small'>
+    <article
+      key={comment.comment_id}
+      className='comment-contain message is-small'>
       <div className='message-header'>
         <p>{comment.user_firstname}</p>
       </div>

@@ -1,63 +1,134 @@
 @import '../../vars';
 
 .container_activity {
-  // background-color: rebeccapurple;
+  margin: 0 auto;
   display: flex;
-  width: 100vw;
-  height: 100vh;
-  flex-wrap: wrap;
-  background-color: $clear;
+  height: 80vh;
+  width: 22vw;
 
-  .left {
-    // background-color: red;
-    width: 50%;
-    height: 100%;
-    display: flex;
-    flex-wrap: wrap;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
 
-    justify-content: center;
-    .image_box {
-      justify-content: center;
-      .activity__picture {
-        height: 80vh;
-      }
-    }
+  background: #ffffff;
+  /* shadow */
 
-    .activity__adress {
-      text-align: center;
+  box-shadow: 3px 3px 8px 4px rgba(34, 41, 43, 0.25);
+  border-radius: 20px;
+  .activity__name {
+    font-size: 2rem;
+    font-weight: bold;
+  }
+
+  .image_box {
+    .activity__picture {
     }
   }
-  .right {
-    // background-color: green;
-    width: 50vw;
-    height: 100vh;
+  .card-header {
+    background: none;
+    border-color: none;
+    box-shadow: none;
+  }
+  .card-content {
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .activity-adress {
+    text-align: center;
+    margin-bottom: 1rem;
+    margin: 0 auto;
+  }
+  .content-description {
+    margin: 0 auto;
+    text-align: center;
+    width: 90%;
+  }
+
+  .activity__participants {
+    text-align: center;
+    margin-top: 1rem;
+  }
+  .activity__takeholders {
+    margin: 0 auto;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+    width: 70%;
     display: flex;
     justify-content: center;
+  }
+  .progressbar::-moz-progress-bar {
+    background: $dark;
+  }
 
-    flex-wrap: wrap;
-    .right_container {
-      .activity__participants {
-        width: 80%;
-        display: flex;
-        flex-wrap: wrap;
-      }
-      .activity__takeholders {
-        width: 80%;
-        display: flex;
-        flex-wrap: wrap;
-      }
+  .progressbar::-webkit-progress-value {
+    background: red;
+  }
 
-      .activity__description {
-        width: 80%;
-        display: flex;
-        flex-wrap: wrap;
-        text-align: center;
-      }
-      .activity__comments {
-        display: flex;
-        flex-wrap: wrap;
-      }
-    }
+  .progressbar::-webkit-progress-bar {
+    background: $dark;
+  }
+
+  .activity__description {
+  }
+  .activity__comments {
+  }
+  .content-button {
+    height: 11vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .button-par {
+    background-color: $dark;
+    border-radius: 25px;
+    text-align: center;
+    color: $white-local;
+    padding: 0.9rem;
+    border: $white-local;
+    margin-top: 0.7rem;
+    margin-bottom: 0.7rem;
+  }
+  .button-com {
+    background-color: $white-local;
+    border-radius: 25px;
+    text-align: center;
+    color: $dark;
+    padding: 0.9rem;
+    border: solid 1px $dark;
+    margin-top: 0.7rem;
+    margin-bottom: 0.7rem;
+  }
+  .button-cancel {
+    background-color: $dark;
+    border-radius: 25px;
+    text-align: center;
+    color: $white-local;
+    padding: 0.9rem;
+    border: $white-local;
+    margin-top: 0.7rem;
+    margin-bottom: 0.7rem;
+  }
+  .button-connexion {
+    background-color: $dark;
+    border-radius: 25px;
+    text-align: center;
+    color: $white-local;
+    padding: 0.9rem;
+    border: $white-local;
+    margin-top: 0.7rem;
+    margin-bottom: 0.7rem;
+  }
+  .button-full {
+    background-color: $dark;
+    border-radius: 25px;
+    text-align: center;
+    color: $white-local;
+    padding: 0.9rem;
+    border: $white-local;
+    margin-top: 0.7rem;
+    margin-bottom: 0.7rem;
   }
 
   // modal create comment
@@ -66,13 +137,51 @@
   }
 
   .isActive {
-    display: block;
   }
 
   // zone commentaire
   .activity__comments {
-    height: fit-content;
-    max-height: 80%;
-    overflow: auto;
+    overflow: scroll;
+    min-height: min-content;
+    max-height: 60%;
+    width: 32vh;
+    margin-top: 3rem;
+    display: flex;
+    flex-direction: column;
+  }
+  .content-comment {
+  }
+  .comment-contain {
+    background-color: $ultra-clear;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    border-radius: 25px;
+    padding: 9px;
+  }
+  .message-header {
+    color: $dark;
+  }
+  .comment {
+    padding-left: 20px;
+  }
+  .trait {
+    width: 70%;
+    margin: 0 auto;
+    border: 1px solid $black-local;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  .content-comment {
+  }
+  .field {
+  }
+  .textarea {
+    width: 26rem;
+    height: 20rem;
+    border-radius: 25px;
+    border: 1px solid $white-local;
+    margin-bottom: 1rem;
+    text-align: center;
+    box-shadow: 3px 3px 8px 4px grey;
   }
 }

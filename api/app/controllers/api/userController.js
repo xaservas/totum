@@ -4,6 +4,7 @@ const bcrypt = require('../../services/bcrypt');
 const jwt = require('../../services/token');
 const nodemailer = require('../../config/nodemailer');
 const fetch = require('node-fetch');
+const generator = require('generate-password');
 
 const userController = {
   async getAll(_, res) {
@@ -137,7 +138,7 @@ const userController = {
     const json = await response.json();
     console.log(json);
     if (json.success) {
-      const transporter = nodemailer.sendMail(data);
+      const transporter = await nodemailer.sendMail(data);
       if (transporter) {
         return res.status(200).json({ message: 'Mail sent' });
       }
@@ -146,7 +147,31 @@ const userController = {
     return res.status(401).json({ message: 'Invalid token' });
   },
 
-  async resetPassword(req, res) {},
+  async resetPassword(req, res) {
+    const email = req.body.email;
+    const user = await userDatamapper.getUserByEmail(email);
+    if (user.status === 404) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    const password = generator.generate({ length: 10, numbers: true });
+    const hash = await bcrypt.hash(password);
+    const userUpdate = await userDatamapper.updatePassword(user.id, hash);
+    const prepareEmail = {
+      email: user.email,
+      password,
+    };
+    if (userUpdate) {
+      console.log(prepareEmail);
+      const transporter = await nodemailer.sendPassword(prepareEmail);
+      if (transporter) {
+        return res.status(200).json({ message: 'Mail sent' });
+      }
+      return res.status(401).json({ message: 'Mail not sent' });
+    }
+    return res
+      .status(401)
+      .json({ message: 'Impossible de changer le mot de passe' });
+  },
 };
 
 module.exports = userController;

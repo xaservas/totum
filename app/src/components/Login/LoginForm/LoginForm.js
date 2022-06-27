@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import { useState } from 'react';
 import axios from '../../../utils/axiosPool';
 import './loginForm.scss';
@@ -6,21 +7,50 @@ function LoginForm({ funct }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [formMode, setFormMode] = useState(false);
 
-  const errorMessage = (data) => {
-    switch (data) {
-    case 401:
-      setError('Email ou mot de passe incorrect');
-      break;
-    case 404:
-      setError("L'utilisateur n'existe pas");
-      break;
-    case 400:
-      setError('Erreur inconnue');
-      break;
-    default:
-      setError('');
-      break;
+  const handleMode = (e) => {
+    e.preventDefault();
+    setFormMode(!formMode);
+    setError('');
+  };
+
+  const viewRestore = formMode ? 'showRestoreForm' : '';
+  const viewLogin = formMode ? 'isHidden' : '';
+
+  const errorMessage = (data, mode) => {
+    if (mode === 'login') {
+      switch (data) {
+        case 401:
+          setError('Email ou mot de passe incorrect');
+          break;
+        case 404:
+          setError("L'utilisateur n'existe pas");
+          break;
+        case 400:
+          setError('Erreur inconnue');
+          break;
+        default:
+          setError('');
+          break;
+      }
+    }
+
+    if (mode === 'restore') {
+      switch (data) {
+        case 200:
+          setError('Email envoyé');
+          break;
+        case 404:
+          setError("L'utilisateur n'existe pas");
+          break;
+        case 401:
+          setError('Erreur inconnue merci de réessayer plus tard');
+          break;
+        default:
+          setError('');
+          break;
+      }
     }
   };
 
@@ -31,7 +61,7 @@ function LoginForm({ funct }) {
     });
   };
 
-  const handleSubmit = async (event) => {
+  const handleSubmitLogin = async (event) => {
     event.preventDefault();
     axios({
       method: 'post',
@@ -47,13 +77,34 @@ function LoginForm({ funct }) {
         funct.checkUser();
       })
       .catch((err) => {
-        errorMessage(err.response.status);
+        errorMessage(err.response.status, 'login');
+      });
+  };
+
+  const handleSubmitRestore = async (event) => {
+    event.preventDefault();
+    axios({
+      method: 'post',
+      url: '/user/resetPassword',
+      data: {
+        email: `${email}`,
+      },
+    })
+      .then((response) => {
+        errorMessage(response.status, 'restore');
+        setTimeout(() => {
+          handleMode();
+        }, 1500);
+      })
+      .catch((err) => {
+        errorMessage(err.response.status, 'restore');
       });
   };
 
   return (
     <div>
-      <form onSubmit={handleSubmit} className='LoginForm'>
+      {/* formulaire de login */}
+      <form onSubmit={handleSubmitLogin} className={`${viewLogin} LoginForm`}>
         <p className='errorMessage'>{error}</p>
 
         <input
@@ -70,7 +121,30 @@ function LoginForm({ funct }) {
           placeholder='Mot de passe'
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button className='button'>Login</button>
+        <button className='button'>Connexion</button>
+        <button className='button restorePassword' onClick={handleMode}>
+          Mot de passe oublié ?
+        </button>
+      </form>
+
+      {/* formulaire recuperation mot de passe */}
+      <form
+        onSubmit={handleSubmitRestore}
+        className={`${viewRestore} restoreForm`}>
+        <p className='errorMessage'>{error}</p>
+
+        <input
+          name='email'
+          type='email'
+          className='input'
+          placeholder='Mail'
+          onChange={(e) => setEmail(e.target.value)}
+        />
+
+        <button className='button'>Envoyer</button>
+        <button className='button restorePassword' onClick={handleMode}>
+          Retour
+        </button>
       </form>
     </div>
   );

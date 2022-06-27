@@ -2,7 +2,12 @@ import { useEffect, useState } from 'react';
 import './createComment.scss';
 import Axios from '../../utils/axiosPool';
 
-function CreateComment({ closeModal, comments, activityId }) {
+function CreateComment({
+  closeModal,
+  comments,
+  activityContent,
+  updateComment,
+}) {
   const [contentComment, setContentComment] = useState('');
   const [sendComment, setSendComment] = useState(false);
 
@@ -18,7 +23,7 @@ function CreateComment({ closeModal, comments, activityId }) {
           content: contentComment,
           picture: 'picture',
           id_user: JSON.parse(localStorage.getItem('id')),
-          id_activity: activityId,
+          id_activity: activityContent.id,
         },
         headers: {
           'Content-Type': 'application/json',
@@ -29,6 +34,7 @@ function CreateComment({ closeModal, comments, activityId }) {
       comments();
       setContentComment('');
       setSendComment(false);
+      updateComment();
       closeModal();
     } catch (error) {
       throw new Error(error);
@@ -51,7 +57,7 @@ function CreateComment({ closeModal, comments, activityId }) {
             className='textarea'
             type='text'
             name='content'
-            placeholder='laissez un comentaire'
+            placeholder=''
             value={contentComment}
             onChange={(e) => setContentComment(e.target.value)}
           />

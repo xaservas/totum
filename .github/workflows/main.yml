@@ -5,10 +5,10 @@ on:
     branches: [ main ]
 
 jobs:
-  copy-file:
+  copy-file-api:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout
+    - name: Checkout api
       uses: actions/checkout@v2
 
     - name: Pushes api folder
@@ -26,3 +26,22 @@ jobs:
         mail: kenny.caldieraro@gmail.com
 
 
+  copy-file-app:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout app
+      uses: actions/checkout@v2
+
+    - name: Pushes app folder
+      uses: andstor/copycat-action@v3
+      with:
+        personal_token: ${{ secrets.API_TOKEN_GITHUB }}
+        src_path: app/.
+        dst_path: /.
+        dst_owner: kenny-caldieraro
+        dst_repo_name: app_totum
+        src_branch: main
+        dst_branch: main
+        clean: true
+        username: kenny-caldieraro
+        mail: kenny.caldieraro@gmail.com
