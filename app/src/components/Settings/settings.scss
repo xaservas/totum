@@ -3,17 +3,66 @@
 .changeProfile {
   margin: 0 auto;
   padding: 0 1rem;
-  input {
-    margin-bottom: 0.5em;
-  }
+  form {
+    .field{
+      background-color: $white-local;
+      display:flex;
+      flex-direction: row;
+      align-items: center;
+      align-content: center;
+      padding: 0.7rem 1.6rem;
+      margin: 1rem;
+      min-height: 3.5rem;
+      box-shadow: 3px 3px 8px 4px rgba(34, 41, 43, 0.25);
+      border-radius: 3rem;
+      .label{
+        width: 10rem;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 1.5rem;
+        color: $dark;
+        padding-right: 1rem;
+        border-right: solid 1px;
+        border-color: $dark;
+        
+      }
+      .input{
+        font-family: 'Lato';
+        border: none;  
+        padding: 0 10px;
+        margin: none;
+        font-style: normal;
+        font-size: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: baseline;
+        input{
+          margin-bottom: 0px;
+        }
+      }
 
-  .password {
-    display: flex;
-  }
 
-  .zipCity {
+    }
+
+  } 
+  
+  #emailForm{
     display: flex;
+    
   }
+ 
+
+    
+
+    
+
+    
+    input:focus{
+      outline:none;
+    }
+
+  
 
   .OptionLogin {
     display: flex;
@@ -106,3 +155,5 @@
     background-color: rgb(187, 10, 128);
   }
 }
+
+
