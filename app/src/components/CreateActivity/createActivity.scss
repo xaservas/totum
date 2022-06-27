@@ -1,69 +1,154 @@
 @import '../../vars';
 
 .createActivity {
+  font-family: 'Lato';
+  margin: auto 0;
+  padding: 30%;
   height: 100vh;
-  overflow: auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  align-content: center;
-  flex-wrap: wrap;
+  overflow: auto;  
   width: 95vw;
   margin: 0 auto;
   max-width: 1920px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: space-around;
+  flex-wrap: wrap;
+  flex-direction: column;
 
-  .name {
-    width: 30%;
+  .field{
+    background-color: $white-local;
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    align-content: center;
+    padding: 0.7rem 1.6rem;
+    margin: 1rem;
+    min-height: 3.5rem;
+    box-shadow: 3px 3px 8px 4px rgba(34, 41, 43, 0.25);
+    border-radius: 3rem;
   }
-
-  .in-container {
-    display: flex;
-    flex-wrap: wrap;
+  .label{
+    width: 10rem;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 1.5rem;
+    color: $dark;
+    padding-right: 1rem;
+    border-right: solid 1px;
+    border-color: $dark;
+    
   }
-
-  .rigth,
-  .left,
-  .center {
-    width: 30rem;
-    padding: 0 1rem;
-  }
-
-  .left {
+  .input{
+    font-family: 'Lato';
+    border: none;  
+    padding: 0 10px;
+    margin: none;
+    font-style: normal;
+    font-size: 1.5rem;
     display: flex;
     flex-direction: column;
-    align-items: stretch;
-    justify-content: space-between;
-    .userChoise {
-      display: flex;
-      flex-wrap: wrap;
-      min-width: 100%;
-      .width-30 {
-        min-width: 100%;
-      }
+    justify-content: center;
+    align-items: baseline;
+    input{
+      margin-bottom: 0px;
     }
   }
-
-  .center {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+  input:focus{
+    outline:none;
   }
 
-  .rigth {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
+  .select-style {
+    padding: 0;
+    margin: 0;
+    border: none;
+    width: 150px;
+    overflow: hidden;
+    position: relative;
 
+    select:focus {
+      outline: none;
+      font-family: 'Lato';
+      background-color: $white-local;
+    }
+    select {
+      font-family: 'Lato';
+      padding: 5px 8px;
+      width: 130%;
+      border: none;
+      box-shadow: none;
+      background-color: transparent;
+      background-image: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      color: $dark;
+
+      option{
+        font-family: 'Lato';
+      }
+    }
+  
+}
+.select-style:after {
+    top: 50%;
+    left: 85%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-color: rgba(0, 0, 0, 0);
+    border-top-color: #000000;
+    border-width: 5px;
+    margin-top: -2px;
+    z-index: 100;
+    
+    
+}
+
+.textarea{
+  font-family: 'Lato';
+  border: none;
+  font-size: 1.5rem;
+  resize: none;
+  overflow: auto;
+  padding: 5px 8px;
+}
+.textarea:focus{
+  border: none;
+}
+.textarea:after{
+  border: none;
+}
   .validation-button {
+    width: 100%;
     display: flex;
-    width: 33%;
     margin-top: 2rem;
-    justify-content: space-around;
+    justify-content: space-evenly;
+    flex-direction: row;
+    align-items: center;
+    padding: 0.7rem 1.6rem;
 
-    button {
-      width: 6rem;
+    .button {    
+      width: 30%;
+      height: 5rem;
+      display:flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      font-style: normal;
+      font-weight: bold;
+      font-size: 2rem;
+      color: $white-contrast;
+      background-color: $dark;
+      border-radius: 50px;
+      box-shadow: 3px 3px 8px 4px rgba(34, 41, 43, 0.25);
+    }
+    .is-light{
+      background-color: $ultra-clear;
+      color: $dark;
     }
   }
 }
@@ -86,18 +171,6 @@
     margin: 0 auto;
     .in-container {
       width: 100%;
-    }
-    .left {
-      .userChoise {
-        flex-direction: column;
-        .column {
-          padding: 0;
-          margin: 0;
-        }
-      }
-    }
-    .rigth {
-      padding: 0;
-    }
+    }   
   }
 }
