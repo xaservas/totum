@@ -1,15 +1,17 @@
 /* eslint-disable no-unused-expressions */
-import { useState, props, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import './settings.scss';
 import axios from '../../utils/axiosPool';
 import mapbox from '../../utils/mapbox';
 
-function Settings({ funct }) {
+function Settings({ props }) {
   // const userData = localStorage.getItem('');
   // console.log(userData);
   const [firstname, setFirstname] = useState('');
   const [lastname, setLastname] = useState('');
   const [email, setEmail] = useState('');
+  const [emailNew, setEmailNew] = useState('');
+  const [emailConfirmation, setEmailConfirmation] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
   const [address, setAddress] = useState('');
@@ -17,33 +19,28 @@ function Settings({ funct }) {
   const [city, setCity] = useState('');
   const [country, setCountry] = useState('');
   const [about, setAbout] = useState('');
-  const [coordinate, setCoordinate] = useState([]);
+  const [user, setUser] = useState('');
   const [cookieValue, setCookieValue] = useState(false);
-  const [landmarkValue, setLandmarkValue] = useState(false);
 
   const [autocompleteAddress, setAutocompleteAddress] = useState([]);
   const [autocompleteErr, setAutocompleteErr] = useState('');
-  const [error, setError] = useState('');
-  const [dataUser, setDataUser] = useState('');
+  // const [error, setError] = useState('');
+  const userId = localStorage.getItem('id');
 
   // gestion des erreurs--------------
-  const errorMessage = (data) => {
-    switch (data) {
-    case 401:
-      setError('Les mots de passe de sont pas identique');
-      break;
-    case 400:
-      setError('Erreur inconnue');
-      break;
-    default:
-      setError('');
-      break;
-    }
-  };
-
-  // useEffect(() => {
-  //   getUserById(userData);
-  // }, []);
+  // const errorMessage = (data) => {
+  //   switch (data) {
+  //   case 401:
+  //     setError('Les mots de passe de sont pas identique');
+  //     break;
+  //   case 400:
+  //     setError('Erreur inconnue');
+  //     break;
+  //   default:
+  //     setError('');
+  //     break;
+  //   }
+  // };
 
   const handleAddressChange = async (e) => {
     setAddress(e.target.value);
@@ -56,15 +53,7 @@ function Settings({ funct }) {
     res.error ? setAutocompleteErr(res.error) : setAutocompleteErr('');
   };
 
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition((position) => {
-      setLandmarkValue(true);
-      setCoordinate([
-        (coordinate[0] = position.coords.latitude),
-        (coordinate[1] = position.coords.longitude),
-      ]);
-    });
-  }
+  //  split de l'adresse dans les différents champs
 
   const splitAdress = () => {
     const countryType = document.getElementById('country2');
@@ -100,70 +89,87 @@ function Settings({ funct }) {
 
   //  Appel datalist
 
-  const UserDataRequest = async () => {
+  const getUserById = async (id) => {
     try {
-      const response = await axios.get('/user/{id}/manage');
-      setDataUser(response.data);
-      console.log(setDataUser);
+      const response = await axios({
+        method: 'get',
+        url: `/user/${id}/manage`,
+      });
+      setFirstname(response.data.firstname);
+      setLastname(response.data.lastname);
+      setAddress(response.data.address);
+      setEmail(response.data.email);
+      setZipcode(response.data.zip_code);
+      setCity(response.data.city);
+      setCountry(response.data.country);
+      setAbout(response.data.about);
     } catch (err) {
       throw new Error(err);
     }
   };
 
   useEffect(() => {
-    if (props.idActivity !== 0) {
-      UserDataRequest();
-    }
-  });
+    getUserById(userId);
+  }, [props.parameters]);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = () => {
     if (password !== '' && passwordConfirmation !== '') {
       if (password === passwordConfirmation) {
         axios({
           method: 'patch',
-          url: '/user/{id}/manage/passwordUpdate',
+          url: `/user/${userId}/manage/passwordUpdate`,
           data: {
             password: `${password}`,
             passwordConfirmation: `${passwordConfirmation}`,
 
           },
+
         })
-          .then(() => {
-            funct.closeAllModal();
+          .then((res) => {
+            console.log(res);
+          // funct.closeAllModal();
           })
           .catch((err) => {
-            // ajouter un message d'information si sa marche pas
-            errorMessage(err.response.status);
+          // ajouter un message d'information si sa marche pas
+          // errorMessage(err.response.status);
+            console.log(err);
+            console.log('erreur mot de passe');
           });
-        event.preventDefault();
       }
-      return 'les mots de passe ne corresponds pas';
+      // return 'les mots de passe ne corresponds pas';
     }
 
-    if (email !== localStorage.getItem('email')) {
-      axios({
-        method: 'patch',
-        url: '/user/{id}/manage/emailUpdate',
-        data: {
-          email: `${email}`,
-        },
-      });
-      return 'les mails sont identiques';
+    if (email === localStorage.getItem('email') && emailNew !== '' && emailConfirmation !== '') {
+      if (emailNew === emailConfirmation) {
+        axios({
+          method: 'patch',
+          url: `/user/${userId}/manage/emailUpdate`,
+          data: {
+            email: `${email}`,
+            emailNew,
+            emailConfirmation,
+          },
+
+        })
+          .then((res) => {
+            console.log(res);
+          // funct.closeAllModal();
+          })
+          .catch((err) => {
+          // ajouter un message d'information si sa marche pas
+          // errorMessage(err.response.status);
+            console.log(err);
+            console.log('erreur mail');
+          });
+        // return 'les mails sont identiques';
+      }
+      // pas pareille les mails
     }
     if (
-      firstname !== localStorage.getItem('firstname'),
-      lastname !== localStorage.getItem('lastname'),
-      address !== localStorage.getItem('address'),
-      zipCode !== localStorage.getItem('zipCode'),
-      city !== localStorage.getItem('city'),
-      country !== localStorage.getItem('country'),
-      about !== localStorage.getItem('about'),
-      cookieValue !== localStorage.getItem('cookie'),
-      landmarkValue !== localStorage.getItem('landmarkValue')
-    ) {
+      user !== localStorage.getItem('user')) {
       axios({
         method: 'patch',
-        url: '/user/{id}/manage',
+        url: `/user/${userId}/manage`,
         data: {
           firstname: `${firstname}`,
           lastname: `${lastname}`,
@@ -173,144 +179,176 @@ function Settings({ funct }) {
           country: `${country}`,
           about: `${about}`,
           cookie: `${cookieValue}`,
+
         },
-      });
-    }
-    return 'error';
+      })
+        .then((res) => {
+          console.log(res);
+          // funct.closeAllModal();
+        })
+        .catch((err) => {
+          // ajouter un message d'information si sa marche pas
+          // errorMessage(err.response.status);
+          console.log(err);
+          console.log('erreur data');
+          // return 'les mails sont identiques';
+        });
+    } return 'error';
   };
 
   return (
-    <div>
-      {dataUser.map((data) => (
-        <div className="changeProfile" key={data.id}>
-          <form id="emailForm">
-            <input
-              required
-              value={data.email}
-              id='email'
-              name='email'
-              type='email'
-              className='input'
-              placeholder='Mail'
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </form>
-          <form id="passwordForm" className='password'>
 
-            <input
-              required
-              name='password'
-              type='password'
-              className='input'
-              placeholder='Mot de passe'
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <input
-              required
-              name='passwordConfirmation'
-              type='password'
-              className='input'
-              placeholder='Confirmation de Mot de passe'
-              onChange={(e) => setPasswordConfirmation(e.target.value)}
-            />
+    <div className="changeProfile">
+      <form id="emailForm">
+        <input
+          required
+          id='email'
+          name='email'
+          type='email'
+          className='input'
+          placeholder='Mail'
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <input
+          required
+          id='emailNew'
+          name='emailNew'
+          type='email'
+          className='input'
+          placeholder='emailNew'
+          onChange={(e) => setEmailNew(e.target.value)}
+        />
+        <input
+          required
+          id='EmailConfirmation'
+          name='EmailConfirmation'
+          type='email'
+          className='input'
+          placeholder='EmailConfirmation'
+          onChange={(e) => setEmailConfirmation(e.target.value)}
+        />
+      </form>
+      <form id="passwordForm" className='password'>
 
-          </form>
-          <form id="infoForm" >
-            <p className='errorMessage'>{error}</p>
-            <input
-              required
-              name='firstname'
-              type='text'
-              className='input'
-              placeholder='Prénom'
-              onChange={(e) => setFirstname(e.target.value)}
-            />
-            <input
-              required
-              name='lastname'
-              type='text'
-              className='input'
-              placeholder='Nom'
-              onChange={(e) => setLastname(e.target.value)}
-            />
+        <input
+          required
+          name='password'
+          type='password'
+          className='input'
+          placeholder='Mot de passe'
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <input
+          required
+          name='passwordConfirmation'
+          type='password'
+          className='input'
+          placeholder='Confirmation de Mot de passe'
+          onChange={(e) => setPasswordConfirmation(e.target.value)}
+        />
 
-            <input
-              id='searchAddress2'
-              list='places'
-              name='searchAddress'
-              type='text'
-              className='input'
-              placeholder='searchAddress'
-              onChange={handleAddressChange}
-              pattern={autocompleteAddress.join('|')}
-              autoComplete='off'
-              onBlur={splitAdress}
-            />
-            <input
-              required
-              id='address2'
-              name='address'
-              type='text'
-              className='input'
-              placeholder='Adresse'
-              onChange={(e) => setAddress(e.target.value)}
-            />
-            <datalist id='places'>
-              {autocompleteAddress.map((addresses, i) => (
-                <option key={i}>{addresses}</option>
-              ))}
-            </datalist>
-            {autocompleteErr && <span className='inputError'>{autocompleteErr}</span>}
-            <div className='zipCity2'>
-              <input
-                required
-                id='zipCode2'
-                name='zipCode'
-                type='text'
-                className='input'
-                placeholder='Code Postal'
-                onChange={(e) => setZipcode(e.target.value)}
-              />
-              <input
-                required
-                id='city2'
-                name='city'
-                type='text'
-                className='input'
-                placeholder='Ville'
-                onChange={(e) => setCity(e.target.value)}
-              />
-            </div>
-            <input
-              required
-              id='country2'
-              name='country'
-              type='text'
-              className='input'
-              placeholder='Pays'
-              onChange={(e) => setCountry(e.target.value)}
-            />
-            <input
-              name='about'
-              type='text'
-              className='input'
-              placeholder='Présentation'
-              onChange={(e) => setAbout(e.target.value)}
-            />
-            <div className='OptionLogin'>
-              <label className='checkbox'>
-                <input name='cookie' type='checkbox' onClick={cookieClick} />{' '}
-                <span className='slider round'> </span> <p> cookies </p>{' '}
-              </label>
+      </form>
+      <form id="infoForm" >
+        <p className='errorMessage'>error</p>
+        <input
+          required
+          name='firstname'
+          type='text'
+          className='input'
+          placeholder='Prénom'
+          value={firstname}
+          onChange={(e) => setFirstname(e.target.value)}
+        />
+        <input
+          required
+          name='lastname'
+          type='text'
+          className='input'
+          placeholder='Nom'
+          value={lastname}
+          onChange={(e) => setLastname(e.target.value)}
+        />
 
-            </div>
-            <button className='button' onSubmit={handleSubmit}> Valider </button>
-          </form>
+        <input
+          id='searchAddress2'
+          list='places'
+          name='searchAddress'
+          type='text'
+          className='input'
+          placeholder='searchAddress'
+          onChange={handleAddressChange}
+          pattern={autocompleteAddress.join('|')}
+          autoComplete='off'
+          onBlur={splitAdress}
+        />
+        <input
+          required
+          id='address2'
+          name='address'
+          type='text'
+          className='input'
+          placeholder='Adresse'
+          value={address}
+          onChange={(e) => setAddress(e.target.value)}
+        />
+        <datalist id='places'>
+          {autocompleteAddress.map((addresses, i) => (
+            <option key={i}>{addresses}</option>
+          ))}
+        </datalist>
+        {autocompleteErr && <span className='inputError'>{autocompleteErr}</span>}
+        <div className='zipCity2'>
+          <input
+            required
+            id='zipCode2'
+            name='zipCode'
+            type='text'
+            className='input'
+            placeholder='Code Postal'
+            value={zipCode}
+            onChange={(e) => setZipcode(e.target.value)}
+          />
+          <input
+            required
+            id='city2'
+            name='city'
+            type='text'
+            className='input'
+            placeholder='Ville'
+            value={city}
+            onChange={(e) => setCity(e.target.value)}
+          />
         </div>
+        <input
+          required
+          id='country2'
+          name='country'
+          type='text'
+          className='input'
+          placeholder='Pays'
+          value={country}
+          onChange={(e) => setCountry(e.target.value)}
+        />
+        <input
+          name='about'
+          type='text'
+          className='input'
+          placeholder='Présentation'
+          value={about}
+          onChange={(e) => setAbout(e.target.value)}
+        />
+        <div className='OptionLogin'>
+          <label className='checkbox'>
+            <input name='cookie' type='checkbox' onClick={cookieClick} />{' '}
+            <span className='slider round'> </span> <p> Cookies </p>
+          </label>
 
-      ))}
-
+        </div>
+      </form>
+      <button className='button' onClick={handleSubmit}> Valider </button>
     </div>
+
   );
 }
 

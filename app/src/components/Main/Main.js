@@ -107,7 +107,7 @@ function Desktop({ props, funct }) {
           className='icon_close'
           onClick={() => funct.closeAllModal()}
         />
-        <Settings />
+        <Settings props={props} funct={funct} />
       </div>
 
       <div id='modalCreateProfil' className={createUser}>
