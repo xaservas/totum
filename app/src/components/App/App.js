@@ -23,6 +23,7 @@ function App() {
   const [searchResult, setSearchResult] = useState([]);
   const [resetSearch, setResetSearch] = useState(false);
   const [activityContent, setActivityContent] = useState({});
+  const [mainListActivities, setMainListActivities] = useState(false);
   const timeNow = dayjs(Date.now()).toISOString();
 
   const checkUser = () => {
@@ -42,6 +43,10 @@ function App() {
     setActivity(false);
     setHelp(false);
     setLegalmention(false);
+  };
+
+  const handleListMainActivities = () => {
+    setMainListActivities(!mainListActivities);
   };
 
   const handleMenu = () => {
@@ -139,6 +144,7 @@ function App() {
     resetSearch,
     activityContent,
     timeNow,
+    mainListActivities,
   };
 
   const funct = {
@@ -157,6 +163,7 @@ function App() {
     handleActivity,
     handleHelp,
     handleLegalmention,
+    handleListMainActivities,
   };
 
   return (
@@ -165,7 +172,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Main props={props} funct={funct} />} />
       </Routes>
-      <Footer funct={funct} />
+      <Footer funct={funct} props={props} />
     </div>
   );
 }

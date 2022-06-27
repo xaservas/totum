@@ -1,6 +1,6 @@
 import ReactDOM from 'react-dom/client';
 import './index.scss';
-import 'bulma/css/bulma.min.css';
+// import 'bulma/css/bulma.min.css';
 import { BrowserRouter } from 'react-router-dom';
 import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
 import App from './components/App/App';

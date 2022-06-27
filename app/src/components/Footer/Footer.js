@@ -1,6 +1,8 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCirclePlus } from '@fortawesome/free-solid-svg-icons';
 import './Footer.scss';
 
-function Footer({ funct }) {
+function Footer({ props, funct }) {
   return (
     <footer id='footer' className='iconbar'>
       <p className='copyright'>&copy;{new Date().getFullYear()} totum.ovh</p>
@@ -18,9 +20,16 @@ function Footer({ funct }) {
           </a>
         </li>
         <li>
-          <a href='#'>Confidentialité</a>
+          <a>Confidentialité</a>
         </li>
       </ul>
+      <FontAwesomeIcon
+        icon={faCirclePlus}
+        className='addActivity'
+        onClick={
+          props.isLogged ? funct.handleCreateActivity : funct.handleLogin
+        }
+      />
     </footer>
   );
 }
