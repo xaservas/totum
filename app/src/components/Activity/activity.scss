@@ -1,38 +1,68 @@
 @import '../../vars';
 
 .container_activity {
-  margin: 0 auto;
   display: flex;
   height: 80vh;
-  width: 22vw;
-
+  // min-width: 21%;
+  // max-width: 21%;
+  margin: 44rem;
   flex-direction: column;
   align-content: center;
   justify-content: center;
   align-items: center;
-
   background: #ffffff;
-  /* shadow */
-
   box-shadow: 3px 3px 8px 4px rgba(34, 41, 43, 0.25);
   border-radius: 20px;
   .activity__name {
     font-size: 2rem;
-    font-weight: bold;
-  }
-
-  .image_box {
-    .activity__picture {
+    font-weight: 700;
+    padding-top: 1rem;
+    display: flex;
+    justify-content: space-around;
+    padding-bottom: 2rem;
+    align-items: center;
+    .activity-close:hover {
+      cursor: pointer;
+      color: $highlight;
+    }
+    svg {
+      font-size: 4rem;
+      color: $dark;
     }
   }
+
   .card-header {
     background: none;
     border-color: none;
     box-shadow: none;
+    width: 100%;
   }
+
+  .content-info {
+    width: 100%;
+  }
+
   .card-content {
     padding-bottom: 1rem;
     margin-bottom: 1rem;
+    width: 100%;
+    .content {
+      display: flex;
+      width: 70%;
+      justify-content: revert;
+      align-items: center;
+      padding-top: 2rem;
+      margin: 0 auto;
+      .activity-date,
+      .activity-address {
+        margin: 0;
+        text-align: right;
+        width: 100%;
+      }
+      svg {
+        height: 3rem;
+      }
+    }
   }
 
   .activity-adress {
@@ -40,86 +70,75 @@
     margin-bottom: 1rem;
     margin: 0 auto;
   }
+
   .content-description {
     margin: 0 auto;
     text-align: center;
-    width: 90%;
+    width: 70%;
+    padding: 2rem 0;
   }
 
   .activity__participants {
-    text-align: center;
-    margin-top: 1rem;
-  }
-  .activity__takeholders {
-    margin: 0 auto;
-    margin-top: 1rem;
-    margin-bottom: 2rem;
-    width: 70%;
     display: flex;
-    justify-content: center;
+    width: 70%;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto;
+    margin-bottom: 1rem;
+
+    .activity__takeholders {
+      margin: 0 auto;
+      margin-top: 1rem;
+      margin-bottom: 2rem;
+      width: 70%;
+      display: flex;
+      justify-content: center;
+    }
+    .participant_value {
+      margin: 0;
+    }
   }
+
+  .progressbar {
+    margin: 0 auto;
+    width: 70%;
+    display: block;
+    height: 2rem;
+  }
+
   .progressbar::-moz-progress-bar {
     background: $dark;
   }
 
   .progressbar::-webkit-progress-value {
-    background: red;
+    background: $dark;
   }
 
   .progressbar::-webkit-progress-bar {
     background: $dark;
   }
 
-  .activity__description {
-  }
-  .activity__comments {
-  }
   .content-button {
     height: 11vh;
-    display: flex;
     flex-direction: column;
     justify-content: space-between;
+    width: 100%;
+    display: flex;
+    align-items: center;
+
+    .is-warning {
+      background: $highlight;
+      color: $white-contrast;
+      border-color: $highlight;
+      width: 60%;
+      height: 4rem;
+    }
   }
-  .button-par {
-    background-color: $dark;
-    border-radius: 25px;
-    text-align: center;
-    color: $white-local;
-    padding: 0.9rem;
-    border: $white-local;
-    margin-top: 0.7rem;
-    margin-bottom: 0.7rem;
-  }
-  .button-com {
-    background-color: $white-local;
-    border-radius: 25px;
-    text-align: center;
-    color: $dark;
-    padding: 0.9rem;
-    border: solid 1px $dark;
-    margin-top: 0.7rem;
-    margin-bottom: 0.7rem;
-  }
-  .button-cancel {
-    background-color: $dark;
-    border-radius: 25px;
-    text-align: center;
-    color: $white-local;
-    padding: 0.9rem;
-    border: $white-local;
-    margin-top: 0.7rem;
-    margin-bottom: 0.7rem;
-  }
-  .button-connexion {
-    background-color: $dark;
-    border-radius: 25px;
-    text-align: center;
-    color: $white-local;
-    padding: 0.9rem;
-    border: $white-local;
-    margin-top: 0.7rem;
-    margin-bottom: 0.7rem;
-  }
+
+  .button-par,
+  .button-com,
+  .button-cancel,
+  .button-connexion,
   .button-full {
     background-color: $dark;
     border-radius: 25px;
@@ -129,14 +148,20 @@
     border: $white-local;
     margin-top: 0.7rem;
     margin-bottom: 0.7rem;
+    width: 60%;
+    height: 4rem;
+    &:hover {
+      cursor: pointer;
+      background-color: $highlight;
+      color: $white-contrast;
+      border-color: $highlight;
+    }
   }
 
   // modal create comment
   .activity__create-comment {
     display: none;
-  }
-
-  .isActive {
+    width: 100%;
   }
 
   // zone commentaire
@@ -149,13 +174,12 @@
     display: flex;
     flex-direction: column;
   }
-  .content-comment {
-  }
+
   .comment-contain {
     background-color: $ultra-clear;
     margin-top: 8px;
     margin-bottom: 8px;
-    border-radius: 25px;
+    border-radius: 12px;
     padding: 9px;
   }
   .message-header {
@@ -171,17 +195,27 @@
     margin-top: 10px;
     margin-bottom: 10px;
   }
-  .content-comment {
-  }
-  .field {
-  }
+
   .textarea {
     width: 26rem;
     height: 20rem;
     border-radius: 25px;
     border: 1px solid $white-local;
     margin-bottom: 1rem;
-    text-align: center;
     box-shadow: 3px 3px 8px 4px grey;
+    padding-left: 1rem;
+  }
+}
+
+@media screen and (max-width: 1150px) {
+  .container_activity {
+    margin: 0 auto;
+  }
+}
+
+@media screen and (max-width: 430px) {
+  .container_activity {
+    margin: 1rem;
+    height: 99vh;
   }
 }

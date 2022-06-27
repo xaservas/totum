@@ -6,7 +6,7 @@ function Comment({ comment }) {
       key={comment.comment_id}
       className='comment-contain message is-small'>
       <div className='message-header'>
-        <p>{comment.user_firstname}</p>
+        <p>{`${comment.user_firstname} dit:`}</p>
       </div>
       <div className='comment message'>
         <p className='comment-message-body'>{comment.comment_content}</p>
