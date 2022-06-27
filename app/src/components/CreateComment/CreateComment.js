@@ -57,7 +57,7 @@ function CreateComment({
             className='textarea'
             type='text'
             name='content'
-            placeholder='laissez un comentaire'
+            placeholder=''
             value={contentComment}
             onChange={(e) => setContentComment(e.target.value)}
           />

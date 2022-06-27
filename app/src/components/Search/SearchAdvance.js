@@ -80,9 +80,8 @@ function SearchSimple({ funct }) {
   return (
     <form className='advanceSearch'>
       <div className='selector'>
-        <label htmlFor='id_category'>Categories</label>
         <select name='id_category' onChange={handleChange}>
-          <option value='all'>Tous</option>
+          <option value='all'>Categories</option>
           {categories.map((category) => (
             <option key={category.id} value={category.id}>
               {category.name}
@@ -91,9 +90,8 @@ function SearchSimple({ funct }) {
         </select>
       </div>
       <div className='selector'>
-        <label htmlFor='city'>Ville</label>
         <select name='city' onChange={handleChange}>
-          <option value='all'>Tous</option>
+          <option value='all'>Ville</option>
           {activities.map((activity) => (
             <option key={activity.id} value={activity.city}>
               {activity.city}
@@ -102,9 +100,8 @@ function SearchSimple({ funct }) {
         </select>
       </div>
       <div className='selector'>
-        <label htmlFor='level'>Niveau</label>
         <select name='level' onChange={handleChange}>
-          <option value='all'>Tous</option>
+          <option value='all'>Niveau</option>
           {levels.map((level) => (
             <option key={level.id} value={level.id}>
               {level.name}

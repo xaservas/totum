@@ -1,7 +1,184 @@
-@import '../../vars';
+@import '../../vars.scss';
 
 .listActivities {
+  .activities-list {
+    padding: 0;
+  }
   &:hover {
     cursor: pointer;
+  }
+  padding: 0;
+  margin: 0;
+
+  .panel-block {
+    height: 9.5rem;
+    background-color: $white-local;
+    display: flex;
+    align-items: center;
+    padding: 8px 80px 8px 25px;
+    gap: 18px;
+    list-style: none;
+    box-shadow: 3px 3px 8px 4px rgba(34, 41, 43, 0.25);
+    border-radius: 10px;
+    margin-bottom: 2rem;
+  }
+
+  .activity-picto {
+    height: auto;
+    width: 6rem;
+    border: 2px solid $black-local;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 90%;
+
+    svg {
+      height: auto;
+      width: 3rem;
+      color: $dark;
+      border: none;
+      padding: 1rem;
+    }
+  }
+
+  .text-info {
+    display: flex;
+    width: 56%;
+    height: 80%;
+    justify-content: center;
+    align-items: center;
+    border-left: 2px solid $black-local;
+
+    .column {
+      width: 15rem;
+    }
+  }
+
+  .activity-name {
+    font-size: 1.4rem;
+    color: $black-local;
+    padding-left: 1rem;
+    text-align: left;
+  }
+
+  .activity-category {
+    padding: 0 1rem;
+    font-size: 1.4rem;
+    color: $black-local;
+    text-align: center;
+  }
+
+  .activity-level {
+    text-align: right;
+  }
+
+  .activity-date {
+    font-size: 1.4rem;
+    color: $black-local;
+    border-left: 2px solid $black-local;
+    padding-left: 1rem;
+    height: 80%;
+    align-items: center;
+    display: flex;
+    min-width: 13rem;
+    svg {
+      height: auto;
+      width: 2rem;
+      color: $dark;
+      padding-right: 1rem;
+    }
+  }
+
+  .activity-city {
+    font-size: 1.4rem;
+    color: $black-local;
+    border-left: 2px solid $black-local;
+    padding-left: 1rem;
+    height: 80%;
+    align-items: center;
+    display: flex;
+    min-width: 15rem;
+    svg {
+      height: auto;
+      width: 2rem;
+      color: $dark;
+      padding-right: 1rem;
+    }
+  }
+}
+
+@media screen and (max-width: 1065px) {
+  .listActivities {
+    .text-info {
+      .column {
+        width: 100%;
+        text-align: left;
+        padding: 0;
+        padding-left: 2rem;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 822px) {
+  .listActivities {
+    .text-info {
+      flex-direction: column;
+      align-items: center;
+      .column {
+        width: 100%;
+        text-align: left;
+        padding: 0;
+        padding-left: 2rem;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 680px) {
+  .listActivities {
+    .activities-list {
+      .panel-block {
+        padding: 0;
+        padding-left: 2rem;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 586px) {
+  .listActivities {
+    .activities-list {
+      .panel-block {
+        padding: 0;
+        padding-left: 2rem;
+      }
+    }
+    .activity-city {
+      display: none;
+    }
+  }
+}
+
+@media screen and (max-width: 390px) {
+  .listActivities {
+    .text-info {
+      flex-direction: column;
+      align-items: center;
+      .column {
+        width: 100%;
+        text-align: left;
+        padding: 0;
+        padding-left: 2rem;
+      }
+    }
+
+    .activity-date {
+      display: none;
+    }
+
+    .activity-city {
+      display: none;
+    }
   }
 }
