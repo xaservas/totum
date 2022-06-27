@@ -49,6 +49,10 @@
       color: $dark;
       height: 1.7rem;
       width: 1.3rem;
+      &:hover {
+        cursor: pointer;
+        color: $highlight;
+      }
     }
     .icon {
       svg {
@@ -56,18 +60,27 @@
         height: 1.4rem;
         width: auto;
       }
-      #menu {
-        border-left: 1px solid $dark;
-      }
     }
     #search {
       border-right: 1px solid $dark;
       padding-right: 1rem;
     }
+    #menu {
+      svg {
+        &:hover {
+          cursor: pointer;
+          color: $highlight;
+        }
+      }
+    }
   }
   .addActivity {
     color: $dark;
     font-size: 4.4rem;
+    &:hover {
+      cursor: pointer;
+      color: $highlight;
+    }
   }
 }
 
@@ -101,6 +114,7 @@
 
 @media screen and (max-width: 890px) {
   .header {
+    height: 1rem;
     width: auto;
     left: 50%;
     transform: translateX(-50%);

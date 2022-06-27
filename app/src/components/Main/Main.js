@@ -27,6 +27,9 @@ function Desktop({ props, funct }) {
   const listActivities = props.listActivities ? 'isActive' : '';
   const help = props.help ? 'isActive' : '';
   const legalMention = props.legalMention ? 'isActive' : '';
+  const showListActivities = props.mainListActivities
+    ? 'showActivitiesList'
+    : '';
 
   return (
     <div className='desktop'>
@@ -35,7 +38,11 @@ function Desktop({ props, funct }) {
           <Map props={props} funct={funct} />
         </div>
       </div>
-      <div className='right'></div>
+      <div className={`right ${showListActivities}`}>
+        <div className='activitiesComposant'>
+          <Activities props={props} funct={funct} />
+        </div>
+      </div>
 
       {/* zone modal */}
 

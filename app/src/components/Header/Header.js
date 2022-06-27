@@ -20,7 +20,11 @@ function Header({ props, funct }) {
         <div className='totumtitle'>
           <h1 className='title'>TOTUM</h1>
         </div>
-        <FontAwesomeIcon icon={faBars} className={'burgerMenu'} />
+        <FontAwesomeIcon
+          icon={faBars}
+          className={'burgerMenu'}
+          onClick={(e) => funct.handleListMainActivities(e)}
+        />
         <SearchAdvance props={props} funct={funct} />
         <SearchSimple props={props} funct={funct} />
         <div className='icon' id='search'>
