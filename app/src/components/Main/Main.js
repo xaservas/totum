@@ -65,11 +65,6 @@ function Desktop({ props, funct }) {
       </div>
 
       <div id='modalActivity' className={activity}>
-        <FontAwesomeIcon
-          icon={faXmark}
-          className='icon_close'
-          onClick={() => funct.closeAllModal()}
-        />
         <Activity props={props} funct={funct} />
       </div>
 
@@ -124,7 +119,7 @@ function Desktop({ props, funct }) {
           className='icon_close'
           onClick={() => funct.closeAllModal()}
         />
-        <Activities props={props} />
+        <Activities props={props} funct={funct} />
       </div>
 
       {/* fin zone modal */}

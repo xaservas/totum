@@ -20,6 +20,10 @@
     color: $dark;
     li a {
       text-decoration: none;
+      &:hover {
+        color: $highlight;
+        cursor: pointer;
+      }
     }
   }
   .footerNav li:nth-child(2) {

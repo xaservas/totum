@@ -69,7 +69,7 @@ function CreateComment({
             className='button is-primary'
             type='submit'
             onClick={handleSubmit}>
-            Submit
+            Envoyer
           </button>
         </p>
       </div>

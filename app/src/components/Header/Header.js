@@ -54,7 +54,7 @@ function Header({ props, funct }) {
               onClick={
                 props.isLogged ? funct.handleParameters : funct.handleLogin
               }>
-              Parametrès
+              Paramètres
             </li>
 
             {props.isLogged ? (
