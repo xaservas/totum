@@ -145,7 +145,8 @@ function Activity({ props, funct }) {
   }, [props.isLogged]);
 
   const ButtonComment = () => (
-    <button className='button is-primary' onClick={handleModalCreateComment}>
+    <button className='button-com is-primary' onClick={handleModalCreateComment}>
+
       Commenter
     </button>
   );
@@ -153,10 +154,12 @@ function Activity({ props, funct }) {
   const ButtonRegister = () => (
     <aside className='content-button'>
       <button
-        className='button is-primary'
+        className='button-par is-primary'
         onClick={() => registerToActivity()}>
+
         Je veux participer
       </button>
+      <div className='trait'></div>
       <ButtonComment />
     </aside>
   );
@@ -164,10 +167,12 @@ function Activity({ props, funct }) {
   const ButtonUnregister = () => (
     <aside className='content-button'>
       <button
-        className='button is-primary is-link'
+        className='button-cancel is-primary is-link'
         onClick={unregisterToActivity}>
+
         Je ne veux plus participer
       </button>
+      <div className='trait'></div>
       <ButtonComment />
     </aside>
   );
@@ -175,25 +180,28 @@ function Activity({ props, funct }) {
   const ButtonLogin = () => (
     <aside className='content-button'>
       <button
-        className='button is-primary is-link'
+        className='button-connexion is-primary is-link'
         onClick={() => funct.handleLogin()}>
         Connexion
       </button>
+
     </aside>
   );
 
   const ButtonActivityFull = () => (
     <aside className='content-button'>
-      <button className='button is-primary is-warning'>
+      <button className='button-full is-primary is-warning'>
+
         Activité complète
       </button>
+      <div className='trait'></div>
       <ButtonComment />
     </aside>
   );
 
   return (
     <article className='container_activity'>
-      <div className='left'>
+
         <header className='card-header has-text-centered'>
           <p className='activity__name card-header-title'>{activity.name}</p>
           {/* <p className='activity-level'>{activity.level}</p> */}
@@ -208,21 +216,21 @@ function Activity({ props, funct }) {
             <p className='activity-address'>{activity.address}</p>
           </div>
         </aside>
+        <div className='trait'></div>
 
         <aside className='content-info'>
           <p className='content-description'>{activity.description}</p>
+          <div className='trait'></div>
           <p className='activity__participants'>
             <span className='participant'>participants</span>{' '}
             {participants.length}/{activity.max_participants}
           </p>
           <progress
-            className='activity__takeholders progress box is-success'
+            className='progressbar progress box'
             value={participants.length}
             max={activity.max_participants}></progress>
         </aside>
-      </div>
 
-      <div className='right'>
         {(() => {
           switch (props.isLogged) {
             case true: {
@@ -258,7 +266,7 @@ function Activity({ props, funct }) {
             activityContent={props.activityContent}
           />
         </section>
-      </div>
+
     </article>
   );
 }
