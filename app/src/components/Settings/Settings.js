@@ -47,9 +47,9 @@ function Settings({ props }) {
     if (!address) return;
 
     const res = await mapbox(address);
-    !autocompleteAddress.includes(e.target.value)
-      && res.features
-      && setAutocompleteAddress(res.features.map((place) => place.place_name));
+    !autocompleteAddress.includes(e.target.value) &&
+      res.features &&
+      setAutocompleteAddress(res.features.map((place) => place.place_name));
     res.error ? setAutocompleteErr(res.error) : setAutocompleteErr('');
   };
 
@@ -87,7 +87,17 @@ function Settings({ props }) {
     setCookieValue(newValueB);
   };
 
-  //  Appel datalist
+  const getMetaUser = async (id) => {
+    try {
+      const response = await axios({
+        method: 'get',
+        url: `/meta/${id}/manage`,
+      });
+      setCookieValue(response.data.cookie);
+    } catch (err) {
+      throw new Error(err);
+    }
+  };
 
   const getUserById = async (id) => {
     try {
@@ -103,6 +113,7 @@ function Settings({ props }) {
       setCity(response.data.city);
       setCountry(response.data.country);
       setAbout(response.data.about);
+      getMetaUser(response.data.meta_id);
     } catch (err) {
       throw new Error(err);
     }
@@ -121,17 +132,15 @@ function Settings({ props }) {
           data: {
             password: `${password}`,
             passwordConfirmation: `${passwordConfirmation}`,
-
           },
-
         })
           .then((res) => {
             console.log(res);
-          // funct.closeAllModal();
+            // funct.closeAllModal();
           })
           .catch((err) => {
-          // ajouter un message d'information si sa marche pas
-          // errorMessage(err.response.status);
+            // ajouter un message d'information si sa marche pas
+            // errorMessage(err.response.status);
             console.log(err);
             console.log('erreur mot de passe');
           });
@@ -139,7 +148,11 @@ function Settings({ props }) {
       // return 'les mots de passe ne corresponds pas';
     }
 
-    if (email === localStorage.getItem('email') && emailNew !== '' && emailConfirmation !== '') {
+    if (
+      email === localStorage.getItem('email') &&
+      emailNew !== '' &&
+      emailConfirmation !== ''
+    ) {
       if (emailNew === emailConfirmation) {
         axios({
           method: 'patch',
@@ -149,15 +162,14 @@ function Settings({ props }) {
             emailNew,
             emailConfirmation,
           },
-
         })
           .then((res) => {
             console.log(res);
-          // funct.closeAllModal();
+            // funct.closeAllModal();
           })
           .catch((err) => {
-          // ajouter un message d'information si sa marche pas
-          // errorMessage(err.response.status);
+            // ajouter un message d'information si sa marche pas
+            // errorMessage(err.response.status);
             console.log(err);
             console.log('erreur mail');
           });
@@ -165,8 +177,7 @@ function Settings({ props }) {
       }
       // pas pareille les mails
     }
-    if (
-      user !== localStorage.getItem('user')) {
+    if (user !== localStorage.getItem('user')) {
       axios({
         method: 'patch',
         url: `/user/${userId}/manage`,
@@ -179,7 +190,6 @@ function Settings({ props }) {
           country: `${country}`,
           about: `${about}`,
           cookie: `${cookieValue}`,
-
         },
       })
         .then((res) => {
@@ -193,14 +203,14 @@ function Settings({ props }) {
           console.log('erreur data');
           // return 'les mails sont identiques';
         });
-    } return 'error';
+    }
+    return 'error';
   };
 
   return (
-
-    <div className="changeProfile">
-      <form id="emailForm">
-        <div className="field">
+    <div className='changeProfile'>
+      <form id='emailForm'>
+        <div className='field'>
           <label className='label'>Email</label>
           <input
             required
@@ -212,7 +222,7 @@ function Settings({ props }) {
             onChange={(e) => setEmail(e.target.value)}
           />
         </div>
-        <div className="modifMail">
+        <div className='modifMail'>
           <div className='field'>
             <label className='label'>Changement d'email</label>
             <input
@@ -224,7 +234,7 @@ function Settings({ props }) {
               onChange={(e) => setEmailNew(e.target.value)}
             />
           </div>
-          <div className="field">
+          <div className='field'>
             <label className='label'>Confirmation d'email</label>
             <input
               required
@@ -237,8 +247,8 @@ function Settings({ props }) {
           </div>
         </div>
       </form>
-      <form id="passwordForm" className='password'>
-        <div className="field">
+      <form id='passwordForm' className='password'>
+        <div className='field'>
           <label className='label'>Nouveau mot de passe</label>
           <input
             required
@@ -248,7 +258,7 @@ function Settings({ props }) {
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        <div className="field">
+        <div className='field'>
           <label className='label'>Nouveau mot de passe</label>
           <input
             required
@@ -258,11 +268,9 @@ function Settings({ props }) {
             onChange={(e) => setPasswordConfirmation(e.target.value)}
           />
         </div>
-
       </form>
-      <form id="infoForm" >
-
-        <div className="field">
+      <form id='infoForm'>
+        <div className='field'>
           <label className='label'>Prénom</label>
           <input
             required
@@ -273,7 +281,7 @@ function Settings({ props }) {
             onChange={(e) => setFirstname(e.target.value)}
           />
         </div>
-        <div className="field">
+        <div className='field'>
           <label className='label'>Nom</label>
           <input
             required
@@ -284,7 +292,7 @@ function Settings({ props }) {
             onChange={(e) => setLastname(e.target.value)}
           />
         </div>
-        <div className="field">
+        <div className='field'>
           <label className='label'>Recherche d'adresse</label>
           <input
             id='searchAddress2'
@@ -298,7 +306,7 @@ function Settings({ props }) {
             onBlur={splitAdress}
           />
         </div>
-        <div className="field">
+        <div className='field'>
           <label className='label'>Numéro + Rue</label>
           <input
             required
@@ -315,9 +323,11 @@ function Settings({ props }) {
             <option key={i}>{addresses}</option>
           ))}
         </datalist>
-        {autocompleteErr && <span className='inputError'>{autocompleteErr}</span>}
+        {autocompleteErr && (
+          <span className='inputError'>{autocompleteErr}</span>
+        )}
         <div className='zipCity2'>
-          <div className="field">
+          <div className='field'>
             <label className='label'>Code Postal</label>
             <input
               required
@@ -329,7 +339,7 @@ function Settings({ props }) {
               onChange={(e) => setZipcode(e.target.value)}
             />
           </div>
-          <div className="field">
+          <div className='field'>
             <label className='label'>Ville</label>
             <input
               required
@@ -342,7 +352,7 @@ function Settings({ props }) {
             />
           </div>
         </div>
-        <div className="field">
+        <div className='field'>
           <label className='label'>Pays</label>
           <input
             required
@@ -354,7 +364,7 @@ function Settings({ props }) {
             onChange={(e) => setCountry(e.target.value)}
           />
         </div>
-        <div className="field">
+        <div className='field'>
           <label className='label'>Présentation</label>
           <input
             name='about'
@@ -366,15 +376,21 @@ function Settings({ props }) {
         </div>
         <div className='OptionLogin'>
           <label className='checkbox'>
-            <input name='cookie' type='checkbox' onClick={cookieClick} />{' '}
+            <input
+              name='cookie'
+              type='checkbox'
+              onClick={cookieClick}
+              checked={cookieValue}
+            />
             <span className='slider round'> </span> <p> Cookies </p>
           </label>
-
         </div>
       </form>
-      <button className='button' onClick={handleSubmit}> Valider </button>
+      <button className='button' onClick={handleSubmit}>
+        {' '}
+        Valider{' '}
+      </button>
     </div>
-
   );
 }
 
