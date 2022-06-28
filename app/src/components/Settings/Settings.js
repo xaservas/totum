@@ -25,8 +25,7 @@ function Settings({ props }) {
   const [autocompleteAddress, setAutocompleteAddress] = useState([]);
   const [autocompleteErr, setAutocompleteErr] = useState('');
   // const [error, setError] = useState('');
-  const userId = localStorage.getItem('id');
-
+  const { userId } = props;
   // gestion des erreurs--------------
   // const errorMessage = (data) => {
   //   switch (data) {
@@ -92,9 +91,15 @@ function Settings({ props }) {
       const response = await axios({
         method: 'get',
         url: `/meta/${id}/manage`,
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
       });
       setCookieValue(response.data.cookie);
     } catch (err) {
+      console.log(err);
       throw new Error(err);
     }
   };
@@ -104,6 +109,11 @@ function Settings({ props }) {
       const response = await axios({
         method: 'get',
         url: `/user/${id}/manage`,
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
       });
       setFirstname(response.data.firstname);
       setLastname(response.data.lastname);
@@ -120,8 +130,8 @@ function Settings({ props }) {
   };
 
   useEffect(() => {
-    getUserById(userId);
-  }, [props.parameters]);
+    getUserById(JSON.parse(localStorage.getItem('id')));
+  }, [props.token]);
 
   const handleSubmit = () => {
     if (password !== '' && passwordConfirmation !== '') {
