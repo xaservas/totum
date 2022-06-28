@@ -73,28 +73,33 @@ function Help({ funct }) {
   return (
     <div className='help'>
       <div>
-        <h1>Aide</h1>
-        <h2>Nous contacter</h2>
+        <h1>Nous contacter</h1>
         <p>{error}</p>
-        <input
-          required
-          name='email'
-          type='email'
-          value={email}
-          className='input'
-          placeholder='Mail'
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <input
-          name='message'
-          type='text'
-          value={message}
-          className='textarea'
-          placeholder='Message'
-          required
-          onChange={(e) => setMessage(e.target.value)}
-        />
-        <button className='button' onClick={sendMail}>
+        <div className='field'>
+          <label className='label'>Email</label>
+          <input
+            required
+            name='email'
+            type='email'
+            value={email}
+            className='input'
+            placeholder='Mail'
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </div>
+        <div className='field'>
+          <label className='label'>Vos questions</label>
+          <textarea
+            name='message'
+            type='text'
+            value={message}
+            className='textarea'
+            placeholder='Message'
+            required
+            onChange={(e) => setMessage(e.target.value)}
+          />
+        </div>
+        <button className='validation-button' onClick={sendMail}>
           Envoyer
         </button>
       </div>

@@ -240,7 +240,7 @@ function Activity({ props, funct }) {
           {activity.name}
           <FontAwesomeIcon
             icon={regular('circle-xmark')}
-            onClick={() => funct.closeAllModal()}
+            onClick={() => funct.closeActivity()}
             className='activity-close'
           />
         </p>
@@ -255,7 +255,7 @@ function Activity({ props, funct }) {
         </div>
         <div className='content'>
           <FontAwesomeIcon icon={solid('location-dot')} />
-          <p className='activity-address'>{activity.address}</p>
+          <p className='activity-address'>{`${activity.address}, ${activity.zip_code} ${activity.city}`}</p>
         </div>
       </aside>
       <div className='trait'></div>

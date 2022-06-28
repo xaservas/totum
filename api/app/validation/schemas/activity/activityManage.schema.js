@@ -1,7 +1,7 @@
 const Joi = require('joi');
 
 const textRule = Joi.string().min(2);
-const numberRule = Joi.number().min(0).required();
+const numberRule = Joi.number().min(0);
 
 module.exports = Joi.object({
   name: textRule,
@@ -16,4 +16,5 @@ module.exports = Joi.object({
   landmark: textRule,
   id_user: numberRule,
   id_category: numberRule,
+  id: numberRule,
 });

@@ -11,6 +11,13 @@ function Activities({ props, funct }) {
   const [activities, setActivities] = useState([]);
   const [categories, setCategories] = useState([]);
   const [levels, setLevels] = useState([]);
+  const [checkRemove, setCheckRemove] = useState(false);
+  const [synchroMapList, setSynchroMapList] = useState(false);
+
+  const checkSynchroMapList = () => {
+    setSynchroMapList(!synchroMapList);
+    funct.synchroRemoveListMap();
+  };
 
   const getCategories = async () => {
     try {
@@ -39,6 +46,22 @@ function Activities({ props, funct }) {
     }
   };
 
+  const removeActivity = async (id) => {
+    try {
+      const response = await Axios({
+        method: 'delete',
+        url: `/activity/${id}/manage`,
+      });
+      console.log(response);
+      if (response.status === 200) {
+        setCheckRemove(!checkRemove);
+        checkSynchroMapList();
+      }
+    } catch (error) {
+      throw new Error(error);
+    }
+  };
+
   useEffect(() => {
     ActivitiesDataRequest();
     getCategories();
@@ -49,16 +72,25 @@ function Activities({ props, funct }) {
     setActivities(props.searchResult);
   }, [props.searchResult]);
 
+  useEffect(() => {
+    ActivitiesDataRequest();
+    getCategories();
+    levelDataRequest();
+  }, [checkRemove]);
+
+  useEffect(() => {
+    ActivitiesDataRequest();
+    getCategories();
+    levelDataRequest();
+  }, [props.addActivity]);
+
   return (
     <article className='listActivities panel'>
       <ul className='activities-list'>
         {activities.map((activity) => {
           if (activity.id !== 404) {
             return (
-              <li
-                key={activity.id}
-                className='activity panel-block'
-                onClick={() => funct.handleActivity(activity)}>
+              <li key={activity.id} className='activity panel-block'>
                 <div className='activity-picto'>
                   {categories.map((category) => {
                     if (category.id === activity.id_category) {
@@ -66,8 +98,9 @@ function Activities({ props, funct }) {
                         return (
                           <FontAwesomeIcon
                             icon={regular('chess-king')}
-                            key={(activity.id, category.id)}
                             className='activity-picto'
+                            key={Math.random()}
+                            onClick={() => funct.handleActivity(activity)}
                           />
                         );
                       }
@@ -75,8 +108,9 @@ function Activities({ props, funct }) {
                         return (
                           <FontAwesomeIcon
                             icon={solid('person-running')}
-                            key={(activity.id, category.id)}
                             className='activity-picto'
+                            key={Math.random()}
+                            onClick={() => funct.handleActivity(activity)}
                           />
                         );
                       }
@@ -84,7 +118,9 @@ function Activities({ props, funct }) {
                     return null;
                   })}
                 </div>
-                <div className='text-info'>
+                <div
+                  className='text-info'
+                  onClick={() => funct.handleActivity(activity)}>
                   <div className='column activity-name'>{activity.name}</div>
                   <div className='column activity-category'>
                     {categories.map((category) => {
@@ -103,14 +139,40 @@ function Activities({ props, funct }) {
                     })}
                   </div>
                 </div>
-                <div className='column activity-date'>
-                  <FontAwesomeIcon icon={regular('calendar')} />
+                <div
+                  className='column activity-date'
+                  onClick={() => funct.handleActivity(activity)}>
+                  <FontAwesomeIcon
+                    icon={regular('calendar')}
+                    key={Math.random()}
+                  />
                   {`le ${dayjs(activity.date).format('DD/MM/YYYY')}`}
                 </div>
-                <div className='column activity-city'>
-                  <FontAwesomeIcon icon={solid('location-dot')} />
+                <div
+                  className='column activity-city'
+                  onClick={() => funct.handleActivity(activity)}>
+                  <FontAwesomeIcon
+                    icon={solid('location-dot')}
+                    key={Math.random()}
+                  />
                   {activity.city}
                 </div>
+                {activity.id_user === JSON.parse(localStorage.getItem('id')) ? (
+                  <div className='controle-activity'>
+                    <FontAwesomeIcon
+                      icon={solid('pencil')}
+                      className='edit-activity'
+                      onClick={() => funct.handleUpdateActivity(activity.id)}
+                      key={Math.random()}
+                    />
+                    <FontAwesomeIcon
+                      icon={solid('trash-alt')}
+                      className='delete-activity'
+                      onClick={() => removeActivity(activity.id)}
+                      key={Math.random()}
+                    />
+                  </div>
+                ) : null}
               </li>
             );
           }

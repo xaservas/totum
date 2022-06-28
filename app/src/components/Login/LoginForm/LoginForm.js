@@ -1,5 +1,5 @@
 /* eslint-disable indent */
-import { useState } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import axios from '../../../utils/axiosPool';
 import './loginForm.scss';
 
@@ -8,9 +8,25 @@ function LoginForm({ funct }) {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [formMode, setFormMode] = useState(false);
+  const [userId, setUserId] = useState(0);
+  const [token, setToken] = useState('');
+
+  const storeValue = useCallback(() => {
+    funct.storeToken(token);
+    funct.storeUserId(userId);
+  });
+
+  useEffect(() => {
+    storeValue();
+  }, [storeValue, token, userId]);
 
   const handleMode = (e) => {
     e.preventDefault();
+    setFormMode(!formMode);
+    setError('');
+  };
+
+  const handleForm = () => {
     setFormMode(!formMode);
     setError('');
   };
@@ -74,6 +90,8 @@ function LoginForm({ funct }) {
       .then((response) => {
         localStorage.setItem('token', response.data.token);
         saveUser(response.data.user);
+        setUserId(response.data.user.id);
+        setToken(response.data.token);
         funct.checkUser();
       })
       .catch((err) => {
@@ -93,7 +111,7 @@ function LoginForm({ funct }) {
       .then((response) => {
         errorMessage(response.status, 'restore');
         setTimeout(() => {
-          handleMode();
+          handleForm();
         }, 1500);
       })
       .catch((err) => {
@@ -111,7 +129,7 @@ function LoginForm({ funct }) {
           name='email'
           type='email'
           className='input-mail'
-          placeholder='Mail'
+          placeholder='Votre email'
           onChange={(e) => setEmail(e.target.value)}
         />
         <input
@@ -131,13 +149,16 @@ function LoginForm({ funct }) {
       <form
         onSubmit={handleSubmitRestore}
         className={`${viewRestore} restoreForm`}>
-        <p className='errorMessage'>{error}</p>
-
+        {error === 'Email envoyé' ? (
+          <p className='sendOk'>{error}</p>
+        ) : (
+          <p className='errorMessage'>{error}</p>
+        )}
         <input
           name='email'
           type='email'
-          className='input'
-          placeholder='Mail'
+          className='input-mail'
+          placeholder='Votre email'
           onChange={(e) => setEmail(e.target.value)}
         />
 

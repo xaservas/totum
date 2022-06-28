@@ -105,6 +105,20 @@
       padding-right: 1rem;
     }
   }
+
+  .controle-activity {
+    display: flex;
+    svg {
+      color: $dark;
+      height: 2rem;
+      width: 2rem;
+      padding-left: 2rem;
+      &:hover {
+        cursor: pointer;
+        color: $highlight;
+      }
+    }
+  }
 }
 
 @media screen and (max-width: 1065px) {
