@@ -1,19 +1,89 @@
 @import '../../vars';
 
 .login {
+  background-color: $white-local;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 60vh;
+  width: 30vw;
   text-align: center;
   margin: 0 auto;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   position: absolute;
+  border-radius: 20px;
+  font-weight: bold;
+  font-size: 1.5rem;
+  color: $dark;
   a {
     margin-bottom: 2em;
+  }
+  .container-form {
+    display: flex;
+    width: 80%;
+    height: 60%;
+
+    justify-content: center;
+    .LoginForm {
+      height: 80%;
+      width: 80%;
+
+      flex-direction: column;
+      justify-content: center;
+
+      .input-mail {
+        border-radius: 20px;
+        height: 2.5rem;
+        text-align: center;
+      }
+      .input-password {
+        border-radius: 20px;
+        height: 2.5rem;
+        margin-top: 2rem;
+        text-align: center;
+        margin-bottom: 3rem;
+      }
+      .button {
+        background-color: $dark;
+        border-radius: 25px;
+        text-align: center;
+        color: $white-local;
+        padding: 0.9rem;
+        border: $white-local;
+        margin-top: 0.7rem;
+        margin-bottom: 0.7rem;
+        width: 60%;
+        height: 4rem;
+        text-align: center;
+      }
+      .button-R {
+        background-color: $dark;
+        border-radius: 25px;
+        text-align: center;
+        color: $white-local;
+
+        border: $white-local;
+        margin-top: 0.7rem;
+        margin-bottom: 0.7rem;
+        width: 60%;
+        height: 4rem;
+        text-align: center;
+        display: flex;
+
+        align-items: center;
+        justify-content: center;
+        margin-left: 4.3rem;
+      }
+    }
+    .restoreForm {
+      justify-content: center;
+      flex-direction: column;
+
+      background-color: aquamarine;
+    }
   }
 }
 
