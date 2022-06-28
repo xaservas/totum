@@ -102,7 +102,7 @@ function LoginForm({ funct }) {
   };
 
   return (
-    <div>
+    <div className='container-form'>
       {/* formulaire de login */}
       <form onSubmit={handleSubmitLogin} className={`${viewLogin} LoginForm`}>
         <p className='errorMessage'>{error}</p>
@@ -110,19 +110,19 @@ function LoginForm({ funct }) {
         <input
           name='email'
           type='email'
-          className='input'
+          className='input-mail'
           placeholder='Mail'
           onChange={(e) => setEmail(e.target.value)}
         />
         <input
           name='password'
           type='password'
-          className='input'
+          className='input-password'
           placeholder='Mot de passe'
           onChange={(e) => setPassword(e.target.value)}
         />
         <button className='button'>Connexion</button>
-        <button className='button restorePassword' onClick={handleMode}>
+        <button className='button-R restorePassword' onClick={handleMode}>
           Mot de passe oublié ?
         </button>
       </form>
@@ -142,7 +142,7 @@ function LoginForm({ funct }) {
         />
 
         <button className='button'>Envoyer</button>
-        <button className='button restorePassword' onClick={handleMode}>
+        <button className='button-R restorePassword' onClick={handleMode}>
           Retour
         </button>
       </form>
