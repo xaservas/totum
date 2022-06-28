@@ -1,6 +1,6 @@
 // fontawesome
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCirclePlus, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
 
 // base page
 import './main.scss';
@@ -87,11 +87,6 @@ function Desktop({ props, funct }) {
       </div>
 
       <div id='modalProfil' className={profile}>
-        <FontAwesomeIcon
-          icon={faXmark}
-          className='icon_close'
-          onClick={() => funct.closeAllModal()}
-        />
         <Profil props={props} funct={funct} />
       </div>
 
@@ -123,12 +118,6 @@ function Desktop({ props, funct }) {
       </div>
 
       {/* fin zone modal */}
-
-      <FontAwesomeIcon
-        onClick={() => funct.handleCreateActivity()}
-        className='icon_create'
-        icon={faCirclePlus}
-      />
     </div>
   );
 }

@@ -24,6 +24,8 @@ function App() {
   const [resetSearch, setResetSearch] = useState(false);
   const [activityContent, setActivityContent] = useState({});
   const [mainListActivities, setMainListActivities] = useState(false);
+  const [userId, setUserId] = useState(0);
+  const [token, setToken] = useState('');
   const timeNow = dayjs(Date.now()).toISOString();
 
   const checkUser = () => {
@@ -43,6 +45,14 @@ function App() {
     setActivity(false);
     setHelp(false);
     setLegalmention(false);
+  };
+
+  const storeUserId = (id) => {
+    setUserId(id);
+  };
+
+  const storeToken = (tokenUser) => {
+    setToken(tokenUser);
   };
 
   const handleListMainActivities = () => {
@@ -105,6 +115,10 @@ function App() {
     setActivity(!activity);
   };
 
+  const closeActivity = () => {
+    setActivity(!activity);
+  };
+
   const handleLogout = async () => {
     closeAllModal();
     try {
@@ -145,6 +159,8 @@ function App() {
     activityContent,
     timeNow,
     mainListActivities,
+    userId,
+    token,
   };
 
   const funct = {
@@ -164,6 +180,9 @@ function App() {
     handleHelp,
     handleLegalmention,
     handleListMainActivities,
+    storeUserId,
+    storeToken,
+    closeActivity,
   };
 
   return (

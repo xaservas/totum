@@ -1,24 +1,330 @@
 @import '../../vars';
 
 .profil_card {
-  height: 100vh;
+  // height: 100vh;
+  height: auto;
   margin: 0 auto;
   color: white;
   overflow: auto;
+  display: flex;
+  // max-height: 70%;
+  // min-height: 70%;
+  align-content: center;
+  align-items: center;
+
+  .card-content {
+    background-color: $white-local;
+    border-radius: 20px 20px 0px 0px;
+    height: fit-content;
+    .media {
+      display: flex;
+      flex-direction: column;
+      width: 28rem;
+      .avatar {
+        position: relative;
+        .edit-profil {
+          color: $dark;
+          position: absolute;
+          top: 1.1rem;
+          left: 1.1rem;
+          height: 2rem;
+          &:hover {
+            cursor: pointer;
+            color: $highlight;
+          }
+        }
+        .activity-close {
+          position: relative;
+          color: $dark;
+          position: absolute;
+          top: 1.1rem;
+          right: 1.1rem;
+          height: 2.5rem;
+          &:hover {
+            cursor: pointer;
+            color: $highlight;
+          }
+        }
+        .activity-handle {
+          position: relative;
+          color: $dark;
+          position: absolute;
+          top: 34.1rem;
+          right: 1.1rem;
+          height: 2.5rem;
+          &:hover {
+            cursor: pointer;
+            color: $highlight;
+          }
+        }
+      }
+      img {
+        border-radius: 20px 20px 0px 0px;
+        height: 33.6rem;
+      }
+      .media-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 8px 10px;
+        gap: 10px;
+        height: 11.8rem;
+        background-color: $black-local;
+        color: $white-local;
+        justify-content: center;
+        align-items: center;
+        p {
+          text-align: center;
+        }
+        .profile-name {
+          font-size: 2rem;
+          font-weight: 500;
+          line-height: 14px;
+        }
+        .profile-city {
+          font-size: 1.2rem;
+          font-weight: 400;
+          line-height: 14px;
+        }
+      }
+      .media-about {
+        color: $black-local;
+        padding: 8px 10px;
+        gap: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: auto;
+        min-height: 13rem;
+
+        .porfile-presentation {
+          font-size: 1.4rem;
+          font-weight: 400;
+          line-height: 14px;
+        }
+        p {
+          text-align: center;
+        }
+      }
+    }
+  }
 
   .profile-activities {
     color: white;
+    overflow: scroll;
+    display: none;
   }
 
-  // tableau d'activités
   .listActivities_panel {
-    min-height: max-content;
-    max-height: 80%;
-    overflow: auto;
+    padding-left: 1rem;
+    color: $black-local;
     .activities-list {
+      .past {
+        background-color: #a6b0b2;
+      }
+
       display: flex;
+      padding: 0;
       // regle pour ordonner du plus récent au plus ancien
       flex-direction: column-reverse;
+      position: relative;
+    }
+
+    .panel-block {
+      height: 9.5rem;
+      background-color: $white-local;
+      display: flex;
+      align-items: center;
+      padding: 8px 80px 8px 25px;
+      gap: 18px;
+      list-style: none;
+      box-shadow: 3px 3px 8px 4px rgba(34, 41, 43, 0.25);
+      border-radius: 10px;
+      margin-bottom: 2rem;
+      &:hover {
+        cursor: pointer;
+      }
+
+      .activity-picture {
+        height: auto;
+        width: 6rem;
+        border: 2px solid $black-local;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 90%;
+      }
+
+      .text-info {
+        display: flex;
+        width: 56%;
+        height: 80%;
+        justify-content: center;
+        align-items: center;
+        border-left: 2px solid $black-local;
+
+        .column {
+          width: 15rem;
+        }
+      }
+
+      .activity-name {
+        font-size: 1.4rem;
+        color: $black-local;
+        padding-left: 1rem;
+        text-align: left;
+      }
+
+      .activity-category {
+        padding: 0 1rem;
+        font-size: 1.4rem;
+        color: $black-local;
+        text-align: center;
+      }
+
+      .activity-level {
+        text-align: right;
+      }
+
+      .activity-date {
+        font-size: 1.4rem;
+        color: $black-local;
+        border-left: 2px solid $black-local;
+        padding-left: 1rem;
+        height: 80%;
+        align-items: center;
+        display: flex;
+        min-width: 13rem;
+        svg {
+          height: auto;
+          width: 2rem;
+          color: $dark;
+          padding-right: 1rem;
+        }
+      }
+
+      .activity-city {
+        font-size: 1.4rem;
+        color: $black-local;
+        border-left: 2px solid $black-local;
+        padding-left: 1rem;
+        height: 80%;
+        align-items: center;
+        display: flex;
+        min-width: 15rem;
+        svg {
+          height: auto;
+          width: 2rem;
+          color: $dark;
+          padding-right: 1rem;
+        }
+      }
+    }
+  }
+}
+
+.hiddenActivities {
+  display: block !important;
+}
+
+@media screen and (max-width: 1320px) {
+  .profil_card {
+    margin: 1rem;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+    flex-wrap: wrap;
+    align-self: self-start;
+    .card-content {
+      margin-bottom: 3rem;
+    }
+  }
+}
+
+@media screen and (max-width: 1260px) {
+  .profil_card {
+    margin: 0 auto;
+    margin-top: 3rem;
+
+    .card-content {
+      margin: 0 auto;
+      margin-bottom: 3rem;
+    }
+    .profile-activities {
+      margin: 0 auto;
+    }
+  }
+}
+
+@media screen and (max-width: 972px) {
+  .listActivities_panel {
+    .text-info {
+      flex-direction: column;
+      align-items: center;
+      .column {
+        width: 100%;
+        text-align: left;
+        padding: 0;
+        padding-left: 2rem;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 680px) {
+  .listActivities_panel {
+    .activities-list {
+      .panel-block {
+        padding: 0;
+        padding-left: 2rem;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 586px) {
+  .listActivities_panel {
+    .activities-list {
+      .panel-block {
+        padding: 0;
+        padding-left: 2rem;
+      }
+    }
+    .activity-city {
+      display: none;
+    }
+  }
+}
+
+@media screen and (max-width: 390px) {
+  .profil_card {
+    margin-top: 7rem;
+    .card-content {
+      .media {
+        width: 100%;
+      }
+    }
+  }
+  .listActivities_panel {
+    .activities-list {
+      .text-info {
+        flex-direction: column;
+        align-items: center;
+        .column {
+          width: 100%;
+          text-align: left;
+          padding: 0;
+          padding-left: 2rem;
+        }
+      }
+      .activity {
+        .activity-date {
+          display: none;
+        }
+
+        .activity-city {
+          display: none;
+        }
+      }
     }
   }
 }

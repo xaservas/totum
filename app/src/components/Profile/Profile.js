@@ -1,19 +1,32 @@
 /* eslint-disable indent */
 /* eslint-disable import/no-extraneous-dependencies */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPencil } from '@fortawesome/free-solid-svg-icons';
+import { solid, regular } from '@fortawesome/fontawesome-svg-core/import.macro';
 import { useState, useEffect } from 'react';
 import dayjs from 'dayjs';
+import Axios from 'axios';
 import axios from '../../utils/axiosPool';
 
 // base page
 import './profile.scss';
 
 function Profile({ props, funct }) {
-  const userId = localStorage.getItem('id');
+  const userId = JSON.parse(localStorage.getItem('id'));
   const [user, setUser] = useState([]);
   const [activities, setActivities] = useState([]);
   const nowISO = props.timeNow;
+  const [showActivitiesList, setShowActivitiesList] = useState(false);
+
+  const handleActivitiesList = () => {
+    setShowActivitiesList(!showActivitiesList);
+  };
+
+  const showThat = showActivitiesList ? 'hiddenActivities' : '';
+
+  const capitalize = (s) => {
+    if (typeof s !== 'string') return '';
+    return s.charAt(0).toUpperCase() + s.slice(1);
+  };
 
   const checkDate = (date) => {
     if (date < nowISO) {
@@ -27,6 +40,11 @@ function Profile({ props, funct }) {
       const response = await axios({
         method: 'get',
         url: `/user/${id}/manage`,
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
       });
       setUser(response.data);
     } catch (error) {
@@ -36,7 +54,15 @@ function Profile({ props, funct }) {
 
   const getUserActivities = async (id) => {
     try {
-      const response = await axios.get(`/user/${id}/activity`);
+      const response = await axios({
+        method: 'get',
+        url: `/user/${id}/activity`,
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
       setActivities(response.data);
     } catch (error) {
       setActivities([
@@ -48,13 +74,43 @@ function Profile({ props, funct }) {
     }
   };
 
+  const showActivity = async (id) => {
+    try {
+      const response = await axios.get(`/activity/${id}/manage`);
+      funct.handleActivity(response.data);
+    } catch (error) {
+      throw new Error(error);
+    }
+  };
+
   useEffect(() => {
     getUserById(userId);
-  }, []);
+  }, [userId]);
 
   useEffect(() => {
     getUserActivities(userId);
-  }, [props.profile]);
+  }, [userId]);
+
+  // const randomPictures = ({ picture }) => {
+  //   const [curentPicture, setCurrentPicture] = useState(null);
+  //   useEffect(() => {
+  //     Axios({
+  //       method: 'get',
+  //       url: 'https://randomuser.me/api/',
+  //     })
+  //       .then((response) => {
+  //         setCurrentPicture(response.data.results[0].picture.large);
+  //         // pictures.push(response.data.results[0].picture.large);
+  //       })
+  //       .catch((error) => {
+  //         throw new Error(error);
+  //       });
+  //   }, [picture]);
+
+  //   return (
+  //     <img src={curentPicture} alt='profile' className='profile-picture' />
+  //   );
+  // };
 
   const ListActivities = () => (
     <article className='listActivities_panel'>
@@ -63,32 +119,35 @@ function Profile({ props, funct }) {
           if (activity.id !== 404) {
             return (
               <li
+                onClick={() => showActivity(activity.activity_id)}
                 key={activity.activity_id}
                 className={`activity panel-block ${checkDate(
                   activity.activity_date,
                 )}`}>
                 <div className='column profil-picture'>
-                  {activity.creator_picture}
+                  <img alt='profile' className='profile-picture' />
                 </div>
 
-                <div className='column activity-name'>
-                  {activity.activity_name}
-                </div>
-
-                <div className='column activity-category'>
-                  {activity.category_name}
-                </div>
-
-                <div className='column activity-city'>
-                  {activity.activity_city}
+                <div className='text-info'>
+                  <div className='column activity-name'>
+                    {activity.activity_name}
+                  </div>
+                  <div className='column activity-category'>
+                    {activity.category_name}
+                  </div>
+                  <div className='column activity-level'>
+                    {activity.level_name}
+                  </div>
                 </div>
 
                 <div className='column activity-date'>
+                  <FontAwesomeIcon icon={regular('calendar')} />
                   {dayjs(activity.activity_date).format('DD/MM/YYYY')}
                 </div>
 
-                <div className='column activity-level'>
-                  {activity.level_name}
+                <div className='column activity-city'>
+                  <FontAwesomeIcon icon={solid('location-dot')} />
+                  {activity.activity_city}
                 </div>
               </li>
             );
@@ -108,31 +167,46 @@ function Profile({ props, funct }) {
       <div className='card-content'>
         <div className='media'>
           <div className='media-left'>
-            <figure className='avatar image is-128x128'>
+            <figure className='avatar image'>
               <img
                 className='is-rounded'
                 src='https://i.picsum.photos/id/779/200/200.jpg?hmac=qClHBmnKwT7Xt6flSVOh5Ax0tWLRo_gLVmwd4dkSVAo'
                 alt='profile'
               />
+              <FontAwesomeIcon
+                icon={solid('pencil')}
+                className='edit-profil'
+                onClick={() => funct.handleParameters()}
+              />
+              <FontAwesomeIcon
+                icon={regular('circle-xmark')}
+                onClick={() => funct.closeAllModal()}
+                className='activity-close'
+              />
+              <FontAwesomeIcon
+                icon={solid('bars')}
+                onClick={handleActivitiesList}
+                className='activity-handle'
+              />
             </figure>
           </div>
           <div className='media-content'>
             <p className='profile-name title is-4'>
-              {user.firstname} {user.lastname}
+              {capitalize(user.firstname)} {capitalize(user.lastname)}
             </p>
+            <p className='profile-city content'>{`${capitalize(
+              user.city,
+            )}, ${capitalize(user.country)}`}</p>
+          </div>
+          <div className='media-about'>
             <p className='profile-presentation content'>
               {user.about === '' ? 'Aucune présentation' : user.about}
             </p>
           </div>
-          <FontAwesomeIcon
-            icon={faPencil}
-            className='icon_edit'
-            onClick={() => funct.handleParameters()}
-          />
         </div>
       </div>
 
-      <div className='profile-activities'>
+      <div className={`profile-activities ${showThat}`}>
         <ListActivities />
       </div>
     </section>

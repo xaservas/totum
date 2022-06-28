@@ -1,5 +1,5 @@
 /* eslint-disable indent */
-import { useState } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import axios from '../../../utils/axiosPool';
 import './loginForm.scss';
 
@@ -8,6 +8,17 @@ function LoginForm({ funct }) {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [formMode, setFormMode] = useState(false);
+  const [userId, setUserId] = useState(0);
+  const [token, setToken] = useState('');
+
+  const storeValue = useCallback(() => {
+    funct.storeToken(token);
+    funct.storeUserId(userId);
+  });
+
+  useEffect(() => {
+    storeValue();
+  }, [storeValue, token, userId]);
 
   const handleMode = (e) => {
     e.preventDefault();
@@ -74,6 +85,8 @@ function LoginForm({ funct }) {
       .then((response) => {
         localStorage.setItem('token', response.data.token);
         saveUser(response.data.user);
+        setUserId(response.data.user.id);
+        setToken(response.data.token);
         funct.checkUser();
       })
       .catch((err) => {
