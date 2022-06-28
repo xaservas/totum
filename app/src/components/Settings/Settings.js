@@ -19,7 +19,6 @@ function Settings({ props }) {
   const [city, setCity] = useState('');
   const [country, setCountry] = useState('');
   const [about, setAbout] = useState('');
-  const [user, setUser] = useState('');
   const [cookieValue, setCookieValue] = useState(false);
 
   const [autocompleteAddress, setAutocompleteAddress] = useState([]);
@@ -186,21 +185,22 @@ function Settings({ props }) {
       }
       setError('pas pareille les mails');
     }
-    if (user !== localStorage.getItem('user')) {
-      axios({
-        method: 'patch',
-        url: `/user/${userId}/manage`,
-        data: {
-          firstname: `${firstname}`,
-          lastname: `${lastname}`,
-          address: `${address}`,
-          zip_code: `${zipCode}`,
-          city: `${city}`,
-          country: `${country}`,
-          about: `${about}`,
-          cookie: `${cookieValue}`,
-        },
-      })
+
+    axios({
+      method: 'patch',
+      url: `/user/${userId}/manage`,
+      data: {
+        firstname: `${firstname}`,
+        lastname: `${lastname}`,
+        address: `${address}`,
+        zip_code: `${zipCode}`,
+        city: `${city}`,
+        country: `${country}`,
+        about: `${about}`,
+        cookie: `${cookieValue}`,
+      },
+    })
+     
         .then((res) => {
           console.log(res);
           // funct.closeAllModal();
@@ -212,6 +212,7 @@ function Settings({ props }) {
           // return 'les mails sont identiques';
         });
     }
+
   };
 
   return (
@@ -395,8 +396,10 @@ function Settings({ props }) {
           </label>
         </div>
       </form>
+
       <p style={{ color: 'red' }} className='errorMessage'>{error}</p>
       <button className='validation-button' onClick={handleSubmit}>
+
         Valider
       </button>
     </div>
