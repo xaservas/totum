@@ -94,11 +94,12 @@ function Settings({ props }) {
         headers: {
           'Content-Type': 'application/json',
           Accept: 'application/json',
-          Authorization: `Bearer ${props.token}`,
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
       });
       setCookieValue(response.data.cookie);
     } catch (err) {
+      console.log(err);
       throw new Error(err);
     }
   };
