@@ -19,7 +19,6 @@ function Settings({ props }) {
   const [city, setCity] = useState('');
   const [country, setCountry] = useState('');
   const [about, setAbout] = useState('');
-  const [user, setUser] = useState('');
   const [cookieValue, setCookieValue] = useState(false);
 
   const [autocompleteAddress, setAutocompleteAddress] = useState([]);
@@ -47,9 +46,9 @@ function Settings({ props }) {
     if (!address) return;
 
     const res = await mapbox(address);
-    !autocompleteAddress.includes(e.target.value) &&
-      res.features &&
-      setAutocompleteAddress(res.features.map((place) => place.place_name));
+    !autocompleteAddress.includes(e.target.value)
+      && res.features
+      && setAutocompleteAddress(res.features.map((place) => place.place_name));
     res.error ? setAutocompleteErr(res.error) : setAutocompleteErr('');
   };
 
@@ -149,9 +148,9 @@ function Settings({ props }) {
     }
 
     if (
-      email === localStorage.getItem('email') &&
-      emailNew !== '' &&
-      emailConfirmation !== ''
+      email === localStorage.getItem('email')
+      && emailNew !== ''
+      && emailConfirmation !== ''
     ) {
       if (emailNew === emailConfirmation) {
         axios({
@@ -177,33 +176,33 @@ function Settings({ props }) {
       }
       // pas pareille les mails
     }
-    if (user !== localStorage.getItem('user')) {
-      axios({
-        method: 'patch',
-        url: `/user/${userId}/manage`,
-        data: {
-          firstname: `${firstname}`,
-          lastname: `${lastname}`,
-          address: `${address}`,
-          zip_code: `${zipCode}`,
-          city: `${city}`,
-          country: `${country}`,
-          about: `${about}`,
-          cookie: `${cookieValue}`,
-        },
+
+    axios({
+      method: 'patch',
+      url: `/user/${userId}/manage`,
+      data: {
+        firstname: `${firstname}`,
+        lastname: `${lastname}`,
+        address: `${address}`,
+        zip_code: `${zipCode}`,
+        city: `${city}`,
+        country: `${country}`,
+        about: `${about}`,
+        cookie: `${cookieValue}`,
+      },
+    })
+      .then((res) => {
+        console.log(res);
+        // funct.closeAllModal();
       })
-        .then((res) => {
-          console.log(res);
-          // funct.closeAllModal();
-        })
-        .catch((err) => {
-          // ajouter un message d'information si sa marche pas
-          // errorMessage(err.response.status);
-          console.log(err);
-          console.log('erreur data');
-          // return 'les mails sont identiques';
-        });
-    }
+      .catch((err) => {
+        // ajouter un message d'information si sa marche pas
+        // errorMessage(err.response.status);
+        console.log(err);
+        console.log('erreur data');
+        // return 'les mails sont identiques';
+      });
+
     return 'error';
   };
 
