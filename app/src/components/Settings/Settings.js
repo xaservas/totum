@@ -200,6 +200,7 @@ function Settings({ props }) {
         cookie: `${cookieValue}`,
       },
     })
+
      
         .then((res) => {
           console.log(res);
@@ -212,6 +213,7 @@ function Settings({ props }) {
           // return 'les mails sont identiques';
         });
     }
+
 
   };
 
