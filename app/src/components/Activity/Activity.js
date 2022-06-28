@@ -240,7 +240,7 @@ function Activity({ props, funct }) {
           {activity.name}
           <FontAwesomeIcon
             icon={regular('circle-xmark')}
-            onClick={() => funct.closeAllModal()}
+            onClick={() => funct.closeActivity()}
             className='activity-close'
           />
         </p>

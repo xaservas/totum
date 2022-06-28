@@ -2,6 +2,7 @@ import ReactDOM from 'react-dom/client';
 import './index.scss';
 // import 'bulma/css/bulma.min.css';
 import { BrowserRouter } from 'react-router-dom';
+import { StrictMode } from 'react';
 import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
 import App from './components/App/App';
 import reportWebVitals from './reportWebVitals';
@@ -12,10 +13,12 @@ root.render(
     language='fr'
     reCaptchaKey='6LeeCZ0gAAAAAHk6N5QVHqr_lI7XpUOc98pSQnTG'>
     <BrowserRouter>
-      <App />
+      <StrictMode>
+        <App />
+      </StrictMode>
     </BrowserRouter>
-    ,
-  </GoogleReCaptchaProvider>
+    , ,
+  </GoogleReCaptchaProvider>,
 );
 
 // If you want to start measuring performance in your app, pass a function
