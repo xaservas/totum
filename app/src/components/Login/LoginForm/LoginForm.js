@@ -124,7 +124,7 @@ function LoginForm({ funct }) {
           name='email'
           type='email'
           className='input-mail'
-          placeholder='Mail'
+          placeholder='Votre email'
           onChange={(e) => setEmail(e.target.value)}
         />
         <input
@@ -149,8 +149,8 @@ function LoginForm({ funct }) {
         <input
           name='email'
           type='email'
-          className='input'
-          placeholder='Mail'
+          className='input-mail'
+          placeholder='Votre email'
           onChange={(e) => setEmail(e.target.value)}
         />
 

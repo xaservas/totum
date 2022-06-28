@@ -78,11 +78,6 @@ function Desktop({ props, funct }) {
       </div>
 
       <div id='modalLogin' className={user}>
-        <FontAwesomeIcon
-          icon={faXmark}
-          className='icon_close'
-          onClick={() => funct.closeAllModal()}
-        />
         <Login funct={funct} props={props} />
       </div>
 

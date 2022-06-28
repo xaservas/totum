@@ -23,7 +23,7 @@ function CreateActivity({ props, funct }) {
     city: '',
     country: '',
     id_user: userId,
-    id_category: 3,
+    id_category: '',
     // affichage de toute la liste
     // utiliser find pour améliorer la sélection
   });
@@ -32,7 +32,7 @@ function CreateActivity({ props, funct }) {
 
   const sortObjectsByProp = (objectsArr, prop, ascending = true) => {
     const objectsHaveProp = objectsArr.every((object) =>
-      object.hasOwnProperty(prop)
+      object.hasOwnProperty(prop),
     );
     if (objectsHaveProp) {
       const newObjectsArr = objectsArr.slice();
@@ -59,6 +59,8 @@ function CreateActivity({ props, funct }) {
         url: '/category/categories',
       });
       const sortedCategories = sortObjectsByProp(response.data, 'name');
+      sortedCategories.sort((a, b) => a.id - b.id);
+      setActivity({ ...activity, id_category: sortedCategories[0].id });
       setCategories(sortedCategories);
     } catch (error) {
       throw new Error(error);
@@ -86,6 +88,7 @@ function CreateActivity({ props, funct }) {
   };
 
   const handleSubmit = async (event) => {
+    console.log(activity);
     event.preventDefault();
     try {
       const response = await axios({
@@ -95,8 +98,10 @@ function CreateActivity({ props, funct }) {
           ...activity,
         },
       });
+      console.log(response);
       return response.data;
     } catch (error) {
+      console.log(error);
       throw new Error(error);
     }
 
@@ -253,18 +258,17 @@ function CreateActivity({ props, funct }) {
           </div>
         </div>
         <div className='validation-button'>
-        {/* redirect to the activity page */}
-        <button className='button' type='submit'>
-          Submit
-        </button>
+          {/* redirect to the activity page */}
+          <button className='button' type='submit'>
+            Submit
+          </button>
 
-        {/* redirect to root */}
-        <button className='button is-light' type='reset'>
-          Cancel
-        </button>
+          {/* redirect to root */}
+          <button className='button is-light' type='reset'>
+            Cancel
+          </button>
+        </div>
       </div>
-      </div>
-      
     </form>
   );
 }

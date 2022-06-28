@@ -1,7 +1,7 @@
 /* eslint-disable no-plusplus */
 /* eslint-disable import/no-extraneous-dependencies */
 import { Route, Routes } from 'react-router-dom';
-import { useState, useEffect, StrictMode } from 'react';
+import { useState, useEffect } from 'react';
 import dayjs from 'dayjs';
 import Axios from '../../utils/axiosPool';
 

@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import './login.scss';
+import { regular } from '@fortawesome/fontawesome-svg-core/import.macro';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import LoginForm from './LoginForm/LoginForm';
 
 function Login({ funct }) {
@@ -22,7 +24,15 @@ function Login({ funct }) {
 
   return (
     <div className='login'>
-      <a onClick={() => funct.handleCreateProfile()}>Pas encore inscrit ?</a>
+      <div className='header-login'>
+        <div></div>
+        <a onClick={() => funct.handleCreateProfile()}> Pas encore inscrit ?</a>
+        <FontAwesomeIcon
+          icon={regular('circle-xmark')}
+          onClick={() => funct.closeAllModal()}
+          className='login-close'
+        />
+      </div>
       <LoginForm funct={funct} />
       <a onClick={() => funct.closeAllModal()}>Découvrir l'application</a>
     </div>
