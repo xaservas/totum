@@ -24,6 +24,7 @@ function CreateActivity({ props, funct }) {
     // affichage de toute la liste
     // utiliser find pour améliorer la sélection
   });
+  const [date, setDate] = React.useState(new Date());
 
   const sortObjectsByProp = (objectsArr, prop, ascending = true) => {
     const objectsHaveProp = objectsArr.every((object) =>
@@ -83,6 +84,10 @@ function CreateActivity({ props, funct }) {
     }));
   };
 
+  const handleDateChannge = (e) => {
+    const newDate = e.target.value;
+    console.log(newDate);
+  }
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
@@ -141,7 +146,7 @@ function CreateActivity({ props, funct }) {
       </div>
       <div className='field'>
         <label className='label'>Catégorie</label>
-        <div className='select-style width-30'>
+        <div className='select-style'>
           <select
             className='select'
             type='text'
@@ -233,14 +238,15 @@ function CreateActivity({ props, funct }) {
           onChange={handleChange}
         />
       </div>
-      <div className='field'>
+      <div className='field date'>
         <label className='label'>Date</label>
         {/* Find a calendar module */}
         <div className='control'>
           <Calendar
+            className='calendar'
             name='date'
-            value={activity.date}
-            onChange={handleChange}
+            value={date}
+            onChange={handleDateChannge}
           />
         </div>
       </div>

@@ -11,7 +11,7 @@
   max-width: 1920px;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   align-content: space-around;
   flex-wrap: wrap;
   flex-direction: column;
@@ -27,6 +27,17 @@
     min-height: 3.5rem;
     box-shadow: 3px 3px 8px 4px rgba(34, 41, 43, 0.25);
     border-radius: 3rem;
+    
+  }
+  .description{
+    align-items: flex-start;
+    align-content: flex-start;
+    padding: 1.6rem;
+  }
+  .date{
+    align-items: flex-start;
+    align-content: flex-start;
+    padding: 1.6rem;
   }
   .label{
     width: 10rem;
@@ -42,7 +53,7 @@
   .input{
     font-family: 'Lato';
     border: none;  
-    padding: 0 10px;
+    padding: 0 1rem;
     margin: none;
     font-style: normal;
     font-size: 1.5rem;
@@ -50,9 +61,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: baseline;
-    input{
-      margin-bottom: 0px;
-    }
+    
   }
   input:focus{
     outline:none;
@@ -62,7 +71,7 @@
     padding: 0;
     margin: 0;
     border: none;
-    width: 150px;
+    
     overflow: hidden;
     position: relative;
 
@@ -74,7 +83,7 @@
     select {
       font-family: 'Lato';
       padding: 5px 8px;
-      width: 130%;
+      width: auto;
       border: none;
       box-shadow: none;
       background-color: transparent;
@@ -103,9 +112,7 @@
     border-top-color: #000000;
     border-width: 5px;
     margin-top: -2px;
-    z-index: 100;
-    
-    
+    z-index: 100;    
 }
 
 .textarea{
@@ -114,7 +121,8 @@
   font-size: 1.5rem;
   resize: none;
   overflow: auto;
-  padding: 5px 8px;
+  padding: 0 1rem;
+  height: 10rem;
 }
 .textarea:focus{
   border: none;
@@ -122,35 +130,40 @@
 .textarea:after{
   border: none;
 }
-  .validation-button {
-    width: 100%;
-    display: flex;
-    margin-top: 2rem;
-    justify-content: space-evenly;
-    flex-direction: row;
-    align-items: center;
-    padding: 0.7rem 1.6rem;
+.calendar{
+  border: none;
+  padding: 0;
+  font-family: 'Lato';
+}
+.validation-button {
+  width: 100%;
+  display: flex;
+  margin-top: 2rem;
+  justify-content: space-evenly;
+  flex-direction: row;
+  align-items: center;
+  padding: 0.7rem 1.6rem;
 
-    .button {    
-      width: 30%;
-      height: 5rem;
-      display:flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      font-style: normal;
-      font-weight: bold;
-      font-size: 2rem;
-      color: $white-contrast;
-      background-color: $dark;
-      border-radius: 50px;
-      box-shadow: 3px 3px 8px 4px rgba(34, 41, 43, 0.25);
-    }
-    .is-light{
-      background-color: $ultra-clear;
-      color: $dark;
-    }
+  .button {    
+    width: 30%;
+    height: 5rem;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 2rem;
+    color: $white-contrast;
+    background-color: $dark;
+    border-radius: 50px;
+    box-shadow: 3px 3px 8px 4px rgba(34, 41, 43, 0.25);
   }
+  .is-light{
+    background-color: $ultra-clear;
+    color: $dark;
+  }
+}
 }
 
 @media screen and (max-width: 1030px) {
