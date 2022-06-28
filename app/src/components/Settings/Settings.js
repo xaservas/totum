@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-expressions */
-import { useState, useEffect } from 'react';
+import { useState, useEffect, funct } from 'react';
 import './settings.scss';
 import axios from '../../utils/axiosPool';
 import mapbox from '../../utils/mapbox';
@@ -24,31 +24,35 @@ function Settings({ props }) {
 
   const [autocompleteAddress, setAutocompleteAddress] = useState([]);
   const [autocompleteErr, setAutocompleteErr] = useState('');
+
   // const [error, setError] = useState('');
   const { userId } = props;
+
   // gestion des erreurs--------------
-  // const errorMessage = (data) => {
-  //   switch (data) {
-  //   case 401:
-  //     setError('Les mots de passe de sont pas identique');
-  //     break;
-  //   case 400:
-  //     setError('Erreur inconnue');
-  //     break;
-  //   default:
-  //     setError('');
-  //     break;
-  //   }
-  // };
+  const errorMessage = (data) => {
+    switch (data) {
+    case 401:
+      setError('401');
+      break;
+    case 400:
+      setError('400');
+      break;
+    default:
+      setError('default error');
+      break;
+    }
+  };
+
+  // autocomplete address
 
   const handleAddressChange = async (e) => {
     setAddress(e.target.value);
     if (!address) return;
 
     const res = await mapbox(address);
-    !autocompleteAddress.includes(e.target.value) &&
-      res.features &&
-      setAutocompleteAddress(res.features.map((place) => place.place_name));
+    !autocompleteAddress.includes(e.target.value)
+      && res.features
+      && setAutocompleteAddress(res.features.map((place) => place.place_name));
     res.error ? setAutocompleteErr(res.error) : setAutocompleteErr('');
   };
 
@@ -144,24 +148,21 @@ function Settings({ props }) {
             passwordConfirmation: `${passwordConfirmation}`,
           },
         })
-          .then((res) => {
-            console.log(res);
-            // funct.closeAllModal();
+          .then(() => {
+            funct.closeAllModal();
           })
-          .catch((err) => {
+          .catch(() => {
             // ajouter un message d'information si sa marche pas
-            // errorMessage(err.response.status);
-            console.log(err);
-            console.log('erreur mot de passe');
+            errorMessage('les mots de passe ne correspondent pas aux critères');
           });
       }
-      // return 'les mots de passe ne corresponds pas';
+      setError('mots de passe pas pareil');
     }
 
     if (
-      email === localStorage.getItem('email') &&
-      emailNew !== '' &&
-      emailConfirmation !== ''
+      email === localStorage.getItem('email')
+      && emailNew !== ''
+      && emailConfirmation !== ''
     ) {
       if (emailNew === emailConfirmation) {
         axios({
@@ -179,13 +180,11 @@ function Settings({ props }) {
           })
           .catch((err) => {
             // ajouter un message d'information si sa marche pas
-            // errorMessage(err.response.status);
-            console.log(err);
-            console.log('erreur mail');
+            errorMessage(err.response.status);
           });
-        // return 'les mails sont identiques';
+        setError('les mails sont identiques');
       }
-      // pas pareille les mails
+      setError('pas pareille les mails');
     }
     if (user !== localStorage.getItem('user')) {
       axios({
@@ -208,13 +207,11 @@ function Settings({ props }) {
         })
         .catch((err) => {
           // ajouter un message d'information si sa marche pas
-          // errorMessage(err.response.status);
-          console.log(err);
-          console.log('erreur data');
+          errorMessage(err.response.status);
+          console.log('erreur datata');
           // return 'les mails sont identiques';
         });
     }
-    return 'error';
   };
 
   return (
@@ -269,10 +266,10 @@ function Settings({ props }) {
           />
         </div>
         <div className='field'>
-          <label className='label'>Nouveau mot de passe</label>
+          <label className='label'>Confirmation</label>
           <input
             required
-            name='password'
+            name='passwordConfirmation'
             type='password'
             className='input'
             onChange={(e) => setPasswordConfirmation(e.target.value)}
@@ -280,27 +277,29 @@ function Settings({ props }) {
         </div>
       </form>
       <form id='infoForm'>
-        <div className='field'>
-          <label className='label'>Prénom</label>
-          <input
-            required
-            name='firstname'
-            type='text'
-            className='input'
-            value={firstname}
-            onChange={(e) => setFirstname(e.target.value)}
-          />
-        </div>
-        <div className='field'>
-          <label className='label'>Nom</label>
-          <input
-            required
-            name='lastname'
-            type='text'
-            className='input'
-            value={lastname}
-            onChange={(e) => setLastname(e.target.value)}
-          />
+        <div className="nom">
+          <div className='field'>
+            <label className='label'>Prénom</label>
+            <input
+              required
+              name='firstname'
+              type='text'
+              className='input'
+              value={firstname}
+              onChange={(e) => setFirstname(e.target.value)}
+            />
+          </div>
+          <div className='field'>
+            <label className='label'>Nom</label>
+            <input
+              required
+              name='lastname'
+              type='text'
+              className='input'
+              value={lastname}
+              onChange={(e) => setLastname(e.target.value)}
+            />
+          </div>
         </div>
         <div className='field'>
           <label className='label'>Recherche d'adresse</label>
@@ -396,9 +395,9 @@ function Settings({ props }) {
           </label>
         </div>
       </form>
-      <button className='button' onClick={handleSubmit}>
-        {' '}
-        Valider{' '}
+      <p style={{ color: 'red' }} className='errorMessage'>{error}</p>
+      <button className='validation-button' onClick={handleSubmit}>
+        Valider
       </button>
     </div>
   );
