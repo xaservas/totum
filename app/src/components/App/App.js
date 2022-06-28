@@ -1,8 +1,10 @@
+/* eslint-disable no-plusplus */
 /* eslint-disable import/no-extraneous-dependencies */
 import { Route, Routes } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, StrictMode } from 'react';
 import dayjs from 'dayjs';
 import Axios from '../../utils/axiosPool';
+
 // base page
 import './app.scss';
 import Header from '../Header/Header';
@@ -24,7 +26,27 @@ function App() {
   const [resetSearch, setResetSearch] = useState(false);
   const [activityContent, setActivityContent] = useState({});
   const [mainListActivities, setMainListActivities] = useState(false);
+  const [userId, setUserId] = useState(0);
+  const [token, setToken] = useState('');
   const timeNow = dayjs(Date.now()).toISOString();
+  const [usersPictures, setUsersPictures] = useState([]);
+
+  const randomPictures = () => {
+    Axios({
+      method: 'get',
+      url: 'https://randomuser.me/api/?results=100',
+    })
+      .then((response) => {
+        setUsersPictures(response.data.results);
+      })
+      .catch((error) => {
+        throw new Error(error);
+      });
+  };
+
+  useEffect(() => {
+    randomPictures();
+  }, []);
 
   const checkUser = () => {
     if (localStorage.getItem('id')) {
@@ -43,6 +65,14 @@ function App() {
     setActivity(false);
     setHelp(false);
     setLegalmention(false);
+  };
+
+  const storeUserId = (id) => {
+    setUserId(id);
+  };
+
+  const storeToken = (tokenUser) => {
+    setToken(tokenUser);
   };
 
   const handleListMainActivities = () => {
@@ -105,6 +135,10 @@ function App() {
     setActivity(!activity);
   };
 
+  const closeActivity = () => {
+    setActivity(!activity);
+  };
+
   const handleLogout = async () => {
     closeAllModal();
     try {
@@ -145,6 +179,9 @@ function App() {
     activityContent,
     timeNow,
     mainListActivities,
+    userId,
+    token,
+    usersPictures,
   };
 
   const funct = {
@@ -164,6 +201,9 @@ function App() {
     handleHelp,
     handleLegalmention,
     handleListMainActivities,
+    storeUserId,
+    storeToken,
+    closeActivity,
   };
 
   return (
@@ -172,6 +212,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Main props={props} funct={funct} />} />
       </Routes>
+
       <Footer funct={funct} props={props} />
     </div>
   );

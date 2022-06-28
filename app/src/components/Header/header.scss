@@ -106,6 +106,10 @@
       display: flex;
       list-style: none;
       color: $dark;
+      li:hover {
+        cursor: pointer;
+        color: $highlight;
+      }
     }
   }
   li {

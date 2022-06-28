@@ -39,6 +39,17 @@ function Activities({ props, funct }) {
     }
   };
 
+  const removeActivity = async (id) => {
+    try {
+      const response = await Axios.delete(`/activity/${id}/manage`);
+      if (response.data.success) {
+        console.log('success');
+      }
+    } catch (error) {
+      throw new Error(error);
+    }
+  };
+
   useEffect(() => {
     ActivitiesDataRequest();
     getCategories();
@@ -66,8 +77,8 @@ function Activities({ props, funct }) {
                         return (
                           <FontAwesomeIcon
                             icon={regular('chess-king')}
-                            key={(activity.id, category.id)}
                             className='activity-picto'
+                            key={Math.random()}
                           />
                         );
                       }
@@ -75,8 +86,8 @@ function Activities({ props, funct }) {
                         return (
                           <FontAwesomeIcon
                             icon={solid('person-running')}
-                            key={(activity.id, category.id)}
                             className='activity-picto'
+                            key={Math.random()}
                           />
                         );
                       }
@@ -104,13 +115,35 @@ function Activities({ props, funct }) {
                   </div>
                 </div>
                 <div className='column activity-date'>
-                  <FontAwesomeIcon icon={regular('calendar')} />
+                  <FontAwesomeIcon
+                    icon={regular('calendar')}
+                    key={Math.random()}
+                  />
                   {`le ${dayjs(activity.date).format('DD/MM/YYYY')}`}
                 </div>
                 <div className='column activity-city'>
-                  <FontAwesomeIcon icon={solid('location-dot')} />
+                  <FontAwesomeIcon
+                    icon={solid('location-dot')}
+                    key={Math.random()}
+                  />
                   {activity.city}
                 </div>
+                {activity.id_user === JSON.parse(localStorage.getItem('id')) ? (
+                  <div className='controle-activity'>
+                    <FontAwesomeIcon
+                      icon={solid('pencil')}
+                      className='edit-activity'
+                      onClick={() => funct.handleCreateActivity()}
+                      key={Math.random()}
+                    />
+                    <FontAwesomeIcon
+                      icon={solid('trash-alt')}
+                      className='delete-activity'
+                      onClick={() => removeActivity(activity.id)}
+                      key={Math.random()}
+                    />
+                  </div>
+                ) : null}
               </li>
             );
           }
