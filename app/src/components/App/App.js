@@ -1,7 +1,7 @@
 /* eslint-disable no-plusplus */
 /* eslint-disable import/no-extraneous-dependencies */
 import { Route, Routes } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, StrictMode } from 'react';
 import dayjs from 'dayjs';
 import Axios from '../../utils/axiosPool';
 
@@ -212,6 +212,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Main props={props} funct={funct} />} />
       </Routes>
+
       <Footer funct={funct} props={props} />
     </div>
   );
