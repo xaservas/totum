@@ -23,7 +23,8 @@ function CreateActivity({ props, funct }) {
     city: '',
     country: '',
     id_user: userId,
-    id_category: '',
+    id_category: 1,
+
     // affichage de toute la liste
     // utiliser find pour améliorer la sélection
   });
@@ -126,6 +127,7 @@ function CreateActivity({ props, funct }) {
       date: dateParsed,
     }));
   }, [dateValue]);
+  
 
   return (
     <form className='createActivity' onSubmit={handleSubmit}>
@@ -258,16 +260,21 @@ function CreateActivity({ props, funct }) {
           </div>
         </div>
         <div className='validation-button'>
-          {/* redirect to the activity page */}
-          <button className='button' type='submit'>
-            Submit
-          </button>
 
-          {/* redirect to root */}
-          <button className='button is-light' type='reset'>
-            Cancel
-          </button>
-        </div>
+        {/* redirect to the activity page */}
+        <button className='button' type='submit'>
+          Proposer l'activité
+        </button>
+
+        {/* redirect to root */}
+        {/* 
+        <button className='button is-light' type='reset'>
+          Cancel
+        </button>
+        */}
+        
+      </div>
+
       </div>
     </form>
   );
