@@ -27,6 +27,7 @@ function CreateActivity({ props, funct }) {
     country: '',
     id_user: userId,
     id_category: '',
+
   });
   const [error, setError] = useState('');
   const [check, setCheck] = useState(false);
