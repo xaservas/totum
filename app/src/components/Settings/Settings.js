@@ -23,6 +23,7 @@ function Settings({ props }) {
 
   const [autocompleteAddress, setAutocompleteAddress] = useState([]);
   const [autocompleteErr, setAutocompleteErr] = useState('');
+  const [error, setError] = useState('');
 
   // const [error, setError] = useState('');
   const { userId } = props;
@@ -30,15 +31,15 @@ function Settings({ props }) {
   // gestion des erreurs--------------
   const errorMessage = (data) => {
     switch (data) {
-    case 401:
-      setError('401');
-      break;
-    case 400:
-      setError('400');
-      break;
-    default:
-      setError('default error');
-      break;
+      case 401:
+        setError('401');
+        break;
+      case 400:
+        setError('400');
+        break;
+      default:
+        setError('default error');
+        break;
     }
   };
 
@@ -49,9 +50,9 @@ function Settings({ props }) {
     if (!address) return;
 
     const res = await mapbox(address);
-    !autocompleteAddress.includes(e.target.value)
-      && res.features
-      && setAutocompleteAddress(res.features.map((place) => place.place_name));
+    !autocompleteAddress.includes(e.target.value) &&
+      res.features &&
+      setAutocompleteAddress(res.features.map((place) => place.place_name));
     res.error ? setAutocompleteErr(res.error) : setAutocompleteErr('');
   };
 
@@ -159,9 +160,9 @@ function Settings({ props }) {
     }
 
     if (
-      email === localStorage.getItem('email')
-      && emailNew !== ''
-      && emailConfirmation !== ''
+      email === localStorage.getItem('email') &&
+      emailNew !== '' &&
+      emailConfirmation !== ''
     ) {
       if (emailNew === emailConfirmation) {
         axios({
@@ -200,21 +201,16 @@ function Settings({ props }) {
         cookie: `${cookieValue}`,
       },
     })
-
-     
-        .then((res) => {
-          console.log(res);
-          // funct.closeAllModal();
-        })
-        .catch((err) => {
-          // ajouter un message d'information si sa marche pas
-          errorMessage(err.response.status);
-          console.log('erreur datata');
-          // return 'les mails sont identiques';
-        });
-    }
-
-
+      .then((res) => {
+        console.log(res);
+        // funct.closeAllModal();
+      })
+      .catch((err) => {
+        // ajouter un message d'information si sa marche pas
+        errorMessage(err.response.status);
+        console.log('erreur datata');
+        // return 'les mails sont identiques';
+      });
   };
 
   return (
@@ -280,7 +276,7 @@ function Settings({ props }) {
         </div>
       </form>
       <form id='infoForm'>
-        <div className="nom">
+        <div className='nom'>
           <div className='field'>
             <label className='label'>Prénom</label>
             <input
@@ -399,9 +395,10 @@ function Settings({ props }) {
         </div>
       </form>
 
-      <p style={{ color: 'red' }} className='errorMessage'>{error}</p>
+      <p style={{ color: 'red' }} className='errorMessage'>
+        {error}
+      </p>
       <button className='validation-button' onClick={handleSubmit}>
-
         Valider
       </button>
     </div>
