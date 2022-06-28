@@ -26,6 +26,11 @@ function LoginForm({ funct }) {
     setError('');
   };
 
+  const handleForm = () => {
+    setFormMode(!formMode);
+    setError('');
+  };
+
   const viewRestore = formMode ? 'showRestoreForm' : '';
   const viewLogin = formMode ? 'isHidden' : '';
 
@@ -106,7 +111,7 @@ function LoginForm({ funct }) {
       .then((response) => {
         errorMessage(response.status, 'restore');
         setTimeout(() => {
-          handleMode();
+          handleForm();
         }, 1500);
       })
       .catch((err) => {
@@ -144,8 +149,11 @@ function LoginForm({ funct }) {
       <form
         onSubmit={handleSubmitRestore}
         className={`${viewRestore} restoreForm`}>
-        <p className='errorMessage'>{error}</p>
-
+        {error === 'Email envoyé' ? (
+          <p className='sendOk'>{error}</p>
+        ) : (
+          <p className='errorMessage'>{error}</p>
+        )}
         <input
           name='email'
           type='email'

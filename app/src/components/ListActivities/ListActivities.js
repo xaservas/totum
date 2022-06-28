@@ -41,11 +41,15 @@ function Activities({ props, funct }) {
 
   const removeActivity = async (id) => {
     try {
-      const response = await Axios.delete(`/activity/${id}/manage`);
+      const response = await Axios({
+        method: 'delete',
+        url: `/activity/${id}/manage`,
+      });
       if (response.data.success) {
         console.log('success');
       }
     } catch (error) {
+      console.log(error);
       throw new Error(error);
     }
   };
