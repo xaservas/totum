@@ -4,7 +4,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { solid, regular } from '@fortawesome/fontawesome-svg-core/import.macro';
 import { useState, useEffect } from 'react';
 import dayjs from 'dayjs';
-import Axios from 'axios';
 import axios from '../../utils/axiosPool';
 
 // base page
@@ -16,6 +15,7 @@ function Profile({ props, funct }) {
   const [activities, setActivities] = useState([]);
   const nowISO = props.timeNow;
   const [showActivitiesList, setShowActivitiesList] = useState(false);
+  const pictures = props.usersPictures;
 
   const handleActivitiesList = () => {
     setShowActivitiesList(!showActivitiesList);
@@ -91,31 +91,10 @@ function Profile({ props, funct }) {
     getUserActivities(userId);
   }, [userId]);
 
-  // const randomPictures = ({ picture }) => {
-  //   const [curentPicture, setCurrentPicture] = useState(null);
-  //   useEffect(() => {
-  //     Axios({
-  //       method: 'get',
-  //       url: 'https://randomuser.me/api/',
-  //     })
-  //       .then((response) => {
-  //         setCurrentPicture(response.data.results[0].picture.large);
-  //         // pictures.push(response.data.results[0].picture.large);
-  //       })
-  //       .catch((error) => {
-  //         throw new Error(error);
-  //       });
-  //   }, [picture]);
-
-  //   return (
-  //     <img src={curentPicture} alt='profile' className='profile-picture' />
-  //   );
-  // };
-
   const ListActivities = () => (
     <article className='listActivities_panel'>
       <ul className='activities-list'>
-        {activities.map((activity) => {
+        {activities.map((activity, i) => {
           if (activity.id !== 404) {
             return (
               <li
@@ -125,7 +104,18 @@ function Profile({ props, funct }) {
                   activity.activity_date,
                 )}`}>
                 <div className='column profil-picture'>
-                  <img alt='profile' className='profile-picture' />
+                  {pictures.map((picture, j) => {
+                    if (j === i) {
+                      return (
+                        <img
+                          src={picture.picture.large}
+                          alt='profile'
+                          className='profile-picture'
+                        />
+                      );
+                    }
+                    return null;
+                  })}
                 </div>
 
                 <div className='text-info'>

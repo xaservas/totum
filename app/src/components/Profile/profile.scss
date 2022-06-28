@@ -131,7 +131,7 @@
     }
 
     .panel-block {
-      height: 9.5rem;
+      height: 10.5rem;
       background-color: $white-local;
       display: flex;
       align-items: center;
@@ -143,6 +143,12 @@
       margin-bottom: 2rem;
       &:hover {
         cursor: pointer;
+      }
+
+      .profile-picture {
+        border-radius: 90%;
+        height: auto;
+        width: 9rem;
       }
 
       .activity-picture {

@@ -1,8 +1,10 @@
+/* eslint-disable no-plusplus */
 /* eslint-disable import/no-extraneous-dependencies */
 import { Route, Routes } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import dayjs from 'dayjs';
 import Axios from '../../utils/axiosPool';
+
 // base page
 import './app.scss';
 import Header from '../Header/Header';
@@ -27,6 +29,24 @@ function App() {
   const [userId, setUserId] = useState(0);
   const [token, setToken] = useState('');
   const timeNow = dayjs(Date.now()).toISOString();
+  const [usersPictures, setUsersPictures] = useState([]);
+
+  const randomPictures = () => {
+    Axios({
+      method: 'get',
+      url: 'https://randomuser.me/api/?results=100',
+    })
+      .then((response) => {
+        setUsersPictures(response.data.results);
+      })
+      .catch((error) => {
+        throw new Error(error);
+      });
+  };
+
+  useEffect(() => {
+    randomPictures();
+  }, []);
 
   const checkUser = () => {
     if (localStorage.getItem('id')) {
@@ -161,6 +181,7 @@ function App() {
     mainListActivities,
     userId,
     token,
+    usersPictures,
   };
 
   const funct = {
