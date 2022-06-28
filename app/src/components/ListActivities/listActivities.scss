@@ -113,6 +113,10 @@
       height: 2rem;
       width: 2rem;
       padding-left: 2rem;
+      &:hover {
+        cursor: pointer;
+        color: $highlight;
+      }
     }
   }
 }
