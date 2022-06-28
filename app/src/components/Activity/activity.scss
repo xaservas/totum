@@ -3,8 +3,8 @@
 .container_activity {
   display: flex;
   height: 80vh;
-  // min-width: 21%;
-  // max-width: 21%;
+  max-width: 36rem;
+  min-width: 36rem;
   margin: 44rem;
   flex-direction: column;
   align-content: center;
@@ -216,6 +216,7 @@
 @media screen and (max-width: 430px) {
   .container_activity {
     margin: 1rem;
+    margin: 0 auto;
     height: 99vh;
   }
 }
