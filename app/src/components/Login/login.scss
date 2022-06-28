@@ -101,9 +101,40 @@
   }
 }
 
+@media screen and (max-width: 1150px) {
+  .login {
+    .container-form {
+      width: 37vw;
+      input,
+      button {
+        width: 70%;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 750px) {
+  .login {
+    width: 52vw;
+    .container-form {
+      width: 60vw;
+      input,
+      button {
+        width: 70%;
+      }
+    }
+  }
+}
+
 @media screen and (max-width: 500px) {
   .login {
-    width: 100%;
-    margin: 1rem;
+    width: 84vw;
+    .container-form {
+      width: 98vw;
+      input,
+      button {
+        width: 70%;
+      }
+    }
   }
 }
