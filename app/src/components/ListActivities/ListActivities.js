@@ -12,6 +12,12 @@ function Activities({ props, funct }) {
   const [categories, setCategories] = useState([]);
   const [levels, setLevels] = useState([]);
   const [checkRemove, setCheckRemove] = useState(false);
+  const [synchroMapList, setSynchroMapList] = useState(false);
+
+  const checkSynchroMapList = () => {
+    setSynchroMapList(!synchroMapList);
+    funct.synchroRemoveListMap();
+  };
 
   const getCategories = async () => {
     try {
@@ -49,6 +55,7 @@ function Activities({ props, funct }) {
       console.log(response);
       if (response.status === 200) {
         setCheckRemove(!checkRemove);
+        checkSynchroMapList();
       }
     } catch (error) {
       throw new Error(error);
@@ -70,6 +77,12 @@ function Activities({ props, funct }) {
     getCategories();
     levelDataRequest();
   }, [checkRemove]);
+
+  useEffect(() => {
+    ActivitiesDataRequest();
+    getCategories();
+    levelDataRequest();
+  }, [props.addActivity]);
 
   return (
     <article className='listActivities panel'>
@@ -149,7 +162,7 @@ function Activities({ props, funct }) {
                     <FontAwesomeIcon
                       icon={solid('pencil')}
                       className='edit-activity'
-                      onClick={() => funct.handleCreateActivity()}
+                      onClick={() => funct.handleUpdateActivity(activity.id)}
                       key={Math.random()}
                     />
                     <FontAwesomeIcon

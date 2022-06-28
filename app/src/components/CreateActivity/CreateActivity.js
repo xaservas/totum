@@ -1,39 +1,64 @@
-import React, { useEffect } from 'react';
+/* eslint-disable no-nested-ternary */
+/* eslint-disable indent */
+/* eslint-disable default-case */
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { regular } from '@fortawesome/fontawesome-svg-core/import.macro';
+import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import './createActivity.scss';
 import Calendar from 'react-calendar';
+import dayjs from 'dayjs';
 import axios from '../../utils/axiosPool';
 import 'react-calendar/dist/Calendar.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCalendar } from '@fortawesome/free-solid-svg-icons';
-import dayjs from 'dayjs';
 
 function CreateActivity({ props, funct }) {
   const userId = localStorage.getItem('id');
-  const [categories, setCategories] = React.useState([]);
-  const [levels, setLevels] = React.useState([]);
-  const [activity, setActivity] = React.useState({
-    name: '', // name n'apparait pas dans la requete
+  const [categories, setCategories] = useState([]);
+  const [levels, setLevels] = useState([]);
+  const [activity, setActivity] = useState({
+    name: '',
     description: '',
     max_participants: 1,
     date: '',
-    level: 1,
+    level: '',
     address: '',
     zip_code: '',
     city: '',
     country: '',
     id_user: userId,
     id_category: '',
-    // affichage de toute la liste
-    // utiliser find pour améliorer la sélection
   });
-  const [dateValue, setDate] = React.useState(new Date());
+  const [error, setError] = useState('');
+  const [check, setCheck] = useState(false);
+  const [dateValue, setDate] = useState(new Date());
   const dateParsed = dayjs(dateValue).toISOString();
 
+  // submit mode
+  const [sendMode, setSendMode] = useState(false);
+
+  const checkSend = () => {
+    setCheck(!check);
+  };
+
+  // gestion error
+  const checkError = (code) => {
+    switch (code) {
+      case 400:
+        setError('Veuillez remplir tous les champs');
+        break;
+      case 500:
+        setError('Une erreur est survenue');
+        break;
+      case 404:
+        setError("Cette activité n'existe pas");
+        break;
+      case 200:
+        setError('Votre activité a bien été créée');
+    }
+  };
+
   const sortObjectsByProp = (objectsArr, prop, ascending = true) => {
-    const objectsHaveProp = objectsArr.every((object) =>
-      object.hasOwnProperty(prop),
-    );
+    const objectsHaveProp = objectsArr.every((object) => object.hasOwnProperty(prop));
     if (objectsHaveProp) {
       const newObjectsArr = objectsArr.slice();
       newObjectsArr.sort((a, b) => {
@@ -62,8 +87,8 @@ function CreateActivity({ props, funct }) {
       sortedCategories.sort((a, b) => a.id - b.id);
       setActivity({ ...activity, id_category: sortedCategories[0].id });
       setCategories(sortedCategories);
-    } catch (error) {
-      throw new Error(error);
+    } catch (err) {
+      throw new Error(err);
     }
   };
 
@@ -73,9 +98,24 @@ function CreateActivity({ props, funct }) {
         method: 'get',
         url: '/level/getAll',
       });
+      setActivity({ ...activity, level: response.data[0].id });
       setLevels(response.data);
-    } catch (error) {
-      throw new Error(error);
+    } catch (err) {
+      throw new Error(err);
+    }
+  };
+
+  // get activity for update
+  const getActivityById = async (id) => {
+    try {
+      const response = await axios({
+        method: 'get',
+        url: `/activity/${id}/manage`,
+      });
+      setActivity({ ...activity, ...response.data });
+      setDate(new Date(response.data.date));
+    } catch (err) {
+      throw new Error(err);
     }
   };
 
@@ -87,38 +127,104 @@ function CreateActivity({ props, funct }) {
     }));
   };
 
+  // reset button
+  const resetForm = () => {
+    setActivity({
+      name: '',
+      description: '',
+      max_participants: 1,
+      date: '',
+      level: '',
+      address: '',
+      zip_code: '',
+      city: '',
+      country: '',
+      id_user: userId,
+      id_category: '',
+    });
+    setDate(new Date());
+    setError('');
+  };
+
+  const closeAddActivity = () => {
+    funct.closeAllModal();
+    setCheck(false);
+    resetForm();
+  };
+
   const handleSubmit = async (event) => {
-    console.log(activity);
-    event.preventDefault();
-    try {
-      const response = await axios({
-        method: 'post',
-        url: '/activity/createNew',
-        data: {
-          ...activity,
-        },
-      });
-      console.log(response);
-      return response.data;
-    } catch (error) {
-      console.log(error);
-      throw new Error(error);
+    // create new activity
+    if (!sendMode) {
+      console.log('create new activity');
+      event.preventDefault();
+      try {
+        const response = await axios({
+          method: 'post',
+          url: '/activity/createNew',
+          data: {
+            ...activity,
+          },
+        });
+        setError('');
+        checkError(response.status);
+        setTimeout(() => {
+          funct.handleCreateActivity();
+        }, 1500);
+        checkSend();
+        resetForm();
+        setDate(new Date());
+        setError('');
+        setCheck(false);
+        console.log(response);
+      } catch (err) {
+        console.log(err);
+        checkError(err.response.status);
+        setCheck(false);
+        throw new Error(err);
+      }
     }
 
-    // console.log(activity)
-  };
-  /*
-    const categoriesNames = (myCategories) => {
-        myCategories.forEach(category => {
-            console.log (category.name);
-        })
+    // update activity
+    else {
+      delete activity.created_at;
+      delete activity.updated_at;
+      activity.date = dateParsed;
+      console.log('update');
+      console.log(activity.id);
+      console.log(activity);
+      event.preventDefault();
+      try {
+        const response = await axios({
+          method: 'patch',
+          url: `/activity/${activity.id}/manage`,
+          data: {
+            ...activity,
+          },
+        });
+        setError('');
+        checkError(response.status);
+        setTimeout(() => {
+          funct.handleCreateActivity();
+        }, 1500);
+        checkSend();
+        resetForm();
+        setDate(new Date());
+        setError('');
+        setCheck(false);
+        console.log(response);
+      } catch (err) {
+        console.log(err);
+        checkError(err.response.status);
+        setCheck(false);
+        throw new Error(err);
+      }
     }
-*/
+  };
 
   useEffect(() => {
     getCategories();
     getLevels();
-  }, []);
+  }, [check]);
 
   useEffect(() => {
     setActivity((previousActivity) => ({
@@ -127,9 +233,26 @@ function CreateActivity({ props, funct }) {
     }));
   }, [dateValue]);
 
+  // effect update activity
+  useEffect(() => {
+    getActivityById(props.activityContentUpdate);
+    if (props.activityContentUpdate > 0) {
+      setSendMode(true);
+    } else {
+      setSendMode(false);
+    }
+  }, [props.activityContentUpdate]);
+  console.log(props.activityContentUpdate);
+  console.log(sendMode);
+
   return (
     <form className='createActivity' onSubmit={handleSubmit}>
       <div className='createActivity_container'>
+        {error === 'Votre activité a bien été créée' ? (
+          <p className='sendMessage'>{error}</p>
+        ) : (
+          <p className='errorMessage'>{error}</p>
+        )}
         <div className='field'>
           <label className='label'>Activité</label>
           <input
@@ -139,6 +262,11 @@ function CreateActivity({ props, funct }) {
             name='name'
             value={activity.name}
             onChange={handleChange}
+          />
+          <FontAwesomeIcon
+            icon={regular('circle-xmark')}
+            onClick={closeAddActivity}
+            className='create-close'
           />
         </div>
         <div className='field'>
@@ -247,7 +375,6 @@ function CreateActivity({ props, funct }) {
         </div>
         <div className='field date'>
           <label className='label'>Date</label>
-          {/* Find a calendar module */}
           <div className='input'>
             <Calendar
               className='calendar'
@@ -258,13 +385,10 @@ function CreateActivity({ props, funct }) {
           </div>
         </div>
         <div className='validation-button'>
-          {/* redirect to the activity page */}
           <button className='button' type='submit'>
             Submit
           </button>
-
-          {/* redirect to root */}
-          <button className='button is-light' type='reset'>
+          <button className='button is-light' type='reset' onClick={resetForm}>
             Cancel
           </button>
         </div>
@@ -279,4 +403,5 @@ CreateActivity.propTypes = {
 CreateActivity.defaultProps = {
   className: '',
 };
+
 export default CreateActivity;

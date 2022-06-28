@@ -26,10 +26,13 @@ function App() {
   const [resetSearch, setResetSearch] = useState(false);
   const [activityContent, setActivityContent] = useState({});
   const [mainListActivities, setMainListActivities] = useState(false);
+  const [listMparameters, setListParameters] = useState(false);
   const [userId, setUserId] = useState(0);
   const [token, setToken] = useState('');
   const timeNow = dayjs(Date.now()).toISOString();
   const [usersPictures, setUsersPictures] = useState([]);
+  const [updateActivity, setUpdateActivity] = useState(false);
+  const [activityContentUpdate, setActivityContentUpdate] = useState(0);
 
   const randomPictures = () => {
     Axios({
@@ -139,6 +142,16 @@ function App() {
     setActivity(!activity);
   };
 
+  const synchroRemoveListMap = () => {
+    setListParameters(!listMparameters);
+  };
+
+  const handleUpdateActivity = (id) => {
+    setUpdateActivity(!updateActivity);
+    setActivityContentUpdate(id);
+    setAddActivity(!addActivity);
+  };
+
   const handleLogout = async () => {
     closeAllModal();
     try {
@@ -182,6 +195,9 @@ function App() {
     userId,
     token,
     usersPictures,
+    listMparameters,
+    updateActivity,
+    activityContentUpdate,
   };
 
   const funct = {
@@ -204,6 +220,8 @@ function App() {
     storeUserId,
     storeToken,
     closeActivity,
+    synchroRemoveListMap,
+    handleUpdateActivity,
   };
 
   return (

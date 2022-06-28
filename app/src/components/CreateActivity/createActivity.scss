@@ -1,25 +1,38 @@
 @import '../../vars';
 
 .createActivity {
+  .createActivity_container {
+    border-radius: 25px;
+    background-color: $ultra-clear;
+    p {
+      width: 100%;
+      text-align: center;
+    }
+    .sendMessage {
+      color: green;
+    }
+    .errorMessage {
+      color: red;
+    }
+  }
+  align-content: center;
   font-family: 'Lato';
   margin: auto 0;
   padding: 30%;
   height: 100vh;
-  overflow: auto;  
+  overflow: auto;
   width: 95vw;
   margin: 0 auto;
   max-width: 1920px;
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  align-content: stretch;
   flex-wrap: wrap;
   flex-direction: column;
-  //position:absolute;
 
-  .field{
+  .field {
     background-color: $white-local;
-    display:flex;
+    display: flex;
     flex-direction: row;
     align-items: center;
     align-content: center;
@@ -28,19 +41,29 @@
     min-height: 2.3rem;
     box-shadow: 3px 3px 8px 4px rgba(34, 41, 43, 0.25);
     border-radius: 3rem;
-    width: fit-content,
+    width: fit-content;
+    .create-close:hover {
+      cursor: pointer;
+      color: $highlight;
+    }
+    svg {
+      font-size: 4rem;
+      color: $dark;
+      position: relative;
+      left: 15rem;
+    }
   }
-  .description{
+  .description {
     align-items: flex-start;
     align-content: flex-start;
     padding: 1.6rem;
   }
-  .date{
+  .date {
     align-items: flex-start;
     align-content: flex-start;
     padding: 1.6rem;
   }
-  .label{
+  .label {
     width: 10rem;
     font-style: normal;
     font-weight: bold;
@@ -48,14 +71,14 @@
     color: $dark;
     padding-right: 1rem;
     border-right: solid 1px;
-    border-color: $dark;  
+    border-color: $dark;
   }
-  .icon{
+  .icon {
     color: $dark;
   }
-  .input{
+  .input {
     font-family: 'Lato';
-    border: none;  
+    border: none;
     padding: 0 1rem;
     margin: none;
     font-style: normal;
@@ -64,18 +87,17 @@
     flex-direction: column;
     justify-content: center;
     align-items: baseline;
-    width:fit-content;
-    
+    width: fit-content;
   }
-  input:focus{
-    outline:none;
+  input:focus {
+    outline: none;
   }
 
   .select-style {
     padding: 0;
     margin: 0;
     border: none;
-    
+
     overflow: hidden;
     position: relative;
 
@@ -97,17 +119,16 @@
       appearance: none;
       color: $dark;
 
-      option{
+      option {
         font-family: 'Lato';
       }
     }
-  
-}
-.select-style:after {
+  }
+  .select-style:after {
     top: 50%;
     left: 85%;
     border: solid transparent;
-    content: " ";
+    content: ' ';
     height: 0;
     width: 0;
     position: absolute;
@@ -116,79 +137,85 @@
     border-top-color: #000000;
     border-width: 5px;
     margin-top: -2px;
-    z-index: 100;    
-}
+    z-index: 100;
+  }
 
-.textarea{
-  font-family: 'Lato';
-  border: none;
-  font-size: 1.5rem;
-  resize: none;
-  overflow: auto;
-  padding: 0 1rem;
-  height: 10rem;
-}
-.textarea:focus{
-  border: none;
-}
-.textarea:after{
-  border: none;
-}
-.calendar{
-  border: none;
-  padding: 0;
-  font-family: 'Lato';
-}
-.react-calendar__navigation{
-  height: auto;
-}
-.react-calendar__tile{
-  padding: 0.2rem;
-}
-.react-calendar__tile--active {
-  background: $dark;
-  color: $white-contrast;
-}
-.react-calendar__tile--active:enabled:hover, .react-calendar__tile--active:enabled:focus {
-  background: $clear;
-}
-.react-calendar__tile--now {
-  background: $highlight;
-  color: $black-local;
-}
-.react-calendar__tile--now:enabled:hover, .react-calendar__tile--active:enabled:focus {
-  background: $clear;
-}
-.validation-button {
-  width: 100%;
-  display: flex;
-  margin-top: 2rem;
-  justify-content: space-evenly;
-  flex-direction: row;
-  align-items: center;
-  padding: 0.7rem 1.6rem;
-
-  .button {    
-    width: 30%;
-    height: 5rem;
-    display:flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 1.5rem;
-    color: $white-contrast;
+  .textarea {
+    font-family: 'Lato';
     border: none;
-    background-color: $dark;
-    border-radius: 50px;
-    box-shadow: 3px 3px 8px 4px rgba(34, 41, 43, 0.25);
+    font-size: 1.5rem;
+    resize: none;
+    overflow: auto;
+    padding: 0 1rem;
+    height: 10rem;
   }
-  .is-light{
-    background-color: $ultra-clear;
-    color: $dark;
+  .textarea:focus {
+    border: none;
   }
-}
+  .textarea:after {
+    border: none;
+  }
+  .calendar {
+    border: none;
+    padding: 0;
+    font-family: 'Lato';
+  }
+  .react-calendar__navigation {
+    height: auto;
+  }
+  .react-calendar__tile {
+    padding: 0.2rem;
+  }
+  .react-calendar__tile--active {
+    background: $dark;
+    color: $white-contrast;
+  }
+  .react-calendar__tile--active:enabled:hover,
+  .react-calendar__tile--active:enabled:focus {
+    background: $clear;
+  }
+  .react-calendar__tile--now {
+    background: $highlight;
+    color: $black-local;
+  }
+  .react-calendar__tile--now:enabled:hover,
+  .react-calendar__tile--active:enabled:focus {
+    background: $clear;
+  }
+  .validation-button {
+    width: 100%;
+    display: flex;
+    margin-top: 2rem;
+    justify-content: space-evenly;
+    flex-direction: row;
+    align-items: center;
+    padding: 0.7rem 1.6rem;
+
+    .button {
+      width: 30%;
+      height: 5rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      font-style: normal;
+      font-weight: bold;
+      font-size: 1.5rem;
+      color: $white-contrast;
+      border: none;
+      background-color: $dark;
+      border-radius: 50px;
+      box-shadow: 3px 3px 8px 4px rgba(34, 41, 43, 0.25);
+      &:hover {
+        cursor: pointer;
+        background-color: $highlight;
+      }
+    }
+    .is-light {
+      background-color: $ultra-clear;
+      color: $dark;
+    }
+  }
 }
 
 @media screen and (max-width: 1030px) {
@@ -209,6 +236,6 @@
     margin: 0 auto;
     .in-container {
       width: 100%;
-    }   
+    }
   }
 }

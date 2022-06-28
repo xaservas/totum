@@ -69,11 +69,6 @@ function Desktop({ props, funct }) {
       </div>
 
       <div id='modalCreateActivity' className={addActivity}>
-        <FontAwesomeIcon
-          icon={faXmark}
-          className='icon_close'
-          onClick={() => funct.closeAllModal()}
-        />
         <CreateActivity props={props} funct={funct} />
       </div>
 

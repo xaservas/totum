@@ -16,4 +16,5 @@ module.exports = Joi.object({
   landmark: textRule,
   id_user: numberRule,
   id_category: numberRule,
+  id: numberRule,
 });
