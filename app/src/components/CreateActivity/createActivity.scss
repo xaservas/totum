@@ -6,7 +6,7 @@
   padding: 30%;
   height: 100vh;
   overflow: auto;  
-  width: 95vw;
+  width: auto;
   margin: 0 auto;
   max-width: 1920px;
   display: flex;
@@ -75,13 +75,26 @@
     padding: 0;
     margin: 0;
     border: none;
-    
     overflow: hidden;
     position: relative;
 
+      &:after {
+        top: 50%;
+        left: 85%;
+        border: solid transparent;
+        content: " ";
+        height: 0;
+        width: 0;
+        position: absolute;
+        pointer-events: none;
+        border-color: none;
+        border-top-color: $dark;
+        border-width: 5px;
+        margin-top: -2px;
+        z-index: 100;    
+     }
     select:focus {
       outline: none;
-      font-family: 'Lato';
       background-color: $white-local;
     }
     select {
@@ -103,21 +116,6 @@
     }
   
 }
-.select-style:after {
-    top: 50%;
-    left: 85%;
-    border: solid transparent;
-    content: " ";
-    height: 0;
-    width: 0;
-    position: absolute;
-    pointer-events: none;
-    border-color: rgba(0, 0, 0, 0);
-    border-top-color: #000000;
-    border-width: 5px;
-    margin-top: -2px;
-    z-index: 100;    
-}
 
 .textarea{
   font-family: 'Lato';
@@ -127,38 +125,49 @@
   overflow: auto;
   padding: 0 1rem;
   height: 10rem;
+  &:focus{
+    border-color: none;
+  }
+  &:after{
+    border-color: none;
+  }
 }
-.textarea:focus{
-  border: none;
-}
-.textarea:after{
-  border: none;
-}
-.calendar{
+
+.react-calendar{
+  
+  width: 15rem;
   border: none;
   padding: 0;
   font-family: 'Lato';
+
+  &__navigation{
+    width: 15rem;
+    height: auto;
+  }
+ &__tile{
+    padding: 0.2rem;
+    &--active {
+      background: $dark;
+      color: $white-contrast;
+
+      &:enabled:focus, &:enabled:hover {
+        background: $clear;
+      }
+    }
+    &--now {
+      background: $highlight;
+      color: $black-local;
+    }
+        
+  }
+  &__month-view__weekdays__weekday{
+    display: none;
+  }
+  &_navigation_arrow{
+    padding: 0.2rem;
+  }
 }
-.react-calendar__navigation{
-  height: auto;
-}
-.react-calendar__tile{
-  padding: 0.2rem;
-}
-.react-calendar__tile--active {
-  background: $dark;
-  color: $white-contrast;
-}
-.react-calendar__tile--active:enabled:hover, .react-calendar__tile--active:enabled:focus {
-  background: $clear;
-}
-.react-calendar__tile--now {
-  background: $highlight;
-  color: $black-local;
-}
-.react-calendar__tile--now:enabled:hover, .react-calendar__tile--active:enabled:focus {
-  background: $clear;
-}
+
 .validation-button {
   width: 100%;
   display: flex;
