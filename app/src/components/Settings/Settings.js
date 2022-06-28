@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-expressions */
-import { useState, useEffect } from 'react';
+import { useState, useEffect, funct } from 'react';
 import './settings.scss';
 import axios from '../../utils/axiosPool';
 import mapbox from '../../utils/mapbox';
@@ -23,23 +23,26 @@ function Settings({ props }) {
 
   const [autocompleteAddress, setAutocompleteAddress] = useState([]);
   const [autocompleteErr, setAutocompleteErr] = useState('');
+
   // const [error, setError] = useState('');
-  const userId = localStorage.getItem('id');
+  const { userId } = props;
 
   // gestion des erreurs--------------
-  // const errorMessage = (data) => {
-  //   switch (data) {
-  //   case 401:
-  //     setError('Les mots de passe de sont pas identique');
-  //     break;
-  //   case 400:
-  //     setError('Erreur inconnue');
-  //     break;
-  //   default:
-  //     setError('');
-  //     break;
-  //   }
-  // };
+  const errorMessage = (data) => {
+    switch (data) {
+    case 401:
+      setError('401');
+      break;
+    case 400:
+      setError('400');
+      break;
+    default:
+      setError('default error');
+      break;
+    }
+  };
+
+  // autocomplete address
 
   const handleAddressChange = async (e) => {
     setAddress(e.target.value);
@@ -91,9 +94,15 @@ function Settings({ props }) {
       const response = await axios({
         method: 'get',
         url: `/meta/${id}/manage`,
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
       });
       setCookieValue(response.data.cookie);
     } catch (err) {
+      console.log(err);
       throw new Error(err);
     }
   };
@@ -103,6 +112,11 @@ function Settings({ props }) {
       const response = await axios({
         method: 'get',
         url: `/user/${id}/manage`,
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
       });
       setFirstname(response.data.firstname);
       setLastname(response.data.lastname);
@@ -119,8 +133,8 @@ function Settings({ props }) {
   };
 
   useEffect(() => {
-    getUserById(userId);
-  }, [props.parameters]);
+    getUserById(JSON.parse(localStorage.getItem('id')));
+  }, [props.token]);
 
   const handleSubmit = () => {
     if (password !== '' && passwordConfirmation !== '') {
@@ -133,18 +147,15 @@ function Settings({ props }) {
             passwordConfirmation: `${passwordConfirmation}`,
           },
         })
-          .then((res) => {
-            console.log(res);
-            // funct.closeAllModal();
+          .then(() => {
+            funct.closeAllModal();
           })
-          .catch((err) => {
+          .catch(() => {
             // ajouter un message d'information si sa marche pas
-            // errorMessage(err.response.status);
-            console.log(err);
-            console.log('erreur mot de passe');
+            errorMessage('les mots de passe ne correspondent pas aux critères');
           });
       }
-      // return 'les mots de passe ne corresponds pas';
+      setError('mots de passe pas pareil');
     }
 
     if (
@@ -168,13 +179,11 @@ function Settings({ props }) {
           })
           .catch((err) => {
             // ajouter un message d'information si sa marche pas
-            // errorMessage(err.response.status);
-            console.log(err);
-            console.log('erreur mail');
+            errorMessage(err.response.status);
           });
-        // return 'les mails sont identiques';
+        setError('les mails sont identiques');
       }
-      // pas pareille les mails
+      setError('pas pareille les mails');
     }
 
     axios({
@@ -191,19 +200,21 @@ function Settings({ props }) {
         cookie: `${cookieValue}`,
       },
     })
-      .then((res) => {
-        console.log(res);
-        // funct.closeAllModal();
-      })
-      .catch((err) => {
-        // ajouter un message d'information si sa marche pas
-        // errorMessage(err.response.status);
-        console.log(err);
-        console.log('erreur data');
-        // return 'les mails sont identiques';
-      });
 
-    return 'error';
+     
+        .then((res) => {
+          console.log(res);
+          // funct.closeAllModal();
+        })
+        .catch((err) => {
+          // ajouter un message d'information si sa marche pas
+          errorMessage(err.response.status);
+          console.log('erreur datata');
+          // return 'les mails sont identiques';
+        });
+    }
+
+
   };
 
   return (
@@ -258,10 +269,10 @@ function Settings({ props }) {
           />
         </div>
         <div className='field'>
-          <label className='label'>Nouveau mot de passe</label>
+          <label className='label'>Confirmation</label>
           <input
             required
-            name='password'
+            name='passwordConfirmation'
             type='password'
             className='input'
             onChange={(e) => setPasswordConfirmation(e.target.value)}
@@ -269,27 +280,29 @@ function Settings({ props }) {
         </div>
       </form>
       <form id='infoForm'>
-        <div className='field'>
-          <label className='label'>Prénom</label>
-          <input
-            required
-            name='firstname'
-            type='text'
-            className='input'
-            value={firstname}
-            onChange={(e) => setFirstname(e.target.value)}
-          />
-        </div>
-        <div className='field'>
-          <label className='label'>Nom</label>
-          <input
-            required
-            name='lastname'
-            type='text'
-            className='input'
-            value={lastname}
-            onChange={(e) => setLastname(e.target.value)}
-          />
+        <div className="nom">
+          <div className='field'>
+            <label className='label'>Prénom</label>
+            <input
+              required
+              name='firstname'
+              type='text'
+              className='input'
+              value={firstname}
+              onChange={(e) => setFirstname(e.target.value)}
+            />
+          </div>
+          <div className='field'>
+            <label className='label'>Nom</label>
+            <input
+              required
+              name='lastname'
+              type='text'
+              className='input'
+              value={lastname}
+              onChange={(e) => setLastname(e.target.value)}
+            />
+          </div>
         </div>
         <div className='field'>
           <label className='label'>Recherche d'adresse</label>
@@ -385,9 +398,11 @@ function Settings({ props }) {
           </label>
         </div>
       </form>
-      <button className='button' onClick={handleSubmit}>
-        {' '}
-        Valider{' '}
+
+      <p style={{ color: 'red' }} className='errorMessage'>{error}</p>
+      <button className='validation-button' onClick={handleSubmit}>
+
+        Valider
       </button>
     </div>
   );

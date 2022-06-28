@@ -1,7 +1,7 @@
 const Joi = require('joi');
 
 const textRule = Joi.string().min(2);
-const numberRule = Joi.number().min(0).required();
+const numberRule = Joi.number().min(0);
 
 module.exports = Joi.object({
   name: textRule,

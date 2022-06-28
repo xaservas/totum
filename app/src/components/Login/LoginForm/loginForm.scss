@@ -17,10 +17,14 @@
   display: none;
   margin: 3em 1em;
 
+  .sendOk {
+    color: green;
+  }
+
   .errorMessage {
     color: red;
   }
 }
 .showRestoreForm {
-  display: block;
+  display: flex;
 }
