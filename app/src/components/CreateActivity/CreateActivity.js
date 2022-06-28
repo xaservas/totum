@@ -4,6 +4,9 @@ import './createActivity.scss';
 import Calendar from 'react-calendar';
 import axios from '../../utils/axiosPool';
 import 'react-calendar/dist/Calendar.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCalendar } from '@fortawesome/free-solid-svg-icons';
+import dayjs from 'dayjs';
 
 function CreateActivity({ props, funct }) {
   const userId = localStorage.getItem('id');
@@ -24,13 +27,12 @@ function CreateActivity({ props, funct }) {
     // affichage de toute la liste
     // utiliser find pour améliorer la sélection
   });
-  const [date, setDate] = React.useState(new Date());
+  const [dateValue, setDate] = React.useState(new Date());
+  const dateParsed = dayjs(dateValue).toISOString();
 
   const sortObjectsByProp = (objectsArr, prop, ascending = true) => {
     const objectsHaveProp = objectsArr.every((object) =>
-
       object.hasOwnProperty(prop)
-
     );
     if (objectsHaveProp) {
       const newObjectsArr = objectsArr.slice();
@@ -69,7 +71,6 @@ function CreateActivity({ props, funct }) {
         method: 'get',
         url: '/level/getAll',
       });
-      // console.log(response.data);
       setLevels(response.data);
     } catch (error) {
       throw new Error(error);
@@ -84,10 +85,6 @@ function CreateActivity({ props, funct }) {
     }));
   };
 
-  const handleDateChannge = (e) => {
-    const newDate = e.target.value;
-    console.log(newDate);
-  }
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
@@ -118,149 +115,156 @@ function CreateActivity({ props, funct }) {
     getLevels();
   }, []);
 
+  useEffect(() => {
+    setActivity((previousActivity) => ({
+      ...previousActivity,
+      date: dateParsed,
+    }));
+  }, [dateValue]);
+
   return (
-    <form
-      className='createActivity'
-      onSubmit={handleSubmit}>
-      <div className='field'>
-        <label className='label'>Activité</label>
-        <input
-          className='input'
-          type='text'
-          placeholder='intitulé'
-          name='name'
-          value={activity.name}
-          onChange={handleChange}
-        />
-      </div>
-      <div className='field'>
-        <label className='label'>Participants</label>
-        <input
-          className='input width-30'
-          type='text'
-          placeholder='nombre max de participants'
-          name='max_participants'
-          value={activity.max_participants}
-          onChange={handleChange}
-        />
-      </div>
-      <div className='field'>
-        <label className='label'>Catégorie</label>
-        <div className='select-style'>
-          <select
-            className='select'
+    <form className='createActivity' onSubmit={handleSubmit}>
+      <div className='createActivity_container'>
+        <div className='field'>
+          <label className='label'>Activité</label>
+          <input
+            className='input'
             type='text'
             placeholder='intitulé'
-            name='id_category'
-            value={activity.id_category}
-            onChange={handleChange}>
-            {categories.map((category) => (
-              <option value={category.id} key={category.id}>
-                {category.name}
-              </option>
-            ))}
-          </select>
-        </div>
-      </div>
-
-      <div className='field'>
-        <label className='label'>Niveau</label>
-        <div className='select-style'>
-          <select
-            className='select'
-            type='text'
-            name='level'
-            value={activity.level}
-            onChange={handleChange}>
-            {levels.map((level) => (
-              <option value={level.id} key={level.id}>
-                {level.name}
-              </option>
-            ))}
-          </select>
-
-        </div>
-      </div>
-      <div className='field description'>
-        <label className='label'>Description</label>
-        <div className='control'>
-          <textarea
-            className='textarea'
-            type='text'
-            name='description'
-            placeholder='description'
-            value={activity.description}
+            name='name'
+            value={activity.name}
             onChange={handleChange}
           />
         </div>
-      </div>
-      <div className='field'>
-        <label className='label'>Adresse</label>
-        <input
-          className='input'
-          type='text'
-          placeholder='addresse'
-          name='address'
-          value={activity.address}
-          onChange={handleChange}
-        />
-      </div>
-      <div className='field'>
-        <label className='label'>Ville</label>
-        <input
-          className='input'
-          type='text'
-          placeholder='ville'
-          name='city'
-          value={activity.city}
-          onChange={handleChange}
-        />
-      </div>
-      <div className='field'>
-        <label className='label'>Code Postal</label>
-        <input
-          className='input'
-          type='text'
-          placeholder='code postal'
-          name='zip_code'
-          value={activity.zip_code}
-          onChange={handleChange}
-        />
-      </div>
-      <div className='field'>
-        <label className='label'>Pays</label>
-        <input
-          className='input'
-          type='text'
-          placeholder='pays'
-          name='country'
-          value={activity.country}
-          onChange={handleChange}
-        />
-      </div>
-      <div className='field date'>
-        <label className='label'>Date</label>
-        {/* Find a calendar module */}
-        <div className='control'>
-          <Calendar
-            className='calendar'
-            name='date'
-            value={date}
-            onChange={handleDateChannge}
+        <div className='field'>
+          <label className='label'>Participants</label>
+          <input
+            className='input width-30'
+            type='text'
+            placeholder='nombre max de participants'
+            name='max_participants'
+            value={activity.max_participants}
+            onChange={handleChange}
           />
         </div>
-      </div>
-      <div className='validation-button'>
+        <div className='field'>
+          <label className='label'>Catégorie</label>
+          <div className='select-style'>
+            <select
+              className='select'
+              type='text'
+              placeholder='intitulé'
+              name='id_category'
+              value={activity.id_category}
+              onChange={handleChange}>
+              {categories.map((category) => (
+                <option value={category.id} key={category.id}>
+                  {category.name}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+
+        <div className='field'>
+          <label className='label'>Niveau</label>
+          <div className='select-style'>
+            <select
+              className='select'
+              type='text'
+              name='level'
+              value={activity.level}
+              onChange={handleChange}>
+              {levels.map((level) => (
+                <option value={level.id} key={level.id}>
+                  {level.name}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+        <div className='field description'>
+          <label className='label'>Description</label>
+          <div className='control'>
+            <textarea
+              className='textarea'
+              type='text'
+              name='description'
+              placeholder='description'
+              value={activity.description}
+              onChange={handleChange}
+            />
+          </div>
+        </div>
+        <div className='field'>
+          <label className='label'>Adresse</label>
+          <input
+            className='input'
+            type='text'
+            placeholder='addresse'
+            name='address'
+            value={activity.address}
+            onChange={handleChange}
+          />
+        </div>
+        <div className='field'>
+          <label className='label'>Ville</label>
+          <input
+            className='input'
+            type='text'
+            placeholder='ville'
+            name='city'
+            value={activity.city}
+            onChange={handleChange}
+          />
+        </div>
+        <div className='field'>
+          <label className='label'>Code Postal</label>
+          <input
+            className='input'
+            type='text'
+            placeholder='code postal'
+            name='zip_code'
+            value={activity.zip_code}
+            onChange={handleChange}
+          />
+        </div>
+        <div className='field'>
+          <label className='label'>Pays</label>
+          <input
+            className='input'
+            type='text'
+            placeholder='pays'
+            name='country'
+            value={activity.country}
+            onChange={handleChange}
+          />
+        </div>
+        <div className='field date'>
+          <label className='label'>Date</label>
+          {/* Find a calendar module */}
+          <div className='input'>
+            <Calendar
+              className='calendar'
+              name='date'
+              value={dateValue}
+              onChange={setDate}
+            />
+          </div>
+        </div>
+        <div className='validation-button'>
         {/* redirect to the activity page */}
-        <span className='button' type='submit'>
+        <button className='button' type='submit'>
           Submit
-        </span>
+        </button>
 
         {/* redirect to root */}
-        <span className='button is-light' type='reset'>
+        <button className='button is-light' type='reset'>
           Cancel
-        </span>
+        </button>
       </div>
+      </div>
+      
     </form>
   );
 }
