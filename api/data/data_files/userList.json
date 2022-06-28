@@ -150,5 +150,166 @@
     "cookie": "true",
     "landmark": "false",
     "coordinate": "[]"
+  },
+
+  {
+    "email": "paul.dupont@outlook.com",
+    "password": "hash",
+    "passwordConfirmation": "hash",
+    "firstname": "Paul",
+    "lastname": "Beaufort",
+    "about": "Yo c'est Paul ! Passioné par le sport j'ai hâte de partager des activités avec vous",
+    "address": "5 rue de l'Ukraine",
+    "zip_code": "30000",
+    "city": "Nîmes",
+    "country": "France",
+    "cookie": "true",
+    "landmark": "false",
+    "coordinate": "[]"
+  },
+
+  {
+    "email": "lucie.thomas@outlook.com",
+    "password": "hash",
+    "passwordConfirmation": "hash",
+    "firstname": "Lucie",
+    "lastname": "Thomas",
+    "about": "Hey c'est Paul ! Passioné par les JDR j'ai hâte de partager des activités avec vous",
+    "address": "25 rue de l'Ukraine",
+    "zip_code": "65000",
+    "city": "Tarbes",
+    "country": "France",
+    "cookie": "true",
+    "landmark": "false",
+    "coordinate": "[]"
+  },
+
+  {
+    "email": "nils.chapiro@outlook.com",
+    "password": "hash",
+    "passwordConfirmation": "hash",
+    "firstname": "Nils",
+    "lastname": "Chapiro",
+    "about": "Salut, Salut ! moi c'est Nils, 36 ans fan de football",
+    "address": "100 boulevard Joliot Currie",
+    "zip_code": "81000",
+    "city": "Albi",
+    "country": "France",
+    "cookie": "true",
+    "landmark": "false",
+    "coordinate": "[]"
+  },
+
+  {
+    "email": "tibz_21@gmail.com",
+    "password": "hash",
+    "passwordConfirmation": "hash",
+    "firstname": "Thibaut",
+    "lastname": "Montchalin",
+    "about": "Salut les gars! je m'apelle Thibaut et je suis un fondu de rugby",
+    "address": "2 boulevard Albert Camus",
+    "zip_code": "21140",
+    "city": "Semur-en-Auxois",
+    "country": "France",
+    "cookie": "true",
+    "landmark": "false",
+    "coordinate": "[]"
+  },
+
+  {
+    "email": "christian.leto@gmail.com",
+    "password": "hash",
+    "passwordConfirmation": "hash",
+    "firstname": "Christian",
+    "lastname": "Leto",
+    "about": "Hello ! Christian, 56 ans fan de VTT",
+    "address": "70 square Joseph Staline",
+    "zip_code": "63000",
+    "city": "Clermont-Ferrand",
+    "country": "France",
+    "cookie": "true",
+    "landmark": "false",
+    "coordinate": "[]"
+  },
+
+  {
+    "email": "christelle82@gmail.com",
+    "password": "hash",
+    "passwordConfirmation": "hash",
+    "firstname": "Christelle",
+    "lastname": "Le Floch",
+    "about": "Bonjour a toute la communauté Totum! je m'apelle Christelle et je suis une grande amatrice de Tarot",
+    "address": "56 avenue des Mourrets",
+    "zip_code": "82000",
+    "city": "Montauban",
+    "country": "France",
+    "cookie": "true",
+    "landmark": "false",
+    "coordinate": "[]"
+  },
+
+  {
+    "email": "ben.52@hotmail.com",
+    "password": "hash",
+    "passwordConfirmation": "hash",
+    "firstname": "Benoit",
+    "lastname": "Memon",
+    "about": "Bonjour a toute la communauté Totum! Moi c'est Benoît et j'adore la lutte",
+    "address": "86 avenue des Navets",
+    "zip_code": "52000",
+    "city": "Chaumont",
+    "country": "France",
+    "cookie": "true",
+    "landmark": "false",
+    "coordinate": "[]"
+  },
+
+  {
+    "email": "prune_guedj@hotmail.com",
+    "password": "hash",
+    "passwordConfirmation": "hash",
+    "firstname": "Prune",
+    "lastname": "Guedj",
+    "about": "Hello a tous ! Grande amatrice de poker, j'ai hâte de partager des parties avec vous tous",
+    "address": "2 boulevard de la liberté",
+    "zip_code": "46000",
+    "city": "Cahors",
+    "country": "France",
+    "cookie": "true",
+    "landmark": "false",
+    "coordinate": "[]"
+  },
+
+  {
+    "email": "arthur_beterbiev@hotmail.com",
+    "password": "hash",
+    "passwordConfirmation": "hash",
+    "firstname": "Arthur",
+    "lastname": "Beterbiev",
+    "about": "Salut les amis ! Fan de boxe anglaise, j'ai hâte de partager des sparrings avec vous tous",
+    "address": "2 boulevard de la liberté",
+    "zip_code": "78000",
+    "city": "Versailles",
+    "country": "France",
+    "cookie": "true",
+    "landmark": "false",
+    "coordinate": "[]"
+  },
+  {
+    "email": "guillaume.meurice@hotmail.com",
+    "password": "hash",
+    "passwordConfirmation": "hash",
+    "firstname": "Guillaume",
+    "lastname": "Meurice",
+    "about": "Salut les guys ! Passioné de kayak, j'ai hâte de partager des sorties avec vous tous",
+    "address": "2 boulevard de la soiffe",
+    "zip_code": "25600",
+    "city": "Sochaux",
+    "country": "France",
+    "cookie": "true",
+    "landmark": "false",
+    "coordinate": "[]"
   }
+
+
 ]
