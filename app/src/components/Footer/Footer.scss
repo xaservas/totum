@@ -1,10 +1,14 @@
 @import '../../vars';
 
 #footer {
+  position: absolute;
+  top: 93vh;
+  z-index: 1000;
   width: 100%;
   height: 7vh;
   display: flex;
   align-items: center;
+  color: $dark;
   .copyright {
     position: absolute;
   }
@@ -12,38 +16,57 @@
     margin: 0 auto;
     display: flex;
     align-items: center;
+    list-style: none;
+    color: $dark;
     li a {
       text-decoration: none;
-      color: #4a4a4a;
+      &:hover {
+        color: $highlight;
+        cursor: pointer;
+      }
     }
   }
   .footerNav li:nth-child(2) {
-    border-left: 2px solid gray;
-    border-right: 2px solid gray;
+    border-left: 2px solid $dark;
+    border-right: 2px solid $dark;
     margin: 0 1rem;
     padding: 0 1rem;
   }
-  .askHelp {
-    text-decoration: none;
-    color: whitesmoke;
-    margin: 0;
-    font-size: 1.5rem;
+
+  .addActivity {
+    color: $dark;
+    font-size: 4.4rem;
+    position: absolute;
+    bottom: 6rem;
+    left: 50%;
+    transform: translateX(-50%);
   }
 }
 
-.iconbar {
-  background-color: #faebd7;
+@media screen and (min-width: 1040px) {
+  #footer {
+    .addActivity {
+      display: none;
+    }
+  }
 }
 
-.icon_create {
-  background-color: rgb(197, 197, 197);
-  display: flex;
-  margin: auto;
-  border: none;
-}
+@media screen and (max-width: 890px) {
+  #footer {
+    .copyright {
+      display: none;
+    }
 
-@media screen and (max-width: 550px) {
-  footer {
-    display: none;
+    .footerNav {
+      margin: 0 auto;
+      padding: 0;
+
+      li {
+        text-align: center;
+        margin: 0;
+        padding: 0.01rem;
+        font-size: 1rem;
+      }
+    }
   }
 }

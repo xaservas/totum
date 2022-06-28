@@ -1,78 +1,222 @@
 @import '../../vars';
 
 .container_activity {
-  // background-color: rebeccapurple;
   display: flex;
-  width: 100vw;
-  height: 100vh;
-  flex-wrap: wrap;
-  background-color: $clear;
-
-  .left {
-    // background-color: red;
-    width: 50%;
-    height: 100%;
+  height: 80vh;
+  max-width: 36rem;
+  min-width: 36rem;
+  margin: 44rem;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  background: #ffffff;
+  box-shadow: 3px 3px 8px 4px rgba(34, 41, 43, 0.25);
+  border-radius: 20px;
+  .activity__name {
+    font-size: 2rem;
+    font-weight: 700;
+    padding-top: 1rem;
     display: flex;
-    flex-wrap: wrap;
-
-    justify-content: center;
-    .image_box {
-      justify-content: center;
-      .activity__picture {
-        height: 80vh;
-      }
+    justify-content: space-around;
+    padding-bottom: 2rem;
+    align-items: center;
+    .activity-close:hover {
+      cursor: pointer;
+      color: $highlight;
     }
-
-    .activity__adress {
-      text-align: center;
+    svg {
+      font-size: 4rem;
+      color: $dark;
     }
   }
-  .right {
-    // background-color: green;
-    width: 50vw;
-    height: 100vh;
+
+  .card-header {
+    background: none;
+    border-color: none;
+    box-shadow: none;
+    width: 100%;
+  }
+
+  .content-info {
+    width: 100%;
+  }
+
+  .card-content {
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+    width: 100%;
+    .content {
+      display: flex;
+      width: 70%;
+      justify-content: revert;
+      align-items: center;
+      padding-top: 2rem;
+      margin: 0 auto;
+      .activity-date,
+      .activity-address {
+        margin: 0;
+        text-align: right;
+        width: 100%;
+      }
+      svg {
+        height: 3rem;
+      }
+    }
+  }
+
+  .activity-adress {
+    text-align: center;
+    margin-bottom: 1rem;
+    margin: 0 auto;
+  }
+
+  .content-description {
+    margin: 0 auto;
+    text-align: center;
+    width: 70%;
+    padding: 2rem 0;
+  }
+
+  .activity__participants {
     display: flex;
-    justify-content: center;
+    width: 70%;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto;
+    margin-bottom: 1rem;
 
-    flex-wrap: wrap;
-    .right_container {
-      .activity__participants {
-        width: 80%;
-        display: flex;
-        flex-wrap: wrap;
-      }
-      .activity__takeholders {
-        width: 80%;
-        display: flex;
-        flex-wrap: wrap;
-      }
+    .activity__takeholders {
+      margin: 0 auto;
+      margin-top: 1rem;
+      margin-bottom: 2rem;
+      width: 70%;
+      display: flex;
+      justify-content: center;
+    }
+    .participant_value {
+      margin: 0;
+    }
+  }
 
-      .activity__description {
-        width: 80%;
-        display: flex;
-        flex-wrap: wrap;
-        text-align: center;
-      }
-      .activity__comments {
-        display: flex;
-        flex-wrap: wrap;
-      }
+  .progressbar {
+    margin: 0 auto;
+    width: 70%;
+    display: block;
+    height: 2rem;
+  }
+
+  .progressbar::-moz-progress-bar {
+    background: $dark;
+  }
+
+  .progressbar::-webkit-progress-value {
+    background: $dark;
+  }
+
+  .progressbar::-webkit-progress-bar {
+    background: $dark;
+  }
+
+  .content-button {
+    height: 11vh;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    display: flex;
+    align-items: center;
+
+    .is-warning {
+      background: $highlight;
+      color: $white-contrast;
+      border-color: $highlight;
+      width: 60%;
+      height: 4rem;
+    }
+  }
+
+  .button-par,
+  .button-com,
+  .button-cancel,
+  .button-connexion,
+  .button-full {
+    background-color: $dark;
+    border-radius: 25px;
+    text-align: center;
+    color: $white-local;
+    padding: 0.9rem;
+    border: $white-local;
+    margin-top: 0.7rem;
+    margin-bottom: 0.7rem;
+    width: 60%;
+    height: 4rem;
+    &:hover {
+      cursor: pointer;
+      background-color: $highlight;
+      color: $white-contrast;
+      border-color: $highlight;
     }
   }
 
   // modal create comment
   .activity__create-comment {
     display: none;
-  }
-
-  .isActive {
-    display: block;
+    width: 100%;
   }
 
   // zone commentaire
   .activity__comments {
-    height: fit-content;
-    max-height: 80%;
-    overflow: auto;
+    overflow: scroll;
+    min-height: min-content;
+    max-height: 60%;
+    width: 32vh;
+    margin-top: 3rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .comment-contain {
+    background-color: $ultra-clear;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    border-radius: 12px;
+    padding: 9px;
+  }
+  .message-header {
+    color: $dark;
+  }
+  .comment {
+    padding-left: 20px;
+  }
+  .trait {
+    width: 70%;
+    margin: 0 auto;
+    border: 1px solid $black-local;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  .textarea {
+    width: 26rem;
+    height: 20rem;
+    border-radius: 25px;
+    border: 1px solid $white-local;
+    margin-bottom: 1rem;
+    box-shadow: 3px 3px 8px 4px grey;
+    padding-left: 1rem;
+  }
+}
+
+@media screen and (max-width: 1150px) {
+  .container_activity {
+    margin: 0 auto;
+  }
+}
+
+@media screen and (max-width: 430px) {
+  .container_activity {
+    margin: 1rem;
+    margin: 0 auto;
+    height: 99vh;
   }
 }

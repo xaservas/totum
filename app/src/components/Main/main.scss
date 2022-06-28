@@ -5,37 +5,38 @@
   display: flex;
   flex-wrap: wrap;
   .left {
-    // height: calc(100vh - 14vh);
-    width: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
   }
-
   .mapComposant {
-    -webkit-box-shadow: 0px 0px 21px 5px rgba(0, 0, 0, 0.72);
-    box-shadow: 0px 0px 21px 5px rgba(0, 0, 0, 0.72);
     .leaflet-container {
-      width: 48vw;
-      height: 80vh;
+      z-index: 1;
+      width: 100vw;
+      height: 100vh;
     }
   }
 
   .right {
-    height: calc(100vh - 14vh);
-    width: 50%;
+    display: none;
+    width: 98vw;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    z-index: 1;
+    height: 93vh;
+    overflow: scroll;
+    top: 7vh;
+    justify-content: flex-end;
     .search {
       display: flex;
       align-items: center;
       justify-content: center;
     }
-    .activitiesList {
-      height: 90%;
-      overflow: auto;
-    }
   }
-  .icon_create {
-    display: none;
+
+  .showActivitiesList {
+    display: flex !important;
   }
 
   .isActive {
@@ -44,8 +45,6 @@
     .icon_close {
       font-size: 2rem;
       position: absolute;
-      // right: 13rem;
-      // top: 13rem;
       top: 13px;
       right: 13px;
 
@@ -64,6 +63,19 @@ footer {
 }
 
 // modal --------------------------------------------------
+#modalProfil {
+  overflow: scroll;
+  z-index: 1;
+}
+
+#modalLogin {
+  z-index: 1;
+}
+
+#modalActivity {
+  z-index: 2;
+}
+
 #modalLegalmention,
 #modalHelp,
 #modalActivity,
@@ -79,12 +91,7 @@ footer {
   height: 100%;
   width: 100%;
   position: absolute;
-  z-index: 2000;
-  background-image: radial-gradient(
-    circle,
-    #000000,
-    rgba(0, 0, 0, 0.835171568627451)
-  );
+  z-index: 1000;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -121,55 +128,19 @@ footer {
 // ------------------------------------------------------------
 
 @media screen and (max-width: 765px) {
-  .desktop {
-    flex-direction: column;
-    align-items: center;
-    .left,
-    .right {
-      width: 100%;
-      z-index: 1;
-    }
-    .left {
-      .leaflet-container {
-        width: 95vw;
-        height: 80vh;
-      }
-    }
-
-    .isActive {
-      top: 0;
-      left: 50%;
-      transform: translateX(-50%);
-    }
-  }
 }
 
 // -------------------------------------------------------------
 
 @media screen and (max-width: 550px) {
+}
+
+@media screen and (max-width: 822px) {
   .desktop {
-    .icon_close {
-      z-index: 2;
-    }
     .right {
-      height: auto;
-      position: absolute;
-      top: 5rem;
-      .activitiesList {
-        display: none;
+      .activitiesComposant {
+        margin: 0 auto;
       }
-    }
-    .icon_create {
-      display: block;
-      font-size: 4rem;
-      background-color: #ffffff00;
-      color: lightgreen;
-      position: relative;
-      bottom: 2rem;
-      z-index: 1000;
-      border-radius: 90%;
-      -webkit-box-shadow: 0px 0px 21px 5px rgba(0, 0, 0, 0.72);
-      box-shadow: 0px 0px 21px 5px rgba(0, 0, 0, 0.72);
     }
   }
 }
