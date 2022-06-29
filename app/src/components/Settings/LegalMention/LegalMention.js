@@ -1,8 +1,15 @@
 import './legalMention.scss';
+import { regular } from '@fortawesome/fontawesome-svg-core/import.macro';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-function LegalMention() {
+function LegalMention({ funct }) {
   return (
     <div className='legalMention-full'>
+      <FontAwesomeIcon
+        icon={regular('circle-xmark')}
+        onClick={() => funct.closeAllModal()}
+        className='login-close'
+      />
       <h1 className='title'>Mentions légales</h1>
       <p className='text'>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam suscipit
