@@ -1,6 +1,8 @@
 /* eslint-disable indent */
 import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import { useState, useEffect } from 'react';
+import { regular } from '@fortawesome/fontawesome-svg-core/import.macro';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Axios from '../../../utils/axiosPool';
 
 // base page
@@ -72,6 +74,11 @@ function Help({ funct }) {
 
   return (
     <div className='help'>
+      <FontAwesomeIcon
+        icon={regular('circle-xmark')}
+        onClick={() => funct.closeAllModal()}
+        className='login-close'
+      />
       <div className='help-div'>
         <h1>Nous contacter</h1>
         <p>{error}</p>

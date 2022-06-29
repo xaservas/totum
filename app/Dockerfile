@@ -1,5 +1,5 @@
 FROM node:16-alpine3.15
-WORKDIR /app_totum
+WORKDIR /front_totum
 COPY ./package.json .
 RUN npm install
 COPY . .

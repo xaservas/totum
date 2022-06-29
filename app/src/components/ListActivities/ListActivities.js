@@ -1,7 +1,7 @@
 /* eslint-disable indent */
 /* eslint-disable default-case */
 /* eslint-disable no-undef */
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import dayjs from 'dayjs';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { solid, regular } from '@fortawesome/fontawesome-svg-core/import.macro';
@@ -161,15 +161,7 @@ function Activities({ props, funct, popup }) {
                     className='activity-city'
                     onClick={() => funct.handleActivity(activity)}>
                     <FontAwesomeIcon
-                      icon={solid('pencil')}
-                      className='edit-activity'
-                      onClick={() => funct.handleUpdateActivity(activity.id)}
-                      key={Math.random()}
-                    />
-                    <FontAwesomeIcon
-                      icon={solid('trash-alt')}
-                      className='delete-activity'
-                      onClick={() => removeActivity(activity.id)}
+                      icon={solid('location-dot')}
                       key={Math.random()}
                     />
                     {activity.city}

@@ -1,5 +1,7 @@
 /* eslint-disable no-unused-expressions */
 import { useState, useEffect } from 'react';
+import { regular } from '@fortawesome/fontawesome-svg-core/import.macro';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './settings.scss';
 import axios from '../../utils/axiosPool';
 import mapbox from '../../utils/mapbox';
@@ -31,18 +33,18 @@ function Settings({ props, funct }) {
   // gestion des erreurs--------------
   const errorMessage = (data) => {
     switch (data) {
-    case 401:
-      setError('401');
-      break;
-    case 400:
-      setError('400');
-      break;
-    case 200:
-      setError('Compte modifié');
-      break;
-    default:
-      setError('default error');
-      break;
+      case 401:
+        setError('401');
+        break;
+      case 400:
+        setError('400');
+        break;
+      case 200:
+        setError('Compte modifié');
+        break;
+      default:
+        setError('default error');
+        break;
     }
   };
 
@@ -53,9 +55,9 @@ function Settings({ props, funct }) {
     if (!address) return;
 
     const res = await mapbox(address);
-    !autocompleteAddress.includes(e.target.value)
-      && res.features
-      && setAutocompleteAddress(res.features.map((place) => place.place_name));
+    !autocompleteAddress.includes(e.target.value) &&
+      res.features &&
+      setAutocompleteAddress(res.features.map((place) => place.place_name));
     res.error ? setAutocompleteErr(res.error) : setAutocompleteErr('');
   };
 
@@ -234,6 +236,11 @@ function Settings({ props, funct }) {
 
   return (
     <div className='changeProfile'>
+      <FontAwesomeIcon
+        icon={regular('circle-xmark')}
+        onClick={() => funct.closeAllModal()}
+        className='login-close'
+      />
       <form id='emailForm'>
         <div className='field'>
           <label className='label'>Email</label>

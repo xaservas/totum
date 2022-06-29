@@ -1,6 +1,9 @@
+/* eslint-disable indent */
 /* eslint-disable no-unused-expressions */
 import { useState } from 'react';
 import './createProfile.scss';
+import { regular } from '@fortawesome/fontawesome-svg-core/import.macro';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from '../../utils/axiosPool';
 import mapbox from '../../utils/mapbox';
 
@@ -25,15 +28,15 @@ function CreateProfile({ funct }) {
   // gestion des erreurs--------------
   const errorMessage = (data) => {
     switch (data) {
-    case 401:
-      setError('Les mots de passe de sont pas identique');
-      break;
-    case 400:
-      setError('Erreur inconnue');
-      break;
-    default:
-      setError('');
-      break;
+      case 401:
+        setError('Les mots de passe de sont pas identique');
+        break;
+      case 400:
+        setError('Erreur inconnue');
+        break;
+      default:
+        setError('');
+        break;
     }
   };
 
@@ -42,9 +45,9 @@ function CreateProfile({ funct }) {
     if (!address) return;
 
     const res = await mapbox(address);
-    !autocompleteAddress.includes(e.target.value)
-      && res.features
-      && setAutocompleteAddress(res.features.map((place) => place.place_name));
+    !autocompleteAddress.includes(e.target.value) &&
+      res.features &&
+      setAutocompleteAddress(res.features.map((place) => place.place_name));
     res.error ? setAutocompleteErr(res.error) : setAutocompleteErr('');
   };
 
@@ -122,6 +125,11 @@ function CreateProfile({ funct }) {
 
   return (
     <div className='createProfil'>
+      <FontAwesomeIcon
+        icon={regular('circle-xmark')}
+        onClick={() => funct.closeAllModal()}
+        className='login-close'
+      />
       <form onSubmit={handleSubmit} className='formProfil'>
         <div className='nomfusion'>
           <div className='field'>

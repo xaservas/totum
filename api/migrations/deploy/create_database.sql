@@ -3,7 +3,7 @@
 BEGIN;
 
 -- create personnal domain
-CREATE DOMAIN zip_code AS TEXT CHECK (VALUE ~ '^[0-9]{5}$');
+CREATE DOMAIN zip_code AS TEXT CHECK (VALUE ~ '^[0-9]{4,5}$');
 CREATE DOMAIN email AS TEXT
   CHECK ( value ~ '^[a-zA-Z0-9.!#$%&''*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$' );
 
@@ -46,13 +46,13 @@ CREATE TABLE activity (
     description TEXT NOT NULL,
     max_participants INT NOT NULL,
     date TIMESTAMPTZ NOT NULL,
-    level INT NOT NULL REFERENCES level(id) ON DELETE CASCADE,
+    level INT NOT NULL REFERENCES level(id),
     address TEXT NOT NULL,
     zip_code zip_code NOT NULL,
     city TEXT NOT NULL,
     country TEXT NOT NULL,
     landmark TEXT,
-    id_user INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    id_user INT NOT NULL REFERENCES users(id),
     id_category INT NOT NULL REFERENCES category(id),
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     updated_at TIMESTAMPTZ
@@ -62,8 +62,8 @@ CREATE TABLE comment (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     content TEXT NOT NULL,
     picture TEXT,
-    id_user INT NOT NULL REFERENCES users(id),
-    id_activity INT NOT NULL REFERENCES activity(id),
+    id_user INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    id_activity INT NOT NULL REFERENCES activity(id) ON DELETE CASCADE,
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     updated_at TIMESTAMPTZ
 );
@@ -79,8 +79,8 @@ CREATE TABLE meta (
 
 CREATE TABLE user_activity (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    id_user INT NOT NULL REFERENCES users(id),
-    id_activity INT NOT NULL REFERENCES activity(id),
+    id_user INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    id_activity INT NOT NULL REFERENCES activity(id) ON DELETE CASCADE,
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     updated_at TIMESTAMPTZ
 );
@@ -93,6 +93,6 @@ CREATE TABLE token_blacklist (
 );
 
 ALTER TABLE users
-ADD COLUMN meta_id INT REFERENCES meta(id);
+ADD COLUMN meta_id INT REFERENCES meta(id) ON DELETE CASCADE;
 
 COMMIT;
