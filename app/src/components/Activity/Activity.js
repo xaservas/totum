@@ -161,18 +161,14 @@ function Activity({ props, funct, synchro }) {
   }, [props.isLogged]);
 
   const ButtonComment = () => (
-    <button
-      className='button-com'
-      onClick={handleModalCreateComment}>
+    <button className='button-com' onClick={handleModalCreateComment}>
       Commenter
     </button>
   );
 
   const ButtonRegister = () => (
     <aside className='content-button'>
-      <button
-        className='button-par'
-        onClick={() => registerToActivity()}>
+      <button className='button-par' onClick={() => registerToActivity()}>
         Je veux participer
       </button>
       <ButtonComment />
@@ -181,9 +177,7 @@ function Activity({ props, funct, synchro }) {
 
   const ButtonUnregister = () => (
     <aside className='content-button'>
-      <button
-        className='button-cancel'
-        onClick={unregisterToActivity}>
+      <button className='button-cancel' onClick={unregisterToActivity}>
         Je ne veux plus participer
       </button>
       <ButtonComment />
@@ -192,9 +186,7 @@ function Activity({ props, funct, synchro }) {
 
   const ButtonLogin = () => (
     <aside className='content-button'>
-      <button
-        className='button-connexion'
-        onClick={() => funct.handleLogin()}>
+      <button className='button-connexion' onClick={() => funct.handleLogin()}>
         Connexion
       </button>
     </aside>
@@ -202,9 +194,7 @@ function Activity({ props, funct, synchro }) {
 
   const ButtonActivityFull = () => (
     <aside className='content-button'>
-      <button className='button-full'>
-        Activité complète
-      </button>
+      <button className='button-full'>Activité complète</button>
       <ButtonComment />
     </aside>
   );
@@ -212,46 +202,48 @@ function Activity({ props, funct, synchro }) {
   return (
     <article className='activity__card'>
       <header className='activity__card--header'>
-          {categories.map((category) => {
-            if (category.id === activity.id_category) {
-              if (category.picto === 'jeu') {
-                return (
-                  <FontAwesomeIcon
-                    icon={regular('chess-king')}
-                    key={(activity.id, category.id)}
-                    className='activity-picto'
-                  />
-                );
-              }
-              if (category.picto === 'sport') {
-                return (
-                  <FontAwesomeIcon
-                    icon={solid('person-running')}
-                    key={(activity.id, category.id)}
-                    className='activity-picto'
-                  />
-                );
-              }
+        {categories.map((category) => {
+          if (category.id === activity.id_category) {
+            if (category.picto === 'jeu') {
+              return (
+                <FontAwesomeIcon
+                  icon={regular('chess-king')}
+                  key={(activity.id, category.id)}
+                  className='activity-picto'
+                />
+              );
             }
-            return null;
-          })}
-          <p className='activity-name'>{activity.name}
-          </p>
-          <FontAwesomeIcon
-            icon={regular('circle-xmark')}
-            onClick={() => funct.closeActivity()}
-            className='activity-close'
-          />
+            if (category.picto === 'sport') {
+              return (
+                <FontAwesomeIcon
+                  icon={solid('person-running')}
+                  key={(activity.id, category.id)}
+                  className='activity-picto'
+                />
+              );
+            }
+          }
+          return null;
+        })}
+        <p className='activity-name'>{activity.name}</p>
+        <FontAwesomeIcon
+          icon={regular('circle-xmark')}
+          onClick={() => funct.closeActivity()}
+          className='activity-close'
+        />
       </header>
       <aside className='card-content'>
         <div className='content'>
-          <FontAwesomeIcon className="info-picto" icon={regular('calendar')} />
+          <FontAwesomeIcon className='info-picto' icon={regular('calendar')} />
           <p className='date'>
             {`le ${dayjs(activity.date).format('DD/MM/YYYY')}`}
           </p>
         </div>
         <div className='content'>
-          <FontAwesomeIcon className="info-picto" icon={solid('location-dot')} />
+          <FontAwesomeIcon
+            className='info-picto'
+            icon={solid('location-dot')}
+          />
           <p className='address'>{`${activity.address}, ${activity.zip_code} ${activity.city}`}</p>
         </div>
       </aside>
@@ -292,6 +284,7 @@ function Activity({ props, funct, synchro }) {
       })()}
 
       <section className='activity__card__comments'>
+        {console.log(comments)}
         {comments &&
           comments.map((comment) => (
             <Comment key={comment.comment_id || 0} comment={comment} />
