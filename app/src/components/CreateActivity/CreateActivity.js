@@ -386,11 +386,11 @@ function CreateActivity({ props, funct }) {
           </div>
         </div>
         <div className='validation-button'>
-          <button className='button' type='submit'>
+          <button className='button' type='submit' onClick={closeAddActivity}>
             Proposer
           </button>
           <button className='button is-light' type='reset' onClick={resetForm}>
-            Cancel
+            Rafraîchir
           </button>
         </div>
       </div>

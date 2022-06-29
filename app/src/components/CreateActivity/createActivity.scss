@@ -16,6 +16,18 @@
   align-content: space-around;
   flex-wrap: wrap;
   flex-direction: column;
+  
+  .create-close{
+    position:relative;
+    top: -3.5rem;
+    right: -4rem;
+    height: 3rem;
+    width: 3rem;
+    color: $dark;
+    &:hover{
+      color: $clear;
+    }
+  }
 
   .field{
     background-color: $white-local;
@@ -28,6 +40,10 @@
     min-height: 3.5rem;
     box-shadow: 3px 3px 8px 4px rgba(34, 41, 43, 0.25);
     border-radius: 3rem;
+    &:hover{
+      border: solid 1px;
+      border-color: $dark;
+    }
   }
   .field__select {
     justify-content: space-between;
@@ -56,6 +72,9 @@
     align-items: baseline;
     input{
       margin-bottom: 0px;
+      &:after{
+        background-color: $white-local;
+      }
     }
   }
   input:focus{
@@ -188,12 +207,17 @@
       color: $white-contrast;
       background-color: $dark;
       border-radius: 50px;
-      box-shadow: 3px 3px 8px 4px rgba(34, 41, 43, 0.25);
       border: none;
+      &:hover{
+        background-color: $highlight;
+      }
     }
     .is-light{
       background-color: $ultra-clear;
       color: $dark;
+      &:hover{
+        color: $white-contrast;
+      }
     }
   }
 }
