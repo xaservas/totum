@@ -40,6 +40,10 @@
     bottom: 6rem;
     left: 50%;
     transform: translateX(-50%);
+    &:hover {
+      cursor: pointer;
+      color: $highlight;
+    }
   }
 }
 

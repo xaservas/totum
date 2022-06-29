@@ -156,17 +156,10 @@ function Activities({ props, funct, popup }) {
                   />
                   {`le ${dayjs(activity.date).format('DD/MM/YYYY')}`}
                 </div>
-                <div
-                  className='column activity-city'
-                  onClick={() => funct.handleActivity(activity)}>
-                  <FontAwesomeIcon
-                    icon={solid('location-dot')}
-                    key={Math.random()}
-                  />
-                  {activity.city}
-                </div>
-                {activity.id_user === JSON.parse(localStorage.getItem('id')) ? (
-                  <div className='controle-activity'>
+                <div className='column activity-footer'>
+                  <div
+                    className='activity-city'
+                    onClick={() => funct.handleActivity(activity)}>
                     <FontAwesomeIcon
                       icon={solid('pencil')}
                       className='edit-activity'
@@ -179,8 +172,25 @@ function Activities({ props, funct, popup }) {
                       onClick={(e) => removeActivity(activity.id)}
                       key={Math.random()}
                     />
+                    {activity.city}
                   </div>
-                ) : null}
+                  {activity.id_user === JSON.parse(localStorage.getItem('id')) ? (
+                    <div className='controle-activity'>
+                      <FontAwesomeIcon
+                        icon={solid('pencil')}
+                        className='edit-activity'
+                        onClick={() => funct.handleUpdateActivity(activity.id)}
+                        key={Math.random()}
+                      />
+                      <FontAwesomeIcon
+                        icon={solid('trash-alt')}
+                        className='delete-activity'
+                        onClick={() => removeActivity(activity.id)}
+                        key={Math.random()}
+                      />
+                    </div>
+                  ) : null}
+                </div>
               </li>
             );
           }

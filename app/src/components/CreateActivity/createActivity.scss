@@ -1,85 +1,68 @@
 @import '../../vars';
 
 .createActivity {
-  .createActivity_container {
-    border-radius: 25px;
-    background-color: $ultra-clear;
-    p {
-      width: 100%;
-      text-align: center;
-    }
-    .sendMessage {
-      color: green;
-    }
-    .errorMessage {
-      color: red;
-    }
-  }
-  align-content: center;
   font-family: 'Lato';
   margin: auto 0;
   padding: 30%;
   height: 100vh;
-  overflow: auto;
+  overflow: auto;  
   width: 95vw;
   margin: 0 auto;
   max-width: 1920px;
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
+  align-content: space-around;
   flex-wrap: wrap;
   flex-direction: column;
+  
+  .create-close{
+    position:relative;
+    top: -3.5rem;
+    right: -4rem;
+    height: 3rem;
+    width: 3rem;
+    color: $dark;
+    &:hover{
+      color: $clear;
+    }
+  }
 
-  .field {
+  .field{
     background-color: $white-local;
-    display: flex;
+    display:flex;
     flex-direction: row;
     align-items: center;
     align-content: center;
     padding: 0.7rem 1.6rem;
     margin: 1rem;
-    min-height: 2.3rem;
+    min-height: 3.5rem;
     box-shadow: 3px 3px 8px 4px rgba(34, 41, 43, 0.25);
     border-radius: 3rem;
-    width: fit-content;
-    .create-close:hover {
-      cursor: pointer;
-      color: $highlight;
-    }
-    svg {
-      font-size: 4rem;
-      color: $dark;
-      position: relative;
-      left: 15rem;
+    &:hover{
+      border: solid 1px;
+      border-color: $dark;
     }
   }
-  .description {
-    align-items: flex-start;
-    align-content: flex-start;
-    padding: 1.6rem;
+  .field__select {
+    justify-content: space-between;
   }
-  .date {
-    align-items: flex-start;
-    align-content: flex-start;
-    padding: 1.6rem;
-  }
-  .label {
+  .label{
     width: 10rem;
     font-style: normal;
     font-weight: bold;
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     color: $dark;
     padding-right: 1rem;
     border-right: solid 1px;
     border-color: $dark;
+    
   }
-  .icon {
-    color: $dark;
-  }
-  .input {
+  .input{
     font-family: 'Lato';
-    border: none;
-    padding: 0 1rem;
+    border: none;  
+    padding: 0 10px;
     margin: none;
     font-style: normal;
     font-size: 1.5rem;
@@ -87,20 +70,40 @@
     flex-direction: column;
     justify-content: center;
     align-items: baseline;
-    width: fit-content;
+    input{
+      margin-bottom: 0px;
+      &:after{
+        background-color: $white-local;
+      }
+    }
   }
-  input:focus {
-    outline: none;
+  input:focus{
+    outline:none;
   }
 
   .select-style {
     padding: 0;
     margin: 0;
     border: none;
-
+    flex-grow: 2;
     overflow: hidden;
     position: relative;
-
+    &:after {
+      top: 50%;
+      left: 85%;
+      border: solid transparent;
+      content: " ";
+      height: 0;
+      width: 0;
+      position: absolute;
+      pointer-events: none;
+      border-color: rgba(0, 0, 0, 0);
+      border-top-color: #000000;
+      border-width: 5px;
+      margin-top: -2px;
+      z-index: 100;
+     
+  }
     select:focus {
       outline: none;
       font-family: 'Lato';
@@ -109,7 +112,7 @@
     select {
       font-family: 'Lato';
       padding: 5px 8px;
-      width: auto;
+      width: 130%;
       border: none;
       box-shadow: none;
       background-color: transparent;
@@ -119,71 +122,70 @@
       appearance: none;
       color: $dark;
 
-      option {
+      option{
         font-family: 'Lato';
       }
     }
-  }
-  .select-style:after {
-    top: 50%;
-    left: 85%;
-    border: solid transparent;
-    content: ' ';
-    height: 0;
-    width: 0;
-    position: absolute;
-    pointer-events: none;
-    border-color: rgba(0, 0, 0, 0);
-    border-top-color: #000000;
-    border-width: 5px;
-    margin-top: -2px;
-    z-index: 100;
-  }
+  
+}
 
-  .textarea {
-    font-family: 'Lato';
-    border: none;
-    font-size: 1.5rem;
-    resize: none;
-    overflow: auto;
-    padding: 0 1rem;
-    height: 10rem;
-  }
-  .textarea:focus {
-    border: none;
-  }
-  .textarea:after {
-    border: none;
-  }
-  .calendar {
-    border: none;
-    padding: 0;
-    font-family: 'Lato';
-  }
-  .react-calendar__navigation {
+.textarea{
+  font-family: 'Lato';
+  border: none;
+  font-size: 1.5rem;
+  resize: none;
+  overflow: auto;
+  padding: 5px 8px;
+}
+.textarea:focus{
+  border: none;
+}
+.textarea:after{
+  border: none;
+}
+
+.react-calendar{
+  flex-grow: 2;
+  width: 15rem;
+  border: none;
+  padding: 0;
+  font-family: 'Lato';
+
+  &__navigation{
+    width: 15rem;
     height: auto;
+    margin-bottom: 1rem;
+
   }
-  .react-calendar__tile {
+  
+ &__tile{
+    padding: 0.2rem;
+    &--active {
+      background: $dark;
+      color: $white-contrast;
+
+      &:enabled:focus, &:enabled:hover {
+        background: $clear;
+      }
+    }
+    &--now {
+      background: $highlight;
+      color: $black-local;
+    }
+        
+  }
+  &__month-view__weekdays__weekday{
+    display: none;
+  }
+  &_navigation_arrow{
     padding: 0.2rem;
   }
-  .react-calendar__tile--active {
-    background: $dark;
-    color: $white-contrast;
-  }
-  .react-calendar__tile--active:enabled:hover,
-  .react-calendar__tile--active:enabled:focus {
-    background: $clear;
-  }
-  .react-calendar__tile--now {
-    background: $highlight;
-    color: $black-local;
-  }
-  .react-calendar__tile--now:enabled:hover,
-  .react-calendar__tile--active:enabled:focus {
-    background: $clear;
-  }
+}
+.react-calendar__navigation button {
+  min-width: 1rem;
+  background: none;
+}
   .validation-button {
-    width: 100%;
     display: flex;
     margin-top: 2rem;
     justify-content: space-evenly;
@@ -191,24 +193,29 @@
     align-items: center;
     padding: 0.7rem 1.6rem;
 
-    .button {
+    .button {    
       width: 30%;
       height: 5rem;
-      display: flex;
+      display:flex;
       justify-content: center;
       align-items: center;
       text-align: center;
       font-style: normal;
       font-weight: bold;
-      font-size: 1.5rem;
+      font-size: 1.7rem;
       color: $white-contrast;
-      border: none;
       background-color: $dark;
       border-radius: 50px;
-      box-shadow: 3px 3px 8px 4px rgba(34, 41, 43, 0.25);
-      &:hover {
-        cursor: pointer;
+      border: none;
+      &:hover{
         background-color: $highlight;
+      }
+    }
+    .is-light{
+      background-color: $ultra-clear;
+      color: $dark;
+      &:hover{
+        color: $white-contrast;
       }
     }
     .is-light {
@@ -236,6 +243,6 @@
     margin: 0 auto;
     .in-container {
       width: 100%;
-    }
+    }   
   }
 }
