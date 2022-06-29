@@ -1,15 +1,33 @@
 import { useEffect, useState } from 'react';
 // import L from 'leaflet';
 import { MapContainer, TileLayer, Marker } from 'react-leaflet';
+import axios from '../../utils/axiosPool';
 import './map.scss';
 
 function Map({ props, funct }) {
   const [activities, setActivities] = useState([]);
   const position = JSON.parse(localStorage.getItem('coordinate'));
 
+  const getActivities = async () => {
+    try {
+      const response = await axios.get('/activities');
+      setActivities(response.data);
+    } catch (error) {
+      throw new Error(error);
+    }
+  };
+
   useEffect(() => {
     setActivities(props.searchResult);
   }, [props.searchResult]);
+
+  useEffect(() => {
+    getActivities();
+  }, [props.addActivity]);
+
+  useEffect(() => {
+    getActivities();
+  }, [props.listMparameters]);
 
   // const iconTest = new L.Icon({
   //   iconUrl:
@@ -54,7 +72,7 @@ function Map({ props, funct }) {
                 position={[x, y]}
                 eventHandlers={{
                   click: () => {
-                    funct.handleActivity(activity.id);
+                    funct.handleActivity(activity);
                   },
                 }}
               />

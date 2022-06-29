@@ -121,122 +121,149 @@ function CreateProfile({ funct }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className='createProfile'>
-      <p className='errorMessage'>{error}</p>
-      <input
-        required
-        name='firstname'
-        type='text'
-        className='input'
-        placeholder='Prénom'
-        onChange={(e) => setFirstname(e.target.value)}
-      />
-      <input
-        required
-        name='lastname'
-        type='text'
-        className='input'
-        placeholder='Nom'
-        onChange={(e) => setLastname(e.target.value)}
-      />
-      <input
-        required
-        name='email'
-        type='email'
-        className='input'
-        placeholder='Mail'
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <div className='password'>
-
-        <input
-          required
-          name='password'
-          type='password'
-          className='input'
-          placeholder='Mot de passe'
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <input
-          required
-          name='passwordConfirmation'
-          type='password'
-          className='input'
-          placeholder='Confirmation de Mot de passe'
-          onChange={(e) => setPasswordConfirmation(e.target.value)}
-        />{' '}
-      </div>
-      <input
-        id='searchAddress'
-        list='places'
-        name='searchAddress'
-        type='text'
-        className='input'
-        placeholder='searchAddress'
-        onChange={handleAddressChange}
-        pattern={autocompleteAddress.join('|')}
-        autoComplete='off'
-        onBlur={splitAdress}
-      />
-      <input
-        required
-        id='address'
-        name='address'
-        type='text'
-        className='input'
-        placeholder='Adresse'
-        onChange={(e) => setAddress(e.target.value)}
-      />
-      <datalist id='places'>
-        {autocompleteAddress.map((addresses, i) => (
-          <option key={i} >{addresses}</option>
-        ))}
-      </datalist>
-      {autocompleteErr && <span className='inputError'>{autocompleteErr}</span>}
-      <div className='zipCity'>
-        <input
-          required
-          id='zipCode'
-          name='zipCode'
-          type='text'
-          className='input'
-          placeholder='Code Postal'
-          onChange={(e) => setZipcode(e.target.value)}
-        />
-        <input
-          required
-          id='city'
-          name='city'
-          type='text'
-          className='input'
-          placeholder='Ville'
-          onChange={(e) => setCity(e.target.value)}
-        />
-      </div>
-      <input
-        required
-        id='country'
-        name='country'
-        type='text'
-        className='input'
-        placeholder='Pays'
-        onChange={(e) => setCountry(e.target.value)}
-      />
-      <input
-        name='about'
-        type='text'
-        className='input'
-        placeholder='Présentation'
-        onChange={(e) => setAbout(e.target.value)}
-      />
-      <div className='OptionLogin'>
-        <label className='checkbox'>
-          <input name='cookie' type='checkbox' onClick={cookieClick} />{' '}
-          <span className='slider round'> </span> <p> cookies </p>{' '}
-        </label>
-      </div>
-      <button className='button'> Valider </button>{' '}
-    </form>
+    <div className='createProfil'>
+      <form onSubmit={handleSubmit} className='formProfil'>
+        <div className='nomfusion'>
+          <div className='field'>
+            <label className='label'>Prénom</label>
+            <input
+              required
+              name='firstname'
+              type='text'
+              className='input'
+              onChange={(e) => setFirstname(e.target.value)}
+            />
+          </div>
+          <div className='field'>
+            <label className='label'>Nom</label>
+            <input
+              required
+              name='lastname'
+              type='text'
+              className='input'
+              onChange={(e) => setLastname(e.target.value)}
+            />
+          </div>
+        </div>
+        <div className='field'>
+          <label className='label'>Email</label>
+          <input
+            required
+            name='email'
+            type='email'
+            className='input'
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </div>
+        <div className='passwordfusion'>
+          <div className='field'>
+            <label className='label'>Mot de passe</label>
+            <input
+              required
+              name='password'
+              type='password'
+              className='input'
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+          <div className='field'>
+            <label className='label'>Confirmation de mot de passe</label>
+            <input
+              required
+              name='passwordConfirmation'
+              type='password'
+              className='input'
+              onChange={(e) => setPasswordConfirmation(e.target.value)}
+            />
+          </div>
+        </div>
+        <div className='field'>
+          <label className='label'>Recherche d'adresse</label>
+          <input
+            id='searchAddress'
+            list='places'
+            name='searchAddress'
+            type='text'
+            className='input'
+            onChange={handleAddressChange}
+            pattern={autocompleteAddress.join('|')}
+            autoComplete='off'
+            onBlur={splitAdress}
+          />
+        </div>
+        <div className='field'>
+          <label className='label'>Adresse</label>
+          <input
+            required
+            id='address'
+            name='address'
+            type='text'
+            className='input'
+            onChange={(e) => setAddress(e.target.value)}
+          />
+        </div>
+        <datalist id='places'>
+          {autocompleteAddress.map((addresses, i) => (
+            <option key={i}>{addresses}</option>
+          ))}
+        </datalist>
+        {autocompleteErr && (
+          <span className='inputError'>{autocompleteErr}</span>
+        )}
+        <div className='zipCity'>
+          <div className='field'>
+            <label className='label'>Code Postal</label>
+            <input
+              required
+              id='zipCode'
+              name='zipCode'
+              type='text'
+              className='input'
+              onChange={(e) => setZipcode(e.target.value)}
+            />
+          </div>
+          <div className='field'>
+            <label className='label'>Ville</label>
+            <input
+              required
+              id='city'
+              name='city'
+              type='text'
+              className='input'
+              onChange={(e) => setCity(e.target.value)}
+            />
+          </div>
+        </div>
+        <div className='field'>
+          <label className='label'>Pays</label>
+          <input
+            required
+            id='country'
+            name='country'
+            type='text'
+            className='input'
+            onChange={(e) => setCountry(e.target.value)}
+          />
+        </div>
+        <div className='field'>
+          <label className='label'>Présentation</label>
+          <input
+            name='about'
+            type='text'
+            className='input'
+            onChange={(e) => setAbout(e.target.value)}
+          />
+        </div>
+        <div className='OptionLogin'>
+          <label className='checkbox'>
+            <input name='cookie' type='checkbox' onClick={cookieClick} />{' '}
+            <span className='slider round'> </span> <p> cookies </p>{' '}
+          </label>
+        </div>
+        <p className='errorMessage'>{error}</p>
+        <button className='validation-button'> Valider </button>{' '}
+      </form>
+    </div>
   );
 }
 

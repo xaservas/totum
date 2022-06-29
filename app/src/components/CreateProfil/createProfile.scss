@@ -1,26 +1,81 @@
 @import '../../vars';
 
-.createProfile {
+.createProfil {
   margin: 0 auto;
   padding: 0 1rem;
-  input {
-    margin-bottom: 0.5em;
-  }
+  border-radius: 3rem;
+  height:100vh;
+  overflow: scroll;
+  
+  
+  form {
+    overflow: scroll;
+    margin-top: 3em;
 
-  .password {
-    display: flex;
-  }
+    .nomfusion{
+      display: flex;
+    }
+    .passwordfusion{
+      display: flex;
+      
+    }
+    .zipCity{
+      display: flex;
+    }
 
-  .zipCity {
-    display: flex;
-  }
+    .field{
+      background-color: $white-local;
+      display:flex;
+      flex-direction: row;
+      align-items: center;
+      align-content: center;
+      padding: 0.7rem 1.6rem;
+      margin: 1rem;
+      min-height: 3.5rem;
+      box-shadow: 3px 3px 8px 4px rgba(34, 41, 43, 0.25);
+      border-radius: 3rem;
+      .label{
+        width: 10rem;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 1.5rem;
+        color: $dark;
+        padding-right: 1rem;
+        border-right: solid 1px;
+        border-color: $dark;
+        
+      }
+      .input{
+        font-family: 'Lato';
+        border: none;  
+        padding: 0 10px;
+        margin: none;
+        font-style: normal;
+        font-size: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: baseline;
+        width: 100%;
+        input{
+          margin-bottom: 0px;
+        }
+      }
+      input:focus{
+        outline:none;
+      }
+
+    }
+
+  } 
+  
 
   .OptionLogin {
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
     height: 3rem;
+    justify-content: space-evenly;
     .checkbox {
       display: flex;
       justify-content: center;
@@ -31,11 +86,30 @@
         margin: 1rem 1rem;
       }
     }
+    p{
+      
+      margin-bottom: -0.5em;
+    }
   }
 
-  .button {
-    margin: 2rem auto;
-    display: block;
+  .validation-button {
+  
+    flex-direction: row;
+    align-items: center;
+    padding: 0.7rem 1.6rem;
+    height: 5rem;
+    display:flex;
+    justify-content: center;
+    text-align: center;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 2rem;
+    color: $white-contrast;
+    background-color: $dark;
+    border-radius: 50px;
+    box-shadow: 1px 1px 4px 2px rgba(34, 41, 43, 0.25);
+    margin: 4rem auto;
+    width: 30%;
   }
 
   .checkbox {
@@ -97,12 +171,54 @@
   .slider.round {
     border-radius: 34px;
   }
-
+  
   .slider.round:before {
     border-radius: 50%;
   }
-
+  
   .inputError {
     background-color: rgb(187, 10, 128);
   }
+  
 }
+  
+  @media screen and (max-width: 1150px) {
+    .createProfil {
+      margin: 0 auto;
+    }
+  }
+
+
+  @media screen and (max-width: 1056px) {
+    // svg{
+    //   position: absolute;
+    //   bottom: 20px;
+    //   right: 20px;
+    // }
+  }
+  
+@media screen and (max-width: 620px) {
+
+ 
+  
+  .createProfil {
+    margin: 0 auto;
+
+    form {
+      overflow: scroll;
+
+    .nomfusion{
+      flex-direction:column;
+    }
+    .passwordfusion{
+      flex-direction:column;
+      
+    }
+    .zipCity{
+      flex-direction:column;
+    }
+  }
+}
+}
+
+

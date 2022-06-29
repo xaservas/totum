@@ -1,3 +1,6 @@
+/* eslint-disable indent */
+/* eslint-disable default-case */
+/* eslint-disable no-undef */
 import { useEffect, useState } from 'react';
 import dayjs from 'dayjs';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -7,26 +10,38 @@ import Axios from '../../utils/axiosPool';
 // base page
 import './listActivities.scss';
 
-function Activities({ props, funct }) {
+function Activities({ props, funct, popup }) {
   const [activities, setActivities] = useState([]);
   const [categories, setCategories] = useState([]);
   const [levels, setLevels] = useState([]);
+  const [checkRemove, setCheckRemove] = useState(false);
+  const [synchroMapList, setSynchroMapList] = useState(false);
+
+  const checkSynchroMapList = () => {
+    setSynchroMapList(!synchroMapList);
+    funct.synchroRemoveListMap();
+  };
 
   const getCategories = async () => {
     try {
       const response = await Axios.get('/category/categories');
       setCategories(response.data);
-    } catch (error) {
-      throw new Error(error);
+    } catch (err) {
+      throw new Error(err);
     }
   };
 
   const ActivitiesDataRequest = async () => {
     try {
       const response = await Axios.get('/activities');
+      response.data.sort((a, b) => {
+        const aDate = new Date(a.date);
+        const bDate = new Date(b.date);
+        return aDate - bDate;
+      });
       setActivities(response.data);
-    } catch (error) {
-      throw new Error(error);
+    } catch (err) {
+      throw new Error(err);
     }
   };
 
@@ -34,8 +49,8 @@ function Activities({ props, funct }) {
     try {
       const response = await Axios.get('/level/getAll');
       setLevels(response.data);
-    } catch (error) {
-      throw new Error(error);
+    } catch (err) {
+      throw new Error(err);
     }
   };
 
@@ -45,12 +60,14 @@ function Activities({ props, funct }) {
         method: 'delete',
         url: `/activity/${id}/manage`,
       });
-      if (response.data.success) {
-        console.log('success');
+      if (response.status === 200) {
+        setCheckRemove(!checkRemove);
+        checkSynchroMapList();
       }
-    } catch (error) {
-      console.log(error);
-      throw new Error(error);
+    } catch (err) {
+      console.log(err);
+      popup();
+      throw new Error(err);
     }
   };
 
@@ -64,16 +81,25 @@ function Activities({ props, funct }) {
     setActivities(props.searchResult);
   }, [props.searchResult]);
 
+  useEffect(() => {
+    ActivitiesDataRequest();
+    getCategories();
+    levelDataRequest();
+  }, [checkRemove]);
+
+  useEffect(() => {
+    ActivitiesDataRequest();
+    getCategories();
+    levelDataRequest();
+  }, [props.addActivity]);
+
   return (
     <article className='listActivities panel'>
       <ul className='activities-list'>
         {activities.map((activity) => {
           if (activity.id !== 404) {
             return (
-              <li
-                key={activity.id}
-                className='activity panel-block'
-                onClick={() => funct.handleActivity(activity)}>
+              <li key={activity.id} className='activity panel-block'>
                 <div className='activity-picto'>
                   {categories.map((category) => {
                     if (category.id === activity.id_category) {
@@ -83,6 +109,7 @@ function Activities({ props, funct }) {
                             icon={regular('chess-king')}
                             className='activity-picto'
                             key={Math.random()}
+                            onClick={() => funct.handleActivity(activity)}
                           />
                         );
                       }
@@ -92,6 +119,7 @@ function Activities({ props, funct }) {
                             icon={solid('person-running')}
                             className='activity-picto'
                             key={Math.random()}
+                            onClick={() => funct.handleActivity(activity)}
                           />
                         );
                       }
@@ -99,7 +127,9 @@ function Activities({ props, funct }) {
                     return null;
                   })}
                 </div>
-                <div className='text-info'>
+                <div
+                  className='text-info'
+                  onClick={() => funct.handleActivity(activity)}>
                   <div className='column activity-name'>{activity.name}</div>
                   <div className='column activity-category'>
                     {categories.map((category) => {
@@ -118,36 +148,43 @@ function Activities({ props, funct }) {
                     })}
                   </div>
                 </div>
-                <div className='column activity-date'>
+                <div
+                  className='column activity-date'
+                  onClick={() => funct.handleActivity(activity)}>
                   <FontAwesomeIcon
                     icon={regular('calendar')}
                     key={Math.random()}
                   />
                   {`le ${dayjs(activity.date).format('DD/MM/YYYY')}`}
                 </div>
-                <div className='column activity-city'>
-                  <FontAwesomeIcon
-                    icon={solid('location-dot')}
-                    key={Math.random()}
-                  />
-                  {activity.city}
-                </div>
-                {activity.id_user === JSON.parse(localStorage.getItem('id')) ? (
-                  <div className='controle-activity'>
+                <div className='column activity-footer'>
+                  <div
+                    className='activity-city'
+                    onClick={() => funct.handleActivity(activity)}>
                     <FontAwesomeIcon
-                      icon={solid('pencil')}
-                      className='edit-activity'
-                      onClick={() => funct.handleCreateActivity()}
+                      icon={solid('location-dot')}
                       key={Math.random()}
                     />
-                    <FontAwesomeIcon
-                      icon={solid('trash-alt')}
-                      className='delete-activity'
-                      onClick={() => removeActivity(activity.id)}
-                      key={Math.random()}
-                    />
+                    {activity.city}
                   </div>
-                ) : null}
+                  {activity.id_user
+                  === JSON.parse(localStorage.getItem('id')) ? (
+                    <div className='controle-activity'>
+                      <FontAwesomeIcon
+                        icon={solid('pencil')}
+                        className='edit-activity'
+                        onClick={() => funct.handleUpdateActivity(activity.id)}
+                        key={Math.random()}
+                      />
+                      <FontAwesomeIcon
+                        icon={solid('trash-alt')}
+                        className='delete-activity'
+                        onClick={() => removeActivity(activity.id)}
+                        key={Math.random()}
+                      />
+                    </div>
+                  ) : null}
+                </div>
               </li>
             );
           }

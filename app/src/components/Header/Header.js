@@ -48,7 +48,7 @@ function Header({ props, funct }) {
               onClick={
                 props.isLogged ? funct.handleProfile : funct.handleLogin
               }>
-              Profile
+              Profil
             </li>
             <li
               onClick={

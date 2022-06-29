@@ -4,6 +4,7 @@ import { faXmark } from '@fortawesome/free-solid-svg-icons';
 
 // base page
 import './main.scss';
+import { useState } from 'react';
 import Map from '../Map/Map';
 import Activity from '../Activity/Activity';
 
@@ -31,8 +32,30 @@ function Desktop({ props, funct }) {
     ? 'showActivitiesList'
     : '';
 
+  const [popupControlle, setPopupControlle] = useState(false);
+  const [registerProfile, setRegisterProfile] = useState(false);
+
+  const handleRegisterProfile = () => {
+    setRegisterProfile(!registerProfile);
+  };
+
+  const handlePopup = () => {
+    setPopupControlle(!popupControlle);
+  };
+
+  const visible = popupControlle ? 'visible' : '';
+
+  const Popup = () => (
+    <div className={`popup ${visible}`} onClick={handlePopup}>
+      <p>
+        Impossible de supprimer l'activité, des utilisateurs se sont inscrit
+      </p>
+    </div>
+  );
+
   return (
     <div className='desktop'>
+      <Popup />
       <div className='left'>
         <div className='mapComposant'>
           <Map props={props} funct={funct} />
@@ -40,7 +63,7 @@ function Desktop({ props, funct }) {
       </div>
       <div className={`right ${showListActivities}`}>
         <div className='activitiesComposant'>
-          <Activities props={props} funct={funct} />
+          <Activities props={props} funct={funct} popup={handlePopup} />
         </div>
       </div>
 
@@ -65,15 +88,10 @@ function Desktop({ props, funct }) {
       </div>
 
       <div id='modalActivity' className={activity}>
-        <Activity props={props} funct={funct} />
+        <Activity props={props} funct={funct} synchro={handleRegisterProfile} />
       </div>
 
       <div id='modalCreateActivity' className={addActivity}>
-        <FontAwesomeIcon
-          icon={faXmark}
-          className='icon_close'
-          onClick={() => funct.closeAllModal()}
-        />
         <CreateActivity props={props} funct={funct} />
       </div>
 
@@ -82,7 +100,7 @@ function Desktop({ props, funct }) {
       </div>
 
       <div id='modalProfil' className={profile}>
-        <Profil props={props} funct={funct} />
+        <Profil props={props} funct={funct} synchro={registerProfile} />
       </div>
 
       <div id='modalSettings' className={parameters}>

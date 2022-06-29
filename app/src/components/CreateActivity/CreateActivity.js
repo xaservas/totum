@@ -1,34 +1,71 @@
-import React, { useEffect } from 'react';
+/* eslint-disable no-nested-ternary */
+/* eslint-disable indent */
+/* eslint-disable default-case */
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { regular } from '@fortawesome/fontawesome-svg-core/import.macro';
+import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import './createActivity.scss';
 import Calendar from 'react-calendar';
+import dayjs from 'dayjs';
 import axios from '../../utils/axiosPool';
 import 'react-calendar/dist/Calendar.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCalendar } from '@fortawesome/free-solid-svg-icons';
-import dayjs from 'dayjs';
 
 function CreateActivity({ props, funct }) {
   const userId = localStorage.getItem('id');
-  const [categories, setCategories] = React.useState([]);
-  const [levels, setLevels] = React.useState([]);
-  const [activity, setActivity] = React.useState({
-    name: '', // name n'apparait pas dans la requete
+  const [categories, setCategories] = useState([]);
+  const [levels, setLevels] = useState([]);
+  const [activity, setActivity] = useState({
+    name: '',
     description: '',
     max_participants: 1,
     date: '',
-    level: 1,
+    level: '',
     address: '',
     zip_code: '',
     city: '',
     country: '',
     id_user: userId,
     id_category: '',
-    // affichage de toute la liste
-    // utiliser find pour améliorer la sélection
   });
-  const [dateValue, setDate] = React.useState(new Date());
+  const [error, setError] = useState('');
+  const [check, setCheck] = useState(false);
+  const [dateValue, setDate] = useState(new Date());
   const dateParsed = dayjs(dateValue).toISOString();
+
+  const capitalize = (s) => {
+    if (typeof s !== 'string') return '';
+    return s.charAt(0).toUpperCase() + s.slice(1);
+  };
+
+  // submit mode
+  const [sendMode, setSendMode] = useState(false);
+
+  const checkSend = () => {
+    setCheck(!check);
+  };
+
+  // gestion error
+  const checkError = (code) => {
+    switch (code) {
+      case 400:
+        setError('Veuillez remplir tous les champs');
+        break;
+      case 500:
+        setError('Une erreur est survenue');
+        break;
+      case 404:
+        setError("Cette activité n'existe pas");
+        break;
+      case 200:
+        if (!sendMode) {
+          setError('Votre activité a bien été créée');
+        } else {
+          setError('Votre activité a bien été modifiée');
+        }
+        break;
+    }
+  };
 
   const sortObjectsByProp = (objectsArr, prop, ascending = true) => {
     const objectsHaveProp = objectsArr.every((object) =>
@@ -62,8 +99,8 @@ function CreateActivity({ props, funct }) {
       sortedCategories.sort((a, b) => a.id - b.id);
       setActivity({ ...activity, id_category: sortedCategories[0].id });
       setCategories(sortedCategories);
-    } catch (error) {
-      throw new Error(error);
+    } catch (err) {
+      throw new Error(err);
     }
   };
 
@@ -73,9 +110,24 @@ function CreateActivity({ props, funct }) {
         method: 'get',
         url: '/level/getAll',
       });
+      setActivity({ ...activity, level: response.data[0].id });
       setLevels(response.data);
-    } catch (error) {
-      throw new Error(error);
+    } catch (err) {
+      throw new Error(err);
+    }
+  };
+
+  // get activity for update
+  const getActivityById = async (id) => {
+    try {
+      const response = await axios({
+        method: 'get',
+        url: `/activity/${id}/manage`,
+      });
+      setActivity({ ...activity, ...response.data });
+      setDate(new Date(response.data.date));
+    } catch (err) {
+      throw new Error(err);
     }
   };
 
@@ -87,38 +139,98 @@ function CreateActivity({ props, funct }) {
     }));
   };
 
+  // reset button
+  const resetForm = () => {
+    setActivity({
+      name: '',
+      description: '',
+      max_participants: 1,
+      date: '',
+      level: '',
+      address: '',
+      zip_code: '',
+      city: '',
+      country: '',
+      id_user: userId,
+      id_category: '',
+    });
+    setDate(new Date());
+    setError('');
+  };
+
+  const closeAddActivity = () => {
+    funct.closeAllModal();
+    setCheck(false);
+    resetForm();
+  };
+
   const handleSubmit = async (event) => {
-    console.log(activity);
-    event.preventDefault();
-    try {
-      const response = await axios({
-        method: 'post',
-        url: '/activity/createNew',
-        data: {
-          ...activity,
-        },
-      });
-      console.log(response);
-      return response.data;
-    } catch (error) {
-      console.log(error);
-      throw new Error(error);
+    // create new activity
+    if (!sendMode) {
+      activity.city = capitalize(activity.city);
+      event.preventDefault();
+      try {
+        const response = await axios({
+          method: 'post',
+          url: '/activity/createNew',
+          data: {
+            ...activity,
+          },
+        });
+        setError('');
+        checkError(response.status);
+        setTimeout(() => {
+          funct.handleCreateActivity();
+          checkSend();
+          resetForm();
+          setDate(new Date());
+          setError('');
+          setCheck(false);
+        }, 1500);
+      } catch (err) {
+        checkError(err.response.status);
+        setCheck(false);
+        throw new Error(err);
+      }
     }
 
-    // console.log(activity)
-  };
-  /*
-    const categoriesNames = (myCategories) => {
-        myCategories.forEach(category => {
-            console.log (category.name);
-        })
+    // update activity
+    else {
+      activity.city = capitalize(activity.city);
+      delete activity.created_at;
+      delete activity.updated_at;
+      activity.date = dateParsed;
+      event.preventDefault();
+      try {
+        const response = await axios({
+          method: 'patch',
+          url: `/activity/${activity.id}/manage`,
+          data: {
+            ...activity,
+          },
+        });
+        setError('');
+        checkError(response.status);
+        setTimeout(() => {
+          funct.handleCreateActivity();
+          checkSend();
+          resetForm();
+          setDate(new Date());
+          setError('');
+          setCheck(false);
+        }, 1500);
+      } catch (err) {
+        checkError(err.response.status);
+        setCheck(false);
+        throw new Error(err);
+      }
     }
-*/
+  };
 
   useEffect(() => {
     getCategories();
     getLevels();
-  }, []);
+  }, [check]);
 
   useEffect(() => {
     setActivity((previousActivity) => ({
@@ -127,18 +239,40 @@ function CreateActivity({ props, funct }) {
     }));
   }, [dateValue]);
 
+  // effect update activity
+  useEffect(() => {
+    getActivityById(props.activityContentUpdate);
+    if (props.activityContentUpdate !== 0) {
+      console.log('update activity');
+      setSendMode(true);
+    } else {
+      console.log('create new activity');
+      setSendMode(false);
+    }
+  }, [props.activityContentUpdate]);
   return (
     <form className='createActivity' onSubmit={handleSubmit}>
       <div className='createActivity_container'>
+        {error === 'Votre activité a bien été créée' ||
+        error === 'Votre activité a bien été modifiée' ? (
+          <p className='sendMessage'>{error}</p>
+        ) : (
+          <p className='errorMessage'>{error}</p>
+        )}
         <div className='field'>
           <label className='label'>Activité</label>
           <input
             className='input'
             type='text'
-            placeholder='intitulé'
+            placeholder=''
             name='name'
             value={activity.name}
             onChange={handleChange}
+          />
+          <FontAwesomeIcon
+            icon={regular('circle-xmark')}
+            onClick={closeAddActivity}
+            className='create-close'
           />
         </div>
         <div className='field'>
@@ -146,19 +280,19 @@ function CreateActivity({ props, funct }) {
           <input
             className='input width-30'
             type='text'
-            placeholder='nombre max de participants'
+            placeholder=''
             name='max_participants'
             value={activity.max_participants}
             onChange={handleChange}
           />
         </div>
-        <div className='field'>
+        <div className='field field__select'>
           <label className='label'>Catégorie</label>
           <div className='select-style'>
             <select
               className='select'
               type='text'
-              placeholder='intitulé'
+              placeholder=''
               name='id_category'
               value={activity.id_category}
               onChange={handleChange}>
@@ -171,7 +305,7 @@ function CreateActivity({ props, funct }) {
           </div>
         </div>
 
-        <div className='field'>
+        <div className='field field__select'>
           <label className='label'>Niveau</label>
           <div className='select-style'>
             <select
@@ -195,7 +329,7 @@ function CreateActivity({ props, funct }) {
               className='textarea'
               type='text'
               name='description'
-              placeholder='description'
+              placeholder=''
               value={activity.description}
               onChange={handleChange}
             />
@@ -206,7 +340,7 @@ function CreateActivity({ props, funct }) {
           <input
             className='input'
             type='text'
-            placeholder='addresse'
+            placeholder=''
             name='address'
             value={activity.address}
             onChange={handleChange}
@@ -217,7 +351,7 @@ function CreateActivity({ props, funct }) {
           <input
             className='input'
             type='text'
-            placeholder='ville'
+            placeholder=''
             name='city'
             value={activity.city}
             onChange={handleChange}
@@ -228,7 +362,7 @@ function CreateActivity({ props, funct }) {
           <input
             className='input'
             type='text'
-            placeholder='code postal'
+            placeholder=''
             name='zip_code'
             value={activity.zip_code}
             onChange={handleChange}
@@ -239,15 +373,14 @@ function CreateActivity({ props, funct }) {
           <input
             className='input'
             type='text'
-            placeholder='pays'
+            placeholder=''
             name='country'
             value={activity.country}
             onChange={handleChange}
           />
         </div>
-        <div className='field date'>
+        <div className='field field__select'>
           <label className='label'>Date</label>
-          {/* Find a calendar module */}
           <div className='input'>
             <Calendar
               className='calendar'
@@ -258,14 +391,11 @@ function CreateActivity({ props, funct }) {
           </div>
         </div>
         <div className='validation-button'>
-          {/* redirect to the activity page */}
-          <button className='button' type='submit'>
-            Submit
+          <button className='button' type='submit' onClick={handleSubmit}>
+            Proposer
           </button>
-
-          {/* redirect to root */}
-          <button className='button is-light' type='reset'>
-            Cancel
+          <button className='button is-light' type='reset' onClick={resetForm}>
+            Rafraîchir
           </button>
         </div>
       </div>
@@ -279,4 +409,5 @@ CreateActivity.propTypes = {
 CreateActivity.defaultProps = {
   className: '',
 };
+
 export default CreateActivity;
