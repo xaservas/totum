@@ -1,6 +1,6 @@
 @import '../../vars';
 
-.container_activity {
+.activity__card {
   display: flex;
   height: 80vh;
   max-width: 36rem;
@@ -12,8 +12,9 @@
   box-shadow: 3px 3px 8px 4px rgba(34, 41, 43, 0.25);
   border-radius: 50px;
   padding:5rem;
-  .activity{
-    &__name {
+
+    &--header {
+      width: 100%;
       font-size: 2rem;
       font-weight: 700;
       padding-top: 1rem;
@@ -30,14 +31,8 @@
         color: $dark;
       }
     }
-  }
+  
 
-  .card-header {
-    background: none;
-    border-color: none;
-    box-shadow: none;
-    width: 100%;
-  }
   .content-info {
     width: 100%;
   }
@@ -52,7 +47,7 @@
       justify-content: space-between;
       align-items: center;
       padding-top: 2rem;
-      .activity-address {
+      .address {
         margin: 0;
         text-align: right;
         width: 100%;
@@ -63,11 +58,6 @@
     }
   }
 
-  .activity-adress {
-    text-align: center;
-    margin-bottom: 1rem;
-    margin: 0 auto;
-  }
 
   .content-description {
     border-top: 1px solid $black-local;
@@ -83,15 +73,7 @@
     margin: 0 auto;
     margin-bottom: 1rem;
 
-    .activity__takeholders {
-      margin: 0 auto;
-      margin-top: 1rem;
-      margin-bottom: 2rem;
-      width: 70%;
-      display: flex;
-      justify-content: center;
-    }
-    .participant_value {
+    .participants_value {
       margin: 0;
     }
   }
@@ -157,13 +139,13 @@
   }
 
   // modal create comment
-  .activity__create-comment {
+  .activity__card__create--comment {
     display: none;
     width: 100%;
   }
 
   // zone commentaire
-  .activity__comments {
+  .activity__card__comments {
     overflow: scroll;
     min-height: min-content;
     max-height: 60%;
@@ -194,19 +176,19 @@
     border-radius: 25px;
     border: 1px solid $white-local;
     margin-bottom: 1rem;
-    box-shadow: 3px 3px 8px 4px grey;
+    box-shadow: 3px 3px 8px 4px rgba(34, 41, 43, 0.25);
     padding-left: 1rem;
   }
 }
 
 @media screen and (max-width: 1150px) {
-  .container_activity {
+  .activity__card {
     margin: 0 auto;
   }
 }
 
 @media screen and (max-width: 430px) {
-  .container_activity {
+  .activity__card {
     margin: 1rem;
     margin: 0 auto;
     height: 99vh;

@@ -160,7 +160,7 @@ function Activity({ props, funct }) {
 
   const ButtonComment = () => (
     <button
-      className='button-com is-primary'
+      className='button-com'
       onClick={handleModalCreateComment}>
       Commenter
     </button>
@@ -169,11 +169,10 @@ function Activity({ props, funct }) {
   const ButtonRegister = () => (
     <aside className='content-button'>
       <button
-        className='button-par is-primary'
+        className='button-par'
         onClick={() => registerToActivity()}>
         Je veux participer
       </button>
-      <div className='trait'></div>
       <ButtonComment />
     </aside>
   );
@@ -181,11 +180,10 @@ function Activity({ props, funct }) {
   const ButtonUnregister = () => (
     <aside className='content-button'>
       <button
-        className='button-cancel is-primary is-link'
+        className='button-cancel'
         onClick={unregisterToActivity}>
         Je ne veux plus participer
       </button>
-      <div className='trait'></div>
       <ButtonComment />
     </aside>
   );
@@ -193,7 +191,7 @@ function Activity({ props, funct }) {
   const ButtonLogin = () => (
     <aside className='content-button'>
       <button
-        className='button-connexion is-primary is-link'
+        className='button-connexion'
         onClick={() => funct.handleLogin()}>
         Connexion
       </button>
@@ -202,7 +200,7 @@ function Activity({ props, funct }) {
 
   const ButtonActivityFull = () => (
     <aside className='content-button'>
-      <button className='button-full is-primary is-warning'>
+      <button className='button-full'>
         Activité complète
       </button>
       <ButtonComment />
@@ -210,9 +208,8 @@ function Activity({ props, funct }) {
   );
 
   return (
-    <article className='container_activity'>
-      <header className='card-header has-text-centered'>
-        <p className='activity__name card-header-title'>
+    <article className='activity__card'>
+      <header className='activity__card--header'>
           {categories.map((category) => {
             if (category.id === activity.id_category) {
               if (category.picto === 'jeu') {
@@ -236,13 +233,13 @@ function Activity({ props, funct }) {
             }
             return null;
           })}
-          {activity.name}
+          <p>{activity.name}
+          </p>
           <FontAwesomeIcon
             icon={regular('circle-xmark')}
             onClick={() => funct.closeActivity()}
             className='activity-close'
           />
-        </p>
       </header>
       <aside className='card-content'>
         <div className='content'>
@@ -253,20 +250,20 @@ function Activity({ props, funct }) {
         </div>
         <div className='content'>
           <FontAwesomeIcon icon={solid('location-dot')} />
-          <p className='activity-address'>{`${activity.address}, ${activity.zip_code} ${activity.city}`}</p>
+          <p className='address'>{`${activity.address}, ${activity.zip_code} ${activity.city}`}</p>
         </div>
       </aside>
       <aside className='content-info'>
-        <p className='content-description'>{activity.description}</p>
+        <p className='content-description'>"{activity.description}"</p>
 
-        <p className='activity__participants'>
-          <span className='participant'>participants</span>
-          <p className='participant_value'>
+        <section className='activity__participants'>
+          <p className='participants__unit'>Nombre de participants:</p>
+          <p className='participants_value'>
             {participants.length}/{activity.max_participants}
           </p>
-        </p>
+        </section>
         <progress
-          className='progressbar progress box'
+          className='progressbar'
           value={participants.length}
           max={activity.max_participants}></progress>
       </aside>
@@ -292,13 +289,13 @@ function Activity({ props, funct }) {
         }
       })()}
 
-      <section className='activity__comments box'>
+      <section className='activity__card__comments'>
         {comments &&
           comments.map((comment) => (
             <Comment key={comment.comment_id || 0} comment={comment} />
           ))}
       </section>
-      <section className={`${createComment} activity__create-comment`}>
+      <section className={`${createComment} activity__card__create--comment`}>
         <CreateComment
           closeModal={handleModalCreateComment}
           comments={handleCheckNewComment}
