@@ -52,7 +52,6 @@ function Activities({ props, funct }) {
         method: 'delete',
         url: `/activity/${id}/manage`,
       });
-      console.log(response);
       if (response.status === 200) {
         setCheckRemove(!checkRemove);
         checkSynchroMapList();

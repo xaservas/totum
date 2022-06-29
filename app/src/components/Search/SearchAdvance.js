@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import Axios from '../../utils/axiosPool';
 import './search.scss';
 
-function SearchSimple({ funct }) {
+function SearchSimple({ funct, props }) {
   const [activities, setActivities] = useState([]);
   const [categories, setCategories] = useState([]);
   const [levels, setLevels] = useState([]);
@@ -13,6 +13,11 @@ function SearchSimple({ funct }) {
     city: 'all',
   });
   const [cities, setCities] = useState([]);
+  const [synchroListActivities, setSynchroListActivities] = useState(false);
+
+  const checkSynchro = () => {
+    setSynchroListActivities(!synchroListActivities);
+  };
 
   const capitalize = (s) => {
     if (typeof s !== 'string') return '';
@@ -88,11 +93,15 @@ function SearchSimple({ funct }) {
     ActivitiesDataRequest();
     CategoriesDataRequest();
     LevelsDataRequest();
-  }, []);
+  }, [props.addActivity, synchroListActivities]);
 
   useEffect(() => {
     handleSubmit();
   }, [search]);
+
+  useEffect(() => {
+    checkSynchro();
+  }, [props.listMparameters]);
 
   return (
     <form className='advanceSearch'>
