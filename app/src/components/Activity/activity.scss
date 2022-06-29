@@ -49,7 +49,7 @@
   }
 
   .card-content {
-    border-top: 1px solid $black-local;
+    border-top: 0.7px solid $black-local;
     padding-bottom: 1rem;
     margin-bottom: 1rem;
     width: 100%;
@@ -57,6 +57,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 1rem;
       padding-top: 2rem;
       .address, .date {
         color: $black-local;
@@ -74,7 +75,8 @@
 
 
   .content-description {
-    border-top: 1px solid $black-local;
+    border-top: 0.7px solid $black-local;
+    border-bottom: 0.7px solid $black-local;
     text-align: center;
     padding: 2rem 0;
   }
@@ -94,13 +96,16 @@
 
   .progressbar {
     margin: 0 auto;
-    width: 70%;
+    width: 90%;
     display: block;
-    height: 2rem;
+    height: 1.5rem;
+    
   }
-
-  .progressbar::-moz-progress-bar {
-    background: $dark;
+  :indeterminate::-moz-progress-bar {
+    width: 0;
+  }
+  ::-moz-progress-bar {
+    background: $clear;
   }
 
   .progressbar::-webkit-progress-value {
@@ -108,17 +113,18 @@
   }
 
   .progressbar::-webkit-progress-bar {
-    background: $dark;
+    background-color: $dark;
   }
 
   .content-button {
-    border-top: 1px solid $black-local;
+    border-bottom: 0.7px solid $black-local;
     height: 11vh;
     flex-direction: column;
     justify-content: space-between;
     width: 100%;
     display: flex;
     align-items: center;
+    padding: 2rem 0;
 
     .is-warning {
       background: $highlight;
@@ -150,6 +156,11 @@
       color: $white-contrast;
       border-color: $highlight;
     }
+  }
+  .button-com{
+    background-color: $white-local;
+    color: $dark;
+    border: 1px solid $dark;
   }
 
   // modal create comment
@@ -185,9 +196,9 @@
   
 
   .textarea {
-    width: 26rem;
-    height: 20rem;
-    border-radius: 25px;
+    width: 100%;
+    height: 10rem;
+    border-radius: 12px;
     border: 1px solid $white-local;
     margin-bottom: 1rem;
     box-shadow: 3px 3px 8px 4px rgba(34, 41, 43, 0.25);

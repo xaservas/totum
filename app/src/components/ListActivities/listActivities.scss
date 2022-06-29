@@ -171,6 +171,9 @@
         padding-left: 2rem;
       }
     }
+    .activity-date {
+      display: none;
+    }
   }
 }
 
@@ -183,9 +186,9 @@
       }
     }
     .activity-footer{
-      display: none;
+      justify-content: flex-start;
     }
-    .activity-city {
+    .activity-date{
       display: none;
     }
   }
@@ -203,15 +206,10 @@
         padding-left: 2rem;
       }
     }
-    .activity-footer{
-      display: none;
-    }
+    
     .activity-date {
       display: none;
     }
 
-    .activity-city {
-      display: none;
-    }
   }
 }
