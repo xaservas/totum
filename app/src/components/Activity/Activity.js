@@ -207,7 +207,6 @@ function Activity({ props, funct, synchro }) {
       <button className='button-full is-primary is-warning'>
         Activité complète
       </button>
-      <div className='trait'></div>
       <ButtonComment />
     </aside>
   );
@@ -247,7 +246,6 @@ function Activity({ props, funct, synchro }) {
           />
         </p>
       </header>
-      <div className='trait'></div>
       <aside className='card-content'>
         <div className='content'>
           <FontAwesomeIcon icon={regular('calendar')} />
@@ -260,11 +258,9 @@ function Activity({ props, funct, synchro }) {
           <p className='activity-address'>{`${activity.address}, ${activity.zip_code} ${activity.city}`}</p>
         </div>
       </aside>
-      <div className='trait'></div>
-
       <aside className='content-info'>
         <p className='content-description'>{activity.description}</p>
-        <div className='trait'></div>
+
         <p className='activity__participants'>
           <span className='participant'>participants</span>
           <p className='participant_value'>
