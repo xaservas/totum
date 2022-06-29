@@ -3,8 +3,15 @@
 .createProfil {
   margin: 0 auto;
   padding: 0 1rem;
+  border-radius: 3rem;
+  height:100vh;
+  overflow: scroll;
+  
   
   form {
+    overflow: scroll;
+    margin-top: 3em;
+
     .nomfusion{
       display: flex;
     }
@@ -65,10 +72,10 @@
 
   .OptionLogin {
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
     height: 3rem;
+    justify-content: space-evenly;
     .checkbox {
       display: flex;
       justify-content: center;
@@ -79,14 +86,20 @@
         margin: 1rem 1rem;
       }
     }
+    p{
+      
+      margin-bottom: -0.5em;
+    }
   }
 
-  .button {    
-    width: 30%;
+  .validation-button {
+  
+    flex-direction: row;
+    align-items: center;
+    padding: 0.7rem 1.6rem;
     height: 5rem;
     display:flex;
     justify-content: center;
-    align-items: center;
     text-align: center;
     font-style: normal;
     font-weight: bold;
@@ -94,7 +107,9 @@
     color: $white-contrast;
     background-color: $dark;
     border-radius: 50px;
-    box-shadow: 3px 3px 8px 4px rgba(34, 41, 43, 0.25);
+    box-shadow: 1px 1px 4px 2px rgba(34, 41, 43, 0.25);
+    margin: 4rem auto;
+    width: 30%;
   }
 
   .checkbox {
@@ -156,12 +171,54 @@
   .slider.round {
     border-radius: 34px;
   }
-
+  
   .slider.round:before {
     border-radius: 50%;
   }
-
+  
   .inputError {
     background-color: rgb(187, 10, 128);
   }
+  
 }
+  
+  @media screen and (max-width: 1150px) {
+    .createProfil {
+      margin: 0 auto;
+    }
+  }
+
+
+  @media screen and (max-width: 1056px) {
+    // svg{
+    //   position: absolute;
+    //   bottom: 20px;
+    //   right: 20px;
+    // }
+  }
+  
+@media screen and (max-width: 620px) {
+
+ 
+  
+  .createProfil {
+    margin: 0 auto;
+
+    form {
+      overflow: scroll;
+
+    .nomfusion{
+      flex-direction:column;
+    }
+    .passwordfusion{
+      flex-direction:column;
+      
+    }
+    .zipCity{
+      flex-direction:column;
+    }
+  }
+}
+}
+
+
