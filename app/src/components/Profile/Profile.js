@@ -9,7 +9,7 @@ import axios from '../../utils/axiosPool';
 // base page
 import './profile.scss';
 
-function Profile({ props, funct }) {
+function Profile({ props, funct, synchro }) {
   const userId = JSON.parse(localStorage.getItem('id'));
   const [user, setUser] = useState([]);
   const [activities, setActivities] = useState([]);
@@ -89,7 +89,7 @@ function Profile({ props, funct }) {
 
   useEffect(() => {
     getUserActivities(userId);
-  }, [userId]);
+  }, [userId, synchro]);
 
   const ListActivities = () => (
     <article className='listActivities_panel'>

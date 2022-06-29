@@ -33,6 +33,11 @@ function Desktop({ props, funct }) {
     : '';
 
   const [popupControlle, setPopupControlle] = useState(false);
+  const [registerProfile, setRegisterProfile] = useState(false);
+
+  const handleRegisterProfile = () => {
+    setRegisterProfile(!registerProfile);
+  };
 
   const handlePopup = () => {
     setPopupControlle(!popupControlle);
@@ -83,7 +88,7 @@ function Desktop({ props, funct }) {
       </div>
 
       <div id='modalActivity' className={activity}>
-        <Activity props={props} funct={funct} />
+        <Activity props={props} funct={funct} synchro={handleRegisterProfile} />
       </div>
 
       <div id='modalCreateActivity' className={addActivity}>
@@ -95,7 +100,7 @@ function Desktop({ props, funct }) {
       </div>
 
       <div id='modalProfil' className={profile}>
-        <Profil props={props} funct={funct} />
+        <Profil props={props} funct={funct} synchro={registerProfile} />
       </div>
 
       <div id='modalSettings' className={parameters}>
