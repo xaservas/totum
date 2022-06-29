@@ -1,10 +1,20 @@
 @import '../../../vars';
 
+.legalMention-full {
+  width: 50%;
+  height: 45%;
+  background-color: $white-local;
+  border-radius: 25px;
+  margin: 0 auto;
+  .title {
+    text-align: center;
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+  }
+  .text {
+    width: 80%;
 
-// .legalMention{
-//     background-color: white;
-//   font-family: 'Lato';
-
-
- 
-// }
+    text-align: center;
+    margin: 0 auto;
+  }
+}

@@ -2,9 +2,9 @@ import './legalMention.scss';
 
 function LegalMention() {
   return (
-    <div className='legalMention'>
-      <h1>Mentions légales</h1>
-      <p>
+    <div className='legalMention-full'>
+      <h1 className='title'>Mentions légales</h1>
+      <p className='text'>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam suscipit
         rem tempora consequatur iste incidunt, veritatis quisquam veniam atque
         officiis omnis provident dolore perspiciatis voluptate itaque alias

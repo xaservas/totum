@@ -72,18 +72,17 @@ function Help({ funct }) {
 
   return (
     <div className='help'>
-      <div>
+      <div className='help-div'>
         <h1>Nous contacter</h1>
         <p>{error}</p>
         <div className='field'>
-          <label className='label'>Email</label>
+          <label className='label-email'>Email</label>
           <input
             required
             name='email'
             type='email'
             value={email}
-            className='input'
-            placeholder='Mail'
+            className='email-field'
             onChange={(e) => setEmail(e.target.value)}
           />
         </div>
@@ -94,7 +93,6 @@ function Help({ funct }) {
             type='text'
             value={message}
             className='textarea'
-            placeholder='Message'
             required
             onChange={(e) => setMessage(e.target.value)}
           />
