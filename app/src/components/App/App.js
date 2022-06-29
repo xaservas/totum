@@ -68,6 +68,7 @@ function App() {
     setActivity(false);
     setHelp(false);
     setLegalmention(false);
+    setActivityContentUpdate(0);
   };
 
   const storeUserId = (id) => {
