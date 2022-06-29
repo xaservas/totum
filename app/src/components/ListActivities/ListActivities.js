@@ -31,6 +31,11 @@ function Activities({ props, funct }) {
   const ActivitiesDataRequest = async () => {
     try {
       const response = await Axios.get('/activities');
+      response.data.sort((a, b) => {
+        const aDate = new Date(a.date);
+        const bDate = new Date(b.date);
+        return aDate - bDate;
+      });
       setActivities(response.data);
     } catch (error) {
       throw new Error(error);

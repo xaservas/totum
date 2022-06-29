@@ -4,7 +4,7 @@ import Axios from '../../utils/axiosPool';
 import './search.scss';
 
 function SearchSimple({ funct, props }) {
-  const [activities, setActivities] = useState([]);
+  // const [activities, setActivities] = useState([]);
   const [categories, setCategories] = useState([]);
   const [levels, setLevels] = useState([]);
   const [search, setSearch] = useState({
@@ -28,7 +28,7 @@ function SearchSimple({ funct, props }) {
     const temp = [];
     try {
       const response = await Axios.get('/activities');
-      setActivities(response.data);
+      // setActivities(response.data);
       response.data.map((item) => {
         if (item.city !== null) {
           if (temp.includes(capitalize(item.city))) {
@@ -37,6 +37,7 @@ function SearchSimple({ funct, props }) {
           temp.push(capitalize(item.city));
         }
       });
+      temp.sort();
       setCities(temp);
     } catch (error) {
       throw new Error(error);
@@ -46,6 +47,17 @@ function SearchSimple({ funct, props }) {
   const CategoriesDataRequest = async () => {
     try {
       const response = await Axios.get('/category/categories');
+      response.data.sort((a, b) => {
+        const aName = a.name;
+        const bName = b.name;
+        if (aName < bName) {
+          return -1;
+        }
+        if (aName > bName) {
+          return 1;
+        }
+        return 0;
+      });
       setCategories(response.data);
     } catch (error) {
       throw new Error(error);
