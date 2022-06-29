@@ -6,6 +6,7 @@
   border-radius: 3rem;
   height:100vh;
   overflow: scroll;
+  text-align:center;
   
   
   form {
@@ -34,6 +35,10 @@
       min-height: 3.5rem;
       box-shadow: 3px 3px 8px 4px rgba(34, 41, 43, 0.25);
       border-radius: 3rem;
+      &:hover{
+        border: solid 1px;
+        border-color: $dark;
+      }
       .label{
         width: 10rem;
         font-style: normal;
@@ -94,22 +99,21 @@
 
   .validation-button {
   
-    flex-direction: row;
-    align-items: center;
-    padding: 0.7rem 1.6rem;
-    height: 5rem;
-    display:flex;
-    justify-content: center;
-    text-align: center;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 2rem;
-    color: $white-contrast;
     background-color: $dark;
-    border-radius: 50px;
-    box-shadow: 1px 1px 4px 2px rgba(34, 41, 43, 0.25);
-    margin: 4rem auto;
+    border-radius: 25px;
+    color: $white-local;
+    padding: 0.9rem;
+    border: $white-local;
+    margin-top: 0.7rem;
+    margin-bottom: 0.7rem;
     width: 30%;
+    height: 4rem;
+    text-align: center;
+    &:hover {
+      cursor: pointer;
+      background-color: $highlight;
+      color: $white-local;
+    }
   }
 
   .checkbox {
@@ -189,17 +193,9 @@
   }
 
 
-  @media screen and (max-width: 1056px) {
-    // svg{
-    //   position: absolute;
-    //   bottom: 20px;
-    //   right: 20px;
-    // }
-  }
+
   
 @media screen and (max-width: 620px) {
-
- 
   
   .createProfil {
     margin: 0 auto;

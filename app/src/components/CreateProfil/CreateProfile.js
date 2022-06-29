@@ -188,8 +188,7 @@ function CreateProfile({ funct }) {
         <div className='field'>
           <label className='label'>Recherche d'adresse</label>
           <input
-            id='searchAddress'
-            list='places'
+            list='places2'
             name='searchAddress'
             type='text'
             className='input'
@@ -199,8 +198,16 @@ function CreateProfile({ funct }) {
             onBlur={splitAdress}
           />
         </div>
+        <datalist id='places2'>
+          {autocompleteAddress.map((addresses, i) => (
+            <option key={i}>{addresses}</option>
+          ))}
+        </datalist>
+        {autocompleteErr && (
+          <span className='inputError'>{autocompleteErr}</span>
+        )}
         <div className='field'>
-          <label className='label'>Adresse</label>
+          <label className='label'>Numéro + Rue</label>
           <input
             required
             id='address'
@@ -210,14 +217,7 @@ function CreateProfile({ funct }) {
             onChange={(e) => setAddress(e.target.value)}
           />
         </div>
-        <datalist id='places'>
-          {autocompleteAddress.map((addresses, i) => (
-            <option key={i}>{addresses}</option>
-          ))}
-        </datalist>
-        {autocompleteErr && (
-          <span className='inputError'>{autocompleteErr}</span>
-        )}
+
         <div className='zipCity'>
           <div className='field'>
             <label className='label'>Code Postal</label>
@@ -269,7 +269,7 @@ function CreateProfile({ funct }) {
           </label>
         </div>
         <p className='errorMessage'>{error}</p>
-        <button className='validation-button'> Valider </button>{' '}
+        <button className='validation-button'> Valider </button>
       </form>
     </div>
   );
