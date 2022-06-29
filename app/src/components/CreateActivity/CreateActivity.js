@@ -259,7 +259,7 @@ function CreateActivity({ props, funct }) {
           <input
             className='input'
             type='text'
-            placeholder='intitulé'
+            placeholder=''
             name='name'
             value={activity.name}
             onChange={handleChange}
@@ -275,19 +275,19 @@ function CreateActivity({ props, funct }) {
           <input
             className='input width-30'
             type='text'
-            placeholder='nombre max de participants'
+            placeholder=''
             name='max_participants'
             value={activity.max_participants}
             onChange={handleChange}
           />
         </div>
-        <div className='field'>
+        <div className='field field__select'>
           <label className='label'>Catégorie</label>
           <div className='select-style'>
             <select
               className='select'
               type='text'
-              placeholder='intitulé'
+              placeholder=''
               name='id_category'
               value={activity.id_category}
               onChange={handleChange}>
@@ -300,7 +300,7 @@ function CreateActivity({ props, funct }) {
           </div>
         </div>
 
-        <div className='field'>
+        <div className='field field__select'>
           <label className='label'>Niveau</label>
           <div className='select-style'>
             <select
@@ -324,7 +324,7 @@ function CreateActivity({ props, funct }) {
               className='textarea'
               type='text'
               name='description'
-              placeholder='description'
+              placeholder=''
               value={activity.description}
               onChange={handleChange}
             />
@@ -335,7 +335,7 @@ function CreateActivity({ props, funct }) {
           <input
             className='input'
             type='text'
-            placeholder='addresse'
+            placeholder=''
             name='address'
             value={activity.address}
             onChange={handleChange}
@@ -346,7 +346,7 @@ function CreateActivity({ props, funct }) {
           <input
             className='input'
             type='text'
-            placeholder='ville'
+            placeholder=''
             name='city'
             value={activity.city}
             onChange={handleChange}
@@ -357,7 +357,7 @@ function CreateActivity({ props, funct }) {
           <input
             className='input'
             type='text'
-            placeholder='code postal'
+            placeholder=''
             name='zip_code'
             value={activity.zip_code}
             onChange={handleChange}
@@ -368,13 +368,13 @@ function CreateActivity({ props, funct }) {
           <input
             className='input'
             type='text'
-            placeholder='pays'
+            placeholder=''
             name='country'
             value={activity.country}
             onChange={handleChange}
           />
         </div>
-        <div className='field date'>
+        <div className='field field__select'>
           <label className='label'>Date</label>
           <div className='input'>
             <Calendar
@@ -387,7 +387,7 @@ function CreateActivity({ props, funct }) {
         </div>
         <div className='validation-button'>
           <button className='button' type='submit'>
-            Submit
+            Proposer
           </button>
           <button className='button is-light' type='reset' onClick={resetForm}>
             Cancel
