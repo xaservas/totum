@@ -121,10 +121,10 @@ function CreateProfile({ funct }) {
   };
 
   return (
-    <div className="createProfil">
+    <div className='createProfil'>
       <form onSubmit={handleSubmit} className='formProfil'>
-        <div className="nomfusion">
-          <div className="field">
+        <div className='nomfusion'>
+          <div className='field'>
             <label className='label'>Prénom</label>
             <input
               required
@@ -134,7 +134,7 @@ function CreateProfile({ funct }) {
               onChange={(e) => setFirstname(e.target.value)}
             />
           </div>
-          <div className="field">
+          <div className='field'>
             <label className='label'>Nom</label>
             <input
               required
@@ -145,7 +145,7 @@ function CreateProfile({ funct }) {
             />
           </div>
         </div>
-        <div className="field">
+        <div className='field'>
           <label className='label'>Email</label>
           <input
             required
@@ -155,9 +155,8 @@ function CreateProfile({ funct }) {
             onChange={(e) => setEmail(e.target.value)}
           />
         </div>
-
         <div className='passwordfusion'>
-          <div className="field">
+          <div className='field'>
             <label className='label'>Mot de passe</label>
             <input
               required
@@ -167,7 +166,7 @@ function CreateProfile({ funct }) {
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
-          <div className="field">
+          <div className='field'>
             <label className='label'>Confirmation de mot de passe</label>
             <input
               required
@@ -178,8 +177,7 @@ function CreateProfile({ funct }) {
             />
           </div>
         </div>
-
-        <div className="field">
+        <div className='field'>
           <label className='label'>Recherche d'adresse</label>
           <input
             id='searchAddress'
@@ -193,7 +191,7 @@ function CreateProfile({ funct }) {
             onBlur={splitAdress}
           />
         </div>
-        <div className="field">
+        <div className='field'>
           <label className='label'>Adresse</label>
           <input
             required
@@ -209,9 +207,11 @@ function CreateProfile({ funct }) {
             <option key={i}>{addresses}</option>
           ))}
         </datalist>
-        {autocompleteErr && <span className='inputError'>{autocompleteErr}</span>}
+        {autocompleteErr && (
+          <span className='inputError'>{autocompleteErr}</span>
+        )}
         <div className='zipCity'>
-          <div className="field">
+          <div className='field'>
             <label className='label'>Code Postal</label>
             <input
               required
@@ -222,7 +222,7 @@ function CreateProfile({ funct }) {
               onChange={(e) => setZipcode(e.target.value)}
             />
           </div>
-          <div className="field">
+          <div className='field'>
             <label className='label'>Ville</label>
             <input
               required
@@ -234,7 +234,7 @@ function CreateProfile({ funct }) {
             />
           </div>
         </div>
-        <div className="field">
+        <div className='field'>
           <label className='label'>Pays</label>
           <input
             required
@@ -245,7 +245,7 @@ function CreateProfile({ funct }) {
             onChange={(e) => setCountry(e.target.value)}
           />
         </div>
-        <div className="field">
+        <div className='field'>
           <label className='label'>Présentation</label>
           <input
             name='about'
@@ -261,7 +261,7 @@ function CreateProfile({ funct }) {
           </label>
         </div>
         <p className='errorMessage'>{error}</p>
-        <button className='button'> Valider </button>{' '}
+        <button className='validation-button'> Valider </button>{' '}
       </form>
     </div>
   );

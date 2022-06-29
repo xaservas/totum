@@ -1,10 +1,10 @@
 /* eslint-disable no-unused-expressions */
-import { useState, useEffect, funct } from 'react';
+import { useState, useEffect } from 'react';
 import './settings.scss';
 import axios from '../../utils/axiosPool';
 import mapbox from '../../utils/mapbox';
 
-function Settings({ props }) {
+function Settings({ props, funct }) {
   // const userData = localStorage.getItem('');
   // console.log(userData);
   const [firstname, setFirstname] = useState('');
@@ -26,20 +26,23 @@ function Settings({ props }) {
   const [error, setError] = useState('');
 
   // const [error, setError] = useState('');
-  const { userId } = props;
+  const userId = JSON.parse(localStorage.getItem('id'));
 
   // gestion des erreurs--------------
   const errorMessage = (data) => {
     switch (data) {
-      case 401:
-        setError('401');
-        break;
-      case 400:
-        setError('400');
-        break;
-      default:
-        setError('default error');
-        break;
+    case 401:
+      setError('401');
+      break;
+    case 400:
+      setError('400');
+      break;
+    case 200:
+      setError('Compte modifié');
+      break;
+    default:
+      setError('default error');
+      break;
     }
   };
 
@@ -50,9 +53,9 @@ function Settings({ props }) {
     if (!address) return;
 
     const res = await mapbox(address);
-    !autocompleteAddress.includes(e.target.value) &&
-      res.features &&
-      setAutocompleteAddress(res.features.map((place) => place.place_name));
+    !autocompleteAddress.includes(e.target.value)
+      && res.features
+      && setAutocompleteAddress(res.features.map((place) => place.place_name));
     res.error ? setAutocompleteErr(res.error) : setAutocompleteErr('');
   };
 
@@ -103,7 +106,6 @@ function Settings({ props }) {
       });
       setCookieValue(response.data.cookie);
     } catch (err) {
-      console.log(err);
       throw new Error(err);
     }
   };
@@ -155,15 +157,12 @@ function Settings({ props }) {
             // ajouter un message d'information si sa marche pas
             errorMessage('les mots de passe ne correspondent pas aux critères');
           });
+        setError('Profil mis à jour');
       }
-      setError('mots de passe pas pareil');
+      setError('mot de passe pas pareil');
     }
 
-    if (
-      email === localStorage.getItem('email') &&
-      emailNew !== '' &&
-      emailConfirmation !== ''
-    ) {
+    if (emailNew !== '' && emailConfirmation !== '') {
       if (emailNew === emailConfirmation) {
         axios({
           method: 'patch',
@@ -174,17 +173,15 @@ function Settings({ props }) {
             emailConfirmation,
           },
         })
-          .then((res) => {
-            console.log(res);
-            // funct.closeAllModal();
+          .then(() => {
+            funct.closeAllModal();
           })
           .catch((err) => {
-            // ajouter un message d'information si sa marche pas
             errorMessage(err.response.status);
           });
-        setError('les mails sont identiques');
+        setError('Profil mis à jour');
       }
-      setError('pas pareille les mails');
+      setError('Profil mis à jour2');
     }
 
     axios({
@@ -201,14 +198,13 @@ function Settings({ props }) {
         cookie: `${cookieValue}`,
       },
     })
-      .then((res) => {
-        console.log(res);
-        // funct.closeAllModal();
+      .then(() => {
+        funct.closeAllModal();
       })
       .catch((err) => {
         // ajouter un message d'information si sa marche pas
         errorMessage(err.response.status);
-        console.log('erreur datata');
+
         // return 'les mails sont identiques';
       });
   };
