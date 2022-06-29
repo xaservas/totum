@@ -70,20 +70,10 @@ function Desktop({ props, funct }) {
       {/* zone modal */}
 
       <div id='modalLegalmention' className={legalMention}>
-        <FontAwesomeIcon
-          icon={faXmark}
-          className='icon_close'
-          onClick={() => funct.closeAllModal()}
-        />
         <LegalMention props={props} funct={funct} />
       </div>
 
       <div id='modalHelp' className={help}>
-        <FontAwesomeIcon
-          icon={faXmark}
-          className='icon_close'
-          onClick={() => funct.closeAllModal()}
-        />
         <Help props={props} funct={funct} />
       </div>
 
@@ -104,31 +94,21 @@ function Desktop({ props, funct }) {
       </div>
 
       <div id='modalSettings' className={parameters}>
-        <FontAwesomeIcon
-          icon={faXmark}
-          className='icon_close'
-          onClick={() => funct.closeAllModal()}
-        />
         <Settings props={props} funct={funct} />
       </div>
 
       <div id='modalCreateProfil' className={createUser}>
-        <FontAwesomeIcon
-          icon={faXmark}
-          className='icon_close'
-          onClick={() => funct.closeAllModal()}
-        />
         <CreateProfil funct={funct} props={props} />
       </div>
 
-      <div id='modalListActivities' className={listActivities}>
+      {/* <div id='modalListActivities' className={listActivities}>
         <FontAwesomeIcon
           icon={faXmark}
           className='icon_close'
           onClick={() => funct.closeAllModal()}
         />
         <Activities props={props} funct={funct} />
-      </div>
+      </div> */}
 
       {/* fin zone modal */}
     </div>

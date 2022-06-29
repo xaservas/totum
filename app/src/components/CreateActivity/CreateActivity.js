@@ -67,38 +67,25 @@ function CreateActivity({ props, funct }) {
     }
   };
 
-  const sortObjectsByProp = (objectsArr, prop, ascending = true) => {
-    const objectsHaveProp = objectsArr.every((object) =>
-      object.hasOwnProperty(prop),
-    );
-    if (objectsHaveProp) {
-      const newObjectsArr = objectsArr.slice();
-      newObjectsArr.sort((a, b) => {
-        if (Number.isNaN(Number(a[prop]))) {
-          const textA = a[prop].toUpperCase();
-          const textB = b[prop].toUpperCase();
-          if (ascending) {
-            return textA < textB ? -1 : textA > textB ? 1 : 0;
-          }
-          return textB < textA ? -1 : textB > textA ? 1 : 0;
-        }
-        return ascending ? a[prop] - b[prop] : b[prop] - a[prop];
-      });
-      return newObjectsArr;
-    }
-    return objectsArr;
-  };
-
   const getCategories = async () => {
     try {
       const response = await axios({
         method: 'get',
         url: '/category/categories',
       });
-      const sortedCategories = sortObjectsByProp(response.data, 'name');
-      sortedCategories.sort((a, b) => a.id - b.id);
-      setActivity({ ...activity, id_category: sortedCategories[0].id });
-      setCategories(sortedCategories);
+      response.data.sort((a, b) => {
+        const aName = a.name;
+        const bName = b.name;
+        if (aName < bName) {
+          return -1;
+        }
+        if (aName > bName) {
+          return 1;
+        }
+        return 0;
+      });
+      setActivity({ ...activity, id_category: response.data[0].id });
+      setCategories(response.data);
     } catch (err) {
       throw new Error(err);
     }

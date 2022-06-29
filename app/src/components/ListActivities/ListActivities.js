@@ -65,7 +65,6 @@ function Activities({ props, funct, popup }) {
         checkSynchroMapList();
       }
     } catch (err) {
-      console.log(err);
       popup();
       throw new Error(err);
     }
