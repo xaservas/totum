@@ -205,7 +205,6 @@ function Activity({ props, funct }) {
       <button className='button-full is-primary is-warning'>
         Activité complète
       </button>
-      <div className='trait'></div>
       <ButtonComment />
     </aside>
   );
