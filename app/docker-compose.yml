@@ -5,9 +5,7 @@ services:
       build:
         context: .
         dockerfile: ./Dockerfile
-      image: app_totum
-      stdin_open: true
-      tty: true
+      image: front_totum
       expose:
         - 3000
       labels:
