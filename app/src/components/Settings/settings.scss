@@ -18,6 +18,10 @@
       min-height: 3.5rem;
       box-shadow: 2px 2px 4px 3px rgba(34, 41, 43, 0.25);
       border-radius: 2rem;
+      &:hover{
+        border: solid 1px;
+        border-color: $dark;
+      }
       .label{
         width: 10rem;
         font-style: normal;
@@ -61,7 +65,6 @@
   
   #emailForm{
     display: flex;
-    
   }
 
   #passwordForm{
@@ -184,6 +187,67 @@
           cursor: pointer;
           background-color: $highlight;
           color: $white-local;
+          
         }
       }
+
+      .delete-button{
+        background-color: $dark;
+        border-radius: 25px;
+        color: $white-local;
+        padding: 0.9rem;
+        border: $white-local;
+        margin-top: 0.7rem;
+        margin-bottom: 0.7rem;
+        width: 30%;
+        height: 4rem;
+        text-align: center;
+        &:hover {
+          cursor: pointer;
+          background-color: red;
+          color: $white-local;
+          
+        }
+      }
+}
+
+
+@media screen and (max-width: 1150px) {
+  .changeProfile {
+    margin: 0 auto;
+  }
+}
+
+@media screen and (max-width: 620px) {
+
+
+  .changeProfile {
+    margin: 0 auto;
+    .passwordfusion{
+      flex-direction:column;  
+    }
+
+    .nomfusion{
+      flex-direction:column;
+    }
+
+    .zipCity2{
+      flex-direction:column;
+    }
+
+    #emailForm{
+      flex-direction: column;
+      
+    }
+
+    form {
+      overflow: scroll;
+
+   
+    
+    .zipCity2{
+      flex-direction:column;
+    }
+  }
+}
 }

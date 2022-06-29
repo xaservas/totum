@@ -59,6 +59,11 @@ function Settings({ props, funct }) {
     res.error ? setAutocompleteErr(res.error) : setAutocompleteErr('');
   };
 
+  // check letters and numbers password
+  // const checkPassword = () => {
+  //   if
+  // }
+
   //  split de l'adresse dans les différents champs
 
   const splitAdress = () => {
@@ -138,6 +143,24 @@ function Settings({ props, funct }) {
   useEffect(() => {
     getUserById(JSON.parse(localStorage.getItem('id')));
   }, [props.token]);
+
+  // Suppression du compte
+
+  const Delete = () => {
+    axios({
+      method: 'delete',
+      url: `user/${userId}/manage`,
+
+    })
+      .then(() => {
+        funct.closeAllModal();
+      })
+      .catch(() => {
+        errorMessage("Le compte n'as pas été supprimé");
+      });
+  };
+
+  //  Maj du formulaire
 
   const handleSubmit = () => {
     if (password !== '' && passwordConfirmation !== '') {
@@ -249,7 +272,7 @@ function Settings({ props, funct }) {
           </div>
         </div>
       </form>
-      <form id='passwordForm' className='password'>
+      <form id='passwordForm' className='passwordfusion'>
         <div className='field'>
           <label className='label'>Nouveau mot de passe</label>
           <input
@@ -258,6 +281,7 @@ function Settings({ props, funct }) {
             type='password'
             className='input'
             onChange={(e) => setPassword(e.target.value)}
+            // onBlur={checkPassword}
           />
         </div>
         <div className='field'>
@@ -272,7 +296,7 @@ function Settings({ props, funct }) {
         </div>
       </form>
       <form id='infoForm'>
-        <div className='nom'>
+        <div className='nomfusion'>
           <div className='field'>
             <label className='label'>Prénom</label>
             <input
@@ -299,7 +323,6 @@ function Settings({ props, funct }) {
         <div className='field'>
           <label className='label'>Recherche d'adresse</label>
           <input
-            id='searchAddress2'
             list='places'
             name='searchAddress'
             type='text'
@@ -384,7 +407,7 @@ function Settings({ props, funct }) {
               name='cookie'
               type='checkbox'
               onClick={cookieClick}
-              checked={cookieValue}
+              defaultChecked={cookieValue}
             />
             <span className='slider round'> </span> <p> Cookies </p>
           </label>
@@ -397,6 +420,7 @@ function Settings({ props, funct }) {
       <button className='validation-button' onClick={handleSubmit}>
         Valider
       </button>
+      <button className='delete-button' onClick={Delete}> Supprimer compte </button>
     </div>
   );
 }

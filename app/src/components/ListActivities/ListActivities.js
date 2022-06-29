@@ -169,12 +169,13 @@ function Activities({ props, funct, popup }) {
                     <FontAwesomeIcon
                       icon={solid('trash-alt')}
                       className='delete-activity'
-                      onClick={(e) => removeActivity(activity.id)}
+                      onClick={() => removeActivity(activity.id)}
                       key={Math.random()}
                     />
                     {activity.city}
                   </div>
-                  {activity.id_user === JSON.parse(localStorage.getItem('id')) ? (
+                  {activity.id_user
+                  === JSON.parse(localStorage.getItem('id')) ? (
                     <div className='controle-activity'>
                       <FontAwesomeIcon
                         icon={solid('pencil')}
