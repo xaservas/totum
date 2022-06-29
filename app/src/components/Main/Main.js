@@ -4,6 +4,7 @@ import { faXmark } from '@fortawesome/free-solid-svg-icons';
 
 // base page
 import './main.scss';
+import { useState } from 'react';
 import Map from '../Map/Map';
 import Activity from '../Activity/Activity';
 
@@ -31,8 +32,25 @@ function Desktop({ props, funct }) {
     ? 'showActivitiesList'
     : '';
 
+  const [popupControlle, setPopupControlle] = useState(false);
+
+  const handlePopup = () => {
+    setPopupControlle(!popupControlle);
+  };
+
+  const visible = popupControlle ? 'visible' : '';
+
+  const Popup = () => (
+    <div className={`popup ${visible}`} onClick={handlePopup}>
+      <p>
+        Impossible de supprimer l'activité, des utilisateurs se sont inscrit
+      </p>
+    </div>
+  );
+
   return (
     <div className='desktop'>
+      <Popup />
       <div className='left'>
         <div className='mapComposant'>
           <Map props={props} funct={funct} />
@@ -40,7 +58,7 @@ function Desktop({ props, funct }) {
       </div>
       <div className={`right ${showListActivities}`}>
         <div className='activitiesComposant'>
-          <Activities props={props} funct={funct} />
+          <Activities props={props} funct={funct} popup={handlePopup} />
         </div>
       </div>
 

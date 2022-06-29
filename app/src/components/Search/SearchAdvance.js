@@ -87,6 +87,11 @@ function SearchSimple({ funct, props }) {
           ...search,
         },
       });
+      response.data.sort((a, b) => {
+        const aDate = new Date(a.date);
+        const bDate = new Date(b.date);
+        return aDate - bDate;
+      });
       funct.handleActivitiesList(response.data);
     } catch (error) {
       if (error.response.status === 404) {
@@ -131,7 +136,7 @@ function SearchSimple({ funct, props }) {
         <select name='city' onChange={handleChange}>
           <option value='all'>Ville</option>
           {cities.map((city) => (
-            <option key={city} value={city.toLowerCase()}>
+            <option key={city} value={city}>
               {city}
             </option>
           ))}
@@ -142,7 +147,7 @@ function SearchSimple({ funct, props }) {
           <option value='all'>Niveau</option>
           {levels.map((level) => (
             <option key={level.id} value={level.id}>
-              {level.name}
+              {capitalize(level.name)}
             </option>
           ))}
         </select>

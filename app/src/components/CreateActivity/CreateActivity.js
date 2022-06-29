@@ -34,6 +34,11 @@ function CreateActivity({ props, funct }) {
   const [dateValue, setDate] = useState(new Date());
   const dateParsed = dayjs(dateValue).toISOString();
 
+  const capitalize = (s) => {
+    if (typeof s !== 'string') return '';
+    return s.charAt(0).toUpperCase() + s.slice(1);
+  };
+
   // submit mode
   const [sendMode, setSendMode] = useState(false);
 
@@ -161,6 +166,7 @@ function CreateActivity({ props, funct }) {
   const handleSubmit = async (event) => {
     // create new activity
     if (!sendMode) {
+      activity.city = capitalize(activity.city);
       event.preventDefault();
       try {
         const response = await axios({
@@ -189,6 +195,7 @@ function CreateActivity({ props, funct }) {
 
     // update activity
     else {
+      activity.city = capitalize(activity.city);
       delete activity.created_at;
       delete activity.updated_at;
       activity.date = dateParsed;

@@ -1,4 +1,7 @@
-import { useEffect, useState } from 'react';
+/* eslint-disable indent */
+/* eslint-disable default-case */
+/* eslint-disable no-undef */
+import React, { useEffect, useState } from 'react';
 import dayjs from 'dayjs';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { solid, regular } from '@fortawesome/fontawesome-svg-core/import.macro';
@@ -7,7 +10,7 @@ import Axios from '../../utils/axiosPool';
 // base page
 import './listActivities.scss';
 
-function Activities({ props, funct }) {
+function Activities({ props, funct, popup }) {
   const [activities, setActivities] = useState([]);
   const [categories, setCategories] = useState([]);
   const [levels, setLevels] = useState([]);
@@ -23,8 +26,8 @@ function Activities({ props, funct }) {
     try {
       const response = await Axios.get('/category/categories');
       setCategories(response.data);
-    } catch (error) {
-      throw new Error(error);
+    } catch (err) {
+      throw new Error(err);
     }
   };
 
@@ -37,8 +40,8 @@ function Activities({ props, funct }) {
         return aDate - bDate;
       });
       setActivities(response.data);
-    } catch (error) {
-      throw new Error(error);
+    } catch (err) {
+      throw new Error(err);
     }
   };
 
@@ -46,8 +49,8 @@ function Activities({ props, funct }) {
     try {
       const response = await Axios.get('/level/getAll');
       setLevels(response.data);
-    } catch (error) {
-      throw new Error(error);
+    } catch (err) {
+      throw new Error(err);
     }
   };
 
@@ -61,8 +64,9 @@ function Activities({ props, funct }) {
         setCheckRemove(!checkRemove);
         checkSynchroMapList();
       }
-    } catch (error) {
-      throw new Error(error);
+    } catch (err) {
+      popup();
+      throw new Error(err);
     }
   };
 
@@ -172,7 +176,7 @@ function Activities({ props, funct }) {
                     <FontAwesomeIcon
                       icon={solid('trash-alt')}
                       className='delete-activity'
-                      onClick={() => removeActivity(activity.id)}
+                      onClick={(e) => removeActivity(activity.id)}
                       key={Math.random()}
                     />
                   </div>
