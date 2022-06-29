@@ -235,7 +235,7 @@ function Activity({ props, funct, synchro }) {
             }
             return null;
           })}
-          <p>{activity.name}
+          <p className='activity-name'>{activity.name}
           </p>
           <FontAwesomeIcon
             icon={regular('circle-xmark')}
@@ -245,13 +245,13 @@ function Activity({ props, funct, synchro }) {
       </header>
       <aside className='card-content'>
         <div className='content'>
-          <FontAwesomeIcon icon={regular('calendar')} />
-          <p className='activity-date'>
+          <FontAwesomeIcon className="info-picto" icon={regular('calendar')} />
+          <p className='date'>
             {`le ${dayjs(activity.date).format('DD/MM/YYYY')}`}
           </p>
         </div>
         <div className='content'>
-          <FontAwesomeIcon icon={solid('location-dot')} />
+          <FontAwesomeIcon className="info-picto" icon={solid('location-dot')} />
           <p className='address'>{`${activity.address}, ${activity.zip_code} ${activity.city}`}</p>
         </div>
       </aside>

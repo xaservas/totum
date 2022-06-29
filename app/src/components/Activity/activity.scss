@@ -3,8 +3,8 @@
 .activity__card {
   display: flex;
   height: 80vh;
-  max-width: 36rem;
-  min-width: 36rem;
+  max-width: 25rem;
+  min-width: 25rem;
   margin: 44rem;
   flex-direction: column;
   align-items: center;
@@ -12,6 +12,14 @@
   box-shadow: 3px 3px 8px 4px rgba(34, 41, 43, 0.25);
   border-radius: 50px;
   padding:5rem;
+  .activity-picto{
+    color:$black-local
+  }
+  .activity-close{
+    position: relative;
+    bottom: 4rem;
+    left: 3rem;
+  }
 
     &--header {
       width: 100%;
@@ -19,9 +27,9 @@
       font-weight: 700;
       padding-top: 1rem;
       display: flex;
-      justify-content: space-around;
+      justify-content: space-between;
       padding-bottom: 2rem;
-      align-items: center;
+      align-items: baseline;
       .activity-close:hover {
         cursor: pointer;
         color: $highlight;
@@ -29,6 +37,9 @@
       svg {
         font-size: 4rem;
         color: $dark;
+      }
+      .activity-name{
+        margin: 0;
       }
     }
   
@@ -47,14 +58,17 @@
       justify-content: space-between;
       align-items: center;
       padding-top: 2rem;
-      .address {
+      .address, .date {
+        color: $black-local;
         margin: 0;
         text-align: right;
         width: 100%;
       }
-      svg {
-        height: 3rem;
+      .info-picto{
+        color: $black-local;
+        height: 2.5rem;
       }
+      
     }
   }
 
