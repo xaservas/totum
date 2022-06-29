@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 import { useEffect, useState } from 'react';
 import Axios from '../../utils/axiosPool';
 import './search.scss';
@@ -11,11 +12,27 @@ function SearchSimple({ funct }) {
     level: 'all',
     city: 'all',
   });
+  const [cities, setCities] = useState([]);
+
+  const capitalize = (s) => {
+    if (typeof s !== 'string') return '';
+    return s.charAt(0).toUpperCase() + s.slice(1);
+  };
 
   const ActivitiesDataRequest = async () => {
+    const temp = [];
     try {
       const response = await Axios.get('/activities');
       setActivities(response.data);
+      response.data.map((item) => {
+        if (item.city !== null) {
+          if (temp.includes(capitalize(item.city))) {
+            return;
+          }
+          temp.push(capitalize(item.city));
+        }
+      });
+      setCities(temp);
     } catch (error) {
       throw new Error(error);
     }
@@ -92,9 +109,9 @@ function SearchSimple({ funct }) {
       <div className='selector'>
         <select name='city' onChange={handleChange}>
           <option value='all'>Ville</option>
-          {activities.map((activity) => (
-            <option key={activity.id} value={activity.city}>
-              {activity.city}
+          {cities.map((city) => (
+            <option key={city} value={city.toLowerCase()}>
+              {city}
             </option>
           ))}
         </select>
