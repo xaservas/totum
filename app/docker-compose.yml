@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-    front:
+      container_name: front_totum
       build:
         context: .
         dockerfile: ./Dockerfile
