@@ -11,7 +11,7 @@ import './activity.scss';
 import CreateComment from '../CreateComment/CreateComment';
 import Comment from '../Comment/Comment';
 
-function Activity({ props, funct }) {
+function Activity({ props, funct, synchro }) {
   const [activity, setActivity] = useState({});
   const [participants, setParticipants] = useState([]);
   const [comments, setComments] = useState();
@@ -96,6 +96,7 @@ function Activity({ props, funct }) {
       getRegister();
       setIsRegistered(true);
       getParticipants();
+      synchro();
     } catch (error) {
       throw new Error(error);
     }
@@ -115,6 +116,7 @@ function Activity({ props, funct }) {
       getRegister();
       setIsRegistered(false);
       getParticipants();
+      synchro();
     } catch (error) {
       throw new Error(error);
     }

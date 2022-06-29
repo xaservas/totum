@@ -104,7 +104,6 @@
       z-index: 100;
      
   }
-
     select:focus {
       outline: none;
       font-family: 'Lato';
@@ -218,6 +217,10 @@
       &:hover{
         color: $white-contrast;
       }
+    }
+    .is-light {
+      background-color: $ultra-clear;
+      color: $dark;
     }
   }
 }

@@ -34,6 +34,11 @@ function CreateActivity({ props, funct }) {
   const [dateValue, setDate] = useState(new Date());
   const dateParsed = dayjs(dateValue).toISOString();
 
+  const capitalize = (s) => {
+    if (typeof s !== 'string') return '';
+    return s.charAt(0).toUpperCase() + s.slice(1);
+  };
+
   // submit mode
   const [sendMode, setSendMode] = useState(false);
 
@@ -54,7 +59,12 @@ function CreateActivity({ props, funct }) {
         setError("Cette activité n'existe pas");
         break;
       case 200:
+        if (!sendMode) {
         setError('Votre activité a bien été créée');
+        } else {
+          setError('Votre activité a bien été modifiée');
+        }
+        break;
     }
   };
 
@@ -156,7 +166,7 @@ function CreateActivity({ props, funct }) {
   const handleSubmit = async (event) => {
     // create new activity
     if (!sendMode) {
-      console.log('create new activity');
+      activity.city = capitalize(activity.city);
       event.preventDefault();
       try {
         const response = await axios({
@@ -170,15 +180,13 @@ function CreateActivity({ props, funct }) {
         checkError(response.status);
         setTimeout(() => {
           funct.handleCreateActivity();
+          checkSend();
+          resetForm();
+          setDate(new Date());
+          setError('');
+          setCheck(false);
         }, 1500);
-        checkSend();
-        resetForm();
-        setDate(new Date());
-        setError('');
-        setCheck(false);
-        console.log(response);
       } catch (err) {
-        console.log(err);
         checkError(err.response.status);
         setCheck(false);
         throw new Error(err);
@@ -187,12 +195,10 @@ function CreateActivity({ props, funct }) {
 
     // update activity
     else {
+      activity.city = capitalize(activity.city);
       delete activity.created_at;
       delete activity.updated_at;
       activity.date = dateParsed;
-      console.log('update');
-      console.log(activity.id);
-      console.log(activity);
       event.preventDefault();
       try {
         const response = await axios({
@@ -206,15 +212,13 @@ function CreateActivity({ props, funct }) {
         checkError(response.status);
         setTimeout(() => {
           funct.handleCreateActivity();
+          checkSend();
+          resetForm();
+          setDate(new Date());
+          setError('');
+          setCheck(false);
         }, 1500);
-        checkSend();
-        resetForm();
-        setDate(new Date());
-        setError('');
-        setCheck(false);
-        console.log(response);
       } catch (err) {
-        console.log(err);
         checkError(err.response.status);
         setCheck(false);
         throw new Error(err);
@@ -237,19 +241,18 @@ function CreateActivity({ props, funct }) {
   // effect update activity
   useEffect(() => {
     getActivityById(props.activityContentUpdate);
-    if (props.activityContentUpdate > 0) {
+    if (props.activityContentUpdate !== 0) {
+      console.log('update activity');
       setSendMode(true);
     } else {
+      console.log('create new activity');
       setSendMode(false);
     }
   }, [props.activityContentUpdate]);
-  console.log(props.activityContentUpdate);
-  console.log(sendMode);
-
   return (
     <form className='createActivity' onSubmit={handleSubmit}>
       <div className='createActivity_container'>
-        {error === 'Votre activité a bien été créée' ? (
+        {error === 'Votre activité a bien été créée' || error === 'Votre activité a bien été modifiée' ? (
           <p className='sendMessage'>{error}</p>
         ) : (
           <p className='errorMessage'>{error}</p>
