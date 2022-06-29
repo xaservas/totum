@@ -27,7 +27,6 @@ function CreateActivity({ props, funct }) {
     country: '',
     id_user: userId,
     id_category: '',
-
   });
   const [error, setError] = useState('');
   const [check, setCheck] = useState(false);
@@ -60,7 +59,7 @@ function CreateActivity({ props, funct }) {
         break;
       case 200:
         if (!sendMode) {
-        setError('Votre activité a bien été créée');
+          setError('Votre activité a bien été créée');
         } else {
           setError('Votre activité a bien été modifiée');
         }
@@ -69,7 +68,9 @@ function CreateActivity({ props, funct }) {
   };
 
   const sortObjectsByProp = (objectsArr, prop, ascending = true) => {
-    const objectsHaveProp = objectsArr.every((object) => object.hasOwnProperty(prop));
+    const objectsHaveProp = objectsArr.every((object) =>
+      object.hasOwnProperty(prop),
+    );
     if (objectsHaveProp) {
       const newObjectsArr = objectsArr.slice();
       newObjectsArr.sort((a, b) => {
@@ -252,7 +253,8 @@ function CreateActivity({ props, funct }) {
   return (
     <form className='createActivity' onSubmit={handleSubmit}>
       <div className='createActivity_container'>
-        {error === 'Votre activité a bien été créée' || error === 'Votre activité a bien été modifiée' ? (
+        {error === 'Votre activité a bien été créée' ||
+        error === 'Votre activité a bien été modifiée' ? (
           <p className='sendMessage'>{error}</p>
         ) : (
           <p className='errorMessage'>{error}</p>
@@ -389,7 +391,7 @@ function CreateActivity({ props, funct }) {
           </div>
         </div>
         <div className='validation-button'>
-          <button className='button' type='submit' onClick={closeAddActivity}>
+          <button className='button' type='submit' onClick={handleSubmit}>
             Proposer
           </button>
           <button className='button is-light' type='reset' onClick={resetForm}>
