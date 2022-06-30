@@ -114,14 +114,16 @@
     overflow: scroll;
     display: none;
     max-height: 70vh;
+   // width: 28rem;
   }
 
   .listActivities_panel {
     padding-left: 1rem;
     color: $black-local;
+    min-width: 20rem;
     .activities-list {
       .past {
-        background-color: #a6b0b2;
+        background-color: $ultra-clear;
       }
 
       display: flex;
@@ -132,7 +134,7 @@
     }
 
     .panel-block {
-      height: 10.5rem;
+      height: 9.5rem;
       background-color: $white-local;
       display: flex;
       align-items: center;
@@ -140,8 +142,9 @@
       gap: 18px;
       list-style: none;
       box-shadow: 3px 3px 8px 4px rgba(34, 41, 43, 0.25);
-      border-radius: 10px;
+      border-radius: 55px;
       margin-bottom: 2rem;
+      color: $dark;
       &:hover {
         cursor: pointer;
       }
@@ -154,8 +157,8 @@
 
       .activity-picture {
         height: auto;
-        width: 6rem;
-        border: 2px solid $black-local;
+        max-width: 6rem;
+        min-width: 2rem;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -168,7 +171,7 @@
         height: 80%;
         justify-content: center;
         align-items: center;
-        border-left: 2px solid $black-local;
+        border-left: 1px solid $dark;
 
         .column {
           width: 15rem;
@@ -176,16 +179,16 @@
       }
 
       .activity-name {
-        font-size: 1.4rem;
-        color: $black-local;
+        font-size: 2rem;
+        font-weight: normal;
         padding-left: 1rem;
         text-align: left;
       }
 
       .activity-category {
+        font-size: 2rem;
+        font-weight: bold;
         padding: 0 1rem;
-        font-size: 1.4rem;
-        color: $black-local;
         text-align: center;
       }
 
@@ -195,8 +198,8 @@
 
       .activity-date {
         font-size: 1.4rem;
-        color: $black-local;
-        border-left: 2px solid $black-local;
+        //color: $black-local;
+        border-left: 1px solid $dark;
         padding-left: 1rem;
         height: 80%;
         align-items: center;
@@ -212,8 +215,8 @@
 
       .activity-city {
         font-size: 1.4rem;
-        color: $black-local;
-        border-left: 2px solid $black-local;
+        //color: $black-local;
+        border-left: 1px solid $dark;
         padding-left: 1rem;
         height: 80%;
         align-items: center;
@@ -263,43 +266,72 @@
 }
 
 @media screen and (max-width: 972px) {
-  .listActivities_panel {
-    .text-info {
-      flex-direction: column;
-      align-items: center;
-      .column {
-        width: 100%;
-        text-align: left;
-        padding: 0;
-        padding-left: 2rem;
+  .profil_card{
+    .listActivities_panel {
+      .text-info {
+        flex-direction: column;
+        align-items: flex-start;
+        .column {
+          width: 100%;
+          text-align: left;
+          padding: 0;
+          padding-left: 2rem;
+        }
       }
     }
   }
+  
 }
 
 @media screen and (max-width: 680px) {
-  .listActivities_panel {
-    .activities-list {
-      .panel-block {
-        padding: 0;
-        padding-left: 2rem;
+  .profil_card{
+    .listActivities_panel {
+      .activities-list {
+        .panel-block {
+          padding: 0;
+          padding-left: 2rem;
+        }
+        .activity-name{
+          min-width: 10rem;
+          font-size: 1.5rem;
+        }
+        .activity-category{
+          min-width: 10rem;
+          font-size: 1.5rem;
+        }
+        .activity-level{
+          font-size: 1rem;
+        }
       }
     }
   }
+  
 }
 
 @media screen and (max-width: 586px) {
-  .listActivities_panel {
-    .activities-list {
-      .panel-block {
-        padding: 0;
-        padding-left: 2rem;
+  .profil_card{
+    .listActivities_panel {
+      .activities-list {
+        .panel-block {
+          padding: 0;
+          padding-left: 2rem;
+        }
       }
-    }
-    .activity-city {
-      display: none;
+      .activity{
+        .profil-picture {
+          max-width: 5rem;
+        }
+        .activity-city {
+          display: none;
+        }
+        .activity-date {
+          display: none;
+        }
+      }
+      
     }
   }
+  
 }
 
 @media screen and (max-width: 390px) {
@@ -310,28 +342,30 @@
         width: 100%;
       }
     }
-  }
-  .listActivities_panel {
-    .activities-list {
-      .text-info {
-        flex-direction: column;
-        align-items: center;
-        .column {
-          width: 100%;
-          text-align: left;
-          padding: 0;
-          padding-left: 2rem;
+    
+    .listActivities_panel {
+      .activities-list {
+        .text-info {
+          flex-direction: column;
+          align-items: center;
+          .column {
+            width: 100%;
+            text-align: left;
+            padding: 0;
+            padding-left: 2rem;
+          }
         }
-      }
-      .activity {
-        .activity-date {
-          display: none;
-        }
-
-        .activity-city {
-          display: none;
+        .activity {
+          .activity-date {
+            display: none;
+          }
+  
+          .activity-city {
+            display: none;
+          }
         }
       }
     }
   }
+  
 }

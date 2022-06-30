@@ -175,6 +175,7 @@ function CreateActivity({ props, funct }) {
           setCheck(false);
         }, 1500);
       } catch (err) {
+        console.log(err);
         checkError(err.response.status);
         setCheck(false);
         throw new Error(err);
@@ -239,13 +240,12 @@ function CreateActivity({ props, funct }) {
   }, [props.activityContentUpdate]);
   return (
     <form className='createActivity' onSubmit={handleSubmit}>
-      
       <div className='createActivity_container'>
-      <FontAwesomeIcon
-            icon={regular('circle-xmark')}
-            onClick={closeAddActivity}
-            className='create-close'
-          />
+        <FontAwesomeIcon
+          icon={regular('circle-xmark')}
+          onClick={closeAddActivity}
+          className='create-close'
+        />
         {error === 'Votre activité a bien été créée' ||
         error === 'Votre activité a bien été modifiée' ? (
           <p className='sendMessage'>{error}</p>
@@ -262,7 +262,6 @@ function CreateActivity({ props, funct }) {
             value={activity.name}
             onChange={handleChange}
           />
-          
         </div>
         <div className='field'>
           <label className='label'>Participants</label>

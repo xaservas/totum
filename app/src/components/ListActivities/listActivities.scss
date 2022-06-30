@@ -1,6 +1,6 @@
 @import '../../vars.scss';
 
-.listActivities {
+.listActivities_component {
   .activities-list {
     padding: 0;
   }
@@ -134,8 +134,10 @@
 }
 
 @media screen and (max-width: 1065px) {
-  .listActivities {
+  .listActivities_component {
     .text-info {
+      max-width: 50%;
+      min-width: 50%;
       .column {
         width: 100%;
         text-align: left;
@@ -147,10 +149,12 @@
 }
 
 @media screen and (max-width: 822px) {
-  .listActivities {
+  .listActivities_component {
     .text-info {
       flex-direction: column;
       align-items: center;
+      max-width: 30%;
+      min-width: 30%;
       .column {
         width: 100%;
         text-align: left;
@@ -165,7 +169,7 @@
 }
 
 @media screen and (max-width: 680px) {
-  .listActivities {
+  .listActivities_component {
     .activities-list {
       .panel-block {
         padding: 0;
@@ -179,7 +183,7 @@
 }
 
 @media screen and (max-width: 586px) {
-  .listActivities {
+  .listActivities_component {
     .activities-list {
       .panel-block {
         padding: 0;
@@ -192,6 +196,7 @@
     }
     .activity-footer{
       justify-content: flex-start;
+      border-left: none;
     }
     .activity-date{
       display: none;
@@ -203,7 +208,7 @@
 }
 
 @media screen and (max-width: 390px) {
-  .listActivities {
+  .listActivities_component {
     .text-info {
       flex-direction: column;
       align-items: center;
