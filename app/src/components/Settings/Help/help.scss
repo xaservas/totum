@@ -143,6 +143,10 @@
 }
 @media screen and (max-width: 1057px) {
   .help {
+    .validation-button {
+      margin-top: 1rem;
+      width: 14rem;
+    }
     .field {
       width: 60%;
       margin: 0 auto;
@@ -154,10 +158,7 @@
         width: 12rem;
         border: none;
       }
-      .validation-button {
-        margin-top: 3rem;
-        width: 60%;
-      }
+
       .label {
         width: 12rem;
         border-right: none;
@@ -177,6 +178,10 @@
     .help-div {
       width: 30rem;
     }
+    .validation-button {
+      margin-top: 1rem;
+      width: 14rem;
+    }
     .field {
       width: 70%;
       margin: 0 auto;
@@ -184,9 +189,6 @@
       text-align: center;
       .email-field {
         width: 12rem;
-      }
-      .validation-button {
-        margin-top: 3rem;
       }
       .label {
         width: 12rem;
@@ -197,8 +199,13 @@
 @media screen and (max-width: 415px) {
   .help {
     width: 30rem;
+    height: 51rem;
     .help-div {
       width: 25rem;
+    }
+    .validation-button {
+      margin-top: 1rem;
+      width: 14rem;
     }
     .field {
       width: 80%;
@@ -209,10 +216,7 @@
       .email-field {
         width: 12rem;
       }
-      .validation-button {
-        margin-top: 3rem;
-        font-size: 5rem;
-      }
+
       .label {
         width: 12rem;
       }
