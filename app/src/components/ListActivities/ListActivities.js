@@ -93,7 +93,7 @@ function Activities({ props, funct, popup }) {
   }, [props.addActivity]);
 
   return (
-    <article className='listActivities panel'>
+    <article className='listActivities_component panel'>
       <ul className='activities-list'>
         {activities.map((activity) => {
           if (activity.id !== 404) {
