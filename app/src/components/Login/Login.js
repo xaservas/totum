@@ -6,6 +6,11 @@ import LoginForm from './LoginForm/LoginForm';
 
 function Login({ funct }) {
   const [coordinate, setCoordinate] = useState([]);
+  const [checkMap, setCheckMap] = useState(false);
+
+  const handleMap = () => {
+    setCheckMap(!checkMap);
+  };
 
   useEffect(() => {
     if (navigator.geolocation) {
@@ -16,11 +21,12 @@ function Login({ funct }) {
         ]);
         localStorage.setItem('coordinate', JSON.stringify(coordinate));
       });
+      handleMap();
     } else {
       setCoordinate([(coordinate[0] = 48.856614), (coordinate[1] = 2.3522219)]);
       localStorage.setItem('coordinate', JSON.stringify(coordinate));
     }
-  });
+  }, [checkMap]);
 
   return (
     <div className='login'>
