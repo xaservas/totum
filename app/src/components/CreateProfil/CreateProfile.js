@@ -72,9 +72,9 @@ function CreateProfile({ funct }) {
     if (!address) return;
 
     const res = await mapbox(address);
-    !autocompleteAddress.includes(e.target.value) &&
-      res.features &&
-      setAutocompleteAddress(res.features.map((place) => place.place_name));
+    !autocompleteAddress.includes(e.target.value)
+      && res.features
+      && setAutocompleteAddress(res.features.map((place) => place.place_name));
     res.error ? setAutocompleteErr(res.error) : setAutocompleteErr('');
   };
 
@@ -155,7 +155,7 @@ function CreateProfile({ funct }) {
       <FontAwesomeIcon
         icon={regular('circle-xmark')}
         onClick={() => funct.closeAllModal()}
-        className='login-close'
+        className='profil-close'
       />
       <form onSubmit={handleSubmit} className='formProfil'>
         <div className='nomfusion'>
@@ -228,7 +228,7 @@ function CreateProfile({ funct }) {
             /> */}
           </div>
         </div>
-        <div className='field'>
+        <div className='field' id='searchAddress2'>
           <label className='label'>Recherche d'adresse</label>
           <input
             list='places2'

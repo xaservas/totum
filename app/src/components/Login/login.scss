@@ -129,11 +129,24 @@
 @media screen and (max-width: 500px) {
   .login {
     width: 84vw;
+    .header-login {
+      margin-left: 3rem;
+      margin-top: 2rem;
+      margin-bottom: none;
+      height: 3rem;
+    }
+    .discover {
+      margin-top: 3rem;
+    }
     .container-form {
       width: 98vw;
+
       input,
       button {
         width: 70%;
+      }
+      .LoginForm {
+        margin-top: 2rem;
       }
     }
   }

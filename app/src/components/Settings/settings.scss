@@ -6,6 +6,21 @@
   height:100vh;
   text-align:center;
   overflow: scroll;
+
+  .profil-close{
+    position: sticky;
+    top: 72px;
+    left: 675px;
+    color: $dark;
+    height: 2.7rem;
+      &:hover {
+      cursor: pointer;
+       color: $highlight;
+      }
+      }
+
+
+
   form {
     .field{
       background-color: $white-local;
@@ -180,7 +195,7 @@
         border: $white-local;
         margin-top: 0.7rem;
         margin-bottom: 0.7rem;
-        width: 30%;
+        width: 140px;
         height: 4rem;
         text-align: center;
         &:hover {
@@ -199,7 +214,7 @@
         border: $white-local;
         margin-top: 0.7rem;
         margin-bottom: 0.7rem;
-        width: 30%;
+        width: 140px;
         height: 4rem;
         text-align: center;
         &:hover {
@@ -223,6 +238,13 @@
 
   .changeProfile {
     margin: 0 auto;
+
+
+
+    #searchAddress{
+      display:none;
+    }
+    
     .passwordfusion{
       flex-direction:column;  
     }

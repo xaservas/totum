@@ -55,7 +55,9 @@ function Login({ props, funct }) {
         />
       </div>
       <LoginForm funct={funct} />
-      <a onClick={() => funct.closeAllModal()}>Découvrir l'application</a>
+      <a className='discover' onClick={() => funct.closeAllModal()}>
+        Découvrir l'application
+      </a>
     </div>
   );
 }
