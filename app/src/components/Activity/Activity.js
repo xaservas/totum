@@ -284,7 +284,6 @@ function Activity({ props, funct, synchro }) {
       })()}
 
       <section className='activity__card__comments'>
-        {console.log(comments)}
         {comments &&
           comments.map((comment) => (
             <Comment key={comment.comment_id || 0} comment={comment} />
