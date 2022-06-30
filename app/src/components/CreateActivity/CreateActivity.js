@@ -20,13 +20,13 @@ function CreateActivity({ props, funct }) {
     description: '',
     max_participants: 1,
     date: '',
-    level: '',
+    level: 1,
     address: '',
     zip_code: '',
     city: '',
     country: '',
     id_user: userId,
-    id_category: '',
+    id_category: 1,
   });
   const [error, setError] = useState('');
   const [check, setCheck] = useState(false);
