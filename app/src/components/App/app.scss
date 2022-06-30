@@ -8,6 +8,10 @@ body::-webkit-scrollbar {
   width: 0;
 }
 
+body {
+  scrollbar-width: none;
+}
+
 .App {
   overflow: hidden;
 }

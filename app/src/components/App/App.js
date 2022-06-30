@@ -33,6 +33,7 @@ function App() {
   const [usersPictures, setUsersPictures] = useState([]);
   const [updateActivity, setUpdateActivity] = useState(false);
   const [activityContentUpdate, setActivityContentUpdate] = useState(0);
+  const [mainCoordinate, setMainCoordinate] = useState([]);
 
   const randomPictures = () => {
     Axios({
@@ -199,6 +200,7 @@ function App() {
     listMparameters,
     updateActivity,
     activityContentUpdate,
+    mainCoordinate,
   };
 
   const funct = {
@@ -223,6 +225,7 @@ function App() {
     closeActivity,
     synchroRemoveListMap,
     handleUpdateActivity,
+    setMainCoordinate,
   };
 
   return (

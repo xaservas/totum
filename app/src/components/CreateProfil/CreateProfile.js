@@ -1,6 +1,8 @@
 /* eslint-disable indent */
 /* eslint-disable no-unused-expressions */
 import { useState } from 'react';
+import validator from 'validator';
+// import PasswordChecklist from 'react-password-checklist';
 import './createProfile.scss';
 import { regular } from '@fortawesome/fontawesome-svg-core/import.macro';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -25,6 +27,31 @@ function CreateProfile({ funct }) {
   const [autocompleteAddress, setAutocompleteAddress] = useState([]);
   const [autocompleteErr, setAutocompleteErr] = useState('');
   const [error, setError] = useState('');
+  const [errorMessagePassword, setErrorMessagePassword] = useState('');
+
+  // const [showErrorMessage, setShowErrorMessage] = useState(false);
+  // const [cPasswordClass, setCPasswordClass] = useState('form-control');
+  // const [isCPasswordDirty, setIsCPasswordDirty] = useState(false);
+
+  // controle password
+  const validatePassword = (e) => {
+    if (
+      validator.isStrongPassword(e, {
+        minLength: 1,
+        maxLength: 30,
+        hasLowercase: true,
+        hasUppercase: true,
+        hasNumber: true,
+        hasSpecialCharacter: false,
+      })
+    ) {
+      setPassword(e);
+      setErrorMessagePassword('Mot de passe fort');
+    } else {
+      setErrorMessagePassword('Mot de passe trop faible');
+    }
+  };
+
   // gestion des erreurs--------------
   const errorMessage = (data) => {
     switch (data) {
@@ -171,8 +198,17 @@ function CreateProfile({ funct }) {
               name='password'
               type='password'
               className='input'
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => validatePassword(e.target.value)}
             />
+            {errorMessagePassword === '' ? null : (
+              <span
+                style={{
+                  fontWeight: 'bold',
+                  color: 'red',
+                }}>
+                {errorMessagePassword}
+              </span>
+            )}
           </div>
           <div className='field'>
             <label className='label'>Confirmation de mot de passe</label>
@@ -183,6 +219,13 @@ function CreateProfile({ funct }) {
               className='input'
               onChange={(e) => setPasswordConfirmation(e.target.value)}
             />
+            {/* <PasswordChecklist
+              rules={['minLength', 'specialChar', 'number', 'capital', 'match']}
+              minLength={8}
+              value={password}
+              valueAgain={passwordConfirmation}
+              onChange={(isValid) => {}}
+            /> */}
           </div>
         </div>
         <div className='field' id='searchAddress2'>
