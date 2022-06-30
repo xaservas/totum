@@ -175,7 +175,7 @@ function Profile({ props, funct, synchro }) {
               />
               <FontAwesomeIcon
                 icon={solid('bars')}
-                onClick={handleActivitiesList}
+                onClick={() => { handleActivitiesList(); props.mainListActivities ? funct.handleListMainActivities(): console.log('rien'); }}//trying to close activitieslist if it's open
                 className='activity-handle'
               />
             </figure>
