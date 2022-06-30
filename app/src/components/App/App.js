@@ -10,6 +10,7 @@ import './app.scss';
 import Header from '../Header/Header';
 import Main from '../Main/Main';
 import Footer from '../Footer/Footer';
+import Error from '../Error/Error';
 
 function App() {
   const [addActivity, setAddActivity] = useState(false);
@@ -232,6 +233,7 @@ function App() {
     <div className='App'>
       <Header props={props} funct={funct} />
       <Routes>
+        <Route path='*' element={<Error />} />
         <Route path='/' element={<Main props={props} funct={funct} />} />
       </Routes>
 

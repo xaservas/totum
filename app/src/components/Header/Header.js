@@ -5,6 +5,7 @@ import {
   faMagnifyingGlass,
   faCirclePlus,
 } from '@fortawesome/free-solid-svg-icons';
+import { useNavigate } from 'react-router-dom';
 
 // base page
 import './header.scss';
@@ -13,11 +14,16 @@ import SearchSimple from '../Search/SearchSimple';
 
 function Header({ props, funct }) {
   const showMenu = props.showMenu ? 'showMenu' : '';
+  const navigate = useNavigate();
+
+  const returnHome = () => {
+    navigate('/', { replace: true });
+  };
 
   return (
     <header className='header'>
       <nav className='navbar' role='navigation' aria-label='main navigation'>
-        <div className='totumtitle'>
+        <div className='totumtitle' onClick={returnHome}>
           <h1 className='title'>TOTUM</h1>
         </div>
         <FontAwesomeIcon
