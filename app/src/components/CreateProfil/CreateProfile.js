@@ -1,6 +1,7 @@
+/* eslint-disable operator-linebreak */
 /* eslint-disable indent */
 /* eslint-disable no-unused-expressions */
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import validator from 'validator';
 // import PasswordChecklist from 'react-password-checklist';
 import './createProfile.scss';
@@ -39,11 +40,8 @@ function CreateProfile({ funct }) {
       case 401:
         setError('Les mots de passe de sont pas identique');
         break;
-      case 400:
-        setError('Erreur inconnue');
-        break;
-      case 900:
-        setError('Mot de passe trop faible');
+      case 200:
+        setError('Votre compte a bien été créé');
         break;
       default:
         setError('');
@@ -51,7 +49,8 @@ function CreateProfile({ funct }) {
     }
   };
 
-  const checkPassword = () => {
+  // controle password
+  const checkPasswordMatch = () => {
     if (password !== passwordConfirmation) {
       return (
         <span
@@ -74,7 +73,6 @@ function CreateProfile({ funct }) {
     );
   };
 
-  // controle password
   const validatePassword = (e) => {
     if (
       validator.isStrongPassword(e, {
@@ -94,10 +92,23 @@ function CreateProfile({ funct }) {
       setPassword(e);
       setErrorMessagePassword('Mot de passe fort');
     } else {
-      errorMessage(900);
       setErrorMessagePassword('Mot de passe trop faible');
     }
   };
+
+  const passwordPattern = () => {
+    const pattern = /[a-zA-Z0-9]{8,}/;
+    if (pattern.test(password)) {
+      return true;
+    }
+    setErrorMessagePassword('Les caractères spéciaux ne sont pas autorisés');
+    setPassword('');
+    return false;
+  };
+
+  useEffect(() => {
+    passwordPattern();
+  }, [password]);
 
   const handleAddressChange = async (e) => {
     setAddress(e.target.value);
@@ -173,11 +184,13 @@ function CreateProfile({ funct }) {
       },
     })
       .then(() => {
-        funct.closeAllModal();
+        errorMessage(200);
+        setTimeout(() => {
+          funct.closeAllModal();
+        }, 2500);
       })
       .catch((err) => {
-        // ajouter un message d'information si sa marche pas
-        errorMessage(err.response.status);
+        throw new Error(err);
       });
     event.preventDefault();
   };
@@ -190,6 +203,23 @@ function CreateProfile({ funct }) {
         className='profil-close'
       />
       <form onSubmit={handleSubmit} className='formProfil'>
+        {error === 'Votre compte a bien été créé' ? (
+          <span
+            style={{
+              color: 'green',
+            }}
+            className='text-succes'>
+            {error}
+          </span>
+        ) : (
+          <span
+            style={{
+              color: 'red',
+            }}
+            className='text-danger'>
+            {error}
+          </span>
+        )}
         <div className='nomfusion'>
           <div className='field'>
             <label className='label'>Prénom</label>
@@ -259,7 +289,7 @@ function CreateProfile({ funct }) {
               className='input'
               onChange={(e) => setPasswordConfirmation(e.target.value)}
             />
-            {checkPassword()}
+            {checkPasswordMatch()}
           </div>
         </div>
         <div className='field' id='searchAddress2'>
@@ -345,7 +375,6 @@ function CreateProfile({ funct }) {
             <span className='slider round'> </span> <p> cookies </p>{' '}
           </label>
         </div>
-        <p className='errorMessage'>{error}</p>
         <button className='validation-button'> Valider </button>
       </form>
     </div>
