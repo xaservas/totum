@@ -4,53 +4,41 @@
   margin: 0 auto;
   padding: 0 1rem;
   border-radius: 3rem;
-  height:100vh;
+  height: 100vh;
   overflow: scroll;
-  text-align:center;
-  
-  .profil-close{
-position: sticky;
-top: 72px;
-left: 675px;
-color: $dark;
-height: 2.7rem;
-  &:hover {
-  cursor: pointer;
-   color: $highlight;
-  }
-  }
+  text-align: center;
+  max-width: 100rem;
 
   form {
     overflow: scroll;
     margin-top: 3em;
 
-    .nomfusion{
+    .nomfusion {
       display: flex;
     }
-    .passwordfusion{
-      display: flex;
-      
-    }
-    .zipCity{
+    .passwordfusion {
       display: flex;
     }
-
-    .field{
+    .zipCity {
+      display: flex;
+    }
+    .field-big {
       background-color: $white-local;
-      display:flex;
+      display: flex;
       flex-direction: row;
       align-items: center;
       align-content: center;
       padding: 0.7rem 1.6rem;
       margin: 1rem;
+      width: 95%;
       min-height: 3.5rem;
       box-shadow: 3px 3px 8px 4px rgba(34, 41, 43, 0.25);
       border-radius: 3rem;
-      &:hover{
+      &:hover {
         border: solid 1px;
         border-color: $dark;
       }
-      .label{
+      .label {
         width: 10rem;
         font-style: normal;
         font-weight: bold;
@@ -59,11 +47,10 @@ height: 2.7rem;
         padding-right: 1rem;
         border-right: solid 1px;
         border-color: $dark;
-        
       }
-      .input{
+      .input {
         font-family: 'Lato';
-        border: none;  
+        border: none;
         padding: 0 10px;
         margin: none;
         font-style: normal;
@@ -73,18 +60,62 @@ height: 2.7rem;
         justify-content: center;
         align-items: baseline;
         width: 100%;
-        input{
+        input {
           margin-bottom: 0px;
         }
       }
-      input:focus{
-        outline:none;
+      input:focus {
+        outline: none;
       }
-
     }
 
-  } 
-  
+    .field {
+      background-color: $white-local;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      align-content: center;
+      padding: 0.7rem 1.6rem;
+      margin: 1rem;
+      width: 50%;
+      min-height: 3.5rem;
+      box-shadow: 3px 3px 8px 4px rgba(34, 41, 43, 0.25);
+      border-radius: 3rem;
+      &:hover {
+        border: solid 1px;
+        border-color: $dark;
+      }
+      .label {
+        width: 10rem;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 1.5rem;
+        color: $dark;
+        padding-right: 1rem;
+        border-right: solid 1px;
+        border-color: $dark;
+      }
+      .input {
+        font-family: 'Lato';
+        border: none;
+        padding: 0 10px;
+        margin: none;
+        font-style: normal;
+        font-size: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: baseline;
+        width: 100%;
+        input {
+          margin-bottom: 0px;
+        }
+      }
+      input:focus {
+        outline: none;
+      }
+    }
+  }
 
   .OptionLogin {
     display: flex;
@@ -102,22 +133,20 @@ height: 2.7rem;
         margin: 1rem 1rem;
       }
     }
-    p{
-      
+    p {
       margin-bottom: -0.5em;
     }
   }
 
   .validation-button {
-  
     background-color: $dark;
     border-radius: 25px;
     color: $white-local;
     padding: 0.9rem;
     border: $white-local;
-    margin-top: 0.7rem;
+    margin-top: 2.7rem;
     margin-bottom: 0.7rem;
-    width: 140px;
+    width: 30%;
     height: 4rem;
     text-align: center;
     &:hover {
@@ -186,51 +215,38 @@ height: 2.7rem;
   .slider.round {
     border-radius: 34px;
   }
-  
+
   .slider.round:before {
     border-radius: 50%;
   }
-  
+
   .inputError {
     background-color: rgb(187, 10, 128);
   }
-  
 }
-  
-  @media screen and (max-width: 1150px) {
-    .createProfil {
-      margin: 0 auto;
-    }
-  }
 
-
-
-  
-@media screen and (max-width: 620px) {
-  
+@media screen and (max-width: 1150px) {
   .createProfil {
     margin: 0 auto;
+  }
+}
 
-    #searchAddress2{
-      display:none;
-    }
-
+@media screen and (max-width: 620px) {
+  .createProfil {
+    margin: 0 auto;
 
     form {
       overflow: scroll;
 
-    .nomfusion{
-      flex-direction:column;
-    }
-    .passwordfusion{
-      flex-direction:column;
-      
-    }
-    .zipCity{
-      flex-direction:column;
+      .nomfusion {
+        flex-direction: column;
+      }
+      .passwordfusion {
+        flex-direction: column;
+      }
+      .zipCity {
+        flex-direction: column;
+      }
     }
   }
 }
-}
-
-
