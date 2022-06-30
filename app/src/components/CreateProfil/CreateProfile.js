@@ -33,25 +33,6 @@ function CreateProfile({ funct }) {
   // const [cPasswordClass, setCPasswordClass] = useState('form-control');
   // const [isCPasswordDirty, setIsCPasswordDirty] = useState(false);
 
-  // controle password
-  const validatePassword = (e) => {
-    if (
-      validator.isStrongPassword(e, {
-        minLength: 1,
-        maxLength: 30,
-        hasLowercase: true,
-        hasUppercase: true,
-        hasNumber: true,
-        hasSpecialCharacter: false,
-      })
-    ) {
-      setPassword(e);
-      setErrorMessagePassword('Mot de passe fort');
-    } else {
-      setErrorMessagePassword('Mot de passe trop faible');
-    }
-  };
-
   // gestion des erreurs--------------
   const errorMessage = (data) => {
     switch (data) {
@@ -61,9 +42,60 @@ function CreateProfile({ funct }) {
       case 400:
         setError('Erreur inconnue');
         break;
+      case 900:
+        setError('Mot de passe trop faible');
+        break;
       default:
         setError('');
         break;
+    }
+  };
+
+  const checkPassword = () => {
+    if (password !== passwordConfirmation) {
+      return (
+        <span
+          className='text-danger'
+          style={{
+            color: 'red',
+          }}>
+          Les mots de passe de sont pas identique
+        </span>
+      );
+    }
+    return (
+      <span
+        className='text-success'
+        style={{
+          color: 'green',
+        }}>
+        Les mots de passe sont identique
+      </span>
+    );
+  };
+
+  // controle password
+  const validatePassword = (e) => {
+    if (
+      validator.isStrongPassword(e, {
+        minLength: 8,
+        minLowercase: 1,
+        minUppercase: 1,
+        minNumbers: 1,
+        minSymbols: 0,
+        returnScore: false,
+        pointsPerUnique: 1,
+        pointsPerRepeat: 0.5,
+        pointsForContainingLower: 10,
+        pointsForContainingUpper: 10,
+        pointsForContainingNumber: 10,
+      })
+    ) {
+      setPassword(e);
+      setErrorMessagePassword('Mot de passe fort');
+    } else {
+      errorMessage(900);
+      setErrorMessagePassword('Mot de passe trop faible');
     }
   };
 
@@ -72,9 +104,9 @@ function CreateProfile({ funct }) {
     if (!address) return;
 
     const res = await mapbox(address);
-    !autocompleteAddress.includes(e.target.value)
-      && res.features
-      && setAutocompleteAddress(res.features.map((place) => place.place_name));
+    !autocompleteAddress.includes(e.target.value) &&
+      res.features &&
+      setAutocompleteAddress(res.features.map((place) => place.place_name));
     res.error ? setAutocompleteErr(res.error) : setAutocompleteErr('');
   };
 
@@ -200,12 +232,20 @@ function CreateProfile({ funct }) {
               className='input'
               onChange={(e) => validatePassword(e.target.value)}
             />
-            {errorMessagePassword === '' ? null : (
+            {errorMessagePassword === 'Mot de passe fort' ? (
               <span
                 style={{
-                  fontWeight: 'bold',
+                  color: 'green',
+                }}
+                className='validation-message'>
+                {errorMessagePassword}
+              </span>
+            ) : (
+              <span
+                style={{
                   color: 'red',
-                }}>
+                }}
+                className='error-message'>
                 {errorMessagePassword}
               </span>
             )}
@@ -219,13 +259,7 @@ function CreateProfile({ funct }) {
               className='input'
               onChange={(e) => setPasswordConfirmation(e.target.value)}
             />
-            {/* <PasswordChecklist
-              rules={['minLength', 'specialChar', 'number', 'capital', 'match']}
-              minLength={8}
-              value={password}
-              valueAgain={passwordConfirmation}
-              onChange={(isValid) => {}}
-            /> */}
+            {checkPassword()}
           </div>
         </div>
         <div className='field' id='searchAddress2'>
