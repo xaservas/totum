@@ -1,6 +1,6 @@
 /* eslint-disable indent */
 /* eslint-disable no-unused-expressions */
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import validator from 'validator';
 // import PasswordChecklist from 'react-password-checklist';
 import './createProfile.scss';
@@ -51,7 +51,8 @@ function CreateProfile({ funct }) {
     }
   };
 
-  const checkPassword = () => {
+  // controle password
+  const checkPasswordMatch = () => {
     if (password !== passwordConfirmation) {
       return (
         <span
@@ -74,7 +75,6 @@ function CreateProfile({ funct }) {
     );
   };
 
-  // controle password
   const validatePassword = (e) => {
     if (
       validator.isStrongPassword(e, {
@@ -98,6 +98,20 @@ function CreateProfile({ funct }) {
       setErrorMessagePassword('Mot de passe trop faible');
     }
   };
+
+  const passwordPattern = () => {
+    const pattern = /[a-zA-Z0-9]{8,}/;
+    if (pattern.test(password)) {
+      return true;
+    }
+    setErrorMessagePassword('Les caractères spéciaux ne sont pas autorisés');
+    setPassword('');
+    return false;
+  };
+
+  useEffect(() => {
+    passwordPattern();
+  }, [password]);
 
   const handleAddressChange = async (e) => {
     setAddress(e.target.value);
@@ -176,6 +190,7 @@ function CreateProfile({ funct }) {
         funct.closeAllModal();
       })
       .catch((err) => {
+        console.log(err);
         // ajouter un message d'information si sa marche pas
         errorMessage(err.response.status);
       });
@@ -259,7 +274,7 @@ function CreateProfile({ funct }) {
               className='input'
               onChange={(e) => setPasswordConfirmation(e.target.value)}
             />
-            {checkPassword()}
+            {checkPasswordMatch()}
           </div>
         </div>
         <div className='field' id='searchAddress2'>
