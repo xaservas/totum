@@ -39,6 +39,10 @@
       justify-content: center;
       letter-spacing: -0.06em;
       color: $white-contrast;
+      &:hover {
+        background-color: $highlight;
+        cursor: pointer;
+      }
       .title {
         font-size: 1.4rem;
         line-height: 1.4rem;
