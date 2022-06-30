@@ -39,11 +39,8 @@ function CreateProfile({ funct }) {
       case 401:
         setError('Les mots de passe de sont pas identique');
         break;
-      case 400:
-        setError('Erreur inconnue');
-        break;
-      case 900:
-        setError('Mot de passe trop faible');
+      case 200:
+        setError('Votre compte a bien été créé');
         break;
       default:
         setError('');
@@ -94,7 +91,6 @@ function CreateProfile({ funct }) {
       setPassword(e);
       setErrorMessagePassword('Mot de passe fort');
     } else {
-      errorMessage(900);
       setErrorMessagePassword('Mot de passe trop faible');
     }
   };
@@ -187,12 +183,13 @@ function CreateProfile({ funct }) {
       },
     })
       .then(() => {
-        funct.closeAllModal();
+        errorMessage(200);
+        setTimeout(() => {
+          funct.closeAllModal();
+        }, 2500);
       })
       .catch((err) => {
-        console.log(err);
-        // ajouter un message d'information si sa marche pas
-        errorMessage(err.response.status);
+        throw new Error(err);
       });
     event.preventDefault();
   };
@@ -205,6 +202,23 @@ function CreateProfile({ funct }) {
         className='profil-close'
       />
       <form onSubmit={handleSubmit} className='formProfil'>
+        {error === 'Votre compte a bien été créé' ? (
+          <span
+            style={{
+              color: 'green',
+            }}
+            className='text-succes'>
+            {error}
+          </span>
+        ) : (
+          <span
+            style={{
+              color: 'red',
+            }}
+            className='text-danger'>
+            {error}
+          </span>
+        )}
         <div className='nomfusion'>
           <div className='field'>
             <label className='label'>Prénom</label>
@@ -360,7 +374,6 @@ function CreateProfile({ funct }) {
             <span className='slider round'> </span> <p> cookies </p>{' '}
           </label>
         </div>
-        <p className='errorMessage'>{error}</p>
         <button className='validation-button'> Valider </button>
       </form>
     </div>
