@@ -35,8 +35,8 @@
 
   .addActivity {
     color: $dark;
-    font-size: 4.4rem;
-    // position: absolute;
+    font-size: 3.5rem;
+    margin-top: 10px;
     bottom: 6rem;
     left: 50%;
     transform: translateX(-50%);
@@ -58,7 +58,8 @@
 @media screen and (max-width: 890px) {
   #footer {
     .addActivity{
-      margin-bottom:1em;
+      
+      size: 10%;
     }
 
 
