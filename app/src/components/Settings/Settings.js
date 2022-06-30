@@ -33,18 +33,18 @@ function Settings({ props, funct }) {
   // gestion des erreurs--------------
   const errorMessage = (data) => {
     switch (data) {
-      case 401:
-        setError('401');
-        break;
-      case 400:
-        setError('400');
-        break;
-      case 200:
-        setError('Compte modifié');
-        break;
-      default:
-        setError('default error');
-        break;
+    case 401:
+      setError('401');
+      break;
+    case 400:
+      setError('400');
+      break;
+    case 200:
+      setError('Compte modifié');
+      break;
+    default:
+      setError('default error');
+      break;
     }
   };
 
@@ -55,9 +55,9 @@ function Settings({ props, funct }) {
     if (!address) return;
 
     const res = await mapbox(address);
-    !autocompleteAddress.includes(e.target.value) &&
-      res.features &&
-      setAutocompleteAddress(res.features.map((place) => place.place_name));
+    !autocompleteAddress.includes(e.target.value)
+      && res.features
+      && setAutocompleteAddress(res.features.map((place) => place.place_name));
     res.error ? setAutocompleteErr(res.error) : setAutocompleteErr('');
   };
 
@@ -239,7 +239,7 @@ function Settings({ props, funct }) {
       <FontAwesomeIcon
         icon={regular('circle-xmark')}
         onClick={() => funct.closeAllModal()}
-        className='login-close'
+        className='profil-close'
       />
       <form id='emailForm'>
         <div className='field'>
@@ -327,7 +327,7 @@ function Settings({ props, funct }) {
             />
           </div>
         </div>
-        <div className='field'>
+        <div className='field' id='searchAddress'>
           <label className='label'>Recherche d'adresse</label>
           <input
             list='places'
