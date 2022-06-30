@@ -20,13 +20,13 @@ function CreateActivity({ props, funct }) {
     description: '',
     max_participants: 1,
     date: '',
-    level: '',
+    level: 1,
     address: '',
     zip_code: '',
     city: '',
     country: '',
     id_user: userId,
-    id_category: '',
+    id_category: 1,
   });
   const [error, setError] = useState('');
   const [check, setCheck] = useState(false);
@@ -239,7 +239,13 @@ function CreateActivity({ props, funct }) {
   }, [props.activityContentUpdate]);
   return (
     <form className='createActivity' onSubmit={handleSubmit}>
+      
       <div className='createActivity_container'>
+      <FontAwesomeIcon
+            icon={regular('circle-xmark')}
+            onClick={closeAddActivity}
+            className='create-close'
+          />
         {error === 'Votre activité a bien été créée' ||
         error === 'Votre activité a bien été modifiée' ? (
           <p className='sendMessage'>{error}</p>
@@ -256,11 +262,7 @@ function CreateActivity({ props, funct }) {
             value={activity.name}
             onChange={handleChange}
           />
-          <FontAwesomeIcon
-            icon={regular('circle-xmark')}
-            onClick={closeAddActivity}
-            className='create-close'
-          />
+          
         </div>
         <div className='field'>
           <label className='label'>Participants</label>

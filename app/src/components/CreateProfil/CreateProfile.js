@@ -1,6 +1,8 @@
 /* eslint-disable indent */
 /* eslint-disable no-unused-expressions */
 import { useState } from 'react';
+import validator from 'validator';
+// import PasswordChecklist from 'react-password-checklist';
 import './createProfile.scss';
 import { regular } from '@fortawesome/fontawesome-svg-core/import.macro';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -25,6 +27,31 @@ function CreateProfile({ funct }) {
   const [autocompleteAddress, setAutocompleteAddress] = useState([]);
   const [autocompleteErr, setAutocompleteErr] = useState('');
   const [error, setError] = useState('');
+  const [errorMessagePassword, setErrorMessagePassword] = useState('');
+
+  // const [showErrorMessage, setShowErrorMessage] = useState(false);
+  // const [cPasswordClass, setCPasswordClass] = useState('form-control');
+  // const [isCPasswordDirty, setIsCPasswordDirty] = useState(false);
+
+  // controle password
+  const validatePassword = (e) => {
+    if (
+      validator.isStrongPassword(e, {
+        minLength: 1,
+        maxLength: 30,
+        hasLowercase: true,
+        hasUppercase: true,
+        hasNumber: true,
+        hasSpecialCharacter: false,
+      })
+    ) {
+      setPassword(e);
+      setErrorMessagePassword('Mot de passe fort');
+    } else {
+      setErrorMessagePassword('Mot de passe trop faible');
+    }
+  };
+
   // gestion des erreurs--------------
   const errorMessage = (data) => {
     switch (data) {
@@ -45,9 +72,9 @@ function CreateProfile({ funct }) {
     if (!address) return;
 
     const res = await mapbox(address);
-    !autocompleteAddress.includes(e.target.value) &&
-      res.features &&
-      setAutocompleteAddress(res.features.map((place) => place.place_name));
+    !autocompleteAddress.includes(e.target.value)
+      && res.features
+      && setAutocompleteAddress(res.features.map((place) => place.place_name));
     res.error ? setAutocompleteErr(res.error) : setAutocompleteErr('');
   };
 
@@ -128,7 +155,7 @@ function CreateProfile({ funct }) {
       <FontAwesomeIcon
         icon={regular('circle-xmark')}
         onClick={() => funct.closeAllModal()}
-        className='login-close'
+        className='profil-close'
       />
       <form onSubmit={handleSubmit} className='formProfil'>
         <div className='nomfusion'>
@@ -171,8 +198,17 @@ function CreateProfile({ funct }) {
               name='password'
               type='password'
               className='input'
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => validatePassword(e.target.value)}
             />
+            {errorMessagePassword === '' ? null : (
+              <span
+                style={{
+                  fontWeight: 'bold',
+                  color: 'red',
+                }}>
+                {errorMessagePassword}
+              </span>
+            )}
           </div>
           <div className='field'>
             <label className='label'>Confirmation de mot de passe</label>
@@ -183,13 +219,19 @@ function CreateProfile({ funct }) {
               className='input'
               onChange={(e) => setPasswordConfirmation(e.target.value)}
             />
+            {/* <PasswordChecklist
+              rules={['minLength', 'specialChar', 'number', 'capital', 'match']}
+              minLength={8}
+              value={password}
+              valueAgain={passwordConfirmation}
+              onChange={(isValid) => {}}
+            /> */}
           </div>
         </div>
-        <div className='field'>
+        <div className='field' id='searchAddress2'>
           <label className='label'>Recherche d'adresse</label>
           <input
-            id='searchAddress'
-            list='places'
+            list='places2'
             name='searchAddress'
             type='text'
             className='input'
@@ -199,8 +241,16 @@ function CreateProfile({ funct }) {
             onBlur={splitAdress}
           />
         </div>
+        <datalist id='places2'>
+          {autocompleteAddress.map((addresses, i) => (
+            <option key={i}>{addresses}</option>
+          ))}
+        </datalist>
+        {autocompleteErr && (
+          <span className='inputError'>{autocompleteErr}</span>
+        )}
         <div className='field'>
-          <label className='label'>Adresse</label>
+          <label className='label'>Numéro + Rue</label>
           <input
             required
             id='address'
@@ -210,14 +260,7 @@ function CreateProfile({ funct }) {
             onChange={(e) => setAddress(e.target.value)}
           />
         </div>
-        <datalist id='places'>
-          {autocompleteAddress.map((addresses, i) => (
-            <option key={i}>{addresses}</option>
-          ))}
-        </datalist>
-        {autocompleteErr && (
-          <span className='inputError'>{autocompleteErr}</span>
-        )}
+
         <div className='zipCity'>
           <div className='field'>
             <label className='label'>Code Postal</label>
@@ -269,7 +312,7 @@ function CreateProfile({ funct }) {
           </label>
         </div>
         <p className='errorMessage'>{error}</p>
-        <button className='validation-button'> Valider </button>{' '}
+        <button className='validation-button'> Valider </button>
       </form>
     </div>
   );

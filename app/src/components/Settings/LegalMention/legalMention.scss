@@ -18,3 +18,52 @@
     margin: 0 auto;
   }
 }
+@media screen and (max-width: 1260px) {
+  .legalMention-full {
+    width: 60%;
+    .title {
+      padding-top: 2rem;
+      padding-bottom: 2rem;
+    }
+    .text {
+    }
+  }
+}
+@media screen and (max-width: 830px) {
+  .legalMention-full {
+    width: 70%;
+    .title {
+      padding-top: 1rem;
+      padding-bottom: 1rem;
+      margin-top: 0px;
+    }
+    .text {
+    }
+  }
+}
+@media screen and (max-width: 600px) {
+  .legalMention-full {
+    width: 80%;
+    height: 60%;
+    .title {
+      padding-top: 1rem;
+      padding-bottom: 1rem;
+      margin-top: 0px;
+    }
+    .text {
+    }
+  }
+}
+@media screen and (max-width: 400px) {
+  .legalMention-full {
+    width: 85%;
+    height: 75%;
+    .title {
+      padding-top: 1rem;
+      padding-bottom: 1rem;
+      margin-top: 0px;
+    }
+    .text {
+    }
+  }
+}

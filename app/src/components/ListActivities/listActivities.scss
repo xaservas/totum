@@ -49,7 +49,7 @@
 
   .text-info {
     display: flex;
-    width: 56%;
+    max-width: 56%;
     height: 80%;
     justify-content: center;
     align-items: center;
@@ -62,7 +62,7 @@
 
   .activity-name {
     font-size: 2rem;
-    font-weight: bold;
+    font-weight: normal;
     padding-left: 1rem;
     text-align: left;
   }
@@ -101,6 +101,7 @@
     align-items: center;
     border-left: 1px solid $dark;
     min-width: 15rem;
+    max-width: 15rem;
   }
   .activity-city {
     font-size: 1.4rem;
@@ -171,6 +172,9 @@
         padding-left: 2rem;
       }
     }
+    .activity-date {
+      display: none;
+    }
   }
 }
 
@@ -182,10 +186,17 @@
         padding-left: 2rem;
       }
     }
+    .text-info{
+      max-width: 50%;
+      min-width: 50%;
+    }
     .activity-footer{
+      justify-content: flex-start;
+    }
+    .activity-date{
       display: none;
     }
-    .activity-city {
+    .activity-city{
       display: none;
     }
   }
@@ -203,15 +214,12 @@
         padding-left: 2rem;
       }
     }
-    .activity-footer{
+    .activity-city{
       display: none;
     }
     .activity-date {
       display: none;
     }
 
-    .activity-city {
-      display: none;
-    }
   }
 }
