@@ -1,6 +1,6 @@
 // fontawesome
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faXmark } from '@fortawesome/free-solid-svg-icons';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faXmark } from '@fortawesome/free-solid-svg-icons';
 
 // base page
 import './main.scss';
@@ -25,7 +25,7 @@ function Desktop({ props, funct }) {
   const user = props.user ? '' : 'isActive';
   const createUser = props.createProfile ? 'isActive' : '';
   const activity = props.activity ? 'isActive' : '';
-  const listActivities = props.listActivities ? 'isActive' : '';
+  // const listActivities = props.listActivities ? 'isActive' : '';
   const help = props.help ? 'isActive' : '';
   const legalMention = props.legalMention ? 'isActive' : '';
   const showListActivities = props.mainListActivities
