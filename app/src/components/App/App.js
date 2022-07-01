@@ -71,6 +71,7 @@ function App() {
     setHelp(false);
     setLegalmention(false);
     setActivityContentUpdate(0);
+    setMainListActivities(false);
   };
 
   const storeUserId = (id) => {

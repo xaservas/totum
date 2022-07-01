@@ -129,6 +129,10 @@ footer {
   animation-duration: 1s;
 }
 
+#modalActivity {
+  z-index: 1500;
+}
+
 @-webkit-keyframes fadeInOpacity {
   0% {
     opacity: 0;

@@ -12,7 +12,6 @@
   align-content: center;
   align-items: center;
 
-
   .card-content {
     background-color: $black-local;
     border-radius: 20px 20px 20px 20px;
@@ -24,9 +23,9 @@
       background-color: $black-local;
       border-radius: 20px 20px 20px 20px;
       width: 28rem;
-      .profile-presentation{
+      .profile-presentation {
         font-style: italic;
-        color: $white-local
+        color: $white-local;
       }
       .avatar {
         position: relative;
@@ -122,7 +121,7 @@
     overflow: scroll;
     display: none;
     max-height: 70vh;
-   // width: 28rem;
+    // width: 28rem;
   }
 
   .listActivities_panel {
@@ -286,7 +285,7 @@
 }
 
 @media screen and (max-width: 972px) {
-  .profil_card{
+  .profil_card {
     .listActivities_panel {
       .text-info {
         flex-direction: column;
@@ -300,36 +299,34 @@
       }
     }
   }
-  
 }
 
 @media screen and (max-width: 680px) {
-  .profil_card{
+  .profil_card {
     .listActivities_panel {
       .activities-list {
         .panel-block {
           padding: 0;
           padding-left: 2rem;
         }
-        .activity-name{
+        .activity-name {
           min-width: 10rem;
           font-size: 1.5rem;
         }
-        .activity-category{
+        .activity-category {
           min-width: 10rem;
           font-size: 1.5rem;
         }
-        .activity-level{
+        .activity-level {
           font-size: 1rem;
         }
       }
     }
   }
-  
 }
 
 @media screen and (max-width: 586px) {
-  .profil_card{
+  .profil_card {
     .listActivities_panel {
       .activities-list {
         .panel-block {
@@ -337,7 +334,7 @@
           padding-left: 2rem;
         }
       }
-      .activity{
+      .activity {
         .profil-picture {
           max-width: 5rem;
         }
@@ -348,10 +345,8 @@
           display: none;
         }
       }
-      
     }
   }
-  
 }
 
 @media screen and (max-width: 390px) {
@@ -360,9 +355,12 @@
     .card-content {
       .media {
         width: 100%;
+        img {
+          width: 100%;
+        }
       }
     }
-    
+
     .listActivities_panel {
       .activities-list {
         .text-info {
@@ -379,7 +377,7 @@
           .activity-date {
             display: none;
           }
-  
+
           .activity-city {
             display: none;
           }
@@ -387,5 +385,4 @@
       }
     }
   }
-  
 }
