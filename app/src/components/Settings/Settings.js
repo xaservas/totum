@@ -119,9 +119,9 @@ function Settings({ props, funct }) {
     if (!address) return;
 
     const res = await mapbox(address);
-    !autocompleteAddress.includes(e.target.value) &&
-      res.features &&
-      setAutocompleteAddress(res.features.map((place) => place.place_name));
+    !autocompleteAddress.includes(e.target.value)
+      && res.features
+      && setAutocompleteAddress(res.features.map((place) => place.place_name));
     res.error ? setAutocompleteErr(res.error) : setAutocompleteErr('');
   };
 
@@ -350,16 +350,17 @@ function Settings({ props, funct }) {
         </div>
       </form>
       <form id='passwordForm' className='passwordfusion'>
-        <div className='field'>
-          <label className='label'>Nouveau mot de passe</label>
-          <input
-            required
-            name='password'
-            type='password'
-            className='input'
-            onChange={(e) => validatePassword(e.target.value)}
-            // onBlur={checkPassword}
-          />
+        <div className='field' id='fusioninputError3'>
+          <div className='fusionLabInp2'>
+            <label className='label'>Nouveau mot de passe</label>
+            <input
+              required
+              name='password'
+              type='password'
+              className='input'
+              onChange={(e) => validatePassword(e.target.value)}
+            />
+          </div>
           {errorMessagePassword === 'Mot de passe fort' ? (
             <span
               style={{
@@ -378,7 +379,8 @@ function Settings({ props, funct }) {
             </span>
           )}
         </div>
-        <div className='field'>
+        <div className='field' id='fusioninputError4'>
+          <div className="fusionLabInp">
           <label className='label'>Confirmation</label>
           <input
             required
@@ -387,6 +389,7 @@ function Settings({ props, funct }) {
             className='input'
             onChange={(e) => setPasswordConfirmation(e.target.value)}
           />
+          </div>
           {checkPasswordMatch()}
         </div>
       </form>
