@@ -242,7 +242,7 @@ function CreateProfile({ funct }) {
             />
           </div>
         </div>
-        <div className='field'>
+        <div className='field-big'>
           <label className='label'>Email</label>
           <input
             required
@@ -292,7 +292,7 @@ function CreateProfile({ funct }) {
             {checkPasswordMatch()}
           </div>
         </div>
-        <div className='field' id='searchAddress2'>
+        <div className='field-big' id='searchAddress2'>
           <label className='label'>Recherche d'adresse</label>
           <input
             list='places2'
@@ -313,7 +313,7 @@ function CreateProfile({ funct }) {
         {autocompleteErr && (
           <span className='inputError'>{autocompleteErr}</span>
         )}
-        <div className='field'>
+        <div className='field-big'>
           <label className='label'>Numéro + Rue</label>
           <input
             required
@@ -349,7 +349,7 @@ function CreateProfile({ funct }) {
             />
           </div>
         </div>
-        <div className='field'>
+        <div className='field-big'>
           <label className='label'>Pays</label>
           <input
             required
@@ -360,7 +360,7 @@ function CreateProfile({ funct }) {
             onChange={(e) => setCountry(e.target.value)}
           />
         </div>
-        <div className='field'>
+        <div className='field-big'>
           <label className='label'>Présentation</label>
           <input
             name='about'

@@ -6,10 +6,9 @@
   border-radius: 3rem;
   height: 100vh;
   overflow: scroll;
-
+  text-align: center;
   max-width: 100rem;
 
-  text-align:center;
   
   .profil-close{
 position: sticky;
@@ -22,6 +21,7 @@ height: 2.7rem;
    color: $highlight;
   }
   }
+
 
 
   form {
@@ -37,8 +37,8 @@ height: 2.7rem;
     .zipCity {
       display: flex;
     }
+    .field-big {
 
-    .field {
       background-color: $white-local;
       display: flex;
       flex-direction: row;
@@ -46,6 +46,7 @@ height: 2.7rem;
       align-content: center;
       padding: 0.7rem 1.6rem;
       margin: 1rem;
+      width: 95%;
       min-height: 3.5rem;
       box-shadow: 3px 3px 8px 4px rgba(34, 41, 43, 0.25);
       border-radius: 3rem;
@@ -83,6 +84,55 @@ height: 2.7rem;
         outline: none;
       }
     }
+
+
+    .field {
+      background-color: $white-local;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      align-content: center;
+      padding: 0.7rem 1.6rem;
+      margin: 1rem;
+      width: 50%;
+      min-height: 3.5rem;
+      box-shadow: 3px 3px 8px 4px rgba(34, 41, 43, 0.25);
+      border-radius: 3rem;
+      &:hover {
+        border: solid 1px;
+        border-color: $dark;
+      }
+      .label {
+        width: 10rem;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 1.5rem;
+        color: $dark;
+        padding-right: 1rem;
+        border-right: solid 1px;
+        border-color: $dark;
+      }
+      .input {
+        font-family: 'Lato';
+        border: none;
+        padding: 0 10px;
+        margin: none;
+        font-style: normal;
+        font-size: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: baseline;
+        width: 100%;
+        input {
+          margin-bottom: 0px;
+        }
+      }
+      input:focus {
+        outline: none;
+      }
+    }
+
   }
 
   .OptionLogin {
@@ -112,9 +162,9 @@ height: 2.7rem;
     color: $white-local;
     padding: 0.9rem;
     border: $white-local;
-    margin-top: 0.7rem;
+    margin-top: 2.7rem;
     margin-bottom: 0.7rem;
-    width: 140px;
+    width: 30%;
     height: 4rem;
     text-align: center;
     &:hover {
@@ -202,11 +252,6 @@ height: 2.7rem;
 @media screen and (max-width: 620px) {
   .createProfil {
     margin: 0 auto;
-
-    #searchAddress2{
-      display:none;
-    }
-
 
     form {
       overflow: scroll;
