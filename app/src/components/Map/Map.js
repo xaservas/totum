@@ -83,7 +83,8 @@ function Map({ props, funct }) {
             activity.landmark &&
             activity.landmark !== "['', '']" &&
             activity.landmark !== '[null, null]' &&
-            activity.landmark !== '[undefined, undefined]'
+            activity.landmark !== '[undefined, undefined]' &&
+            activity.landmark !== [null, null]
           ) {
             const tmp = JSON.parse(activity.landmark);
             const x = tmp[0];

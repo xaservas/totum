@@ -27,7 +27,7 @@ function OptionLogin() {
       <label className='checkbox'>
         <input name='cookie' type='checkbox' onClick={cookieClick} />
         <span className='slider round'></span>
-        <p>Coockies</p>
+        <p>Cookies</p>
       </label>
     </div>
   );
