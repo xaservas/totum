@@ -228,7 +228,7 @@ function Activity({ props, funct, synchro }) {
         <p className='activity-name'>{activity.name}</p>
         <FontAwesomeIcon
           icon={regular('circle-xmark')}
-          onClick={() => funct.closeActivity()}
+          onClick={() => funct.closeActivity() }
           className='activity-close'
         />
       </header>

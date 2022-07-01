@@ -242,7 +242,7 @@ function CreateProfile({ funct }) {
             />
           </div>
         </div>
-        <div className='field'>
+        <div className='field-big'>
           <label className='label'>Email</label>
           <input
             required
@@ -253,15 +253,18 @@ function CreateProfile({ funct }) {
           />
         </div>
         <div className='passwordfusion'>
-          <div className='field'>
-            <label className='label'>Mot de passe</label>
-            <input
-              required
-              name='password'
-              type='password'
-              className='input'
-              onChange={(e) => validatePassword(e.target.value)}
-            />
+          <div className='field' id='fusioninputError'>
+            <div className='fusionLabInp'>
+              <label className='label'>Mot de passe</label>
+              <input
+                required
+                id='passwordCreateForm'
+                name='password'
+                type='password'
+                className='input'
+                onChange={(e) => validatePassword(e.target.value)}
+              />
+            </div>
             {errorMessagePassword === 'Mot de passe fort' ? (
               <span
                 style={{
@@ -280,19 +283,21 @@ function CreateProfile({ funct }) {
               </span>
             )}
           </div>
-          <div className='field'>
-            <label className='label'>Confirmation de mot de passe</label>
-            <input
-              required
-              name='passwordConfirmation'
-              type='password'
-              className='input'
-              onChange={(e) => setPasswordConfirmation(e.target.value)}
-            />
+          <div className='field' id='fusioninputError2'>
+            <div className='fusionLabInp'>
+              <label className='label'>Confirmation</label>
+              <input
+                required
+                name='passwordConfirmation'
+                type='password'
+                className='input'
+                onChange={(e) => setPasswordConfirmation(e.target.value)}
+              />
+            </div>
             {checkPasswordMatch()}
           </div>
         </div>
-        <div className='field' id='searchAddress2'>
+        <div className='field-big' id='searchAddress2'>
           <label className='label'>Recherche d'adresse</label>
           <input
             list='places2'
@@ -313,7 +318,7 @@ function CreateProfile({ funct }) {
         {autocompleteErr && (
           <span className='inputError'>{autocompleteErr}</span>
         )}
-        <div className='field'>
+        <div className='field-big'>
           <label className='label'>Numéro + Rue</label>
           <input
             required
@@ -349,7 +354,7 @@ function CreateProfile({ funct }) {
             />
           </div>
         </div>
-        <div className='field'>
+        <div className='field-big'>
           <label className='label'>Pays</label>
           <input
             required
@@ -360,7 +365,7 @@ function CreateProfile({ funct }) {
             onChange={(e) => setCountry(e.target.value)}
           />
         </div>
-        <div className='field'>
+        <div className='field-big'>
           <label className='label'>Présentation</label>
           <input
             name='about'
@@ -375,6 +380,11 @@ function CreateProfile({ funct }) {
             <span className='slider round'> </span> <p> cookies </p>{' '}
           </label>
         </div>
+
+        <p style={{ color: 'red' }} className='errorMessage'>
+          {error}
+        </p>
+
         <button className='validation-button'> Valider </button>
       </form>
     </div>

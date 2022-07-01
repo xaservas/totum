@@ -6,6 +6,8 @@
     display: flex;
     justify-content: space-between;
     align-items: baseline;
+    margin-left: 3rem;
+
     .login-close {
       position: relative;
       height: auto;
@@ -31,10 +33,11 @@
   left: 50%;
   transform: translate(-50%, -50%);
   position: absolute;
-  border-radius: 20px;
+  border-radius: 40px;
   font-weight: bold;
   font-size: 1.5rem;
   color: $dark;
+  box-shadow: 3px 3px 8px 4px rgba(34, 41, 43, 0.25);
   a {
     margin-bottom: 2em;
     &:hover {
@@ -85,13 +88,17 @@
         margin-top: 0.7rem;
         margin-bottom: 0.7rem;
         width: 60%;
-        height: 4rem;
+        min-height: 4rem;
         text-align: center;
         &:hover {
           cursor: pointer;
           background-color: $highlight;
           color: $white-local;
         }
+      }
+      .button-R {
+        background-color: $ultra-clear;
+        color: $dark;
       }
     }
   }

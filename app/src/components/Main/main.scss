@@ -110,7 +110,7 @@ footer {
   // overflow: auto;
   display: none;
   align-items: center;
-  height: 100%;
+  height: 100vh;
   width: 100%;
   position: absolute;
   z-index: 1000;
@@ -127,6 +127,10 @@ footer {
   animation-timing-function: ease-in;
   -webkit-animation-duration: 1s;
   animation-duration: 1s;
+}
+
+#modalActivity {
+  z-index: 1500;
 }
 
 @-webkit-keyframes fadeInOpacity {

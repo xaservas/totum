@@ -51,7 +51,7 @@ CREATE TABLE activity (
     zip_code zip_code NOT NULL,
     city TEXT NOT NULL,
     country TEXT NOT NULL,
-    landmark TEXT,
+    landmark TEXT NOT NULL,
     id_user INT NOT NULL REFERENCES users(id),
     id_category INT NOT NULL REFERENCES category(id),
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),

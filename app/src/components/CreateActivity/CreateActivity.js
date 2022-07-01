@@ -246,8 +246,8 @@ function CreateActivity({ props, funct }) {
           onClick={closeAddActivity}
           className='create-close'
         />
-        {error === 'Votre activité a bien été créée' ||
-        error === 'Votre activité a bien été modifiée' ? (
+        {error === 'Votre activité a bien été créée'
+        || error === 'Votre activité a bien été modifiée' ? (
           <p className='sendMessage'>{error}</p>
         ) : (
           <p className='errorMessage'>{error}</p>
