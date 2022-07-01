@@ -7,6 +7,36 @@
   text-align:center;
   overflow: scroll;
 
+
+  #fusioninputError3{
+    display:flex;
+    flex-direction:column;
+  }
+
+  #fusioninputError4{
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+  }
+
+  .fusionLabInp{
+    display:flex;
+    margin-top: 20px;
+    align-items:center;
+    #passwordCreateForm{
+      margin-top: auto;
+    }
+  }
+
+  .fusionLabInp2{
+    display:flex;
+    align-items:center;
+    #passwordCreateForm{
+      margin-top: auto;
+    }
+  }
+
+
   .profil-close{
     position: sticky;
     top: 72px;

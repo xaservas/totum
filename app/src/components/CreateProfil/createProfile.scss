@@ -7,6 +7,31 @@
   height:100vh;
   overflow: scroll;
   text-align:center;
+
+  #fusioninputError{
+    display:flex;
+    flex-direction:column;
+  }
+
+  #fusioninputError2{
+    display:flex;
+    flex-direction:column;
+  }
+
+  .fusionLabInp{
+    display:flex;
+    margin-top: 2rem;
+    align-items:center;
+    margin-bottom: 6px;
+    #passwordCreateForm{
+      margin-top: auto;
+    }
+  }
+
+  #passwordCreateForm{
+    margin-top: 20px;
+    width:auto;
+  }
   
   .profil-close{
 position: sticky;

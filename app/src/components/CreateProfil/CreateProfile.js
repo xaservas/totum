@@ -253,15 +253,18 @@ function CreateProfile({ funct }) {
           />
         </div>
         <div className='passwordfusion'>
-          <div className='field'>
-            <label className='label'>Mot de passe</label>
-            <input
-              required
-              name='password'
-              type='password'
-              className='input'
-              onChange={(e) => validatePassword(e.target.value)}
-            />
+          <div className='field' id='fusioninputError'>
+            <div className='fusionLabInp'>
+              <label className='label'>Mot de passe</label>
+              <input
+                required
+                id='passwordCreateForm'
+                name='password'
+                type='password'
+                className='input'
+                onChange={(e) => validatePassword(e.target.value)}
+              />
+            </div>
             {errorMessagePassword === 'Mot de passe fort' ? (
               <span
                 style={{
@@ -280,15 +283,17 @@ function CreateProfile({ funct }) {
               </span>
             )}
           </div>
-          <div className='field'>
-            <label className='label'>Confirmation de mot de passe</label>
-            <input
-              required
-              name='passwordConfirmation'
-              type='password'
-              className='input'
-              onChange={(e) => setPasswordConfirmation(e.target.value)}
-            />
+          <div className='field' id='fusioninputError2'>
+            <div className='fusionLabInp'>
+              <label className='label'>Confirmation</label>
+              <input
+                required
+                name='passwordConfirmation'
+                type='password'
+                className='input'
+                onChange={(e) => setPasswordConfirmation(e.target.value)}
+              />
+            </div>
             {checkPasswordMatch()}
           </div>
         </div>
@@ -376,7 +381,9 @@ function CreateProfile({ funct }) {
           </label>
         </div>
 
-        <p style={{ color: 'red' }} className='errorMessage'>{error}</p>
+        <p style={{ color: 'red' }} className='errorMessage'>
+          {error}
+        </p>
 
         <button className='validation-button'> Valider </button>
       </form>
