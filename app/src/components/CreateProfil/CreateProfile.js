@@ -375,6 +375,9 @@ function CreateProfile({ funct }) {
             <span className='slider round'> </span> <p> cookies </p>{' '}
           </label>
         </div>
+
+        <p style={{ color: 'red' }} className='errorMessage'>{error}</p>
+
         <button className='validation-button'> Valider </button>
       </form>
     </div>
