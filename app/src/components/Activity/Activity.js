@@ -228,7 +228,7 @@ function Activity({ props, funct, synchro }) {
         <p className='activity-name'>{activity.name}</p>
         <FontAwesomeIcon
           icon={regular('circle-xmark')}
-          onClick={() => funct.closeActivity()}
+          onClick={() => funct.closeActivity() }
           className='activity-close'
         />
       </header>
@@ -284,7 +284,6 @@ function Activity({ props, funct, synchro }) {
       })()}
 
       <section className='activity__card__comments'>
-        {console.log(comments)}
         {comments &&
           comments.map((comment) => (
             <Comment key={comment.comment_id || 0} comment={comment} />

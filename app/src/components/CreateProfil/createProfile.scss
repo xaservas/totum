@@ -6,8 +6,23 @@
   border-radius: 3rem;
   height: 100vh;
   overflow: scroll;
-  text-align: center;
+
   max-width: 100rem;
+
+  text-align:center;
+  
+  .profil-close{
+position: sticky;
+top: 72px;
+left: 675px;
+color: $dark;
+height: 2.7rem;
+  &:hover {
+  cursor: pointer;
+   color: $highlight;
+  }
+  }
+
 
   form {
     overflow: scroll;
@@ -99,7 +114,7 @@
     border: $white-local;
     margin-top: 0.7rem;
     margin-bottom: 0.7rem;
-    width: 30%;
+    width: 140px;
     height: 4rem;
     text-align: center;
     &:hover {
@@ -187,6 +202,11 @@
 @media screen and (max-width: 620px) {
   .createProfil {
     margin: 0 auto;
+
+    #searchAddress2{
+      display:none;
+    }
+
 
     form {
       overflow: scroll;

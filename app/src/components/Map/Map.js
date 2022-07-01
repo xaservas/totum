@@ -1,3 +1,4 @@
+/* eslint-disable operator-linebreak */
 import { useEffect, useState } from 'react';
 // import L from 'leaflet';
 import { MapContainer, TileLayer, Marker } from 'react-leaflet';
@@ -6,7 +7,24 @@ import './map.scss';
 
 function Map({ props, funct }) {
   const [activities, setActivities] = useState([]);
-  const position = JSON.parse(localStorage.getItem('coordinate'));
+  const [position, setPosition] = useState(
+    JSON.parse(localStorage.getItem('coordinate')),
+  );
+
+  useEffect(() => {
+    // setPosition(JSON.parse(localStorage.getItem('coordinate')));
+    setPosition(props.mainCoordinate);
+  }, [props.isLogged]);
+
+  // const map = useMapEvents({
+  //   click() {
+  //     map.locate();
+  //   },
+  //   locationfound(e) {
+  //     setPosition(e.latlng);
+  //     map.flyTo(e.latlng, map.getZoom());
+  //   },
+  // });
 
   const getActivities = async () => {
     try {
@@ -65,7 +83,8 @@ function Map({ props, funct }) {
             activity.landmark &&
             activity.landmark !== "['', '']" &&
             activity.landmark !== '[null, null]' &&
-            activity.landmark !== '[undefined, undefined]'
+            activity.landmark !== '[undefined, undefined]' &&
+            activity.landmark !== [null, null]
           ) {
             const tmp = JSON.parse(activity.landmark);
             const x = tmp[0];

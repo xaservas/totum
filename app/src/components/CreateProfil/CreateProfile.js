@@ -1,6 +1,9 @@
+/* eslint-disable operator-linebreak */
 /* eslint-disable indent */
 /* eslint-disable no-unused-expressions */
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import validator from 'validator';
+// import PasswordChecklist from 'react-password-checklist';
 import './createProfile.scss';
 import { regular } from '@fortawesome/fontawesome-svg-core/import.macro';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -25,20 +28,87 @@ function CreateProfile({ funct }) {
   const [autocompleteAddress, setAutocompleteAddress] = useState([]);
   const [autocompleteErr, setAutocompleteErr] = useState('');
   const [error, setError] = useState('');
+  const [errorMessagePassword, setErrorMessagePassword] = useState('');
+
+  // const [showErrorMessage, setShowErrorMessage] = useState(false);
+  // const [cPasswordClass, setCPasswordClass] = useState('form-control');
+  // const [isCPasswordDirty, setIsCPasswordDirty] = useState(false);
+
   // gestion des erreurs--------------
   const errorMessage = (data) => {
     switch (data) {
       case 401:
         setError('Les mots de passe de sont pas identique');
         break;
-      case 400:
-        setError('Erreur inconnue');
+      case 200:
+        setError('Votre compte a bien été créé');
         break;
       default:
         setError('');
         break;
     }
   };
+
+  // controle password
+  const checkPasswordMatch = () => {
+    if (password !== passwordConfirmation) {
+      return (
+        <span
+          className='text-danger'
+          style={{
+            color: 'red',
+          }}>
+          Les mots de passe de sont pas identique
+        </span>
+      );
+    }
+    return (
+      <span
+        className='text-success'
+        style={{
+          color: 'green',
+        }}>
+        Les mots de passe sont identique
+      </span>
+    );
+  };
+
+  const validatePassword = (e) => {
+    if (
+      validator.isStrongPassword(e, {
+        minLength: 8,
+        minLowercase: 1,
+        minUppercase: 1,
+        minNumbers: 1,
+        minSymbols: 0,
+        returnScore: false,
+        pointsPerUnique: 1,
+        pointsPerRepeat: 0.5,
+        pointsForContainingLower: 10,
+        pointsForContainingUpper: 10,
+        pointsForContainingNumber: 10,
+      })
+    ) {
+      setPassword(e);
+      setErrorMessagePassword('Mot de passe fort');
+    } else {
+      setErrorMessagePassword('Mot de passe trop faible');
+    }
+  };
+
+  const passwordPattern = () => {
+    const pattern = /[a-zA-Z0-9]{8,}/;
+    if (pattern.test(password)) {
+      return true;
+    }
+    setErrorMessagePassword('Les caractères spéciaux ne sont pas autorisés');
+    setPassword('');
+    return false;
+  };
+
+  useEffect(() => {
+    passwordPattern();
+  }, [password]);
 
   const handleAddressChange = async (e) => {
     setAddress(e.target.value);
@@ -114,11 +184,13 @@ function CreateProfile({ funct }) {
       },
     })
       .then(() => {
-        funct.closeAllModal();
+        errorMessage(200);
+        setTimeout(() => {
+          funct.closeAllModal();
+        }, 2500);
       })
       .catch((err) => {
-        // ajouter un message d'information si sa marche pas
-        errorMessage(err.response.status);
+        throw new Error(err);
       });
     event.preventDefault();
   };
@@ -128,9 +200,26 @@ function CreateProfile({ funct }) {
       <FontAwesomeIcon
         icon={regular('circle-xmark')}
         onClick={() => funct.closeAllModal()}
-        className='login-close'
+        className='profil-close'
       />
       <form onSubmit={handleSubmit} className='formProfil'>
+        {error === 'Votre compte a bien été créé' ? (
+          <span
+            style={{
+              color: 'green',
+            }}
+            className='text-succes'>
+            {error}
+          </span>
+        ) : (
+          <span
+            style={{
+              color: 'red',
+            }}
+            className='text-danger'>
+            {error}
+          </span>
+        )}
         <div className='nomfusion'>
           <div className='field'>
             <label className='label'>Prénom</label>
@@ -171,8 +260,25 @@ function CreateProfile({ funct }) {
               name='password'
               type='password'
               className='input'
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => validatePassword(e.target.value)}
             />
+            {errorMessagePassword === 'Mot de passe fort' ? (
+              <span
+                style={{
+                  color: 'green',
+                }}
+                className='validation-message'>
+                {errorMessagePassword}
+              </span>
+            ) : (
+              <span
+                style={{
+                  color: 'red',
+                }}
+                className='error-message'>
+                {errorMessagePassword}
+              </span>
+            )}
           </div>
           <div className='field'>
             <label className='label'>Confirmation de mot de passe</label>
@@ -183,9 +289,10 @@ function CreateProfile({ funct }) {
               className='input'
               onChange={(e) => setPasswordConfirmation(e.target.value)}
             />
+            {checkPasswordMatch()}
           </div>
         </div>
-        <div className='field'>
+        <div className='field' id='searchAddress2'>
           <label className='label'>Recherche d'adresse</label>
           <input
             list='places2'
@@ -268,7 +375,9 @@ function CreateProfile({ funct }) {
             <span className='slider round'> </span> <p> cookies </p>{' '}
           </label>
         </div>
-        <p className='errorMessage'>{error}</p>
+
+        <p style={{ color: 'red' }} className='errorMessage'>{error}</p>
+
         <button className='validation-button'> Valider </button>
       </form>
     </div>

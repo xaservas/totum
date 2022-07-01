@@ -18,8 +18,8 @@
   }
   .activity-close{
     position: relative;
-    bottom: 4rem;
-    left: 3rem;
+    bottom: 2rem;
+    left: 2rem;
   }
 
     &--header {
@@ -151,7 +151,6 @@
     margin-top: 0.7rem;
     margin-bottom: 0.7rem;
     width: 60%;
-    height: 4rem;
     &:hover {
       cursor: pointer;
       background-color: $highlight;

@@ -1,1 +1,45 @@
 @import '../../vars';
+
+.error {
+  height: 100vh;
+  padding: 10%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-image: url("");
+  &_title {
+    color: $dark;
+  }
+  /*animation de texte défilant*/
+.viewport{
+  width: 80vw;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+
+}
+
+.message{
+  font-size: 3em;
+  color: $dark;
+  white-space: nowrap;
+  //text-transform: uppercase;
+  animation-name: defilement;
+  animation-duration: 25s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+
+}
+
+@keyframes defilement {
+  from {
+      transform: translateX(40%);
+  }
+  to {
+      transform: translateX(-100%);
+  }
+}
+}

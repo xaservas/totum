@@ -1,7 +1,9 @@
+/* eslint-disable indent */
 /* eslint-disable no-unused-expressions */
 import { useState, useEffect } from 'react';
 import { regular } from '@fortawesome/fontawesome-svg-core/import.macro';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import validator from 'validator';
 import './settings.scss';
 import axios from '../../utils/axiosPool';
 import mapbox from '../../utils/mapbox';
@@ -26,6 +28,7 @@ function Settings({ props, funct }) {
   const [autocompleteAddress, setAutocompleteAddress] = useState([]);
   const [autocompleteErr, setAutocompleteErr] = useState('');
   const [error, setError] = useState('');
+  const [errorMessagePassword, setErrorMessagePassword] = useState('');
 
   // const [error, setError] = useState('');
   const userId = JSON.parse(localStorage.getItem('id'));
@@ -47,6 +50,67 @@ function Settings({ props, funct }) {
         break;
     }
   };
+
+  // controle password
+  const checkPasswordMatch = () => {
+    if (password !== passwordConfirmation) {
+      return (
+        <span
+          className='text-danger'
+          style={{
+            color: 'red',
+          }}>
+          Les mots de passe de sont pas identique
+        </span>
+      );
+    }
+    return (
+      <span
+        className='text-success'
+        style={{
+          color: 'green',
+        }}>
+        Les mots de passe sont identique
+      </span>
+    );
+  };
+
+  const validatePassword = (e) => {
+    if (
+      validator.isStrongPassword(e, {
+        minLength: 8,
+        minLowercase: 1,
+        minUppercase: 1,
+        minNumbers: 1,
+        minSymbols: 0,
+        returnScore: false,
+        pointsPerUnique: 1,
+        pointsPerRepeat: 0.5,
+        pointsForContainingLower: 10,
+        pointsForContainingUpper: 10,
+        pointsForContainingNumber: 10,
+      })
+    ) {
+      setPassword(e);
+      setErrorMessagePassword('Mot de passe fort');
+    } else {
+      setErrorMessagePassword('Mot de passe trop faible');
+    }
+  };
+
+  const passwordPattern = () => {
+    const pattern = /[a-zA-Z0-9]{8,}/;
+    if (pattern.test(password)) {
+      return true;
+    }
+    setErrorMessagePassword('Les caractères spéciaux ne sont pas autorisés');
+    setPassword('');
+    return false;
+  };
+
+  useEffect(() => {
+    passwordPattern();
+  }, [password]);
 
   // autocomplete address
 
@@ -152,7 +216,6 @@ function Settings({ props, funct }) {
     axios({
       method: 'delete',
       url: `user/${userId}/manage`,
-
     })
       .then(() => {
         funct.closeAllModal();
@@ -176,13 +239,14 @@ function Settings({ props, funct }) {
           },
         })
           .then(() => {
-            funct.closeAllModal();
+            errorMessage(200);
+            setTimeout(() => {
+              funct.closeAllModal();
+            }, 2500);
           })
-          .catch(() => {
-            // ajouter un message d'information si sa marche pas
-            errorMessage('les mots de passe ne correspondent pas aux critères');
+          .catch((err) => {
+            errorMessage(err.response.data.status);
           });
-        setError('Profil mis à jour');
       }
       setError('mot de passe pas pareil');
     }
@@ -199,7 +263,10 @@ function Settings({ props, funct }) {
           },
         })
           .then(() => {
-            funct.closeAllModal();
+            errorMessage(200);
+            setTimeout(() => {
+              funct.closeAllModal();
+            }, 2500);
           })
           .catch((err) => {
             errorMessage(err.response.status);
@@ -224,7 +291,10 @@ function Settings({ props, funct }) {
       },
     })
       .then(() => {
-        funct.closeAllModal();
+        errorMessage(200);
+        setTimeout(() => {
+          funct.closeAllModal();
+        }, 2500);
       })
       .catch((err) => {
         // ajouter un message d'information si sa marche pas
@@ -239,7 +309,7 @@ function Settings({ props, funct }) {
       <FontAwesomeIcon
         icon={regular('circle-xmark')}
         onClick={() => funct.closeAllModal()}
-        className='login-close'
+        className='profil-close'
       />
       <form id='emailForm'>
         <div className='field'>
@@ -287,9 +357,26 @@ function Settings({ props, funct }) {
             name='password'
             type='password'
             className='input'
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) => validatePassword(e.target.value)}
             // onBlur={checkPassword}
           />
+          {errorMessagePassword === 'Mot de passe fort' ? (
+            <span
+              style={{
+                color: 'green',
+              }}
+              className='validation-message'>
+              {errorMessagePassword}
+            </span>
+          ) : (
+            <span
+              style={{
+                color: 'red',
+              }}
+              className='error-message'>
+              {errorMessagePassword}
+            </span>
+          )}
         </div>
         <div className='field'>
           <label className='label'>Confirmation</label>
@@ -300,6 +387,7 @@ function Settings({ props, funct }) {
             className='input'
             onChange={(e) => setPasswordConfirmation(e.target.value)}
           />
+          {checkPasswordMatch()}
         </div>
       </form>
       <form id='infoForm'>
@@ -327,7 +415,7 @@ function Settings({ props, funct }) {
             />
           </div>
         </div>
-        <div className='field'>
+        <div className='field' id='searchAddress'>
           <label className='label'>Recherche d'adresse</label>
           <input
             list='places'
@@ -427,7 +515,10 @@ function Settings({ props, funct }) {
       <button className='validation-button' onClick={handleSubmit}>
         Valider
       </button>
-      <button className='delete-button' onClick={Delete}> Supprimer compte </button>
+      <button className='delete-button' onClick={Delete}>
+        {' '}
+        Supprimer compte{' '}
+      </button>
     </div>
   );
 }

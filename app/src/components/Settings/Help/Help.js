@@ -77,7 +77,7 @@ function Help({ funct }) {
       <FontAwesomeIcon
         icon={regular('circle-xmark')}
         onClick={() => funct.closeAllModal()}
-        className='login-close'
+        className='profil-close'
       />
       <div className='help-div'>
         <h1>Nous contacter</h1>
