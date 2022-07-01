@@ -9,6 +9,21 @@
   text-align: center;
   max-width: 100rem;
 
+  
+  .profil-close{
+position: sticky;
+top: 72px;
+left: 675px;
+color: $dark;
+height: 2.7rem;
+  &:hover {
+  cursor: pointer;
+   color: $highlight;
+  }
+  }
+
+
+
   form {
     overflow: scroll;
     margin-top: 3em;
@@ -23,6 +38,7 @@
       display: flex;
     }
     .field-big {
+
       background-color: $white-local;
       display: flex;
       flex-direction: row;
@@ -68,6 +84,7 @@
         outline: none;
       }
     }
+
 
     .field {
       background-color: $white-local;
@@ -115,6 +132,7 @@
         outline: none;
       }
     }
+
   }
 
   .OptionLogin {
